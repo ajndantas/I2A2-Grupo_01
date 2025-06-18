@@ -2,7 +2,7 @@
 
 #!python -m pip install --upgrade pip
 
-#%pip install -qr requirements.txt
+#%pip install -qr requirements - antonio.txt
 
 # [markdown]
 # ### IMPORTS
@@ -132,7 +132,7 @@ def agente1(pergunta,engine, arquivo,llm):
     chain = prompt_template | llm | parseador
 
     # CATALOGANDO OS ARQUIVOS ZIPADOS NO BD
-    i=0
+    j=0
 
     for f in arquivos:
 
@@ -150,7 +150,7 @@ def agente1(pergunta,engine, arquivo,llm):
             resposta = chain.invoke(input={"pergunta":pergunta, "df": df})['resposta']
 
             if resposta == 'Sim':
-                i+=1
+                j+=1
 
                 print('Sim para o arquivo: ',f)
 
@@ -175,7 +175,7 @@ def agente1(pergunta,engine, arquivo,llm):
             resposta = chain.invoke(input={"pergunta":pergunta, "df": df})['resposta']
 
             if resposta == 'Sim':
-                i+=1
+                j+=1
 
                 #print('Sim para o arquivo: ',f)
 
@@ -187,7 +187,7 @@ def agente1(pergunta,engine, arquivo,llm):
             else:
                 continue
 
-    if i == 0:
+    if j == 0:
         return "Não"
 
     else:
@@ -256,13 +256,13 @@ def agente2(pergunta,llm,engine):
 # <ul><li>Integração com LLMs para consultas em linguagem natural.</li></ul>
 
 
-def agente3(pergunta,arquivo):
+def agente3(pergunta,arquivo,i):
     
-    if exists('nfs_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
-        remove('nfs_data.db')
+    if i == 0: # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
         DATABASE_URL = "sqlite:///nfs_data.db" # Define o nome do arquivo do banco de dados
         engine = sqlalc.create_engine(DATABASE_URL)
-
+    
+    
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
 
