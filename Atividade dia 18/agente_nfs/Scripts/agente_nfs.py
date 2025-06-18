@@ -7,7 +7,7 @@
 # [markdown]
 # ### IMPORTS
 
-from os import getenv, mkdir, remove, listdir
+from os import getenv, mkdir, listdir
 from shutil import rmtree
 from os.path import basename,exists
 from zipfile import ZipFile
@@ -133,7 +133,10 @@ def agente1(pergunta,engine, arquivo,llm):
 
     # CATALOGANDO OS ARQUIVOS ZIPADOS NO BD
     j=0
-
+    
+    inspector = sqlalc.inspect(engine)
+    
+    #print('valor de j: ',j)
     for f in arquivos:
 
         # SERÁ CRIADO UM DATAFRAME PARA CADA ARQUIVO
@@ -154,7 +157,16 @@ def agente1(pergunta,engine, arquivo,llm):
 
                 print('Sim para o arquivo: ',f)
 
-                # PERSISTINDO OS DADOS DO ARQUIVO NO BANCO DE DADOS
+                # PRECISA VERIFICAR SE A TABELA JÁ EXISTE NO BANCO DE DADOS ANTES DE LER
+                if 'NFCABECALHO' in inspector.get_table_names():
+                    dftable = read_sql('NFCABECALHO', con=engine)
+                    
+                    #print('dftable NFCABECALHO\n',dftable)                
+                
+                    # CUIDANDO DE DUPLICIDADE
+                    df = df[~df['CHAVE DE ACESSO'].isin(dftable['CHAVE DE ACESSO'])]
+                
+                # INSERINDO NO BANCO DE DADOS
                 df.to_sql(name='NFCABECALHO', con=engine, if_exists='append', index=False)
 
                 continue
@@ -177,9 +189,18 @@ def agente1(pergunta,engine, arquivo,llm):
             if resposta == 'Sim':
                 j+=1
 
-                #print('Sim para o arquivo: ',f)
-
-                # PERSISTINDO OS DADOS DO ARQUIVO NO BANCO DE DADOS
+                print('Sim para o arquivo: ',f)
+                
+                 # PRECISA VERIFICAR SE A TABELA JÁ EXISTE NO BANCO DE DADOS ANTES DE LER
+                if 'NFITENS' in inspector.get_table_names():
+                    dftable = read_sql('NFITENS', con=engine)
+                    
+                    #print('dftable NFINTENS\n',dftable)                
+                
+                    # CUIDANDO DE DUPLICIDADE
+                    df = df[~df['CHAVE DE ACESSO'].isin(dftable['CHAVE DE ACESSO'])]
+                
+                # INSERINDO NO BANCO DE DADOS
                 df.to_sql(name='NFITENS', con=engine, if_exists='append', index=False)
 
                 continue
@@ -192,8 +213,6 @@ def agente1(pergunta,engine, arquivo,llm):
 
     else:
         return "Sim"
-
-
 
 # [markdown]
 # ### <b>AGENTE 2: Extração e Aprendizado</b>
@@ -255,12 +274,16 @@ def agente2(pergunta,llm,engine):
 # <b>Funcionalidades:</b>
 # <ul><li>Integração com LLMs para consultas em linguagem natural.</li></ul>
 
-
 def agente3(pergunta,arquivo,i):
     
-    if i == 0: # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
+    #print('Valor de i: ',i)
+    
+    if not exists('.\nfs_data'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
         DATABASE_URL = "sqlite:///nfs_data.db" # Define o nome do arquivo do banco de dados
         engine = sqlalc.create_engine(DATABASE_URL)
+        
+    else:
+        engine = sqlalc.create_engine("sqlite:///nfs_data.db") # Conecta ao banco de dados existente   
     
     
     # INTEGRAÇÃO COM A LLM
@@ -287,7 +310,7 @@ def agente3(pergunta,arquivo,i):
                 with engine.connect() as con:
                         df = read_sql(query, con)
                         resposta = df  
-                        #print(type(resposta))                        
+                        print(f'\n{resposta}')                        
                                     
 
             elif resposta == "Não":

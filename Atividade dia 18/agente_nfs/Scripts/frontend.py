@@ -43,3 +43,4 @@ if st.button("🔍 Consultar"):
                     
             except Exception as e:
                 st.error(f"Erro ao processar: {e}")
+
