@@ -274,9 +274,7 @@ def agente2(pergunta,llm,engine):
 # <b>Funcionalidades:</b>
 # <ul><li>Integração com LLMs para consultas em linguagem natural.</li></ul>
 
-def agente3(pergunta,arquivo,i):
-    
-    #print('Valor de i: ',i)
+def agente3(pergunta,arquivo):
     
     if not exists('.\nfs_data'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
         DATABASE_URL = "sqlite:///nfs_data.db" # Define o nome do arquivo do banco de dados

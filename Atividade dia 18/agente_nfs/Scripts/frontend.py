@@ -10,7 +10,6 @@ st.title("🤖 Agente Inteligente para Notas Fiscais")
 zip_file = st.file_uploader("📎 Envie um arquivo ZIP com os CSVs da NFe", type="zip")
 pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
 
-i=0
 
 if st.button("🔍 Consultar"):
     if not zip_file:
@@ -22,7 +21,7 @@ if st.button("🔍 Consultar"):
     else:
         with st.spinner("Analisando os dados com IA..."):
             try:
-                resultado_df = agtnfs.agente3(pergunta, zip_file,i)
+                resultado_df = agtnfs.agente3(pergunta, zip_file)
 
                 if isinstance(resultado_df,str) and resultado_df == "SemArquivoCabecalho":
                     st.error("Erro: O arquivo ZIP não contém um CSV com cabeçalho válido.")
@@ -31,15 +30,12 @@ if st.button("🔍 Consultar"):
                     st.error("Erro: O arquivo ZIP não contém um CSV com itens válido.")
                 
                 elif isinstance(resultado_df,str) and resultado_df == "SemResposta":
-                    st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                    
+                    st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
                     
-                    i+=1
-
                 elif isinstance(resultado_df, pd.DataFrame) and not resultado_df.empty:
                     st.success("✅ Resultado encontrado:")
                     st.dataframe(resultado_df)
-                    
-                    i+=1
+                                        
                     
             except Exception as e:
                 st.error(f"Erro ao processar: {e}")
