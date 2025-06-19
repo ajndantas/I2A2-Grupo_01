@@ -332,8 +332,6 @@ def agente3(pergunta,arquivo):
                 with engine.connect() as con:
                         df = read_sql(query, con)
                         resposta = df
-                        print(f'\nResposta\n,{resposta}')
-
 
             elif resposta == "Não":
                     raise SemResposta
@@ -351,6 +349,7 @@ def agente3(pergunta,arquivo):
     # EXECUÇÃO DAS EXCEÇÕES
     except SemArquivoCabecalho:
             resposta = "SemArquivoCabecalho"
+            print('\nResposta: ', resposta)
 
     except SemArquivoItens:
             resposta = "SemArquivoItens"
@@ -362,7 +361,8 @@ def agente3(pergunta,arquivo):
     except SemResposta:
             resposta = "SemResposta"
 
-
+    print(f'\nResposta\n,{resposta}')
+    
     return resposta
 
 # [markdown]
