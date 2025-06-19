@@ -8,6 +8,7 @@
 # ### IMPORTS
 
 from os import getenv, mkdir, listdir
+from io import BytesIO
 from shutil import rmtree
 from os.path import basename,exists
 from pathlib import Path
@@ -37,6 +38,7 @@ class SemResposta(Exception):
 # ### FUNÇÃO QUE DESCOMPACTA ARQUIVOS<br/>
 # <ul><li>VERIFICA SE EXISTE OS ARQUIVOS DE CABEÇALHO E ITENS</li></ul>
 # <ul><li>CASO ALGUM DELES NÃO EXISTA, É LANÇADA UMA EXCEÇÃO (Raise)</li></ul>
+# <ul><li>É OBRIGATÓRIO QUE OS ARQUIVOS SEJAM CSVs E TENHAM "CABECALHO" E "ITENS" NO NOME</li></ul>
 
 def unzip(arquivo,diretorio):
 
@@ -58,14 +60,13 @@ def unzip(arquivo,diretorio):
     #for f in arquivos_zipados:
     with ZipFile(arquivo, 'r') as zip_ref:
         
+        #zip_ref.extractall(f'{diretorio_destino}')
+         
         arquivos = zip_ref.namelist()
         #arquivos = [f'{Path(diretorio_destino) / x}' for x in listdir(f'{diretorio_destino}')]
 
         print(f'Arquivos descompactados: {arquivos}')
-
-        for arquivo in arquivos:
-            if search(r'.*[Cc]abecalho.csv$', arquivo):
-                
+           
         # Check if any pattern matches
         arquivocabecalhoencontrado = any(search(r'.*[Cc]abecalho.csv$', arquivo) for arquivo in arquivos)
         arquivoitensencontrado = any(search(r'.*[Ii]tens.csv$', arquivo) for arquivo in arquivos)
@@ -76,9 +77,25 @@ def unzip(arquivo,diretorio):
         elif arquivoitensencontrado == False:
             return "SemArquivoItens"
         
-        with zip_ref.open('eggs.txt') as myfile:
-            print(myfile.read())
-               
+        lista_arquivos = []
+        
+        for arquivo in arquivos:
+            if (search(r'.*[Cc]abecalho.csv$', arquivo) is not None):
+                with zip_ref.open(arquivo) as myfile:
+                    # The resulting BytesIO object can be used anywhere a file-like object is expected, 
+                    # but it operates entirely in memory, making it useful for temporary processing of 
+                    # binary data (such as images, PDFs, or ZIP files) without writing to disk. 
+                    # A common use case is when you need to manipulate or pass file data to 
+                    # APIs or libraries that expect a file-like object(Método read_csv do pandas), but you want to avoid 
+                    # filesystem I/O.
+                    lista_arquivos.append({'cabecalho': BytesIO(myfile.read()),'nome_arquivo': arquivo})
+                    
+            elif (search(r'.*[Ii]tens.csv$', arquivo) is not None):
+                with zip_ref.open(arquivo) as myfile:
+                    lista_arquivos.append({'itens': BytesIO(myfile.read()),'nome_arquivo': arquivo})
+                             
+        arquivos = lista_arquivos
+        
     return arquivos
 
 
@@ -146,11 +163,11 @@ def agente1(pergunta,engine, arquivo,llm):
     for f in arquivos:
 
         # SERÁ CRIADO UM DATAFRAME PARA CADA ARQUIVO
-        if search(r'.*[Cc]abecalho.csv$',f) is not None:
-            dfcabecalho = read_csv(f)
+        if f.get('cabecalho') is not None:
+            dfcabecalho = read_csv(f.get('cabecalho'))
 
             # INSERINDO COLUNA COM O NOME DO ARQUIVO NO DATAFRAME
-            dfcabecalho['ARQUIVO'] = basename(f)
+            dfcabecalho['ARQUIVO'] = f.get('nome_arquivo')
             df = dfcabecalho
 
             #print('Dataframe de cabeçalho: ',df)
@@ -161,7 +178,7 @@ def agente1(pergunta,engine, arquivo,llm):
             if resposta == 'Sim':
                 j+=1
 
-                print('Sim para o arquivo: ',f)
+                print('Sim para o arquivo: ',f.get('nome_arquivo'))
 
                 # PRECISA VERIFICAR SE A TABELA JÁ EXISTE NO BANCO DE DADOS ANTES DE LER
                 if 'NFCABECALHO' in inspector.get_table_names():
@@ -180,11 +197,11 @@ def agente1(pergunta,engine, arquivo,llm):
             else:
                 continue
 
-        if search(r'.*[Ii]tens.csv$',f) is not None:
-            dfitens = read_csv(f)
+        if f.get('itens') is not None:
+            dfitens = read_csv(f.get('itens'))
 
             # INSERINDO COLUNA COM O NOME DO ARQUIVO NO DATAFRAME
-            dfitens['ARQUIVO'] = basename(f)
+            dfitens['ARQUIVO'] = f.get('nome_arquivo')
             df = dfitens
 
             #print('Dataframe de itens: ',df)
@@ -195,7 +212,7 @@ def agente1(pergunta,engine, arquivo,llm):
             if resposta == 'Sim':
                 j+=1
 
-                print('Sim para o arquivo: ',f)
+                print('Sim para o arquivo: ',f.get('nome_arquivo'))
 
                  # PRECISA VERIFICAR SE A TABELA JÁ EXISTE NO BANCO DE DADOS ANTES DE LER
                 if 'NFITENS' in inspector.get_table_names():
