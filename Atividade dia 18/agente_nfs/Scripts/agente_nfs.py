@@ -2,7 +2,7 @@
 
 #!python -m pip install --upgrade pip
 
-#%pip install -qr requirements - antonio.txt
+#%pip install -qqqr requirements.txt
 
 # [markdown]
 # ### IMPORTS
@@ -10,6 +10,7 @@
 from os import getenv, mkdir, listdir
 from shutil import rmtree
 from os.path import basename,exists
+from pathlib import Path
 from zipfile import ZipFile
 from re import search
 from pandas import read_csv, read_sql
@@ -40,39 +41,44 @@ class SemResposta(Exception):
 def unzip(arquivo,diretorio):
 
 
-    diretorio_destino = f'{diretorio}\\arquivos_descompactados'
+    diretorio_destino = Path(f'{diretorio}') #\\arquivos_descompactados'
+    subpasta = 'arquivos descompactados'
+    diretorio_destino = diretorio_destino / subpasta
 
     #print('Arquivos em: ',listdir(f'{diretorio}\\'))
 
-    if basename(diretorio_destino) in listdir(f'{diretorio}\\'):
-        rmtree(diretorio_destino)        
-        
+    if basename(diretorio_destino) in listdir(f'{diretorio}'):
+        rmtree(diretorio_destino)
+
     mkdir(f'{diretorio_destino}')
-    
+
     #print(f'Diretório {diretorio_destino} criado com sucesso!')
 
 
     #for f in arquivos_zipados:
     with ZipFile(arquivo, 'r') as zip_ref:
-        zip_ref.extractall(f'{diretorio_destino}')
-
-        #print(f'Arquivo {f} descompactado com sucesso!')
-        arquivos = [f'{diretorio_destino}\\{x}' for x in listdir(f'{diretorio_destino}')]
-
-
-    print(f'Arquivos descompactados: {arquivos}')
-
-    # Check if any pattern matches
-    arquivocabecalhoencontrado = any(search(r'.*[Cc]abecalho.csv$', arquivo) for arquivo in arquivos)
-    arquivoitensencontrado = any(search(r'.*[Ii]tens.csv$', arquivo) for arquivo in arquivos)
-
-    if arquivocabecalhoencontrado == False:
-        return "SemArquivoCabecalho"        
-
-    elif arquivoitensencontrado == False:
-        return "SemArquivoItens"
         
+        arquivos = zip_ref.namelist()
+        #arquivos = [f'{Path(diretorio_destino) / x}' for x in listdir(f'{diretorio_destino}')]
 
+        print(f'Arquivos descompactados: {arquivos}')
+
+        for arquivo in arquivos:
+            if search(r'.*[Cc]abecalho.csv$', arquivo):
+                
+        # Check if any pattern matches
+        arquivocabecalhoencontrado = any(search(r'.*[Cc]abecalho.csv$', arquivo) for arquivo in arquivos)
+        arquivoitensencontrado = any(search(r'.*[Ii]tens.csv$', arquivo) for arquivo in arquivos)
+
+        if arquivocabecalhoencontrado == False:
+            return "SemArquivoCabecalho"
+
+        elif arquivoitensencontrado == False:
+            return "SemArquivoItens"
+        
+        with zip_ref.open('eggs.txt') as myfile:
+            print(myfile.read())
+               
     return arquivos
 
 
@@ -91,14 +97,14 @@ def agente1(pergunta,engine, arquivo,llm):
 
     # VALIDAÇÃO DE INTEGRIDADE -> UMA FORMA DE GARANTIR QUE OS ARQUIVOS ESTÃO NO FORMATO ZIP
     #arquivos_zipados = lista_arquivos_zipados(diretorio)
-    
+
     #if arquivos_zipados == "SemArquivoZip":
     #    return "SemArquivoZip"
 
     # VALIDAÇÃO DE INTEGRIDADE -> UMA FORMA DE GARANTIR QUE O ARQUIVO DE CABECALHO E O DE ITENS EXISTEM
     diretorio = '.'
     arquivos = unzip(arquivo,diretorio)
-    
+
     if arquivos == "SemArquivoCabecalho":
         return "SemArquivoCabecalho"
     elif arquivos == "SemArquivoItens":
@@ -133,9 +139,9 @@ def agente1(pergunta,engine, arquivo,llm):
 
     # CATALOGANDO OS ARQUIVOS ZIPADOS NO BD
     j=0
-    
+
     inspector = sqlalc.inspect(engine)
-    
+
     #print('valor de j: ',j)
     for f in arquivos:
 
@@ -160,12 +166,12 @@ def agente1(pergunta,engine, arquivo,llm):
                 # PRECISA VERIFICAR SE A TABELA JÁ EXISTE NO BANCO DE DADOS ANTES DE LER
                 if 'NFCABECALHO' in inspector.get_table_names():
                     dftable = read_sql('NFCABECALHO', con=engine)
-                    
-                    #print('dftable NFCABECALHO\n',dftable)                
-                
+
+                    #print('dftable NFCABECALHO\n',dftable)
+
                     # CUIDANDO DE DUPLICIDADE
                     df = df[~df['CHAVE DE ACESSO'].isin(dftable['CHAVE DE ACESSO'])]
-                
+
                 # INSERINDO NO BANCO DE DADOS
                 df.to_sql(name='NFCABECALHO', con=engine, if_exists='append', index=False)
 
@@ -190,16 +196,16 @@ def agente1(pergunta,engine, arquivo,llm):
                 j+=1
 
                 print('Sim para o arquivo: ',f)
-                
+
                  # PRECISA VERIFICAR SE A TABELA JÁ EXISTE NO BANCO DE DADOS ANTES DE LER
                 if 'NFITENS' in inspector.get_table_names():
                     dftable = read_sql('NFITENS', con=engine)
-                    
-                    #print('dftable NFINTENS\n',dftable)                
-                
+
+                    #print('dftable NFINTENS\n',dftable)
+
                     # CUIDANDO DE DUPLICIDADE
                     df = df[~df['CHAVE DE ACESSO'].isin(dftable['CHAVE DE ACESSO'])]
-                
+
                 # INSERINDO NO BANCO DE DADOS
                 df.to_sql(name='NFITENS', con=engine, if_exists='append', index=False)
 
@@ -275,15 +281,16 @@ def agente2(pergunta,llm,engine):
 # <ul><li>Integração com LLMs para consultas em linguagem natural.</li></ul>
 
 def agente3(pergunta,arquivo):
-    
-    if not exists('.\nfs_data'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
+
+    if not exists('nfs_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
+        print('\nCriando o banco de dados nfs_data...')
         DATABASE_URL = "sqlite:///nfs_data.db" # Define o nome do arquivo do banco de dados
         engine = sqlalc.create_engine(DATABASE_URL)
-        
+
     else:
-        engine = sqlalc.create_engine("sqlite:///nfs_data.db") # Conecta ao banco de dados existente   
-    
-    
+        engine = sqlalc.create_engine("sqlite:///nfs_data.db") # Conecta ao banco de dados existente
+
+
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
 
@@ -307,29 +314,29 @@ def agente3(pergunta,arquivo):
                 # # OBTENÇÃO DO RESULTADO DA QUERY
                 with engine.connect() as con:
                         df = read_sql(query, con)
-                        resposta = df  
-                        print(f'\n{resposta}')                        
-                                    
+                        resposta = df
+                        #print(f'\nResposta\n,{resposta}')
+
 
             elif resposta == "Não":
                     raise SemResposta
 
             # elif resposta == "SemArquivoZip":
             #     raise SemArquivoZip
-                
+
             elif resposta == "SemArquivoCabecalho":
                     raise SemArquivoCabecalho
-                
+
             elif resposta == "SemArquivoItens":
                     raise SemArquivoItens
-            
-            
+
+
     # EXECUÇÃO DAS EXCEÇÕES
     except SemArquivoCabecalho:
-            resposta = "SemArquivoCabecalho" 
+            resposta = "SemArquivoCabecalho"
 
     except SemArquivoItens:
-            resposta = "SemArquivoItens" 
+            resposta = "SemArquivoItens"
 
     # except SemArquivoZip:
     #     caminho_absoluto = abspath(diretorio)
@@ -337,25 +344,26 @@ def agente3(pergunta,arquivo):
 
     except SemResposta:
             resposta = "SemResposta"
-            
-    
+
+
     return resposta
 
 # [markdown]
 # ### <b>TESTANDO</b>
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
-#     arquivo = ".\\202401_NFS - new.zip"  # Diretório onde os arquivos zipados estão localizados
-
+     #arquivo = ".\\202401_NFS - new.zip"  # Diretório onde os arquivos zipados estão localizados
+     
+     arquivo = ".\\202401_NFS.zip"  # Diretório onde os arquivos zipados estão localizados
+     
 #     # EXEMPLOS DE PERGUNTA PARA TESTE. ELAS DEVEM SER OBTIDAS DO FRONTEND
-#     pergunta = "Qual é a chave de acesso da nota 3510129 ?"
-#     pergunta = "Quem descobriu o Brasil ?"
-#     pergunta = "Qual é a descrição dos serviços de nf com número 2525 ?"
-#     pergunta = "Qual é a descrição dos serviços e a natureza da operação da nf com número 2525 ?"
+     pergunta = "Qual é a chave de acesso da nota 3510129 ?"
+     pergunta = "Quem descobriu o Brasil ?"
+     pergunta = "Qual é a descrição dos serviços de nf com número 2525 ?"
+     pergunta = "Qual é a descrição dos serviços e a natureza da operação da nf com número 2525 ?"
 
-#     
-#     resposta = agente3(pergunta, arquivo)  # Chama a função principal com a pergunta e o diretório
-#     print('\nResposta: \n',resposta)
+     resposta = agente3(pergunta, arquivo)  # Chama a função principal com a pergunta e o diretório
+     print('\nResposta: \n',resposta)
 
 
