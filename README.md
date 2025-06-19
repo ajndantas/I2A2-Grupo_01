@@ -1,4 +1,3 @@
-
 # 📄 Agente Inteligente para Análise de Notas Fiscais Eletrônicas (NFe)
 
 Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Streamlit** e **SQLAlchemy** para analisar, extrair e responder perguntas sobre **Notas Fiscais Eletrônicas (NFe)** a partir de arquivos CSV compactados em ZIP.
@@ -52,6 +51,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **St
 python -m venv venv
 venv\Scripts\activate   # Windows
 
+# Dentro da pasta Script, execute:
 # Atualize o pip
 python -m pip install --upgrade pip
 
