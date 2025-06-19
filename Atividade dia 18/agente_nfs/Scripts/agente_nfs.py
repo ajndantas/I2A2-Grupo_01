@@ -332,7 +332,7 @@ def agente3(pergunta,arquivo):
                 with engine.connect() as con:
                         df = read_sql(query, con)
                         resposta = df
-                        #print(f'\nResposta\n,{resposta}')
+                        print(f'\nResposta\n,{resposta}')
 
 
             elif resposta == "Não":
