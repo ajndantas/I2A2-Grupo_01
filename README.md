@@ -84,6 +84,7 @@ O arquivo ZIP precisa conter pelo menos dois arquivos CSV com os seguintes nomes
 
 - Qual é a chave de acesso da nota 3510129?
 - Qual é a descrição dos serviços da nota com número 2525?
+- Qual é a descrição dos serviços e a natureza da operação da nf com número 2525 ?
 - Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
 
 ---
