@@ -40,21 +40,7 @@ class SemResposta(Exception):
 # <ul><li>CASO ALGUM DELES NÃO EXISTA, É LANÇADA UMA EXCEÇÃO (Raise)</li></ul>
 # <ul><li>É OBRIGATÓRIO QUE OS ARQUIVOS SEJAM CSVs E TENHAM "CABECALHO" E "ITENS" NO NOME</li></ul>
 
-def unzip(arquivo,diretorio):
-
-
-    diretorio_destino = Path(f'{diretorio}') #\\arquivos_descompactados'
-    subpasta = 'arquivos descompactados'
-    diretorio_destino = diretorio_destino / subpasta
-
-    #print('Arquivos em: ',listdir(f'{diretorio}\\'))
-
-    if basename(diretorio_destino) in listdir(f'{diretorio}'):
-        rmtree(diretorio_destino)
-
-    mkdir(f'{diretorio_destino}')
-
-    #print(f'Diretório {diretorio_destino} criado com sucesso!')
+def unzip(arquivo):    
 
 
     #for f in arquivos_zipados:
@@ -120,7 +106,7 @@ def agente1(pergunta,engine, arquivo,llm):
 
     # VALIDAÇÃO DE INTEGRIDADE -> UMA FORMA DE GARANTIR QUE O ARQUIVO DE CABECALHO E O DE ITENS EXISTEM
     diretorio = '.'
-    arquivos = unzip(arquivo,diretorio)
+    arquivos = unzip(arquivo)
 
     if arquivos == "SemArquivoCabecalho":
         return "SemArquivoCabecalho"
@@ -368,7 +354,9 @@ def agente3(pergunta,arquivo):
 # [markdown]
 # ### <b>TESTANDO</b>
 
-if __name__ == "__main__":
+#!streamlit run frontend.py
+
+""" if __name__ == "__main__":
 
      #arquivo = ".\\202401_NFS - new.zip"  # Diretório onde os arquivos zipados estão localizados
      
@@ -382,5 +370,5 @@ if __name__ == "__main__":
 
      resposta = agente3(pergunta, arquivo)  # Chama a função principal com a pergunta e o diretório
      print('\nResposta: \n',resposta)
-
+ """
 

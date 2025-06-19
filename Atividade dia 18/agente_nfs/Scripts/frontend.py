@@ -1,3 +1,18 @@
+# INSTALAÇÃO DA APLICAÇÃO
+#
+# REQUISITOS:
+#   - A MÁQUINA DEVE TER O PYTHON 3.10 OU SUPERIOR JÁ INSTALADO
+#
+#   INSTRUÇÕES:
+#   - DESCOMPACTAR O ARQUIVO ZIP agente_nfs.zip
+#   - ACESSAR A PASTA Scripts, DENTRO DA PASTA agente_nfs
+#   - EXECUTAR OS COMANDOS:
+#       python -m pip install --upgrade pip
+#       pip install -qqqr requirements.txt
+#
+#       EXECUÇÃO:
+#           streamlit run frontend.py
+
 import streamlit as st
 import pandas as pd
 import agente_nfs as agtnfs
