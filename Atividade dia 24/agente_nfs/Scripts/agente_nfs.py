@@ -105,7 +105,6 @@ def agente1(pergunta,engine, arquivo,llm):
     #    return "SemArquivoZip"
 
     # VALIDAÇÃO DE INTEGRIDADE -> UMA FORMA DE GARANTIR QUE O ARQUIVO DE CABECALHO E O DE ITENS EXISTEM
-    diretorio = '.'
     arquivos = unzip(arquivo)
 
     if arquivos == "SemArquivoCabecalho":
@@ -354,15 +353,13 @@ def agente3(pergunta,arquivo):
 # [markdown]
 # ### <b>TESTANDO</b>
 
-#!streamlit run frontend.py
-
-""" if __name__ == "__main__":
+if __name__ == "__main__":
 
      #arquivo = ".\\202401_NFS - new.zip"  # Diretório onde os arquivos zipados estão localizados
      
-     arquivo = ".\\202401_NFS.zip"  # Diretório onde os arquivos zipados estão localizados
+     arquivo = "202401_NFS.zip"  # Diretório onde os arquivos zipados estão localizados
      
-#     # EXEMPLOS DE PERGUNTA PARA TESTE. ELAS DEVEM SER OBTIDAS DO FRONTEND
+#    # EXEMPLOS DE PERGUNTA PARA TESTE. ELAS DEVEM SER OBTIDAS DO FRONTEND
      pergunta = "Qual é a chave de acesso da nota 3510129 ?"
      pergunta = "Quem descobriu o Brasil ?"
      pergunta = "Qual é a descrição dos serviços de nf com número 2525 ?"
@@ -370,5 +367,5 @@ def agente3(pergunta,arquivo):
 
      resposta = agente3(pergunta, arquivo)  # Chama a função principal com a pergunta e o diretório
      print('\nResposta: \n',resposta)
- """
+
 
