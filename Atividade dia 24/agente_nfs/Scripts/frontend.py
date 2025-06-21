@@ -44,13 +44,12 @@ if st.button("🔍 Consultar"):
                 elif isinstance(resultado_df,str) and resultado_df == "SemArquivoItens":
                     st.error("Erro: O arquivo ZIP não contém um CSV com itens válido.")
                 
-                elif isinstance(resultado_df,str) and resultado_df == "SemResposta":
+                elif (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (isinstance(resultado_df, pd.DataFrame) and resultado_df.empty):
                     st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
                     
                 elif isinstance(resultado_df, pd.DataFrame) and not resultado_df.empty:
                     st.success("✅ Resultado encontrado:")
-                    st.dataframe(resultado_df)
-                                        
+                    st.dataframe(resultado_df)                                        
                     
             except Exception as e:
                 st.error(f"Erro ao processar: {e}")
