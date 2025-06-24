@@ -69,7 +69,7 @@ pip install -qqqr requirements.txt
 ## ▶️ Execução
 
 ```bash
-# A primeira execução demora um pouco. EM TORNO DE 10MIN
+# A primeira execução demora um pouco. Em torno de 10 min.
 streamlit run frontend.py
 ```
 
