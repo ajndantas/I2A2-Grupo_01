@@ -1,8 +1,5 @@
-# UPGRADE DO PIP PARA VERSÃO 25.1.1 - PASSO 1
-
-#!python -m pip install --upgrade pip
-
 #%pip install -qqqr requirements.txt
+#%pip install -qqq --upgrade jupyter
 
 # [markdown]
 # ### IMPORTS
@@ -92,7 +89,7 @@ def unzip(arquivo):
 # <ul><li>Interface para upload manual de arquivos (PDF, imagens)</li></ul>
 # <ul><li>Integração com APIs de órgãos governamentais (SEFAZ)</li></ul>
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
-# <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
+# <ul><li>Organização e catalogação dos arquivos recebidos (Armazenando em banco de dados, se os arquivos responderem a pergunta)</li></ul>
 
 def agente1(pergunta,engine, arquivo,llm):
 
@@ -237,13 +234,13 @@ def agente2(pergunta,llm,engine):
 
     # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
     class Query(BaseModel):
-        query: str = Field(description='Esta é a query com DISTINCT e o nome de cada colunas entre "')
+        query: str = Field(description='Esta é a query com DISTINCT e o nome de cada coluna entre "')
 
     parseador = JsonOutputParser(pydantic_object=Query)
 
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
     template = """Qual query deve ser executada na tabela NFCABECALHO com as colunas {colunas_tab_cabecalho} ou tabela NFITENS com as colunas {colunas_tab_itens} para responder
-    a pergunta {pergunta}? {formatacao_saida}"""
+    a pergunta {pergunta}? Se a query envolver as duas tabelas, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. {formatacao_saida}"""
 
     prompt_template = PromptTemplate(
                                         template=template,
@@ -346,7 +343,7 @@ def agente3(pergunta,arquivo):
     except SemResposta:
             resposta = "SemResposta"
 
-    print(f'\nResposta\n,{resposta}')
+    print('\nResposta\n',f'{resposta}')
     
     return resposta
 

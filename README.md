@@ -73,6 +73,7 @@ pip install -qqqr requirements.txt
 ## ▶️ Execução
 
 ```bash
+# A primeira execução demora um pouco. EM TORNO DE 10MIN
 streamlit run frontend.py
 ```
 
