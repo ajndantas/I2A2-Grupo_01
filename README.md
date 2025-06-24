@@ -54,7 +54,7 @@ venv\Scripts\activate   # Windows
 # Faça o download dos arquivos a seguir para dentro da pasta Scripts
 - requirements.txt - https://drive.google.com/open?id=1l8wVOPQ8FbJ6KtfNlPCJR5hYS2jsrkFh&usp=drive_fs
 - agente_nfs.py - https://drive.google.com/open?id=1tjYu1NlxNrG4TSPIFY4vz6M495uRD-ba&usp=drive_fs 
-- frontend.py - https://drive.google.com/open?id=1Dp-VXzMmtaNnUBXr7H6-bAOhY9yD1OF4&usp=drive_fs
+- frontend.py - https://drive.google.com/open?id=16XIIyC65AnpDk_GYVPxYdSvuQwLmOLbt&usp=drive_fs
 - .env - https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs
 
 # Dentro da pasta Script, execute:
