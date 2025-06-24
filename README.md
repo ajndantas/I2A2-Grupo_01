@@ -83,6 +83,8 @@ O arquivo ZIP precisa conter pelo menos dois arquivos CSV com os seguintes nomes
 - ...itens.csv
 
 > **Importante:** Os nomes podem variar, mas devem conter as palavras-chave **"cabecalho"** e **"itens"**.
+>
+> **[Ex de arquivo zip com notas fiscais](https://drive.google.com/open?id=1kmQo2JkWJ2UXr46PJrNI95jlLUv1LQca&usp=drive_fs)**
 
 ---
 
