@@ -57,9 +57,6 @@ venv\Scripts\activate   # Windows
 - frontend.py - https://drive.google.com/open?id=1Dp-VXzMmtaNnUBXr7H6-bAOhY9yD1OF4&usp=drive_fs
 
 # Dentro da pasta Script, execute:
-# Atualize o pip
-python -m pip install --upgrade pip
-
 # Instale as dependências
 pip install -qqqr requirements.txt
 ```
