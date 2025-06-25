@@ -23,13 +23,7 @@ if st.button("🔍 Consultar"):
             try:
                 resultado_df = agtnfs.agente3(pergunta, uploaded_files)
 
-                if isinstance(resultado_df,str) and resultado_df == "SemArquivoCabecalho":
-                    st.error("Erro: O arquivo ZIP não contém um CSV com cabeçalho válido.")
-                
-                elif isinstance(resultado_df,str) and resultado_df == "SemArquivoItens":
-                    st.error("Erro: O arquivo ZIP não contém um CSV com itens válido.")
-                
-                elif (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (isinstance(resultado_df, pd.DataFrame) and resultado_df.empty):
+                if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (isinstance(resultado_df, pd.DataFrame) and resultado_df.empty):
                     st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
                     
                 elif isinstance(resultado_df, pd.DataFrame) and not resultado_df.empty:
