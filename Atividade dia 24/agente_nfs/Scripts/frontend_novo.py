@@ -13,7 +13,7 @@ pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
 
 if st.button("🔍 Consultar"):
     if not uploaded_files:
-        st.error("Você precisa fazer o upload de um arquivo CSV, PDF ou uma imagem PNG.")
+        st.error("Você precisa fazer o upload de um arquivo CSV, PDF ou de uma imagem PNG.")
         
     elif not pergunta.strip():
         st.error("Digite uma pergunta válida.")
