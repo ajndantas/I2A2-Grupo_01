@@ -16,7 +16,7 @@ if st.button("🔍 Consultar"):
         st.error("Você precisa fazer o upload de um arquivo ZIP.")
         
     elif not pergunta.strip():
-        st.error("Digite uma pergunta válida.")
+        st.error("Digite uma pergunta válida.")        
         
     else:
         with st.spinner("Analisando os dados com IA..."):
