@@ -6,7 +6,7 @@ import agente_nfs as agtnfs
 st.set_page_config(page_title="Agente NFe", layout="centered")
 st.title("🤖 Agente Inteligente para Notas Fiscais")
 
-uploaded_files = st.file_uploader("📂 Envie os arquivos CSV, PDF ou PNG da NFe", type=["csv","pdf","png"], accept_multiple_files=True)
+upload_file = st.file_uploader("📂 Envie um arquivo CSV, PDF ou PNG da NFe", type=["csv","pdf","png"])
 
 pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
 
