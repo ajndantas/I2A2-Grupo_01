@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import agente_nfs as agtnfs
+from agente_nfs import agente3
 
 
 st.set_page_config(page_title="Agente NFe", layout="centered")
@@ -21,7 +21,7 @@ if st.button("🔍 Consultar"):
     else:
         with st.spinner("Analisando os dados com IA..."):
             try:
-                resultado_df = agtnfs.agente3(pergunta, uploaded_file)
+                resultado_df = agente3(pergunta, uploaded_file)
 
                 if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (isinstance(resultado_df, pd.DataFrame) and resultado_df.empty):
                     st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
