@@ -6,13 +6,13 @@ import agente_nfs as agtnfs
 st.set_page_config(page_title="Agente NFe", layout="centered")
 st.title("🤖 Agente Inteligente para Notas Fiscais")
 
-upload_file = st.file_uploader("📂 Envie um arquivo CSV, PDF ou PNG da NFe", type=["csv","pdf","png"])
+uploaded_file = st.file_uploader("📂 Envie um arquivo CSV, PDF ou PNG da NFe", type=["csv","pdf","png"])
 
 pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
 
 
 if st.button("🔍 Consultar"):
-    if not uploaded_files:
+    if not uploaded_file:
         st.error("Você precisa fazer o upload de um arquivo CSV, PDF ou de uma imagem PNG.")
         
     elif not pergunta.strip():
@@ -21,7 +21,7 @@ if st.button("🔍 Consultar"):
     else:
         with st.spinner("Analisando os dados com IA..."):
             try:
-                resultado_df = agtnfs.agente3(pergunta, uploaded_files)
+                resultado_df = agtnfs.agente3(pergunta, uploaded_file)
 
                 if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (isinstance(resultado_df, pd.DataFrame) and resultado_df.empty):
                     st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
