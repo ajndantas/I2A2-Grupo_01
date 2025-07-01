@@ -23,6 +23,8 @@ class NotaFiscalOCR:
             lang (str): Idioma para o Tesseract. Default é 'por' (português).
         """
         self.lang = lang
+        self.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+        pytesseract.pytesseract.tesseract_cmd = self.tesseract_cmd
         
 
     def carregar_imagem(self, caminho_imagem):
