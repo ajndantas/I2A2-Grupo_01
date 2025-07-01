@@ -3,7 +3,7 @@
 
 #Importações necessárias
 import cv2 # OPEN-CV para manipulação de imagens
-from pytesseract import image_to_string
+from pytesseract import image_to_string, pytesseract # TESSERACT para OCR
 import matplotlib.pyplot as plt
 import re
 
@@ -23,8 +23,9 @@ class NotaFiscalOCR:
             lang (str): Idioma para o Tesseract. Default é 'por' (português).
         """
         self.lang = lang
-        self.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
-        pytesseract.pytesseract.tesseract_cmd = self.tesseract_cmd
+        self.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe" # PARA WINDOWS
+        # self.tesseract_cmd = '/usr/bin/tesseract' # PARA LINUX
+        pytesseract.tesseract_cmd = self.tesseract_cmd
         
 
     def carregar_imagem(self, caminho_imagem):
