@@ -45,6 +45,9 @@ class NotaFiscalOCR:
         if imagem is None:
             raise FileNotFoundError(f"Imagem não encontrada: {caminho_imagem}")
         return imagem
+    
+    def carregar_pdf(self, caminho_pdf):
+        pass
 
     def exibir_imagem(self, imagem, titulo="Imagem"):
         """
