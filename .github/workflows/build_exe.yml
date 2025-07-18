@@ -27,7 +27,7 @@ jobs:
 
     - name: Build .exe
       run: |
-        pyinstaller --onefile "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/agente_nfs.py"
+        pyinstaller --noconfirm --onefile --log-level=DEBUG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/agente_nfs.py"        
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
