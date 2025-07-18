@@ -1,0 +1,1 @@
+python -m nuitka --onefile --lto=no --mingw64 --jobs=8 --remove-output agente_nfs.py

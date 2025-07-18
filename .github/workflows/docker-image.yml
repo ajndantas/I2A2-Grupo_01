@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build the Docker image
+        run: |
+          # github.repository_owner = ajndantas
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_nfs
+          TAG=$(date +%Y%m%d%H%M%S)
+          docker build -t $IMAGE_ID:$TAG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/"
+          docker push $IMAGE_ID:$TAG
