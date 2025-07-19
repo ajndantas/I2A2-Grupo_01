@@ -64,7 +64,8 @@ class NotaFiscalOCR:
             
             print('\nExtraindo o texto da imagem...')
             
-            imagem = cv2.imread(caminho_imagem.name)
+            file_bytes = np.asarray(bytearray(caminho_imagem.read()), dtype=np.uint8) # UTLIZANDO O ARQUIVO EM MEMÓRIA
+            imagem = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
             
             if imagem is None:
                 raise FileNotFoundError(f"Imagem não encontrada: {caminho_imagem.name}")
@@ -91,10 +92,10 @@ class NotaFiscalOCR:
         print('\nExtraindo o texto do PDF...')
         
         if name == 'nt':
-            imagens = pdf2image.convert_from_path(caminho_pdf.name, poppler_path=self.poppler_path)
+            imagens = pdf2image.convert_from_bytes(caminho_pdf.read(), poppler_path=self.poppler_path)
             
         elif name == 'posix':
-            imagens = pdf2image.convert_from_path(caminho_pdf.name)
+            imagens = pdf2image.convert_from_path(caminho_pdf.read())
             
         if not imagens:
             raise FileNotFoundError(f"PDF não encontrado ou vazio: {caminho_pdf.name}")
@@ -192,7 +193,7 @@ class NotaFiscalOCR:
         Returns:
             tuple: Texto extraído (str), campos extraídos (dict)
         """
-        imagem = self.carregar_arquivo(caminho_arquivo.name)
+        imagem = self.carregar_arquivo(caminho_arquivo)
         self.exibir_imagem(imagem, "Imagem Original")
 
         imagem_proc = self.preprocessar_imagem(imagem)
