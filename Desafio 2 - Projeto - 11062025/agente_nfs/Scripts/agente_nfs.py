@@ -27,6 +27,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.globals import set_debug
 from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
 from magic import from_file, from_buffer
@@ -85,13 +86,15 @@ def consultallmdocfiscal(texto,llm):
 
 def obtem_sim_nao(pergunta,df,llm):
     
+    #print(df)
+    
     #    Utilizando a LLM para identificar se os campos e registros da base de documentos, são capazes de responder a pergunta
     #    do usuário.
     #
     #    Se sim, os arquivos são persistidos no banco de dados, caso contrário, o arquivo é descartado.
     
      # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """É possível responder a pergunta {pergunta} do usuário baseado no dataframe {df} ? {resposta}"""
+    template = """É possível responder a pergunta "{pergunta}" do usuário baseado no dataframe {df} ? {resposta}"""
     
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
     class Resposta(BaseModel):
@@ -110,7 +113,10 @@ def obtem_sim_nao(pergunta,df,llm):
     chain = prompt_template | llm | parseador
     
     # INVOCANDO A LLM
-    resposta = chain.invoke(input={"pergunta":pergunta, "df": df})['resposta']
+    #set_debug(True)
+    resposta = chain.invoke(input={"pergunta":str(pergunta).upper(), "df": df})['resposta']
+        
+    #print(resposta)
     
     return resposta
 
@@ -130,10 +136,8 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         #template_query = """Qual query deve ser executada na tabela {nome_arquivo} com as colunas {colunas} para responder
         #a pergunta {pergunta}? Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. {formatacao_saida}"""
         
-        template_query = """Qual query deve ser executada na tabela "{nome_arquivo}" com as colunas {colunas} para responder
-        a pergunta {pergunta}.
-        
-        A query a ser criada deverá obedecer aos seguintes critérios:
+        template_query = """Qual query deve ser executada na tabela "{nome_arquivo}" com as colunas "{colunas}" para responder
+        a pergunta "{pergunta}"?.
         1 - Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. 
         2 - Se a query envolver mais de uma coluna, para a mesma tabela, deve ser criado um único select com todas as colunas.        
         {formatacao_saida}"""
@@ -160,7 +164,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
             rows = rs.fetchall()
             colunas_query = sorted([col[1] for col in rows])
         
-        query = chain.invoke(input={"pergunta":pergunta, "nome_arquivo":arquivo.name, "colunas":colunas_query})['query']
+        query = chain.invoke(input={"pergunta":str(pergunta).upper(), "nome_arquivo":arquivo.name, "colunas":colunas_query})['query']
 
         print('\nQuery: ',query)
         
@@ -175,33 +179,14 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
 
 def agente3(pergunta,arquivo):
 
-    if exists('nfs_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
-        remove('nfs_data.db')        
-    
-    print('\nCriando o banco de dados nfs_data...')
-    DATABASE_URL = "sqlite:///nfs_data.db" # Define o nome do arquivo do banco de dados
-    engine = sqlalc.create_engine(DATABASE_URL)
-
-    #else:
-    #    engine = sqlalc.create_engine("sqlite:///nfs_data.db") # Conecta ao banco de dados existente
-
-    # INTEGRAÇÃO COM A LLM
-    load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
-
-    llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",  # ou "gemini-2.5-pro"
-        temperature=0.5,
-        google_api_key=getenv("GOOGLE_API_KEY")
-    )
-
     try:
             print('\nExecutando agente 3...')
 
             print('\nPergunta: ',pergunta)
 
-            resposta = agente2(pergunta,llm,engine,arquivo) # A ENGINE NÃO É FECHADA AUTOMATICAMENTE, APENAS AS CONEXÕES QUANDO USADAS COM WITH
+            resposta = agente2(pergunta,arquivo) # A ENGINE NÃO É FECHADA AUTOMATICAMENTE, APENAS AS CONEXÕES QUANDO USADAS COM WITH
 
-            if (isinstance(resposta,DataFrame)): # VERIFICA SE A LLM RESPONDEU SIM PARA ALGUM ARQUIVO (DEVOLVEU UM DATAFRAME), OU SEJA, SE É CAPAZ DE RESPONDER A PERGUNTA DO USUÁRIO COM O
+            if (not isinstance(resposta,str)) and resposta is not None: # VERIFICA SE A LLM RESPONDEU SIM PARA ALGUM ARQUIVO (DEVOLVEU UM DATAFRAME), OU SEJA, SE É CAPAZ DE RESPONDER A PERGUNTA DO USUÁRIO COM O
                                                  # ARQUIVO FORNECIDO
                
                return resposta
@@ -222,9 +207,28 @@ def agente3(pergunta,arquivo):
 # <ul><li>IA para adaptação a novos layouts</li></ul>
 # <ul><li>Validação cruzada de dados extraídos</li></ul>
 
-def agente2(pergunta,llm,engine,arquivo):
+def agente2(pergunta,arquivo):
 
     print('\nExecutando agente 2...')
+    
+    if exists('nfs_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
+        remove('nfs_data.db')        
+    
+    print('\nCriando o banco de dados nfs_data...')
+    DATABASE_URL = "sqlite:///nfs_data.db" # Define o nome do arquivo do banco de dados
+    engine = sqlalc.create_engine(DATABASE_URL)
+
+    #else:
+    #    engine = sqlalc.create_engine("sqlite:///nfs_data.db") # Conecta ao banco de dados existente
+
+    # INTEGRAÇÃO COM A LLM
+    load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
+
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.5-pro",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash"
+        temperature=0.5, # Padrão é 0.5
+        google_api_key=getenv("GOOGLE_API_KEY")
+    )
     
     # CATALOGANDO OS ARQUIVOS NO BD
     inspector = sqlalc.inspect(engine) # INSPECTOR PARA LISTAR AS TABELAS DO BANCO DE DADOS
@@ -248,12 +252,12 @@ def agente2(pergunta,llm,engine,arquivo):
         resposta = consultallmdocfiscal(texto,llm) # O NOME DAS COLUNAS ESTÁ AQUI     
           
     elif tipo == 'text/plain':
+        df = read_csv(arquivo.name)
         
-        df = read_csv(arquivo)
         resposta = consultallmdocfiscal(df,llm) # O NOME DAS COLUNAS ESTÁ AQUI      
     
     
-    listacampos = ['TIPO'] + [x for x in resposta['nomecampos']] + ['VERSÃO','MODELO']
+    listacampos = ['TIPO'] + [str(x).upper() for x in resposta['nomecampos']] + ['VERSÃO','MODELO']
     listavalores = [resposta['tipo']] + [x for x in resposta['valores']] + [resposta['versao'],resposta['modelo']]
     
     dictdocfiscal = dict(zip(listacampos,listavalores))
@@ -265,8 +269,6 @@ def agente2(pergunta,llm,engine,arquivo):
     
     resposta = obtem_sim_nao(pergunta,df,llm)
     
-    #print('Resposta: ',resposta)
-        
     if resposta == "Sim":
         
         # PERSISTINDO OS DADOS NO BANCO DE DADOS
@@ -275,26 +277,25 @@ def agente2(pergunta,llm,engine,arquivo):
         # PRECISA VERIFICAR SE A TABELA COM O NOME DO ARQUIVO JÁ EXISTE NO BANCO DE DADOS
         tabela = arquivo.name
         if tabela not in inspector.get_table_names():
-            # dftable = read_sql(tabela, con=engine)
-
-            # # CUIDANDO DA DUPLICIDADE
-            # df = df[~df['CHAVE DE ACESSO'].isin(dftable['CHAVE DE ACESSO'])]
-
-            # # INSERINDO NOVA TABELA NO BANCO DE DADOS COM O NOME DO ARQUIVO
-            # df.to_sql(name=tabela, con=engine, if_exists='append', index=False)
-            
+                        
             df.to_sql(name=tabela, con=engine, if_exists='replace', index=False)               
                     
         query = llm_gera_query(llm,engine,arquivo,pergunta)
         
         # OBTENÇÃO DO RESULTADO DA QUERY
         with engine.connect() as con:
-            dfsql = read_sql(query, con)
-            respostasql = dfsql
-
-        resposta = DataFrame({'RESPOSTA':[respostasql], 'TIPO':df['TIPO'].loc[0], 'VERSÃO':df['VERSÃO'].loc[0],'MODELO':df['MODELO'].loc[0]})
-                
-        return respostasql
+            dfsql = read_sql(query, con)                        
+            dfresposta = dfsql
+        
+        dfdocfiscal = df[['TIPO','MODELO','VERSÃO']]
+        
+        lista_df = []
+        lista_df.append(dfdocfiscal)
+        lista_df.append(dfresposta)
+        
+        resposta = lista_df
+                                    
+        return resposta
     
     elif resposta == "Não":
         print('Não é possível responder a essa pergunta com o arquivo carregado')
@@ -331,20 +332,20 @@ def agente1(): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                try:
+                #try:
                     resultado_df = agente3(pergunta, uploaded_file) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
-                    if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (isinstance(resultado_df, DataFrame) and resultado_df.empty):
+                    if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
                         st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
                     
-                    elif isinstance(resultado_df, DataFrame) and not resultado_df.empty:
-                        #st.success("Dados sobre o documento fiscal")
-                        #st.dataframe(resultado_df[['TIPO','VERSÃO','MODELO']])
+                    elif resultado_df is not None:
+                        st.success("Dados sobre o documento fiscal")
+                        st.dataframe(resultado_df[0])
                         st.success("✅ Resultado encontrado:")                        
-                        st.dataframe(resultado_df)                                        
+                        st.dataframe(resultado_df[1])                                        
                         
-                except Exception as e:
-                    st.error(f"Erro ao processar: {e}")
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
@@ -355,8 +356,6 @@ if __name__ == "__main__":
      #arquivo = "202401_NFs_Cabecalho.csv"
      arquivo = "nota_fiscal_exemplo.pdf"
      #arquivo = "nota_fiscal_exemplo.png"
-     
-     #print('Diretório atual: ',getcwd())
      
      # EXEMPLOS DE PERGUNTA PARA TESTE. ELAS DEVEM SER OBTIDAS DO FRONTEND
      pergunta = "Qual é a chave de acesso da nota 3510129 ?"
