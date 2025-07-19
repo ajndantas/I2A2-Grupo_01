@@ -95,7 +95,7 @@ class NotaFiscalOCR:
             imagens = pdf2image.convert_from_bytes(caminho_pdf.read(), poppler_path=self.poppler_path)
             
         elif name == 'posix':
-            imagens = pdf2image.convert_from_path(caminho_pdf.read())
+            imagens = pdf2image.convert_from_bytes(caminho_pdf.read())
             
         if not imagens:
             raise FileNotFoundError(f"PDF não encontrado ou vazio: {caminho_pdf.name}")
