@@ -19,6 +19,7 @@
 # ### IMPORTS
 
 from os import getenv,remove
+from io import StringIO
 from os.path import exists
 from pandas import read_csv, read_sql, DataFrame, concat
 import sqlalchemy as sqlalc
@@ -252,7 +253,10 @@ def agente2(pergunta,arquivo):
         resposta = consultallmdocfiscal(texto,llm) # O NOME DAS COLUNAS ESTÁ AQUI     
           
     elif tipo == 'text/plain':
-        df = read_csv(arquivo.name)
+        in_memory_file = StringIO(arquivo)
+        df = read_csv(in_memory_file) # USING IN-MEMORY FILE
+        
+        print(df)
         
         resposta = consultallmdocfiscal(df,llm) # O NOME DAS COLUNAS ESTÁ AQUI      
     
