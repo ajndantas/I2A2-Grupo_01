@@ -139,9 +139,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         #a pergunta {pergunta}? Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. {formatacao_saida}"""
         
         template_query = """Qual query deve ser executada na tabela "{nome_arquivo}" com as colunas "{colunas}" para responder
-        a pergunta "{pergunta}"?.
-        1 - Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. 
-        2 - Se a query envolver mais de uma coluna, para a mesma tabela, deve ser criado um único select com todas as colunas.        
+        a pergunta "{pergunta}"?Se a query envolver mais de uma coluna, para a mesma tabela, deve ser criado um único select com todas as colunas.        
         {formatacao_saida}"""
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
@@ -256,12 +254,13 @@ def agente2(pergunta,arquivo):
     elif tipo == 'text/plain':
     
         # Get the string content from the uploaded file
-        string_content = arquivo.getvalue().decode("utf-8")
-        in_memory_file = StringIO(string_content)
-        df = read_csv(in_memory_file) # USING IN-MEMORY FILE
-        arquivo.seek(0)
-                
-        #print(df)
+        #string_content = arquivo.getvalue().decode("utf-8")
+        #in_memory_file = StringIO(string_content)
+        #df = read_csv(in_memory_file) # USING IN-MEMORY FILE
+        #arquivo.seek(0)
+        
+        df = read_csv(arquivo)
+        print(df)
         
         resposta = consultallmdocfiscal(df,llm) # O NOME DAS COLUNAS ESTÁ AQUI      
     
