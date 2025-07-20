@@ -22,7 +22,7 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt update
-        sudo apt install -y gcc g++ clang zlib1g-dev patchelf tesseract-ocr poppler-utils
+        sudo apt install -y gcc g++ clang zlib1g-dev patchelf tesseract-ocr tesseract-ocr-por poppler-utils
         
     - name: Install Python dependencies
       run: |
