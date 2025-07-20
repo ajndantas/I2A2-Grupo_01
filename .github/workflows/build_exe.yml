@@ -28,7 +28,7 @@ jobs:
     - name: Build .exe with Nuitka
       run: |
         cd "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts"
-        nuitka --onefile --windows-disable-console --output-dir=output agente_nfs.py
+        nuitka --onefile --windows-console-mode=disable --output-dir=output agente_nfs.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
