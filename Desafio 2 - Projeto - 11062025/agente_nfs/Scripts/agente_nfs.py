@@ -101,7 +101,7 @@ def obtem_sim_nao(pergunta,df,llm):
     
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
     class Resposta(BaseModel):
-        resposta: str = Field(description="Responda Sim ou Não")
+        resposta: str = Field(description="Responda Sim ou Não. Considerando os dados e o significativo do nome das colunas do dataframe")
 
     parseador = JsonOutputParser(pydantic_object=Resposta)
 
@@ -116,7 +116,9 @@ def obtem_sim_nao(pergunta,df,llm):
     chain = prompt_template | llm | parseador
     
     # INVOCANDO A LLM
-    resposta = chain.invoke(input={"pergunta":str(pergunta).upper(), "df": df})['resposta']
+    pergunta = str(pergunta).upper()
+    print(pergunta)
+    resposta = chain.invoke(input={"pergunta":pergunta, "df": df})['resposta']
         
     #print(resposta)
     
@@ -260,7 +262,7 @@ def agente2(pergunta,arquivo):
         #arquivo.seek(0)
         
         df = read_csv(arquivo)
-        print(df)
+        #print(df)
         
         resposta = consultallmdocfiscal(df,llm) # O NOME DAS COLUNAS ESTÁ AQUI      
     
