@@ -122,7 +122,7 @@ def obtem_sim_nao(pergunta,df,llm):
     
     # INVOCANDO A LLM
     pergunta = str(pergunta).upper()
-    resposta = chain.invoke(input={"pergunta":pergunta, "df": df, "colunas_df": list(df.columns.values))['resposta']
+    resposta = chain.invoke(input={"pergunta":pergunta, "df": df, "colunas_df": list(df.columns.values)})['resposta']
         
     #print(resposta)
     
