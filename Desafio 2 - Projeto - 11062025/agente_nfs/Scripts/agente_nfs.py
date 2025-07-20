@@ -97,11 +97,16 @@ def obtem_sim_nao(pergunta,df,llm):
     #    Se sim, os arquivos são persistidos no banco de dados, caso contrário, o arquivo é descartado.
     
      # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """É possível responder a pergunta "{pergunta}" do usuário baseado no dataframe {df} ? {resposta}"""
+    template = """É possível responder a pergunta "{pergunta}" do usuário tendo os seguintes dados abaixo ?
+    ################################################### 
+    1 - O dataframe {df}
+    2 - O significado das colunas {colunas_df} do dataframe
+    ###################################################
+    {resposta}"""
     
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
     class Resposta(BaseModel):
-        resposta: str = Field(description="Responda Sim ou Não. Considerando os dados e o significativo do nome das colunas do dataframe")
+        resposta: str = Field(description="Responda Sim ou Não")
 
     parseador = JsonOutputParser(pydantic_object=Resposta)
 
@@ -117,8 +122,7 @@ def obtem_sim_nao(pergunta,df,llm):
     
     # INVOCANDO A LLM
     pergunta = str(pergunta).upper()
-    print(pergunta)
-    resposta = chain.invoke(input={"pergunta":pergunta, "df": df})['resposta']
+    resposta = chain.invoke(input={"pergunta":pergunta, "df": df, "colunas_df": list(df.columns.values))['resposta']
         
     #print(resposta)
     
@@ -140,8 +144,13 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         #template_query = """Qual query deve ser executada na tabela {nome_arquivo} com as colunas {colunas} para responder
         #a pergunta {pergunta}? Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. {formatacao_saida}"""
         
-        template_query = """Qual query deve ser executada na tabela "{nome_arquivo}" com as colunas "{colunas}" para responder
-        a pergunta "{pergunta}"?Se a query envolver mais de uma coluna, para a mesma tabela, deve ser criado um único select com todas as colunas.        
+        template_query = """Qual query deve ser executada na tabela "{nome_arquivo}" para responder
+        a pergunta "{pergunta}"? Considere os seguintes passos:
+        ##############################################################
+        1 - Considerando o significado das colunas "{colunas}" 
+        2 - Se a query envolver mais de uma coluna para a mesma tabela, deverá ser criado um único select com todas as colunas.
+        ##############################################################
+    
         {formatacao_saida}"""
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser

@@ -23,7 +23,6 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y file libmagic1 curl build-essential gcc g++ clang zlib1g-dev patchelf tesseract-ocr tesseract-ocr-por poppler-utils
-        && rm -rf /var/lib/apt/lists/*
         
     - name: Install Python dependencies
       run: |
