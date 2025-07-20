@@ -21,7 +21,7 @@
 from os import getenv,remove
 from io import StringIO
 from os.path import exists
-from pandas import read_csv, read_sql, DataFrame, concat
+from pandas import read_csv, read_sql, DataFrame
 import sqlalchemy as sqlalc
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
@@ -31,7 +31,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.globals import set_debug
 from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
-from magic import from_file, from_buffer
+from magic import from_buffer
+
+#set_debug(True)
 
 class SemResposta(Exception):
     pass
@@ -114,7 +116,6 @@ def obtem_sim_nao(pergunta,df,llm):
     chain = prompt_template | llm | parseador
     
     # INVOCANDO A LLM
-    #set_debug(True)
     resposta = chain.invoke(input={"pergunta":str(pergunta).upper(), "df": df})['resposta']
         
     #print(resposta)
@@ -225,10 +226,10 @@ def agente2(pergunta,arquivo):
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
 
-    llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-pro",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash"
+    llm = ChatGoogleGenerativeAI( # ChatGoogleGenerativeAI(
+        model="gemini-2.5-pro",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini
         temperature=0.5, # Padrão é 0.5
-        google_api_key=getenv("GOOGLE_API_KEY")
+        google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
     )
     
     # CATALOGANDO OS ARQUIVOS NO BD
@@ -253,10 +254,14 @@ def agente2(pergunta,arquivo):
         resposta = consultallmdocfiscal(texto,llm) # O NOME DAS COLUNAS ESTÁ AQUI     
           
     elif tipo == 'text/plain':
-        in_memory_file = StringIO(arquivo)
+    
+        # Get the string content from the uploaded file
+        string_content = arquivo.getvalue().decode("utf-8")
+        in_memory_file = StringIO(string_content)
         df = read_csv(in_memory_file) # USING IN-MEMORY FILE
-        
-        print(df)
+        arquivo.seek(0)
+                
+        #print(df)
         
         resposta = consultallmdocfiscal(df,llm) # O NOME DAS COLUNAS ESTÁ AQUI      
     
