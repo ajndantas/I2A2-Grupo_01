@@ -21,7 +21,9 @@ jobs:
       - name: Build the Docker image
         run: |
           # github.repository_owner = ajndantas
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_nfs
-          TAG=$(date +%Y%m%d%H%M%S)
+          #IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_nfs
+          IMAGE_ID=agente_nfs
+          #TAG=$(date +%Y%m%d%H%M%S)
+          TAG=latest
           docker build -t $IMAGE_ID:$TAG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/"
           docker push $IMAGE_ID:$TAG
