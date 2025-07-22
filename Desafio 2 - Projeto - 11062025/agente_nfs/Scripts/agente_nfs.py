@@ -201,7 +201,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         a pergunta "{pergunta}"? Considere os seguintes passos:
         ##############################################################
         1 - As colunas "{colunas}" 
-        2 - A tabela "{nome_arquivo}". Considerando no nome da tabela o "." e tudo que vem depois.  
+        2 - A tabela "{nome_arquivo}".   
         3 - Se a query envolver mais de uma coluna para a mesma tabela, deverá ser criado um único select com todas as colunas.
         ##############################################################
     
@@ -209,7 +209,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
         class Query(BaseModel):
-            query: str = Field(description='Esta é a query com DISTINCT aonde o nome de cada coluna e das tabelas devem ficar entre "')
+            query: str = Field(description='Esta é a query com DISTINCT aonde o nome de cada coluna e das tabelas, incluíndo o ponto e tudo que vem depois, devem ficar entre "')
 
         parseador = JsonOutputParser(pydantic_object=Query)
         
