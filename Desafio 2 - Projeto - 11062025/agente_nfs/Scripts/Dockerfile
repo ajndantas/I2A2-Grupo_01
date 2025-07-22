@@ -34,6 +34,11 @@ RUN pip install --no-cache-dir -r requirements_linux.txt
 # Exponha a porta 8000 para permitir a comunicação com a aplicação Streamlit
 EXPOSE 8000
 
+# GOOGLE API KEY
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
+
 # Defina o comando para executar a aplicação
 # Adicionadas flags para lidar com CORS e XSRF, comuns ao rodar em contêineres
 CMD ["streamlit", "run", "agente_nfs.py", "--server.port", "8000", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
