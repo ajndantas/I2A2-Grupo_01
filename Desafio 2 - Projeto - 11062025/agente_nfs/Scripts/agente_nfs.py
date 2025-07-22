@@ -62,8 +62,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD
         
         3 - Os valores para cada um dos campos do item 2.
-        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ?
-        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ?        
+        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação.
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. 
         ###########################################
         
         {formatador_saida_ia}
@@ -102,8 +102,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         ##########################################
         PERGUNTAS:
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
-        2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? 
-        3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ?   
+        2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação.
+        3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação.
         4 - Significado dos nomes dos campos {colunas_df} de acordo com a sigla do item 1 e as referências abaixo:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
