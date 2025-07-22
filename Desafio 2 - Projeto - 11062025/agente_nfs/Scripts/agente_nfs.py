@@ -19,7 +19,6 @@
 # ### IMPORTS
 
 from os import getenv,remove
-from io import StringIO
 from os.path import exists
 from pandas import read_csv, read_sql, DataFrame
 import sqlalchemy as sqlalc
@@ -38,54 +37,111 @@ from magic import from_buffer
 class SemResposta(Exception):
     pass
 
-def consultallmdocfiscal(texto,llm):
+def consultallmdocfiscal(texto,llm,tipo):
     
-    """    
-        O código constrói um pipeline que:
-
-        1. Pega o texto extraído da nota fiscal.
-        2. Formata uma pergunta para um LLM, instruindo-o a classificar o tipo de nota fiscal e a responder em um formato JSON específico.
-        3. Envia a pergunta ao LLM.
-        4. Recebe a resposta do LLM e a converte de texto JSON para um objeto Python.
-        5. Extrai e armazena apenas o valor da classificação (o tipo da nota) na variável resposta.    
-    """
-     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
+    # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
+     
+    if tipo != 'text/plain': 
+        
+        class DocFiscal1(BaseModel):
+            tipo: str = Field(description="Responda apenas com a sigla do tipo")
+            nomecampos: list = Field(description="Significado dos nomes dos campos em poucas palavras")
+            valores: list = Field(description="Somente os Valores")
+            versao: str = Field(description="Somente a versão")
+            modelo: str = Field(description="Somente o número do modelo")
+            #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
-    template = """Aja como um analista de contabilidade e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo {texto}:
-    {formatador_saida_ia}
-    """
+        parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
+            
+        template = """Aja como um analista de contabilidade e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
+        ##########################################
+        1 - Sigla do tipo do documento fiscal.
+        2 - Nomes dos campos de acordo com a sigla do item 1 e as referências abaixo:
+        a) Nota Técnica  
+        b) Manual de Orientação do Contribuinte (MOC) 
+        c) Schemas XSD
+        
+        3 - Os valores para cada um dos campos do item 2.
+        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ?
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ?        
+        ###########################################
+        
+        {formatador_saida_ia}
+        """
+        prompt_template = PromptTemplate(
+                                            template=template,
+                                            input_variables=["texto"],
+                                            partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
+                                        )
+        
+        # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
+        chain = prompt_template | llm | parseador
     
-    class DocFiscal(BaseModel):
-        tipo: str = Field(description="1 - Sigla do tipo do documento fiscal. Responda apenas com a sigla do tipo")
-        nomecampos: list = Field(description="""
-                                                2 - Nomes dos campos obrigatórios, conforme tipo de documento fiscal do item 1 e utilizando como referências os itens abaixo:
-                                                a) Nota Técnica  b) Manual de Orientação do Contribuinte (MOC) c) Schemas XSD
-                                                
-                                                Informar os nomes dos campos de acordo com seus significados e em poucas palavras. 
-                                             """ # AQUI SE RESOLVE O PROBLEMA DOS LAYOUTS OBTENDO O NOME DOS CAMPOS PELO SEU SIGNIFICADO, E NÃO PELO CAMPO
-                                                 # PROPRIAMENTE DITO
-                                )
-        valores: list = Field(description="3 - Valores para cada um dos campos do item 2")
-        versao: str = Field(description="""4 - Baseados nos campos do item 2 e na sigla do tipo do documento fiscal. Qual é a versão desse documento fiscal ? 
-                                           Caso não encontre, pesquisar de acordo com a legislação""")
-        modelo: str = Field(description="5 - Baseados nos campos do item 2 e na sigla do tipo do documento fiscal. Qual é o número do modelo desse documento fiscal ?")
-        nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais")        
-
-    parseador = JsonOutputParser(pydantic_object=DocFiscal)  
-
-    prompt_template = PromptTemplate(
-                                        template=template,
-                                        input_variables=["texto"],
-                                        partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
-                                    )
-
-    # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
-    chain = prompt_template | llm | parseador
+        # INVOCANDO A LLM
+        resposta = chain.invoke(input={"texto":texto})
+        
+        
+    elif tipo == 'text/plain':
+        
+        df = texto
+        
+        class DocFiscal2(BaseModel):
+            tipo: str = Field(description="Responda apenas com a sigla do tipo")
+            versao: str = Field(description="Somente a Versão")
+            modelo: str = Field(description="Somente o Número do modelo")
+            nomecampos: list = Field(description="Significado dos nomes dos campos em poucas palavras")
+            #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
-    # INVOCANDO A LLM
-    resposta = chain.invoke(input={"texto":texto})
+        parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
+        
+        template = """Aja como um analista de contabilidade e utilize como referência os itens abaixo para responder as perguntas 1,2 e 3:
+        a) Nota Técnica  
+        b) Manual de Orientação do Contribuinte (MOC) 
+        c) Schemas XSD
+        
+        ##########################################
+        PERGUNTAS:
+        1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
+        2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? 
+        3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ?   
+        4 - Nomes dos campos de acordo com a sigla do item 1 e as referências abaixo:
+        a) Nota Técnica  
+        b) Manual de Orientação do Contribuinte (MOC) 
+        c) Schemas XSD     
+        ###########################################
+        
+        {formatador_saida_ia}
+        """   
+        
+        prompt_template = PromptTemplate(
+                                            template=template,
+                                            input_variables=["texto", "colunas_df"],
+                                            partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
+                                        )
+        
+        # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
+        chain = prompt_template | llm | parseador
+    
+        # INVOCANDO A LLM
+        resposta = chain.invoke(input={"colunas_df":list(df.columns.values)})
+          
         
     return resposta
+
+def cria_dataframe(resposta,arquivo):
+    
+    listaresultados = []
+    
+    listacampos = ['TIPO'] + [x for x in resposta['nomecampos']] + ['VERSÃO','MODELO','ARQUIVO']
+    listavalores = [x for x in resposta['valores']]  # Convertendo para lista de listas
+    
+    listaresultados.append([resposta['tipo']] + listavalores + [resposta['versao'],resposta['modelo'],arquivo.name])
+     
+    df = DataFrame(listaresultados, columns=listacampos)     
+       
+    #print(df)
+    
+    return df
 
 def obtem_sim_nao(pergunta,df,llm):
     
@@ -97,11 +153,9 @@ def obtem_sim_nao(pergunta,df,llm):
     #    Se sim, os arquivos são persistidos no banco de dados, caso contrário, o arquivo é descartado.
     
      # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """É possível responder a pergunta "{pergunta}" do usuário tendo os seguintes dados abaixo ?
-    ################################################### 
-    1 - O dataframe {df}
-    2 - O significado das colunas {colunas_df} do dataframe
-    ###################################################
+    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os itens a seguir ? 
+    1 - As colunas {colunas_df} do dataframe.
+    2 - Os dados {df} 
     {resposta}"""
     
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
@@ -113,7 +167,7 @@ def obtem_sim_nao(pergunta,df,llm):
    
     prompt_template = PromptTemplate(
                                         template=template,
-                                        input_variables=["pergunta","df"],
+                                        input_variables=["pergunta","df","colunas_df"],
                                         partial_variables={"resposta" : parseador.get_format_instructions()}
                                     )
 
@@ -121,7 +175,6 @@ def obtem_sim_nao(pergunta,df,llm):
     chain = prompt_template | llm | parseador
     
     # INVOCANDO A LLM
-    pergunta = str(pergunta).upper()
     resposta = chain.invoke(input={"pergunta":pergunta, "df": df, "colunas_df": list(df.columns.values)})['resposta']
         
     #print(resposta)
@@ -147,7 +200,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         template_query = """Qual query deve ser executada na tabela "{nome_arquivo}" para responder
         a pergunta "{pergunta}"? Considere os seguintes passos:
         ##############################################################
-        1 - Considerando o significado das colunas "{colunas}" 
+        1 - As colunas "{colunas}" 
         2 - Se a query envolver mais de uma coluna para a mesma tabela, deverá ser criado um único select com todas as colunas.
         ##############################################################
     
@@ -175,7 +228,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
             rows = rs.fetchall()
             colunas_query = sorted([col[1] for col in rows])
         
-        query = chain.invoke(input={"pergunta":str(pergunta).upper(), "nome_arquivo":arquivo.name, "colunas":colunas_query})['query']
+        query = chain.invoke(input={"pergunta":pergunta, "nome_arquivo":arquivo.name, "colunas":colunas_query})['query']
 
         print('\nQuery: ',query)
         
@@ -236,7 +289,7 @@ def agente2(pergunta,arquivo):
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
 
     llm = ChatGoogleGenerativeAI( # ChatGoogleGenerativeAI(
-        model="gemini-2.5-pro",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini
+        model="gemini-2.5-flash",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini
         temperature=0.5, # Padrão é 0.5
         google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
     )
@@ -251,7 +304,6 @@ def agente2(pergunta,arquivo):
     arquivo.seek(0)
     
     print(f"\nArquivo: {arquivo.name}, Tipo MIME detectado: {tipo}")
-        
     
     if tipo != 'text/plain':        
         
@@ -260,33 +312,27 @@ def agente2(pergunta,arquivo):
         
         print("\nTexto\n",texto)                
 
-        resposta = consultallmdocfiscal(texto,llm) # O NOME DAS COLUNAS ESTÁ AQUI     
+        resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
+        
+        df = cria_dataframe(resposta,arquivo) # DATAFRAME COM AS COLUNAS E VALORES QUE SERÁ USADO PARA A PERGUNTA COM RESPOSTA "Sim", "Não" 
+                                              # E PARA CRIAR A TABELAS NO BD                                                        
           
-    elif tipo == 'text/plain':
-    
-        # Get the string content from the uploaded file
-        #string_content = arquivo.getvalue().decode("utf-8")
-        #in_memory_file = StringIO(string_content)
-        #df = read_csv(in_memory_file) # USING IN-MEMORY FILE
-        #arquivo.seek(0)
+    elif tipo == 'text/plain': 
         
         df = read_csv(arquivo)
+        
+        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
+        
+        df['TIPO'] = resposta['tipo']
+        df['MODELO'] = resposta['modelo']        
+        df['VERSÃO'] = resposta['versao']
+        df['ARQUIVO'] = arquivo.name
+        
         #print(df)
-        
-        resposta = consultallmdocfiscal(df,llm) # O NOME DAS COLUNAS ESTÁ AQUI      
+                 
+    dfdocfiscal = df[['TIPO','MODELO','VERSÃO']].drop_duplicates()
     
-    
-    listacampos = ['TIPO'] + [str(x).upper() for x in resposta['nomecampos']] + ['VERSÃO','MODELO']
-    listavalores = [resposta['tipo']] + [x for x in resposta['valores']] + [resposta['versao'],resposta['modelo']]
-    
-    dictdocfiscal = dict(zip(listacampos,listavalores))
-        
-    df = DataFrame([dictdocfiscal]) # DATAFRAME COM AS COLUNAS E OS VALORES
-    
-    # INSERINDO COLUNA COM O NOME DO ARQUIVO NO DATAFRAME
-    df['ARQUIVO'] = arquivo.name
-    
-    resposta = obtem_sim_nao(pergunta,df,llm)
+    resposta = obtem_sim_nao(pergunta,df,llm)             
     
     if resposta == "Sim":
         
@@ -304,14 +350,12 @@ def agente2(pergunta,arquivo):
         # OBTENÇÃO DO RESULTADO DA QUERY
         with engine.connect() as con:
             dfsql = read_sql(query, con)                        
-            dfresposta = dfsql
-        
-        dfdocfiscal = df[['TIPO','MODELO','VERSÃO']]
-        
+            dfresposta = dfsql      
+                
         lista_df = []
         lista_df.append(dfdocfiscal)
         lista_df.append(dfresposta)
-        
+                
         resposta = lista_df
                                     
         return resposta

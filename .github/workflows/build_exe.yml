@@ -33,7 +33,7 @@ jobs:
     - name: Build binary with Nuitka
       run: |
         cd "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts"
-        nuitka --onefile --enable-plugin=no-qt --disable-plugin=anti-bloat --output-dir=output agente_nfs.py
+        nuitka --onefile --enable-plugin=no-qt --disable-plugin=anti-bloat --static-libpython=yes --output-dir=output agente_nfs.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
