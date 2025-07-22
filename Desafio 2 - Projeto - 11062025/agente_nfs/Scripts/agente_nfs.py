@@ -197,11 +197,12 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         #template_query = """Qual query deve ser executada na tabela {nome_arquivo} com as colunas {colunas} para responder
         #a pergunta {pergunta}? Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. {formatacao_saida}"""
         
+        # PROBLEMA PARA GERAR QUERY QUANDO O ARQUIVO É IMAGEM
         template_query = """Qual query deve ser executada para responder
         a pergunta "{pergunta}"? Considere os seguintes passos:
         ##############################################################
         1 - As colunas "{colunas}" 
-        2 - A tabela "{nome_arquivo}".   
+        2 - O nome da tabela é "{nome_arquivo}".   
         3 - Se a query envolver mais de uma coluna para a mesma tabela, deverá ser criado um único select com todas as colunas.
         ##############################################################
     
@@ -209,7 +210,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
         class Query(BaseModel):
-            query: str = Field(description='Esta é a query com DISTINCT aonde o nome de cada coluna e das tabelas, incluíndo o ponto e tudo que vem depois, devem ficar entre "')
+            query: str = Field(description='Esta é a query com DISTINCT, aonde o nome de cada coluna e o da tabela {nome_arquivo} devem ficar entre "')
 
         parseador = JsonOutputParser(pydantic_object=Query)
         
