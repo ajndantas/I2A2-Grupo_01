@@ -323,15 +323,19 @@ def agente2(pergunta,arquivo):
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
         
-        df['TIPO'] = resposta['tipo']
-        df['MODELO'] = resposta['modelo']        
-        df['VERSÃO'] = resposta['versao']
-        df['ARQUIVO'] = arquivo.name
+    df['TIPO'] = resposta['tipo']
+    df['MODELO'] = resposta['modelo']        
+    df['VERSÃO'] = resposta['versao']
+    df['ARQUIVO'] = arquivo.name        
         
-        #print(df)
-                 
-    dfdocfiscal = df[['TIPO','MODELO','VERSÃO']].drop_duplicates()
+    tipo = df['TIPO'].loc[0]
+    modelo = df['MODELO'].loc[0]
+    versao = df['VERSÃO'].loc[0]    
     
+    dfdocfiscal = DataFrame({'TIPO':[tipo],'MODELO':[modelo],'VERSÃO':[versao]})
+           
+    #print(dfdocfiscal)        
+                 
     resposta = obtem_sim_nao(pergunta,df,llm)             
     
     if resposta == "Sim":
