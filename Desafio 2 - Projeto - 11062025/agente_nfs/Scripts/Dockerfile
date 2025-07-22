@@ -27,7 +27,7 @@ COPY requirements_linux.txt .
 # Copie o restante do código da sua aplicação para o diretório de trabalho
 COPY agente_nfs.py .
 COPY motor_ocr_otimizado.py .
-COPY .env .
+COPY ".env" .
 
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements_linux.txt
