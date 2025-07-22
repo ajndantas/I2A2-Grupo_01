@@ -45,7 +45,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            nomecampos: list = Field(description="Significado dos nomes dos campos em poucas palavras")
+            nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             valores: list = Field(description="Somente os Valores")
             versao: str = Field(description="Somente a versão")
             modelo: str = Field(description="Somente o número do modelo")
@@ -56,7 +56,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         template = """Aja como um analista de contabilidade e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Nomes dos campos de acordo com a sigla do item 1 e as referências abaixo:
+        2 - Significado dos nomes dos campos de acordo com a sigla do item 1 e as referências abaixo:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
@@ -89,7 +89,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="Somente a Versão")
             modelo: str = Field(description="Somente o Número do modelo")
-            nomecampos: list = Field(description="Significado dos nomes dos campos em poucas palavras")
+            nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
@@ -104,7 +104,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
         2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? 
         3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ?   
-        4 - Nomes dos campos de acordo com a sigla do item 1 e as referências abaixo:
+        4 - Significado dos nomes dos campos {colunas_df} de acordo com a sigla do item 1 e as referências abaixo:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD     
