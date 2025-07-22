@@ -197,11 +197,12 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         #template_query = """Qual query deve ser executada na tabela {nome_arquivo} com as colunas {colunas} para responder
         #a pergunta {pergunta}? Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. {formatacao_saida}"""
         
-        template_query = """Qual query deve ser executada na tabela "{nome_arquivo}" para responder
+        template_query = """Qual query deve ser executada para responder
         a pergunta "{pergunta}"? Considere os seguintes passos:
         ##############################################################
         1 - As colunas "{colunas}" 
-        2 - Se a query envolver mais de uma coluna para a mesma tabela, deverá ser criado um único select com todas as colunas.
+        2 - A tabela "{nome_arquivo}". Considerando no nome da tabela o "." e tudo que vem depois.  
+        3 - Se a query envolver mais de uma coluna para a mesma tabela, deverá ser criado um único select com todas as colunas.
         ##############################################################
     
         {formatacao_saida}"""

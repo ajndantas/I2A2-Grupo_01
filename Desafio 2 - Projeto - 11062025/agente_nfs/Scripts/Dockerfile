@@ -40,4 +40,4 @@ CMD ["streamlit", "run", "agente_nfs.py", "--server.port", "8000", "--server.ena
 
 # EXECUTAR O DOCKER COM: 
 # Para baixar -> docker pull ghcr.io/ajndantas/agente_nfs:latest
-# Para executar -> docker run -p 8000:8000 -e GOOGLE_API_KEY="SUA_CHAVE_API_AQUI" ghcr.io/ajndantas/agente_nfs
+# Para executar -> docker run -p 8000:8000 -e GOOGLE_API_KEY="AIzaSyAOhPIBGBJyhmQFGwcuMxGqS0MniA_7TQ8" ghcr.io/ajndantas/agente_nfs
