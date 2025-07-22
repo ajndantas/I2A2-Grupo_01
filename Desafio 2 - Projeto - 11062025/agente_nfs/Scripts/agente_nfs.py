@@ -41,7 +41,7 @@ def consultallmdocfiscal(texto,llm,tipo):
     
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
      
-    if tipo != 'text/plain': 
+    if tipo not in ['text/plain','text/csv']: 
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
@@ -81,7 +81,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         resposta = chain.invoke(input={"texto":texto})
         
         
-    elif tipo == 'text/plain':
+    elif tipo in ['text/plain','text/csv']:
         
         df = texto
         
@@ -306,7 +306,7 @@ def agente2(pergunta,arquivo):
     
     print(f"\nArquivo: {arquivo.name}, Tipo MIME detectado: {tipo}")
     
-    if tipo != 'text/plain':        
+    if tipo not in ['text/plain','text/csv']:        
         
         imagem_proc = ocr.preprocessar_imagem(ocr.carregar_arquivo(arquivo))
         texto = ocr.extrair_texto(imagem_proc)
@@ -318,7 +318,7 @@ def agente2(pergunta,arquivo):
         df = cria_dataframe(resposta,arquivo) # DATAFRAME COM AS COLUNAS E VALORES QUE SERÁ USADO PARA A PERGUNTA COM RESPOSTA "Sim", "Não" 
                                               # E PARA CRIAR A TABELAS NO BD                                                        
           
-    elif tipo == 'text/plain': 
+    elif tipo in ['text/plain','text/csv']: 
         
         df = read_csv(arquivo)
         
