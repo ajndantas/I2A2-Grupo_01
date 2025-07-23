@@ -87,8 +87,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal2(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            versao: str = Field(description="Somente a Versão")
-            modelo: str = Field(description="Somente o Número do modelo")
+            versao: str = Field(description="Somente a versão")
+            modelo: str = Field(description="Somente o número do modelo")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
@@ -412,7 +412,7 @@ def agente1(): # FRONTEND
                     
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
-                        st.dataframe(resultado_df[0]) # Para remover os índices do Dataframe
+                        st.table(resultado_df[0]) # Para remover os índices do Dataframe
                         st.table(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                        
