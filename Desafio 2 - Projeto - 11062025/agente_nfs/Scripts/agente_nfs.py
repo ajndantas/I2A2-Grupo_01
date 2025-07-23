@@ -328,15 +328,17 @@ def agente2(pergunta,arquivo):
     df['TIPO'] = resposta['tipo']
     df['MODELO'] = resposta['modelo']        
     df['VERSÃO'] = resposta['versao']
-    listacampos = resposta['nomecampos']
+    listacampos = [x.replace('"','') for x in resposta['nomecampos']]
+    #print(listacampos)
     df['ARQUIVO'] = arquivo.name        
         
     tipo = df['TIPO'].loc[0]
     modelo = df['MODELO'].loc[0]
     versao = df['VERSÃO'].loc[0]
         
-    dfdocfiscal = DataFrame({'TIPO':[tipo],'MODELO':[modelo],'VERSÃO':[versao], 'CAMPOS':listacampos})
-           
+    dfdocfiscal = DataFrame({'TIPO':[tipo],'MODELO':[modelo],'VERSÃO':[versao]})
+    dfcampos = DataFrame({'CAMPOS':[listacampos]}) # LISTA COM UMA LISTA DE CAMPOS
+        
     #print(dfdocfiscal)        
                  
     resposta = obtem_sim_nao(pergunta,df,llm)             
@@ -362,7 +364,8 @@ def agente2(pergunta,arquivo):
         lista_df = []
         lista_df.append(dfdocfiscal)
         lista_df.append(dfresposta)
-                
+        lista_df.append(dfcampos)
+                        
         resposta = lista_df
                                     
         return resposta
@@ -410,10 +413,11 @@ def agente1(): # FRONTEND
                     
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
-                        st.dataframe(resultado_df[0])
+                        st.dataframe(resultado_df[0],use_container_width=True) # Para remover os índices do Dataframe
+                        st.table(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
-                        st.dataframe(resultado_df[1])                                        
-                        
+                        st.dataframe(resultado_df[1],use_container_width=True)                                        
+                                                
                 except Exception as e:
                     st.error(f"Erro ao processar: {e}")
 
