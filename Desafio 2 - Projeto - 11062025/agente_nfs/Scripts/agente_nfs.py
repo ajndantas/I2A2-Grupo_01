@@ -202,8 +202,8 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         a pergunta "{pergunta}"? Considere os seguintes passos:
         ##############################################################
         1 - As colunas "{colunas}" 
-        2 - O nome da tabela é "{nome_arquivo}".   
-        3 - Se a query envolver UNION para a mesma tabela, deverá ser criado um único select com todas as colunas.
+        2 - O nome da tabela é "{nome_arquivo}".
+        3 - A query não deve possuir UNION.
         ##############################################################
     
         {formatacao_saida}"""
