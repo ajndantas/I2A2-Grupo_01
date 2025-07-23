@@ -328,13 +328,14 @@ def agente2(pergunta,arquivo):
     df['TIPO'] = resposta['tipo']
     df['MODELO'] = resposta['modelo']        
     df['VERSÃO'] = resposta['versao']
+    listacampos = resposta['nomecampos']
     df['ARQUIVO'] = arquivo.name        
         
     tipo = df['TIPO'].loc[0]
     modelo = df['MODELO'].loc[0]
-    versao = df['VERSÃO'].loc[0]    
-    
-    dfdocfiscal = DataFrame({'TIPO':[tipo],'MODELO':[modelo],'VERSÃO':[versao]})
+    versao = df['VERSÃO'].loc[0]
+        
+    dfdocfiscal = DataFrame({'TIPO':[tipo],'MODELO':[modelo],'VERSÃO':[versao], 'CAMPOS':listacampos})
            
     #print(dfdocfiscal)        
                  
@@ -361,7 +362,6 @@ def agente2(pergunta,arquivo):
         lista_df = []
         lista_df.append(dfdocfiscal)
         lista_df.append(dfresposta)
-        lista_df.append(list(df.columns.values))
                 
         resposta = lista_df
                                     
@@ -411,8 +411,6 @@ def agente1(): # FRONTEND
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
                         st.dataframe(resultado_df[0])
-                        st.success("Campos")
-                        st.dataframe(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                        
                         
