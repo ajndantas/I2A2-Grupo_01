@@ -203,7 +203,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         ##############################################################
         1 - As colunas "{colunas}" 
         2 - O nome da tabela é "{nome_arquivo}".   
-        3 - Se a query envolver mais de uma coluna para a mesma tabela, deverá ser criado um único select com todas as colunas.
+        3 - Se a query envolver UNION para a mesma tabela, deverá ser criado um único select com todas as colunas.
         ##############################################################
     
         {formatacao_saida}"""
@@ -413,10 +413,10 @@ def agente1(): # FRONTEND
                     
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
-                        st.dataframe(resultado_df[0],use_container_width=True) # Para remover os índices do Dataframe
+                        st.dataframe(resultado_df[0]) # Para remover os índices do Dataframe
                         st.table(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
-                        st.dataframe(resultado_df[1],use_container_width=True)                                        
+                        st.dataframe(resultado_df[1])                                        
                                                 
                 except Exception as e:
                     st.error(f"Erro ao processar: {e}")
