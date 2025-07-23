@@ -361,6 +361,7 @@ def agente2(pergunta,arquivo):
         lista_df = []
         lista_df.append(dfdocfiscal)
         lista_df.append(dfresposta)
+        lista_df.append(list(df.columns.values))
                 
         resposta = lista_df
                                     
@@ -410,6 +411,8 @@ def agente1(): # FRONTEND
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
                         st.dataframe(resultado_df[0])
+                        st.success("Campos")
+                        st.dataframe(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                        
                         
