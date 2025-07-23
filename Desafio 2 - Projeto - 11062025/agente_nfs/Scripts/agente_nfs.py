@@ -203,7 +203,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         ##############################################################
         1 - As colunas "{colunas}" 
         2 - O nome da tabela é "{nome_arquivo}".
-        3 - A query não deve possuir UNION.
+        3 - Se a resposta contém mais de uma coluna, não usar UNION, e sim um SELECT com todas as colunas.
         ##############################################################
     
         {formatacao_saida}"""
