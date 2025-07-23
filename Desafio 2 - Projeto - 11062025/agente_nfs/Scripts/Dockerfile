@@ -5,6 +5,9 @@ FROM python:3.11-slim
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
+ARG GOOGLE_API_KEY
+ENV GOOGLE_API_KEY=${GOOGLE_API_KEY}
+
 # Tesseract para OCR, Poppler para processamento de PDF, e libmagic para detecção de tipo de arquivo
 RUN apt-get update && apt-get install -y --no-install-recommends \
     tesseract-ocr \

@@ -23,5 +23,5 @@ jobs:
           #IMAGE_ID=agente_nfs
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
-          docker build -t $IMAGE_ID:$TAG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/"
+          docker build --build-arg GOOGLE_API_KEY="AIzaSyAOhPIBGBJyhmQFGwcuMxGqS0MniA_7TQ8" -t $IMAGE_ID:$TAG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/"
           docker push $IMAGE_ID:$TAG
