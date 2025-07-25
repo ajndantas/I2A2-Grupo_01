@@ -44,7 +44,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 
 ### 1 - Utilizado o código fonte
 
-**Instalando o Tesseract e o Poppler**
+### Instalando o Tesseract e o Poppler
 ---
 **A) Linux**
 
@@ -57,7 +57,7 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
    1. Baixar o arquivo poppler.zip -> https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs
    2. Descompactar o arquivo e colocar a pasta poppler dentro da pasta Script
 
-**Instalando o Python**
+### Instalando o Python
 ---
 ```bash
 # Recomendado criar um ambiente virtual
