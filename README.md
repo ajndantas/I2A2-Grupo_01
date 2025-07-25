@@ -43,7 +43,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 ## 📦 Instalação
 
 ### 2 - Utilizado o código fonte
-
+---
 ### Instalando o Tesseract e o Poppler
 
 **A) Linux**
