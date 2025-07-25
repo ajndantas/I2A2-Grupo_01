@@ -31,7 +31,7 @@ class NotaFiscalOCR:
         # PARA WINDOWS
         if name == 'nt':
             self.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe" 
-            self.poppler_path = r".\\Release-24.08.0-0\\poppler-24.08.0\\Library\\bin"
+            self.poppler_path = r".\\poppler\\poppler-24.08.0\\Library\\bin"
         
         # PARA LINUX
         elif name == 'posix':

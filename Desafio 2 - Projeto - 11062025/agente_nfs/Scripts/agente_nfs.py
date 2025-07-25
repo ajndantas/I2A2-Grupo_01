@@ -424,24 +424,9 @@ def agente1(): # FRONTEND
 # ### <b>TESTANDO</b>
 
 if __name__ == "__main__":
-
-     # TESTANDO OS TIPOS DE ARQUIVO
-     #arquivo = "202401_NFs_Cabecalho.csv"
-     arquivo = "nota_fiscal_exemplo.pdf"
-     #arquivo = "nota_fiscal_exemplo.png"
-     
-     # EXEMPLOS DE PERGUNTA PARA TESTE. ELAS DEVEM SER OBTIDAS DO FRONTEND
-     pergunta = "Qual é a chave de acesso da nota 3510129 ?"
-     #pergunta = "Quem descobriu o Brasil ?"
-     #pergunta = "Qual é a descrição dos serviços de nf com número 2525 ?"
-     #pergunta = "Qual é a descrição dos serviços e a natureza da operação da nf com número 2525 ?"
-
-     #resposta = agente3(pergunta, arquivo)  # Chama a função principal com a pergunta e o diretório
-     #print('\nResposta: \n',resposta)     
-     
+    
      agente1()  # Executa a função que inicia o agente
-     #agente3(pergunta, arquivo)
-
+     
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
 #!streamlit run agente_nfs.py --server.port 8000
