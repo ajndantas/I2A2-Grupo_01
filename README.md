@@ -45,7 +45,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 ### 2 - Utilizado o código fonte
 
 ### Instalando o Tesseract e o Poppler
----
+
 **A) Linux**
 
 apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-por poppler-utils file libmagic1 curl build-essential libgl1-mesa-glx
@@ -58,7 +58,7 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
    2. Descompactar o arquivo e colocar a pasta poppler dentro da pasta Script
 
 ### Instalando o Python
----
+
 ```bash
 # Recomendado criar um ambiente virtual
 python -m venv venv
