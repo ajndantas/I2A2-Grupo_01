@@ -88,15 +88,6 @@ Abra o link http://localhost:8000
 
 ---
 
-## 📈 Exemplo de Perguntas Suportadas
-
-- Quem são os destinatários ?
-- Qual o valor total da nota ?
-- Qual é a descrição dos serviços e a natureza da operação da nf ?
-- Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
-
----
-
 ## ⚙️ Tecnologias Utilizadas
 
 - **Streamlit** – Frontend Web
@@ -114,6 +105,15 @@ Abra o link http://localhost:8000
 
 - Este projeto está focado em **experimentação com IA aplicada a documentos fiscais**.
 - O sistema foi estruturado com **agentes independentes** para facilitar futura expansão (OCR, aprendizado de layouts, etc).
+
+---
+
+## 📈 Exemplo de Perguntas Suportadas
+
+- Quem são os destinatários ?
+- Qual o valor total da nota ?
+- Qual é a descrição dos serviços e a natureza da operação da nf ?
+- Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
 
 ---
 
