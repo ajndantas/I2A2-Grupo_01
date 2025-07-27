@@ -129,7 +129,7 @@ Arquivos para teste:
 
 - Quem são os destinatários ?
 - Qual o valor total da nota ?
-- Qual é a descrição dos serviços e a natureza da operação da nf ?
+- Qual é a descrição dos serviços ou itens ?
 - Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
 
 ---
