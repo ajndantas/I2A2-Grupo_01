@@ -55,7 +55,7 @@ class NotaFiscalOCR:
             FileNotFoundError: Se o arquivo não for encontrado.
         """
         
-        tipo = from_buffer(caminho_imagem.getvalue(), mime=True,magic_file=r"..\Lib\site-packages\magic\libmagic\magic.mgc")
+        tipo = from_buffer(caminho_imagem.getvalue(), mime=True)
         caminho_imagem.seek(0)
         
         #tipo = from_file(caminho_imagem, mime=True)
