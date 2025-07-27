@@ -32,7 +32,7 @@ from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
 from magic import from_buffer
 
-#set_debug(True)
+set_debug(True)
 
 class SemResposta(Exception):
     pass
@@ -47,8 +47,8 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             valores: list = Field(description="Somente os Valores")
-            versao: str = Field(description="Somente os números da versão. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
-            modelo: str = Field(description="Somente os números do modelo. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
+            versao: str = Field(description="versão")
+            modelo: str = Field(description="modelo")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
@@ -62,8 +62,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD
         
         3 - Os valores para cada um dos campos do item 2.
-        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação.
-        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. 
+        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
         
         {formatador_saida_ia}
@@ -87,8 +87,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal2(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            versao: str = Field(description="Somente os números da versão. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
-            modelo: str = Field(description="Somente os números do modelo. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
+            versao: str = Field(description="versão")
+            modelo: str = Field(description="modelo")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
@@ -102,8 +102,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         ##########################################
         PERGUNTAS:
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
-        2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação.
-        3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação.
+        2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão.
+        3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         4 - Significado dos nomes dos campos {colunas_df} de acordo com a sigla do item 1 e as referências abaixo:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
