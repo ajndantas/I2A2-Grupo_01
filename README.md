@@ -91,16 +91,10 @@ venv\Scripts\activate
 pip install -qqqr requirements.txt
 ```
 
----
+### Execução
 
-## ▶️ Execução
-
-```bash
-# A primeira execução demora um pouco.
-streamlit run agente_nfs.py--server.port 8000
-
-Abra o link http://localhost:8000
-```
+1. Execute no terminal o comando -> streamlit run agente_nfs.py--server.port 8000
+2. Abra o link http://localhost:8000
 
 ---
 
