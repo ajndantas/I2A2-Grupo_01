@@ -2,11 +2,6 @@
 
 Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract, OpenCV, Streamlit **e** **SQLAlchemy** para analisar, extrair e responder perguntas sobre **Documentos Fiscais, tais como NF-e** a partir de arquivos PDF, PNG e CSV.**
 
-Exemplos de arquivos:
-
-* [PDF](https://drive.google.com/open?id=1x_deql_HqLn56_uELL7RyTNmHk2smTLI&usp=drive_fs)
-* [PNG](https://drive.google.com/open?id=1MNs4WsvcKUcJ9Xz5vwsYBntbiC14Axhc&usp=drive_fs)
-
 ---
 
 ## 🚀 Funcionalidades Principais
@@ -52,13 +47,20 @@ Exemplos de arquivos:
 1. Baixe e instale o docker desktop para o seu sistema em https://www.docker.com/products/docker-desktop/
 2. Abra o Docker Desktop
 3. Como administrador, abra um terminal e execute os comandos:
-   1. docker pull ghcr.io/ajndantas/agente_nfs:latest
-   2. docker run -d -p 8000:8000 --restart unless-stopped ghcr.io/ajndantas/agente_nfs
+   1. docker pull ghcr.io/ajndantas/agente_nfs
+   2. docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
 4. Abra o link http://localhost:8000
 
-### 2 - Utilizando o código fonte
+Arquivos para teste:
+
+* [PDF](https://drive.google.com/open?id=1x_deql_HqLn56_uELL7RyTNmHk2smTLI&usp=drive_fs)
+* [PNG](https://drive.google.com/open?id=1MNs4WsvcKUcJ9Xz5vwsYBntbiC14Axhc&usp=drive_fs)
 
 ---
+
+
+
+### 2 - Utilizando o código fonte
 
 ### Instalando o Tesseract e o Poppler
 
@@ -95,6 +97,11 @@ pip install -qqqr requirements.txt
 
 1. Execute no terminal o comando -> streamlit run agente_nfs.py--server.port 8000
 2. Abra o link http://localhost:8000
+
+Arquivos para teste:
+
+* [PDF](https://drive.google.com/open?id=1x_deql_HqLn56_uELL7RyTNmHk2smTLI&usp=drive_fs)
+* [PNG](https://drive.google.com/open?id=1MNs4WsvcKUcJ9Xz5vwsYBntbiC14Axhc&usp=drive_fs)
 
 ---
 
