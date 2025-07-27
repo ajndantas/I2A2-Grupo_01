@@ -2,6 +2,11 @@
 
 Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract, OpenCV, Streamlit **e** **SQLAlchemy** para analisar, extrair e responder perguntas sobre **Documentos Fiscais, tais como NF-e** a partir de arquivos PDF, PNG e CSV.**
 
+Exemplos de arquivos:
+
+* [PDF](https://drive.google.com/open?id=1x_deql_HqLn56_uELL7RyTNmHk2smTLI&usp=drive_fs)
+* [PNG](https://drive.google.com/open?id=1MNs4WsvcKUcJ9Xz5vwsYBntbiC14Axhc&usp=drive_fs)
+
 ---
 
 ## 🚀 Funcionalidades Principais
@@ -27,7 +32,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 ## 🖥️ Frontend: Interface com Streamlit
 
 - Upload de arquivos PDF, PNG e CSV via interface web.
-- Campo para perguntas em **Linguagem Natural**.
+- Campo para perguntas em Linguagem Natural
 - Exibição de resultados em formato de tabela interativa.
 - Feedback amigável em caso de erro ou ausência de resposta.
 
@@ -42,8 +47,19 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 
 ## 📦 Instalação
 
-### 2 - Utilizado o código fonte
+### 1 - Utilizando Docker (Mais fácil)
+
+1. Baixe e instale o docker desktop para o seu sistema em https://www.docker.com/products/docker-desktop/
+2. Abra o Docker Desktop
+3. Como administrador, abra um terminal e execute os comandos:
+   1. docker pull ghcr.io/ajndantas/agente_nfs:latest
+   2. docker run -d -p 8000:8000 --restart unless-stopped ghcr.io/ajndantas/agente_nfs
+4. Abra o link http://localhost:8000
+
+### 2 - Utilizando o código fonte
+
 ---
+
 ### Instalando o Tesseract e o Poppler
 
 **A) Linux**
@@ -52,9 +68,9 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 
 **B) Windows**
 
-1. Instalar o Tesseract -> https://github.com/UB-Mannheim/tesseract/wiki
+1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki)
 2. Instalar o Poppler
-   1. Baixar o arquivo poppler.zip -> https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs
+   1. Baixar o arquivo [poppler.zip](https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs)
    2. Descompactar o arquivo e colocar a pasta poppler dentro da pasta Script
 
 ### Instalando o Python
@@ -62,7 +78,7 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 ```bash
 # Recomendado criar um ambiente virtual
 python -m venv venv
-venv\Scripts\activate   # Windows
+venv\Scripts\activate   
 
 # Faça o download dos arquivos a seguir para dentro da pasta Scripts
 - requirements.txt (Windows) - https://drive.google.com/open?id=1phG0NWz-pMQS21C-Ovz9IY35wf5AgX0o&usp=drive_fs
