@@ -421,9 +421,9 @@ def agente1(): # FRONTEND
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
                         st.table(resultado_df[0])
-                        st.table(resultado_df[2])
+                        st.dataframe(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
-                        st.table(resultado_df[1])                                        
+                        st.table(resultado_df[1])                                       
                                                 
                 #except Exception as e:
                 #    st.error(f"Erro ao processar: {e}")
