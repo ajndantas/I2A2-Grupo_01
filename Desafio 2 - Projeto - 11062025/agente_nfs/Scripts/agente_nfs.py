@@ -32,7 +32,7 @@ from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
 from magic import from_buffer
 
-set_debug(True)
+#set_debug(True)
 
 class SemResposta(Exception):
     pass
@@ -47,8 +47,8 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             valores: list = Field(description="Somente os Valores")
-            versao: str = Field(description="versão")
-            modelo: str = Field(description="modelo")
+            versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
+            modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
@@ -87,8 +87,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal2(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            versao: str = Field(description="versão")
-            modelo: str = Field(description="modelo")
+            versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
+            modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
