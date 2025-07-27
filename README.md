@@ -47,12 +47,9 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 1. Baixe e instale o docker desktop para o seu sistema em https://www.docker.com/products/docker-desktop/
 2. Abra o Docker Desktop
 3. Como administrador, abra um terminal e execute os comandos:
-
-
-   * docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs`
-4. 1. docker pull ghcr.io/ajndantas/agente_nfs
+   1. docker pull ghcr.io/ajndantas/agente_nfs
    2. docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
-5. Abra o link http://localhost:8000
+4. Abra o link http://localhost:8000
 
 Arquivos para teste:
 
