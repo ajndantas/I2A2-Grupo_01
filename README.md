@@ -68,9 +68,9 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 
 **B) Windows**
 
-1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki). Marcar "Aditional language data"
+1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki). Marcar "Aditional language data (download))"
 2. Instalar o Poppler
-   1. Baixar o arquivo [poppler.zip](https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs)
+   1. Baixar o arquivo [poppler.zip](https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs). (Caso perguntado pelo Google, insista em fazer o download)
    2. Descompactar o arquivo e colocar a pasta poppler dentro da pasta Script do ambiente virtual que será criado. Seção abaixo
 
 ### Instalando o Python
@@ -78,22 +78,24 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 ```bash
 # Recomendado criar um ambiente virtual
 python -m venv venv
-venv\Scripts\activate   
+cd vend\Scripts # Windows
+activate   
 
-# Faça o download dos arquivos a seguir para dentro da pasta Scripts
+# Faça o download dos arquivos a seguir para dentro da pasta Scripts. (Caso perguntado pelo Google, insista em fazer o download)
 - requirements.txt (Windows) - https://drive.google.com/open?id=1phG0NWz-pMQS21C-Ovz9IY35wf5AgX0o&usp=drive_fs
 - requirements_linux.txt (Linux) - https://drive.google.com/open?id=19SYi2ZhoRQqHDVYIOFlnlFVoldrdtgRp&usp=drive_fs
 - agente_nfs.py - https://drive.google.com/open?id=1HJWherk86_tNA7U__xYSQakK7Cj6KvYu&usp=drive_fs 
-- .env - https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs
+- motor_ocr_otimizado.py - https://drive.google.com/open?id=1zuB-Rz07RkM0CxlU-ATZ6qOA8-66MEOt&usp=drive_fs
+- .env (Salvar com esse nome mesmo. Sem extensão) - https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs
 
 # Dentro da pasta Script, execute:
 # Instale as dependências
-pip install -qqqr requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Execução
 
-1. Execute no terminal o comando -> streamlit run agente_nfs.py--server.port 8000
+1. Execute no terminal o comando -> streamlit run agente_nfs.py --server.port 8000
 2. Abra o link http://localhost:8000
 
 Arquivos para teste:
