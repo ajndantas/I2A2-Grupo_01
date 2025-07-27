@@ -27,8 +27,15 @@ WORKDIR /app
 # É assumido que um arquivo requirements.txt existe no seu projeto
 COPY requirements_linux.txt .
 
+# Instale o Jupyter Notebook para converter o notebook em script Python
+RUN pip install --no-cache-dir jupyter
+
 # Copie o restante do código da sua aplicação para o diretório de trabalho
-COPY agente_nfs.py .
+
+COPY agente_nfs.ipynb .
+# Converte o notebook para script Python
+RUN jupyter nbconvert --to script agente_nfs.ipynb
+
 COPY motor_ocr_otimizado.py .
 
 # Instale os pacotes Python
