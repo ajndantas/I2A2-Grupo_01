@@ -359,7 +359,7 @@ def agente2(pergunta,arquivo):
         tabela = arquivo.name
         if tabela not in inspector.get_table_names():
                         
-            df.to_sql(name=f'{tabela}', con=engine, if_exists='replace', index=False)               
+            df.to_sql(name=f"{tabela}", con=engine, if_exists='replace', index=False)               
                     
         query = llm_gera_query(llm,engine,arquivo,pergunta)
         
@@ -412,7 +412,7 @@ def agente1(): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                #try:
+                try:
                     resultado_df = agente3(pergunta, uploaded_file) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -421,12 +421,12 @@ def agente1(): # FRONTEND
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
                         st.table(resultado_df[0])
-                        st.dataframe(resultado_df[2])
+                        st.table(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
                         st.table(resultado_df[1])                                       
                                                 
-                #except Exception as e:
-                #    st.error(f"Erro ao processar: {e}")
+                except Exception as e:
+                    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
