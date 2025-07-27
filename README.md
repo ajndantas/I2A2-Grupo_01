@@ -78,8 +78,8 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 ```bash
 # Recomendado criar um ambiente virtual
 python -m venv venv
-cd vend\Scripts # Windows
-activate   
+cd venv
+\Scripts\activate # Windows
 
 # Faça o download dos arquivos a seguir para dentro da pasta Scripts. (Caso perguntado pelo Google, insista em fazer o download)
 - requirements.txt (Windows) - https://drive.google.com/open?id=1phG0NWz-pMQS21C-Ovz9IY35wf5AgX0o&usp=drive_fs
