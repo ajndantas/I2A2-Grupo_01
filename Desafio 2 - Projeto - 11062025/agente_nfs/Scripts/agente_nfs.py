@@ -47,8 +47,8 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             valores: list = Field(description="Somente os Valores")
-            versao: str = Field(description="Somente as letras e/ou números da versão")
-            modelo: str = Field(description="Somente as letras e/ou números do modelo")
+            versao: str = Field(description="Somente os números da versão")
+            modelo: str = Field(description="Somente os números do modelo")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
@@ -87,8 +87,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal2(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            versao: str = Field(description="Somente as letras e/ou números da versão")
-            modelo: str = Field(description="Somente as letras e/ou números do modelo")
+            versao: str = Field(description="Somente os números da versão")
+            modelo: str = Field(description="Somente os números do modelo")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
@@ -415,7 +415,7 @@ def agente1(): # FRONTEND
                         st.table(resultado_df[0]) # Para remover os índices do Dataframe
                         st.table(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
-                        st.dataframe(resultado_df[1])                                        
+                        st.table(resultado_df[1])                                        
                                                 
                 except Exception as e:
                     st.error(f"Erro ao processar: {e}")
