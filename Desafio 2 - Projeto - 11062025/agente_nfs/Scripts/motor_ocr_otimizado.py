@@ -60,7 +60,7 @@ class NotaFiscalOCR:
         
         #tipo = from_file(caminho_imagem, mime=True)
         
-        if tipo == 'image/png':
+        if tipo != 'application/pdf':
             
             print('\nExtraindo o texto da imagem...')
             
