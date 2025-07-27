@@ -301,7 +301,7 @@ def agente2(pergunta,arquivo):
     ocr = NotaFiscalOCR() # INSTÂNCIA DO MOTOR OCR
     
     #tipo = from_file(arquivo,mime=True)
-    tipo = from_buffer(arquivo.getvalue(),mime=True, magic_file=r"..\Lib\site-packages\magic\libmagic\magic.mgc")
+    tipo = from_buffer(arquivo.getvalue(),mime=True)
     arquivo.seek(0)
     
     print(f"\nArquivo: {arquivo.name}, Tipo MIME detectado: {tipo}")
