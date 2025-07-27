@@ -45,7 +45,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
+            nomecampos: list = Field(description="Nomes dos campos, sem repetir, e em poucas palavras")
             valores: list = Field(description="Somente os Valores")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
@@ -301,7 +301,7 @@ def agente2(pergunta,arquivo):
     ocr = NotaFiscalOCR() # INSTÂNCIA DO MOTOR OCR
     
     #tipo = from_file(arquivo,mime=True)
-    tipo = from_buffer(arquivo.getvalue(),mime=True)
+    tipo = from_buffer(arquivo.getvalue(),mime=True, magic_file=r"..\Lib\site-packages\magic\libmagic\magic.mgc")
     arquivo.seek(0)
     
     print(f"\nArquivo: {arquivo.name}, Tipo MIME detectado: {tipo}")
