@@ -47,8 +47,8 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             valores: list = Field(description="Somente os Valores")
-            versao: str = Field(description="Somente os números da versão")
-            modelo: str = Field(description="Somente os números do modelo")
+            versao: str = Field(description="Somente os números da versão. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
+            modelo: str = Field(description="Somente os números do modelo. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
@@ -87,8 +87,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal2(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            versao: str = Field(description="Somente os números da versão")
-            modelo: str = Field(description="Somente os números do modelo")
+            versao: str = Field(description="Somente os números da versão. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
+            modelo: str = Field(description="Somente os números do modelo. Se a resposta for Não aplicável, responder com N/A, se for não encontrado, procurar até encontrar")
             nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
