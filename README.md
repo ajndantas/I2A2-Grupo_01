@@ -104,6 +104,14 @@ Arquivos para teste:
 * [PNG](https://drive.google.com/open?id=1MNs4WsvcKUcJ9Xz5vwsYBntbiC14Axhc&usp=drive_fs)
 
 ---
+## 📈 Exemplo de Perguntas Suportadas
+
+- Quem são os destinatários ?
+- Qual o valor total da nota ?
+- Qual é a descrição dos serviços ou itens ?
+- Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
+
+---
 
 ## ⚙️ Tecnologias Utilizadas
 
@@ -122,15 +130,6 @@ Arquivos para teste:
 
 - Este projeto está focado em **experimentação com IA aplicada a documentos fiscais**.
 - O sistema foi estruturado com **agentes independentes** para facilitar futura expansão (OCR, aprendizado de layouts, etc).
-
----
-
-## 📈 Exemplo de Perguntas Suportadas
-
-- Quem são os destinatários ?
-- Qual o valor total da nota ?
-- Qual é a descrição dos serviços ou itens ?
-- Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
 
 ---
 
