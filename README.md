@@ -91,6 +91,11 @@ Scripts\activate # Windows
 # Dentro da pasta Script, execute:
 # Instale as dependências
 pip install -r requirements.txt
+
+# Instale a biblioteca magic
+- Faça o download de libmagic.ddl para dentro da pasta Scripts -> https://drive.google.com/open?id=1lfFjCqbq0kn3fJ2l6d-yUGh_S9ocxOvp&usp=drive_fs
+- Faça o download de magic.mgc para dentro da pasta Scripts -> https://drive.google.com/open?id=139WhLxANdst59qId8iVm3iR5q5a9XIXk&usp=drive_fs
+
 ```
 
 ### Execução
