@@ -107,7 +107,7 @@ Arquivos para teste:
 ## 📈 Exemplo de Perguntas Suportadas
 
 - Quem são os destinatários ?
-- Qual o valor total da nota ?
+- Qual é o valor total da nota ?
 - Qual é a descrição dos serviços ou itens ?
 - Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
 
