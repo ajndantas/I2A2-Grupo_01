@@ -389,15 +389,18 @@ def agente1(): # FRONTEND
     st.set_page_config(page_title="Agente NFe", layout="centered")
     st.title("🤖 Agente Inteligente para Notas Fiscais")
 
-    uploaded_file = st.file_uploader("📂 Envie um arquivo CSV, PDF ou PNG da NFe", type=["csv","pdf","png"])
+    uploaded_file = st.file_uploader("📂 Envie um arquivo de documento fiscal no formato CSV, PDF ou PNG da NFe", type=["csv","pdf","png"])
         
     #print('Tipo Uploaded File: ',type(uploaded_file))
     
-    pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
+    if uploaded_file:
+        
+    
+        pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
     
     if st.button("🔍 Consultar"):
         if not uploaded_file:
-            st.error("Você precisa fazer o upload de um arquivo CSV, PDF ou de uma imagem PNG.")
+            st.error("Você precisa fazer o upload de um arquivo de documento fiscal no formato CSV, PDF ou de uma imagem PNG.")
             
         elif not pergunta.strip():
             st.error("Digite uma pergunta válida.")
