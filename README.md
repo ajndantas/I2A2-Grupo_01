@@ -36,7 +36,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 ## 🛠️ Requisitos
 
 - Python **3.10** ou superior
-- Conta com **API Key do Google Gemini AI. (Informar uma chave do Gemini, no arquivo. env baixado no tópico de Instalação abaixo).**
+- **API Key do Google Gemini AI. (Informar uma chave do Gemini no arquivo .env, para o caso de instalação utilizando o fonte).**
 
 ---
 
