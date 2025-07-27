@@ -89,7 +89,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            nomecampos: list = Field(description="Nomes dos campos em poucas palavras")
+            nomecampos: list = Field(description="significado")
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
@@ -104,7 +104,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
         2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão.
         3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
-        4 - Significado dos nomes dos campos {colunas_df} de acordo com a sigla do item 1 e as referências abaixo:
+        4 - Significado dos nomes dos campos {colunas_df} em poucas palavras, de acordo com a sigla do item 1 e com as referências abaixo:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD     
@@ -317,18 +317,25 @@ def agente2(pergunta,arquivo):
         
         df = cria_dataframe(resposta,arquivo) # DATAFRAME COM AS COLUNAS E VALORES QUE SERÁ USADO PARA A PERGUNTA COM RESPOSTA "Sim", "Não" 
                                               # E PARA CRIAR A TABELAS NO BD                                                        
-          
+        listacampos = [x for x in resposta['nomecampos']]
+        
+              
     elif tipo in ['text/plain','text/csv']: 
         
         df = read_csv(arquivo)
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
         
+        #print('Nome campos\n',resposta['nomecampos'])
+            
+        listacampos = [x['significado'] for x in resposta['nomecampos']]
+        #print(listacampos)
+        
+        
     df['TIPO'] = resposta['tipo']
     df['MODELO'] = resposta['modelo']        
     df['VERSÃO'] = resposta['versao']
-    listacampos = [x.replace('"','') for x in resposta['nomecampos']]
-    #print(listacampos)
+    
     df['ARQUIVO'] = arquivo.name        
         
     tipo = df['TIPO'].loc[0]
@@ -337,7 +344,8 @@ def agente2(pergunta,arquivo):
         
     dfdocfiscal = DataFrame({'TIPO':[tipo],'MODELO':[modelo],'VERSÃO':[versao]})
     dfcampos = DataFrame({'CAMPOS':[listacampos]}) # LISTA COM UMA LISTA DE CAMPOS
-        
+    
+    #print(dfcampos)    
     #print(dfdocfiscal)        
                  
     resposta = obtem_sim_nao(pergunta,df,llm)             
@@ -351,7 +359,7 @@ def agente2(pergunta,arquivo):
         tabela = arquivo.name
         if tabela not in inspector.get_table_names():
                         
-            df.to_sql(name=tabela, con=engine, if_exists='replace', index=False)               
+            df.to_sql(name=f'{tabela}', con=engine, if_exists='replace', index=False)               
                     
         query = llm_gera_query(llm,engine,arquivo,pergunta)
         
@@ -387,9 +395,9 @@ def agente1(): # FRONTEND
     print("Executando o agente 1...")
     
     st.set_page_config(page_title="Agente NFe", layout="centered")
-    st.title("🤖 Agente Inteligente para Notas Fiscais")
+    st.title("🤖 Agente Inteligente para Docs Fiscais")
 
-    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG da NFe", type=["csv","pdf","png"])
+    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])
         
     #print('Tipo Uploaded File: ',type(uploaded_file))
     
@@ -404,7 +412,7 @@ def agente1(): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                try:
+                #try:
                     resultado_df = agente3(pergunta, uploaded_file) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -412,13 +420,13 @@ def agente1(): # FRONTEND
                     
                     elif resultado_df is not None:
                         st.success("Dados sobre o documento fiscal")
-                        st.table(resultado_df[0]) # Para remover os índices do Dataframe
+                        st.table(resultado_df[0])
                         st.table(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
                         st.table(resultado_df[1])                                        
                                                 
-                except Exception as e:
-                    st.error(f"Erro ao processar: {e}")
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
