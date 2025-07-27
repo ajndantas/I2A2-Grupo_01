@@ -395,7 +395,7 @@ def agente1(): # FRONTEND
     print("Executando o agente 1...")
     
     st.set_page_config(page_title="Agente NFe", layout="centered")
-    st.title("🤖 Agente Inteligente para Docs Fiscais")
+    st.title("🤖 Agente NFe")
 
     uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])
         
