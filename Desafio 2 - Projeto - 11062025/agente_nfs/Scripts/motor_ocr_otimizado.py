@@ -60,18 +60,18 @@ class NotaFiscalOCR:
         
         #tipo = from_file(caminho_imagem, mime=True)
         
-        if tipo != 'application/pdf':
+        if tipo == 'image/png' or (tipo == 'application/octet-stream' and caminho_imagem.name.endswith('.png')):
             
             print('\nExtraindo o texto da imagem...')
             
             file_bytes = np.asarray(bytearray(caminho_imagem.read()), dtype=np.uint8) # UTLIZANDO O ARQUIVO EM MEMÓRIA
             imagem = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
             
-            if imagem is None:
-                raise FileNotFoundError(f"Imagem não encontrada: {caminho_imagem.name}")
+            if imagem is None or imagem.size == 0:
+                raise FileNotFoundError(f"Imagem não encontrada ou vazia: {caminho_imagem.name}")
             return imagem
         
-        elif tipo == 'application/pdf':
+        elif tipo == 'application/pdf' or (tipo == 'application/octet-stream' and caminho_imagem.name.endswith('.pdf')):
             return self.carregar_pdf(caminho_imagem)
 
     
