@@ -85,7 +85,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            nomecampos: list = Field(description="significado. No formato 'Campo: Significado' e com a utilização de siglas se existirem (Ex: CNPJ, UF, CPF)")            
+            nomecampos: list = Field(description="significado")            
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
@@ -100,10 +100,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
         2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão.
         3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
-        4 - Significado dos nomes dos campos {colunas_df} em poucas palavras, de acordo com a sigla do item 1 e com as referências abaixo:
-        a) Nota Técnica  
-        b) Manual de Orientação do Contribuinte (MOC) 
-        c) Schemas XSD        
+        4 - Significado para cada um dos nomes dos campos {colunas_df} em poucas palavras e, quando possível, 
+        com a utilização de siglas (Ex: CNPJ, UF, CPF)              
         ###########################################
         
         {formatador_saida_ia}
