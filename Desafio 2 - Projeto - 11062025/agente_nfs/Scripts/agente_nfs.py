@@ -29,7 +29,7 @@ from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
 from magic import from_buffer
 
-#set_debug(True)
+set_debug(True)
 
 class SemResposta(Exception):
     pass
