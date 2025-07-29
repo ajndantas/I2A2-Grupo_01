@@ -85,7 +85,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            nomecampos: list = Field(description="significado")            
+            nomecampos: list = Field(description="significado. No formato 'Campo: Significado' e com a utilização de siglas se existirem (Ex: CNPJ, UF, CPF)")            
             #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
     
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
