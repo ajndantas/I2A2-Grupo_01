@@ -68,9 +68,9 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 
 **B) Windows**
 
-1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki). Marcar "Additional language data (download))"
+1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki). Marcar "Additional language data (download)"
 2. Instalar o Poppler
-   1. Baixar o arquivo [poppler.zip](https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs). (Caso perguntado pelo Google, insista em fazer o download)
+   1. Baixar o arquivo [poppler.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/poppler.zip). (Caso perguntado pelo Google, insista em fazer o download)
    2. Descompactar o arquivo e colocar a pasta poppler dentro da pasta Script do ambiente virtual que será criado. Seção abaixo
 
 ### Instalando o Python
@@ -85,12 +85,12 @@ venv\Scripts\activate # Windows
 **Faça o download dos arquivos a seguir para dentro da pasta Scripts. (Caso perguntado pelo Google, insista em fazer o download)**
 
 - [requirements.txt (Windows)](https://raw.githubusercontent.com/ajndantas/I2A2-Grupo_01/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements.txt)
-- requirements_linux.txt (Linux) - https://drive.google.com/open?id=19SYi2ZhoRQqHDVYIOFlnlFVoldrdtgRp&usp=drive_fs
+- [requirements_linux.txt (Linux)](https://raw.githubusercontent.com/ajndantas/I2A2-Grupo_01/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt)
 - [agente_nfs.py](https://github.com/ajndantas/I2A2-Grupo_01/raw/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfs.py)
 - [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/raw/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
 - [libmagic.ddl (Windows) ](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/libmagic.dll)
 - [magic.mgc (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/magic.mgc)
-- .env (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API) - https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs
+- [.env](https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs) (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API)
 
 **Dentro da pasta Script, execute:**
 

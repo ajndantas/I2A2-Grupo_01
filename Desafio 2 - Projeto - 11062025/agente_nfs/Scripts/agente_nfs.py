@@ -289,9 +289,7 @@ def agente2(pergunta,arquivo):
         print("\nTexto\n",texto)
         resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
         
-        listacampos = [x for x in resposta['nomecampos']]  
-        
-        df = DataFrame([resposta['valores']], columns=listacampos)                                       
+        df = DataFrame([resposta['valores']], columns=resposta['nomecampos'])                                       
                     
               
     elif tipo in ['text/plain','text/csv']: 
@@ -300,7 +298,7 @@ def agente2(pergunta,arquivo):
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
     
-        listacampos = [x['significado'] for x in resposta['nomecampos']]
+        listacampos = [x['significado'] for x in resposta['nomecampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
         df = DataFrame(df.values, columns=listacampos)    
     
