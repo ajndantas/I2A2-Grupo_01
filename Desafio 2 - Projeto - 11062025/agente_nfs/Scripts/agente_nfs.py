@@ -390,7 +390,7 @@ def agente1(): # FRONTEND
                         st.table(resultado_df[0])
                         st.table(resultado_df[2])
                         st.success("✅ Resultado encontrado:")                        
-                        st.table(resultado_df[1])                                       
+                        st.dataframe(resultado_df[1])                                       
                                                 
                 #except Exception as e:
                 #    st.error(f"Erro ao processar: {e}")
