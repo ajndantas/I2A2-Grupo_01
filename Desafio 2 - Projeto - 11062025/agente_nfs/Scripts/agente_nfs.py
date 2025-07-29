@@ -29,7 +29,7 @@ from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
 from magic import from_buffer
 
-set_debug(True)
+#set_debug(True)
 
 class SemResposta(Exception):
     pass
@@ -288,6 +288,8 @@ def agente2(pergunta,arquivo):
         
         print("\nTexto\n",texto)
         resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
+        
+        listacampos = resposta['nomecampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO CSV
         
         df = DataFrame([resposta['valores']], columns=resposta['nomecampos'])                                       
                     
