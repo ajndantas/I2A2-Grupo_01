@@ -75,6 +75,27 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 
 ### Instalando o Python
 
+**Recomendado criar um ambiente virtual. Execute os comandos**
+
+python -m venv venv
+venv\Scripts\activate # Windows
+
+**Faça o download dos arquivos a seguir para dentro da pasta Scripts. (Caso perguntado pelo Google, insista em fazer o download)**
+
+- requirements.txt (Windows) - https://drive.google.com/open?id=1phG0NWz-pMQS21C-Ovz9IY35wf5AgX0o&usp=drive_fs
+- requirements_linux.txt (Linux) - https://drive.google.com/open?id=19SYi2ZhoRQqHDVYIOFlnlFVoldrdtgRp&usp=drive_fs
+- agente_nfs.py - https://drive.google.com/open?id=1HJWherk86_tNA7U__xYSQakK7Cj6KvYu&usp=drive_fs
+- [motor_ocr_otimizado.py](https://raw.githubusercontent.com/ajndantas/I2A2-Grupo_01/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py) - https://drive.google.com/open?id=1zuB-Rz07RkM0CxlU-ATZ6qOA8-66MEOt&usp=drive_fs
+- [libmagic.ddl (Windows) ](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/libmagic.dll)
+- [magic.mgc (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/magic.mgc)
+- .env (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API) - https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs
+
+# Dentro da pasta Script, execute:
+
+# Instale as dependências
+
+pip install -r requirements.txt
+
 ```bash
 # Recomendado criar um ambiente virtual
 python -m venv venv
@@ -85,7 +106,7 @@ venv\Scripts\activate # Windows
 - requirements_linux.txt (Linux) - https://drive.google.com/open?id=19SYi2ZhoRQqHDVYIOFlnlFVoldrdtgRp&usp=drive_fs
 - agente_nfs.py - https://drive.google.com/open?id=1HJWherk86_tNA7U__xYSQakK7Cj6KvYu&usp=drive_fs 
 - motor_ocr_otimizado.py - https://drive.google.com/open?id=1zuB-Rz07RkM0CxlU-ATZ6qOA8-66MEOt&usp=drive_fs
-- libmagic.ddl (Windows) -> https://drive.google.com/open?id=1lfFjCqbq0kn3fJ2l6d-yUGh_S9ocxOvp&usp=drive_fs
+- libmagic.ddl (Windows) -> https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/libmagic.dll
 - magic.mgc (Windows) -> https://drive.google.com/open?id=139WhLxANdst59qId8iVm3iR5q5a9XIXk&usp=drive_fs
 - .env (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API) - https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs
 
@@ -106,6 +127,7 @@ Arquivos para teste:
 * [PNG](https://drive.google.com/open?id=1MNs4WsvcKUcJ9Xz5vwsYBntbiC14Axhc&usp=drive_fs)
 
 ---
+
 ## 📈 Exemplo de Perguntas Suportadas
 
 - Quem são os destinatários ou tomadores de serviço ?
