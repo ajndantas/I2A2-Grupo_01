@@ -68,7 +68,7 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 
 **B) Windows**
 
-1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki). Marcar "Aditional language data (download))"
+1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki). Marcar "Additional language data (download))"
 2. Instalar o Poppler
    1. Baixar o arquivo [poppler.zip](https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs). (Caso perguntado pelo Google, insista em fazer o download)
    2. Descompactar o arquivo e colocar a pasta poppler dentro da pasta Script do ambiente virtual que será criado. Seção abaixo
