@@ -84,10 +84,10 @@ venv\Scripts\activate # Windows
 
 **Faça o download dos arquivos a seguir para dentro da pasta Scripts. (Caso perguntado pelo Google, insista em fazer o download)**
 
-- [requirements.txt (Windows)](https://raw.githubusercontent.com/ajndantas/I2A2-Grupo_01/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements.txt)
-- [requirements_linux.txt (Linux)](https://raw.githubusercontent.com/ajndantas/I2A2-Grupo_01/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt)
-- [agente_nfs.py](https://github.com/ajndantas/I2A2-Grupo_01/raw/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfs.py)
-- [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/raw/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
+- [requirements.txt (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements.txt)
+- [requirements_linux.txt (Linux)](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt)
+- [agente_nfs.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfs.py)
+- [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
 - [libmagic.ddl (Windows) ](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/libmagic.dll)
 - [magic.mgc (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/magic.mgc)
 - [.env](https://drive.google.com/open?id=11qCEgQzQJ-ThvnABEDUAzgFuqEZDh-FS&usp=drive_fs) (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API)
