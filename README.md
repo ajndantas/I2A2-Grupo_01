@@ -53,8 +53,8 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 
 Arquivos para teste:
 
-* [PDF](https://drive.google.com/open?id=1x_deql_HqLn56_uELL7RyTNmHk2smTLI&usp=drive_fs)
-* [PNG](https://drive.google.com/open?id=1MNs4WsvcKUcJ9Xz5vwsYBntbiC14Axhc&usp=drive_fs)
+* [PDF](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)
+* [PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
 
 ---
 
