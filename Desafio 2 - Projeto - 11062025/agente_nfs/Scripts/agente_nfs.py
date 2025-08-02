@@ -94,8 +94,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             nomecampos: list = Field(description="significado. Em poucas palavras e com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF)")
             valores: list = Field(description="Somente os Valores")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            
+            modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
@@ -134,8 +133,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            nomecampos: list = Field(description="significado")            
-            
+            nomecampos: list = Field(description="significado")           
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
@@ -184,7 +182,6 @@ def obtem_sim_nao(pergunta,df,llm):
         resposta: str = Field(description="Responda Sim ou Não")
 
     parseador = JsonOutputParser(pydantic_object=Resposta)
-
    
     prompt_template = PromptTemplate(
                                         template=template,
