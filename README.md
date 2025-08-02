@@ -94,8 +94,6 @@ venv\Scripts\activate # Windows
 
 **Dentro da pasta Script, execute:**
 
-**Execução**
-
 ```
 1 - Execute no terminal o comando -> streamlit run agente_nfs.py --server.port 8000
 2 - Abra o link http://localhost:8000
