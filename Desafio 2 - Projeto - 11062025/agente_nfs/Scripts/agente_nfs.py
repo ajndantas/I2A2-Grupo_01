@@ -375,14 +375,7 @@ def agente2(pergunta,arquivo,engine):
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-def agente1(engine): # FRONTEND
-
-    print("Executando o agente 1...")
-    
-    st.set_page_config(page_title="Agente NFe", layout="centered")
-    st.title("🤖 Agente NFe")
-
-    """
+"""
         Código para autenticação do usuário
         
         1) Criar usuário
@@ -405,8 +398,14 @@ def agente1(engine): # FRONTEND
         
         Obs: As ausências nos preenchimentos dos campos para as opções acima, devem ser tratadas com mensagens de erro apropriadas.
                     
-    """
+"""
+def agente1(engine): # FRONTEND
+
+    print("Executando o agente 1...")
     
+    st.set_page_config(page_title="Agente NFe", layout="centered")
+    st.title("🤖 Agente NFe")
+        
     uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])        
         
     pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
