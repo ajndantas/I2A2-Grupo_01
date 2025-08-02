@@ -396,7 +396,8 @@ def agente2(pergunta,arquivo,engine):
             com os parâmetros a seguir. A função sempre responderá com True ou False se o procedimento ocorrer, respectivamente, com sucesso ou não. 
             resposta = gestao_usuario(login,senha,autenticacao=True)
         
-        Obs: As ausências nos preenchimentos dos campos para as opções acima, devem ser tratadas com mensagens de erro apropriadas.
+        Obs1: As ausências nos preenchimentos dos campos para as opções acima, devem ser tratadas com mensagens de erro apropriadas.
+        Obs2: Ocorrendo sucesso na autenticação, o usuário deve ser redirecionado para a tela seguinte, que é a tela atual.
                     
 """
 def agente1(engine): # FRONTEND
