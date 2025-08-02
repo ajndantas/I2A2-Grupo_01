@@ -18,7 +18,7 @@
 from os import getenv,remove
 from os.path import exists
 from pandas import read_csv, read_sql, DataFrame
-import sqlalchemy as sqlalc
+from sqlalchemy import create_engine, inspect, text, MetaData, Table, Column, String
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
@@ -34,6 +34,55 @@ set_debug(True)
 class SemResposta(Exception):
     pass
 
+def gestao_usuarios(engine, login, senha, nome, novo_usuario = False, esqueci_senha = False, autenticacao = False):
+    
+    """
+        Função para gerenciar usuários.
+        
+        :param login: Login do usuário
+        :param senha: Senha do usuário
+        :param nome: Nome do usuário (opcional, usado para novo usuário)
+        :param esqueci_senha: Flag para indicar se é uma solicitação de recuperação de senha
+        :return: True se o procedimento ocorrer com sucesso, False caso contrário
+    """
+     # Objeto metadata para manter informações das tabelas
+    metadata = MetaData()
+
+    # Define a tabela com chave primária
+    usuarios = Table(
+            'usuarios', metadata,
+            Column('login', String, primary_key=True),  # Chave primária
+            Column('nome', String),
+            Column('senha', String)
+    )
+        
+    inspector = inspect(engine)  # INSPECTOR PARA LISTAR AS TABELAS DO BANCO DE DADOS
+    
+    if 'usuarios' not in inspector.get_table_names(): 
+                        
+        # Cria a tabela no banco
+        metadata.create_all(engine)
+        
+    else:
+        
+        with engine.connect() as conn:
+            
+            if novo_usuario:
+                conn.execute(usuarios.insert().values(login=login, senha=senha, nome=nome))
+                conn.commit()
+                return True
+            
+            elif esqueci_senha:
+                conn.execute(usuarios.update().where(usuarios.c.login == login).values(senha=senha))
+                return True
+                
+            elif autenticacao:
+                result = conn.execute(usuarios.select().where(usuarios.c.login == login, usuarios.c.senha == senha)).fetchone()
+                if result:
+                    return True
+                else:
+                    return False
+
 def consultallmdocfiscal(texto,llm,tipo):
     
     if tipo not in ['text/plain','text/csv']:
@@ -46,8 +95,8 @@ def consultallmdocfiscal(texto,llm,tipo):
             valores: list = Field(description="Somente os Valores")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
-        
+            
+                    
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
         template = """Aja como um analista de contabilidade e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
@@ -86,8 +135,8 @@ def consultallmdocfiscal(texto,llm,tipo):
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             nomecampos: list = Field(description="significado")            
-            #nomescamposopc: list = Field(description="6 - Nomes dos campos opcionais") 
-    
+            
+                
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
         template = """Aja como um analista de contabilidade e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4:
@@ -124,20 +173,13 @@ def consultallmdocfiscal(texto,llm,tipo):
 
 def obtem_sim_nao(pergunta,df,llm):
     
-    #print(df)
-    
-    #    Utilizando a LLM para identificar se os campos e registros da base de documentos, são capazes de responder a pergunta
-    #    do usuário.
-    #
-    #    Se sim, os arquivos são persistidos no banco de dados, caso contrário, o arquivo é descartado.
-    
-     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
+    # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
     template = """É possível responder a pergunta "{pergunta}" do usuário considerando os itens a seguir ? 
     1 - As colunas {colunas_df} do dataframe.
     2 - Os dados {df} 
     {resposta}"""
     
-        # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
+    # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
     class Resposta(BaseModel):
         resposta: str = Field(description="Responda Sim ou Não")
 
@@ -156,11 +198,9 @@ def obtem_sim_nao(pergunta,df,llm):
     # INVOCANDO A LLM
     resposta = chain.invoke(input={"pergunta":pergunta, "df": df, "colunas_df": list(df.columns.values)})['resposta']
         
-    #print(resposta)
-    
     return resposta
 
-def llm_gera_query(llm,engine,arquivo,pergunta):
+def llm_gera_query(llm,engine,pergunta):
     
         """
           Seu código cria um assistente inteligente que:
@@ -171,16 +211,12 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
             4) Envia essa instrução para o LLM.
             5) Recebe a resposta, a valida, extrai a query SQL e a exibe.  
         """        
-        # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-        #template_query = """Qual query deve ser executada na tabela {nome_arquivo} com as colunas {colunas} para responder
-        #a pergunta {pergunta}? Se a query envolver mais de uma tabela, deve ser feito um JOIN entre elas utlizando a coluna "CHAVE DE ACESSO" como chave. {formatacao_saida}"""
-        
-        # PROBLEMA PARA GERAR QUERY QUANDO O ARQUIVO É IMAGEM
+
         template_query = """Qual query deve ser executada para responder
         a pergunta "{pergunta}"? Considere os seguintes passos:
         ##############################################################
         1 - As colunas "{colunas}" 
-        2 - O nome da tabela é "{nome_arquivo}".
+        2 - O nome da tabela é "arquivo".
         ##############################################################
                     
         {formatacao_saida}"""
@@ -193,7 +229,7 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         
         prompt_template_query = PromptTemplate(
                                                 template=template_query,
-                                                input_variables=["pergunta","nome_arquivo","colunas"],
+                                                input_variables=["pergunta","colunas"],
                                                 partial_variables={"formatacao_saida" : parseador.get_format_instructions()}
                                               )
 
@@ -201,13 +237,12 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
         chain = prompt_template_query | llm | parseador
 
         with engine.connect() as con:
-            # A TABELA TEM O NOME DO ARQUIVO
-            query = sqlalc.text(f'PRAGMA table_info("{arquivo.name}")') # OBTENDO AS COLUNAS DO BD
+            query = text(f'PRAGMA table_info("arquivo")') # OBTENDO AS COLUNAS DO BD
             rs = con.execute(query)
             rows = rs.fetchall()
             colunas_query = sorted([col[1] for col in rows])
         
-        query = chain.invoke(input={"pergunta":pergunta, "nome_arquivo":arquivo.name, "colunas":colunas_query})['query']
+        query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query})['query']
 
         print('\nQuery: ',query)
         
@@ -220,17 +255,17 @@ def llm_gera_query(llm,engine,arquivo,pergunta):
 # <b>Funcionalidades:</b>
 # <ul><li>Integração com LLMs para consultas em linguagem natural.</li></ul>
 
-def agente3(pergunta,arquivo):
+def agente3(pergunta,arquivo,engine):
 
     try:
             print('\nExecutando agente 3...')
 
             print('\nPergunta: ',pergunta)
 
-            resposta = agente2(pergunta,arquivo) # A ENGINE NÃO É FECHADA AUTOMATICAMENTE, APENAS AS CONEXÕES QUANDO USADAS COM WITH
+            resposta = agente2(pergunta,arquivo,engine) # A ENGINE NÃO É FECHADA AUTOMATICAMENTE, APENAS AS CONEXÕES QUANDO USADAS COM WITH
 
             if (not isinstance(resposta,str)) and resposta is not None: # VERIFICA SE A LLM RESPONDEU SIM PARA ALGUM ARQUIVO (DEVOLVEU UM DATAFRAME), OU SEJA, SE É CAPAZ DE RESPONDER A PERGUNTA DO USUÁRIO COM O
-                                                 # ARQUIVO FORNECIDO
+                                                                        # ARQUIVO FORNECIDO
                
                return resposta
 
@@ -250,17 +285,9 @@ def agente3(pergunta,arquivo):
 # <ul><li>IA para adaptação a novos layouts</li></ul>
 # <ul><li>Validação cruzada de dados extraídos</li></ul>
 
-def agente2(pergunta,arquivo):
+def agente2(pergunta,arquivo,engine):
 
     print('\nExecutando agente 2...')
-    
-    if exists('nfs_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
-        remove('nfs_data.db')        
-    
-    print('\nCriando o banco de dados nfs_data...')
-    DATABASE_URL = "sqlite:///nfs_data.db" # Define o nome do arquivo do banco de dados
-    engine = sqlalc.create_engine(DATABASE_URL)
-
     
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
@@ -272,7 +299,7 @@ def agente2(pergunta,arquivo):
     )
     
     # CATALOGANDO OS ARQUIVOS NO BD
-    inspector = sqlalc.inspect(engine) # INSPECTOR PARA LISTAR AS TABELAS DO BANCO DE DADOS
+    inspector = inspect(engine) # INSPECTOR PARA LISTAR AS TABELAS DO BANCO DE DADOS
 
     ocr = NotaFiscalOCR() # INSTÂNCIA DO MOTOR OCR
     
@@ -320,13 +347,9 @@ def agente2(pergunta,arquivo):
         # PERSISTINDO OS DADOS NO BANCO DE DADOS
         print('Sim para o arquivo: ',arquivo.name)
 
-        # PRECISA VERIFICAR SE A TABELA COM O NOME DO ARQUIVO JÁ EXISTE NO BANCO DE DADOS
-        tabela = arquivo.name
-        if tabela not in inspector.get_table_names():
-                        
-            df.to_sql(name=f"{tabela}", con=engine, if_exists='replace', index=False)               
+        df.to_sql(name='arquivo', con=engine, if_exists='replace', index=False)               
                     
-        query = llm_gera_query(llm,engine,arquivo,pergunta)
+        query = llm_gera_query(llm,engine,pergunta)
         
         # OBTENÇÃO DO RESULTADO DA QUERY
         with engine.connect() as con:
@@ -355,17 +378,40 @@ def agente2(pergunta,arquivo):
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-def agente1(): # FRONTEND
+def agente1(engine): # FRONTEND
 
     print("Executando o agente 1...")
     
     st.set_page_config(page_title="Agente NFe", layout="centered")
     st.title("🤖 Agente NFe")
 
-    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])
+    """
+        Código para autenticação do usuário
         
-    #print('Tipo Uploaded File: ',type(uploaded_file))
+        1) Criar usuário
+        
+            Se na tela for clicado em "Criar usuário", exibir para o usuário uma tela para preencher login, senha e nome. Executar a função gestao_usuarios
+            com os parâmetros a seguir. A função sempre responderá com True ou False se o procedimento ocorrer, respectivamente, com sucesso ou não.
+            resposta = gestao_usuario(login,senha,nome,novo_usuario=True)
+        
+        2) Esqueci minha senha
+        
+            Se na tela for clicado em "Esqueci minha senha", exibir para o usuário uma tela para preencher a nova senha e o login. Executar a função gestao_usuarios
+            com os parâmetros a seguir. A função sempre responderá com True ou False se o procedimento ocorrer, respectivamente, com sucesso ou não. 
+            resposta = gestao_usuario(login,senha,esqueci_senha=True)
+            
+        3) Autenticação
+
+            Se na tela for clicado em "Realizar login". Executar a função gestao_usuarios 
+            com os parâmetros a seguir. A função sempre responderá com True ou False se o procedimento ocorrer, respectivamente, com sucesso ou não. 
+            resposta = gestao_usuario(login,senha,autenticacao=True)
+        
+        Obs: As ausências nos preenchimentos dos campos para as opções acima, devem ser tratadas com mensagens de erro apropriadas.
+                    
+    """
     
+    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])        
+        
     pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
     
     if st.button("🔍 Consultar"):
@@ -377,8 +423,8 @@ def agente1(): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                #try:
-                    resultado_df = agente3(pergunta, uploaded_file) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
+                try:
+                    resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
                         st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
@@ -390,15 +436,22 @@ def agente1(): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                #except Exception as e:
-                #    st.error(f"Erro ao processar: {e}")
+                except Exception as e:
+                    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
 
 if __name__ == "__main__":
     
-     agente1()  # Executa a função que inicia o agente
+    if not exists('nfs_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
+        print('\nCriando o banco de dados nfs_data...')     
+    
+    DATABASE_URL = "sqlite:///nfs_data.db" 
+    engine = create_engine(DATABASE_URL,echo=True)        
+          
+    # INICIALIZAÇÃO DO AGENTE
+    agente1(engine)  # Executa a função que inicia o agente
      
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
