@@ -1,0 +1,760 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe48825179724983450286657224104794810891277846" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>379713478</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>19806</nNF>
+            <dEmi>2025-07-14</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>07:16:18</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>74069518000118</CNPJ>
+            <xNome>SUPERMERCADO BOM PREÇO EPP</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Trevo Carvalho</xLgr>
+                <nro>8720</nro>
+                <xCpl>Loja 96</xCpl>
+                <xBairro>Candelaria</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Aparecida</xMun>
+                <UF>SP</UF>
+                <CEP>41110244</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5511947278657</fone>
+            </enderEmit>
+            <IE>887650446339</IE>
+        </emit>
+        <dest>
+            <CNPJ>96301845000196</CNPJ>
+            <xNome>Pietro Silva</xNome>
+            <enderDest>
+                <xLgr>Núcleo Fonseca</xLgr>
+                <nro>2171</nro>
+                <xCpl>Térreo</xCpl>
+                <xBairro>Nova Gameleira</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Santa Maria</xMun>
+                <UF>RS</UF>
+                <CEP>43489316</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5551962720977</fone>
+            </enderDest>
+            <IE>422329328711</IE>
+        </dest>
+        <retirada>
+            <CNPJ>93156280000102</CNPJ>
+            <xLgr>Loteamento Luiz Gustavo Borges</xLgr>
+            <nro>4941</nro>
+            <xCpl>Fundos</xCpl>
+            <xBairro>Vila Jardim São José</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Castanhal</xMun>
+            <UF>PA</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>48137592000114</CNPJ>
+            <xLgr>Trevo Emanuelly das Neves</xLgr>
+            <nro>5333</nro>
+            <xCpl>Bloco 67</xCpl>
+            <xBairro>Vila Maloca</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Porto Alegre</xMun>
+            <UF>RS</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>2214099</cProd>
+                <cEAN />
+                <xProd>CEREAL QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3993.9209</qCom>
+                <vUnCom>7.6439</vUnCom>
+                <vProd>17339.04</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45401.87</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>2593.80</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>46490.13</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>37946.93</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>25204.83</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>38832.79</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>29093.70</vBC>
+                <vICMS>44530.08</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>9041.59</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>39197.78</vPIS>
+                <vCOFINS>34730.89</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>7177.60</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>54970218000106</CNPJ>
+                <xNome>Sopro Divino Express</xNome>
+                <IE>348801413583</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Dourados</xMun>
+                <UF>MS</UF>
+            </transporta>
+            <veicTransp>
+                <placa>FLN8K89</placa>
+                <UF>MS</UF>
+                <RNTC>64714628</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>DCN0H56</placa>
+                <UF>MS</UF>
+                <RNTC>859924423801</RNTC>
+            </reboque>
+            <vol>
+                <qVol>13509</qVol>
+                <esp>CAIXA</esp>
+                <marca>QUAKER</marca>
+                <nVol>7825</nVol>
+                <pesoL>47191.983</pesoL>
+                <pesoB>15917.089</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>7113222</cProd>
+                <cEAN />
+                <xProd>GRANOLA QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>749.7315</qCom>
+                <vUnCom>46.8941</vUnCom>
+                <vProd>28664.26</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>4250.42</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>47716.19</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>34325.92</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>31395.50</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>49390.92</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36593.71</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6096680</cProd>
+                <cEAN />
+                <xProd>BISCOITO DE ARROZ QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3490.6192</qCom>
+                <vUnCom>48.7946</vUnCom>
+                <vProd>48474.66</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>30131.22</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>33705.91</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>32843.93</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3510.66</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>41168.68</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>37902.51</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7273237</cProd>
+                <cEAN />
+                <xProd>MISTURA PARA BOLO QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4190.1937</qCom>
+                <vUnCom>15.7339</vUnCom>
+                <vProd>43752.91</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>39298.90</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>12324.56</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>10027.62</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>22824.32</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>13984.24</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>12767.24</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2214099</cProd>
+                <cEAN />
+                <xProd>CEREAL QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1254.4358</qCom>
+                <vUnCom>87.1000</vUnCom>
+                <vProd>45053.65</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>37729.97</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28438.05</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>21191.04</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>14468.40</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48616.28</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>18419.39</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7113222</cProd>
+                <cEAN />
+                <xProd>GRANOLA QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3395.1267</qCom>
+                <vUnCom>8.3277</vUnCom>
+                <vProd>47443.63</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>27387.71</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>35062.39</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>49401.90</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>6337.16</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>10509.81</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>42880.31</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7113222</cProd>
+                <cEAN />
+                <xProd>GRANOLA QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1914.9413</qCom>
+                <vUnCom>82.7538</vUnCom>
+                <vProd>14332.64</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>33883.25</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>46253.13</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>10531.66</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>40837.44</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>21947.34</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25291.56</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2214099</cProd>
+                <cEAN />
+                <xProd>CEREAL QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1608.4864</qCom>
+                <vUnCom>16.7135</vUnCom>
+                <vProd>12252.28</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>43939.76</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>42276.33</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>15586.59</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25335.67</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>31666.00</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>454.24</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9993000</cProd>
+                <cEAN />
+                <xProd>BARRAS DE CEREAL QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2322.7487</qCom>
+                <vUnCom>94.0181</vUnCom>
+                <vProd>19643.16</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>31377.19</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>48752.24</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>48007.97</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>22336.18</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>39694.14</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>20047.63</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7273237</cProd>
+                <cEAN />
+                <xProd>MISTURA PARA BOLO QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>620.8106</qCom>
+                <vUnCom>79.5236</vUnCom>
+                <vProd>7401.30</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>43294.04</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>48216.38</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>2491.43</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>28803.43</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>37917.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>43891.17</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9993000</cProd>
+                <cEAN />
+                <xProd>BARRAS DE CEREAL QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3698.9805</qCom>
+                <vUnCom>80.7287</vUnCom>
+                <vProd>32937.77</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>28490.30</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>13245.29</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>13142.85</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>43560.52</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>1170.38</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46005.85</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6096680</cProd>
+                <cEAN />
+                <xProd>BISCOITO DE ARROZ QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1504.0542</qCom>
+                <vUnCom>1.5592</vUnCom>
+                <vProd>14493.01</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45026.95</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>35148.52</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>20384.93</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>13402.93</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>36246.92</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>49055.02</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2214099</cProd>
+                <cEAN />
+                <xProd>CEREAL QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1658.1055</qCom>
+                <vUnCom>69.9661</vUnCom>
+                <vProd>45942.68</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>21965.71</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>48543.63</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>8340.01</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3402.09</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>46203.95</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>31914.92</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9993000</cProd>
+                <cEAN />
+                <xProd>BARRAS DE CEREAL QUAKER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4455.7332</qCom>
+                <vUnCom>21.4880</vUnCom>
+                <vProd>25923.85</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>16599.80</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>17769.89</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>13709.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>36984.54</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>12164.61</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>24041.97</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

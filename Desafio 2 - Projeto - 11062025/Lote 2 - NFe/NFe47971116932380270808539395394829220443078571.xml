@@ -1,0 +1,459 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe47971116932380270808539395394829220443078571" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>935387241</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>323850</nNF>
+            <dEmi>2025-07-15</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>17:18:26</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>61472950000103</CNPJ>
+            <xNome>SUPERMERCADO AMÉRICA LTDA</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Rodovia Zoe da Conceição</xLgr>
+                <nro>7595</nro>
+                <xCpl>Térreo</xCpl>
+                <xBairro>Vila São Rafael</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Cascavel</xMun>
+                <UF>PR</UF>
+                <CEP>05002909</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5521953810567</fone>
+            </enderEmit>
+            <IE>279271023709</IE>
+        </emit>
+        <dest>
+            <CNPJ>80941273000170</CNPJ>
+            <xNome>Dra. Catarina Costela</xNome>
+            <enderDest>
+                <xLgr>Passarela Freitas</xLgr>
+                <nro>7851</nro>
+                <xCpl>Box 83</xCpl>
+                <xBairro>Marieta 2ª Seção</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Guará</xMun>
+                <UF>DF</UF>
+                <CEP>22610804</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5511903364368</fone>
+            </enderDest>
+            <IE>453199302533</IE>
+        </dest>
+        <retirada>
+            <CNPJ>57160948000121</CNPJ>
+            <xLgr>Condomínio de Abreu</xLgr>
+            <nro>1703</nro>
+            <xCpl>Sobreloja</xCpl>
+            <xBairro>Vila Da Luz</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Guaraí</xMun>
+            <UF>TO</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>62809175000100</CNPJ>
+            <xLgr>Residencial de Nunes</xLgr>
+            <nro>5005</nro>
+            <xCpl>Loja 96</xCpl>
+            <xBairro>Nossa Senhora Do Rosário</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Camaçari</xMun>
+            <UF>BA</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>6071384</cProd>
+                <cEAN />
+                <xProd>CREME DENTAL COLGATE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3810.8471</qCom>
+                <vUnCom>40.9009</vUnCom>
+                <vProd>26320.57</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>44425.72</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>44231.37</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17348.45</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>31147.73</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29662.17</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36112.15</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>34224.34</vBC>
+                <vICMS>48553.36</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>5611.16</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>14383.86</vPIS>
+                <vCOFINS>39510.39</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>2807.99</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>87564391000155</CNPJ>
+                <xNome>Rodonaves Transportes</xNome>
+                <IE>410430139854</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Tabatinga</xMun>
+                <UF>AM</UF>
+            </transporta>
+            <veicTransp>
+                <placa>RWF2M50</placa>
+                <UF>AM</UF>
+                <RNTC>7893269656</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>LYS3B24</placa>
+                <UF>AM</UF>
+                <RNTC>6868574550</RNTC>
+            </reboque>
+            <vol>
+                <qVol>5553</qVol>
+                <esp>CAIXA</esp>
+                <marca>COLGATE</marca>
+                <nVol>765</nVol>
+                <pesoL>15228.040</pesoL>
+                <pesoB>27718.496</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>1707779</cProd>
+                <cEAN />
+                <xProd>AJAX</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2944.9314</qCom>
+                <vUnCom>18.9486</vUnCom>
+                <vProd>23945.88</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45356.51</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>49279.95</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>12399.92</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>41717.12</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19161.96</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>29286.51</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7219649</cProd>
+                <cEAN />
+                <xProd>ESCOVA DENTAL COLGATE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>42.7935</qCom>
+                <vUnCom>8.1357</vUnCom>
+                <vProd>37031.17</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>25484.86</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18073.29</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>6698.57</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>48996.12</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>2443.62</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>21428.26</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7533704</cProd>
+                <cEAN />
+                <xProd>PROTEX</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3701.7970</qCom>
+                <vUnCom>33.7326</vUnCom>
+                <vProd>27561.65</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>23949.64</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>10105.82</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>20702.02</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35570.11</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>16420.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>20868.33</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9500247</cProd>
+                <cEAN />
+                <xProd>LADY SPEED STICK</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2202.4673</qCom>
+                <vUnCom>23.3200</vUnCom>
+                <vProd>10217.24</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>37839.68</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>47248.16</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>46421.78</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>11001.58</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29669.56</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>22630.36</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6071384</cProd>
+                <cEAN />
+                <xProd>CREME DENTAL COLGATE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>498.0884</qCom>
+                <vUnCom>93.9765</vUnCom>
+                <vProd>2909.75</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>9674.97</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>47684.04</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>48126.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>45078.73</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>7223.43</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10383.59</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9500247</cProd>
+                <cEAN />
+                <xProd>LADY SPEED STICK</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>887.0258</qCom>
+                <vUnCom>55.1662</vUnCom>
+                <vProd>31437.89</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>7250.12</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>49604.64</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>41198.93</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>1084.11</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>41524.50</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25244.57</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

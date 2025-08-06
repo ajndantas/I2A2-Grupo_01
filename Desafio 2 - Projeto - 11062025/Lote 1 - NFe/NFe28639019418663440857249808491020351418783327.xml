@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe28639019418663440857249808491020351418783327" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>390203632</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>581572</nNF>
+            <dEmi>2025-08-02</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>08:53:59</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>13860475000108</CNPJ>
+            <xNome>MERCEARIA BRASIL S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Lagoa de Costela</xLgr>
+                <nro>9173</nro>
+                <xCpl>Térreo</xCpl>
+                <xBairro>Minas Caixa</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Santa Maria Madalena</xMun>
+                <UF>RJ</UF>
+                <CEP>16966363</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5584904302629</fone>
+            </enderEmit>
+            <IE>483780202891</IE>
+        </emit>
+        <dest>
+            <CNPJ>98547326000138</CNPJ>
+            <xNome>Vitória Rezende</xNome>
+            <enderDest>
+                <xLgr>Esplanada Sá</xLgr>
+                <nro>5984</nro>
+                <xCpl>Sobreloja</xCpl>
+                <xBairro>Taquaril</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Paranaguá</xMun>
+                <UF>PR</UF>
+                <CEP>14749109</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5531913207304</fone>
+            </enderDest>
+            <IE>590069886921</IE>
+        </dest>
+        <retirada>
+            <CNPJ>96123075000139</CNPJ>
+            <xLgr>Favela Maria Cecília da Rocha</xLgr>
+            <nro>4190</nro>
+            <xCpl>Fundos</xCpl>
+            <xBairro>Vila Califórnia</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Cacoal</xMun>
+            <UF>RO</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>91054328000146</CNPJ>
+            <xLgr>Via Melissa Duarte</xLgr>
+            <nro>8544</nro>
+            <xCpl>Fundos</xCpl>
+            <xBairro>Conjunto Minas Caixa</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Maracanaú</xMun>
+            <UF>CE</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>8335837</cProd>
+                <cEAN />
+                <xProd>PETRA PREMIUM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>541.8019</qCom>
+                <vUnCom>98.8345</vUnCom>
+                <vProd>15900.60</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>44605.01</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>1925.27</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>32659.72</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>45505.20</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>25552.15</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>39239.17</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>2972.13</vBC>
+                <vICMS>5094.82</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>2930.55</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>15519.07</vPIS>
+                <vCOFINS>49732.42</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>39718.87</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>96584012000180</CNPJ>
+                <xNome>TransLog Transp</xNome>
+                <IE>744042853562</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Itapetininga</xMun>
+                <UF>SP</UF>
+            </transporta>
+            <veicTransp>
+                <placa>JEC9W07</placa>
+                <UF>SP</UF>
+                <RNTC>700065859098</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>KUQ6M00</placa>
+                <UF>SP</UF>
+                <RNTC>2821474090</RNTC>
+            </reboque>
+            <vol>
+                <qVol>5681</qVol>
+                <esp>CAIXA</esp>
+                <marca>PETRÓPOLIS</marca>
+                <nVol>7919</nVol>
+                <pesoL>28230.054</pesoL>
+                <pesoB>35459.547</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>1671022</cProd>
+                <cEAN />
+                <xProd>FOREVIS SESSION IPA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3726.1407</qCom>
+                <vUnCom>80.7692</vUnCom>
+                <vProd>3106.18</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>21138.07</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>43041.24</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>18018.61</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>13235.18</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>44490.75</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>6072.22</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8884286</cProd>
+                <cEAN />
+                <xProd>CACILDIS AMBER LAGER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2133.4494</qCom>
+                <vUnCom>62.8375</vUnCom>
+                <vProd>47295.14</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>12189.60</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>2796.41</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>9982.80</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>29352.83</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>26834.79</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46217.05</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1445737</cProd>
+                <cEAN />
+                <xProd>BIRITIS VIENNA LAGER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1628.3802</qCom>
+                <vUnCom>96.1185</vUnCom>
+                <vProd>2121.05</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45657.27</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>9982.33</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>43618.38</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>38014.15</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>10246.09</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>2229.96</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2450727</cProd>
+                <cEAN />
+                <xProd>DITRIGUIS WITBIER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>15.9572</qCom>
+                <vUnCom>38.4562</vUnCom>
+                <vProd>29147.80</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>4075.67</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>5644.76</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>33267.67</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>16262.75</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>35847.60</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>14849.41</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8080038</cProd>
+                <cEAN />
+                <xProd>ITAIPAVA PILSEN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4635.3056</qCom>
+                <vUnCom>1.8067</vUnCom>
+                <vProd>24361.41</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>24006.14</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>39457.58</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>34220.61</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>27110.93</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19739.49</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>31134.09</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3261745</cProd>
+                <cEAN />
+                <xProd>ITAIPAVA MALZBIER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>967.9410</qCom>
+                <vUnCom>40.6014</vUnCom>
+                <vProd>11776.90</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8990.29</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>49199.97</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3870.40</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>20053.23</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>2097.27</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>12731.31</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8080038</cProd>
+                <cEAN />
+                <xProd>ITAIPAVA PILSEN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3494.5906</qCom>
+                <vUnCom>41.2081</vUnCom>
+                <vProd>37135.30</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>33443.41</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18896.14</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>18793.23</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>14123.21</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>18800.08</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10181.08</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1671022</cProd>
+                <cEAN />
+                <xProd>FOREVIS SESSION IPA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>97.2657</qCom>
+                <vUnCom>50.0020</vUnCom>
+                <vProd>20076.28</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>3217.42</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>9832.80</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>7416.25</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>18041.64</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>41485.85</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25107.68</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

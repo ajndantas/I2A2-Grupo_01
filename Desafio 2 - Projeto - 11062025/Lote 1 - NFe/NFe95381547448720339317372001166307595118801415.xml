@@ -1,0 +1,588 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe95381547448720339317372001166307595118801415" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>665377061</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>308558</nNF>
+            <dEmi>2025-07-29</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>22:14:06</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>60852471000150</CNPJ>
+            <xNome>SUPERMERCADOS UNIÃO S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Estrada Brenda Cirino</xLgr>
+                <nro>4263</nro>
+                <xCpl>Anexo</xCpl>
+                <xBairro>Vila Da Ária</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Barra do Garças</xMun>
+                <UF>MT</UF>
+                <CEP>50182911</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5531972832905</fone>
+            </enderEmit>
+            <IE>302033407684</IE>
+        </emit>
+        <dest>
+            <CNPJ>58310769000196</CNPJ>
+            <xNome>Miguel Brito</xNome>
+            <enderDest>
+                <xLgr>Largo de Marques</xLgr>
+                <nro>987</nro>
+                <xCpl>Apto 56</xCpl>
+                <xBairro>Delta</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Iguatu</xMun>
+                <UF>CE</UF>
+                <CEP>79199706</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5541964756467</fone>
+            </enderDest>
+            <IE>653351299608</IE>
+        </dest>
+        <retirada>
+            <CNPJ>58410739000151</CNPJ>
+            <xLgr>Recanto de das Neves</xLgr>
+            <nro>7286</nro>
+            <xCpl>Bloco 75</xCpl>
+            <xBairro>Santa Maria</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Parnaíba</xMun>
+            <UF>PI</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>79164825000100</CNPJ>
+            <xLgr>Esplanada Ana Laura da Luz</xLgr>
+            <nro>976</nro>
+            <xCpl>Apto 70</xCpl>
+            <xBairro>Teixeira Dias</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Natal</xMun>
+            <UF>RN</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>8710861</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S GRANOLA NUTS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3495.9945</qCom>
+                <vUnCom>13.7973</vUnCom>
+                <vProd>8216.19</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>29007.43</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>11730.75</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>8460.39</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>27507.61</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>31069.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46670.27</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>4499.63</vBC>
+                <vICMS>31214.39</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>26080.51</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>34704.61</vPIS>
+                <vCOFINS>16528.72</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>8354.25</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>67842510000187</CNPJ>
+                <xNome>Braspress Paulista</xNome>
+                <IE>699487883392</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Santarém</xMun>
+                <UF>PA</UF>
+            </transporta>
+            <veicTransp>
+                <placa>SJB8R24</placa>
+                <UF>PA</UF>
+                <RNTC>642083593081</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>LWM2R55</placa>
+                <UF>PA</UF>
+                <RNTC>88031610625</RNTC>
+            </reboque>
+            <vol>
+                <qVol>17807</qVol>
+                <esp>CAIXA</esp>
+                <marca>KELLOGG'S</marca>
+                <nVol>740</nVol>
+                <pesoL>20651.336</pesoL>
+                <pesoB>8137.148</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>2252396</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S CORN FLAKES</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2461.9313</qCom>
+                <vUnCom>13.1980</vUnCom>
+                <vProd>48518.49</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>37335.26</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>31707.38</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>42047.12</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>6052.20</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>30039.76</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>48662.02</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4515849</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S GRANOLA TRADICIONAL</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3766.5250</qCom>
+                <vUnCom>84.9908</vUnCom>
+                <vProd>46823.29</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>47204.59</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>33023.73</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29647.91</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>47635.84</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>5626.00</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10364.95</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4515849</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S GRANOLA TRADICIONAL</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3742.5234</qCom>
+                <vUnCom>2.7504</vUnCom>
+                <vProd>9789.30</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>44742.45</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>10723.03</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29165.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>5364.54</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>8944.59</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>17080.81</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4152814</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S FROOT LOOPS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3750.3859</qCom>
+                <vUnCom>4.6762</vUnCom>
+                <vProd>46987.48</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>19866.22</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>36295.43</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>2254.90</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35275.79</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>14207.08</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>48958.02</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2438800</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S SUCRILHOS ORIGINAL</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3832.4246</qCom>
+                <vUnCom>72.6604</vUnCom>
+                <vProd>43815.47</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>12408.66</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18303.78</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>15404.06</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>2345.17</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4708.55</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36189.99</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1783663</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S GRANOLA BANANA E MAÇÃ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1955.3921</qCom>
+                <vUnCom>61.4945</vUnCom>
+                <vProd>43707.78</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>9892.37</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>25005.42</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>45252.82</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>17755.02</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>38707.61</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36598.38</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1783663</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S GRANOLA BANANA E MAÇÃ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1696.2538</qCom>
+                <vUnCom>30.3568</vUnCom>
+                <vProd>38216.58</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>18794.35</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>35788.62</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>7198.60</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7942.18</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>30034.01</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>4133.23</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1783663</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S GRANOLA BANANA E MAÇÃ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>220.9277</qCom>
+                <vUnCom>80.9668</vUnCom>
+                <vProd>20712.71</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>12852.76</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>3147.60</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>10952.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>42949.30</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>31311.13</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>21213.99</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3955677</cProd>
+                <cEAN />
+                <xProd>KELLOGG'S MÜSLI COCO E MEL</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1799.8933</qCom>
+                <vUnCom>78.5603</vUnCom>
+                <vProd>21057.26</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>36066.88</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>16409.96</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>10735.30</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7697.50</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>49059.81</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>35639.64</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

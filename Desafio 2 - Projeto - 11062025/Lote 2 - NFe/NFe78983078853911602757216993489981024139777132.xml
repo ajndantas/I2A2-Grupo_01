@@ -1,0 +1,717 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe78983078853911602757216993489981024139777132" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>563660856</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>349544</nNF>
+            <dEmi>2025-07-24</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>09:26:06</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>23760859000102</CNPJ>
+            <xNome>ATACADO IMPERIAL EIRELI</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Recanto Lívia Nunes</xLgr>
+                <nro>9036</nro>
+                <xCpl>Anexo</xCpl>
+                <xBairro>Engenho Nogueira</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Naviraí</xMun>
+                <UF>MS</UF>
+                <CEP>95663864</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5581950599560</fone>
+            </enderEmit>
+            <IE>644326036171</IE>
+        </emit>
+        <dest>
+            <CNPJ>15980263000181</CNPJ>
+            <xNome>Dr. Luan da Cunha</xNome>
+            <enderDest>
+                <xLgr>Pátio Murilo Rocha</xLgr>
+                <nro>1796</nro>
+                <xCpl>Sala 33</xCpl>
+                <xBairro>Vila Das Oliveiras</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Pedro Afonso</xMun>
+                <UF>TO</UF>
+                <CEP>70702465</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5584980871430</fone>
+            </enderDest>
+            <IE>717320915792</IE>
+        </dest>
+        <retirada>
+            <CNPJ>63507418000100</CNPJ>
+            <xLgr>Vale Monteiro</xLgr>
+            <nro>8927</nro>
+            <xCpl>Loja 10</xCpl>
+            <xBairro>Vila Da Amizade</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Lauro de Freitas</xMun>
+            <UF>BA</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>12956738000106</CNPJ>
+            <xLgr>Esplanada de Machado</xLgr>
+            <nro>2799</nro>
+            <xCpl>Térreo</xCpl>
+            <xBairro>Boa Viagem</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Sapé</xMun>
+            <UF>PB</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>4578421</cProd>
+                <cEAN />
+                <xProd>NESFIT</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>322.1045</qCom>
+                <vUnCom>69.3843</vUnCom>
+                <vProd>43809.60</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>5209.73</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>10260.85</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>26479.10</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>18784.60</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>15050.95</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>38976.98</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>15507.96</vBC>
+                <vICMS>31400.02</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>21188.88</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>20456.43</vPIS>
+                <vCOFINS>33158.03</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>20563.76</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>89176423000170</CNPJ>
+                <xNome>Caminho Aberto Express</xNome>
+                <IE>773471953643</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Porto Alegre</xMun>
+                <UF>RS</UF>
+            </transporta>
+            <veicTransp>
+                <placa>COZ8Y91</placa>
+                <UF>RS</UF>
+                <RNTC>3594494137</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>WUG1H70</placa>
+                <UF>RS</UF>
+                <RNTC>97004445614</RNTC>
+            </reboque>
+            <vol>
+                <qVol>848</qVol>
+                <esp>CAIXA</esp>
+                <marca>NESTLÉ</marca>
+                <nVol>7806</nVol>
+                <pesoL>27420.426</pesoL>
+                <pesoB>44319.099</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>3781857</cProd>
+                <cEAN />
+                <xProd>BONO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1246.1561</qCom>
+                <vUnCom>12.3660</vUnCom>
+                <vProd>45809.21</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>27600.14</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>759.10</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>18945.88</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>20275.17</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>31802.99</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>13461.08</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6979765</cProd>
+                <cEAN />
+                <xProd>NESTLÉ CLASSIC CREAM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3390.3603</qCom>
+                <vUnCom>27.3406</vUnCom>
+                <vProd>14401.32</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>47614.82</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>4116.26</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>44261.75</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>49987.96</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>16686.99</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>45343.84</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6979765</cProd>
+                <cEAN />
+                <xProd>NESTLÉ CLASSIC CREAM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>794.7280</qCom>
+                <vUnCom>84.9080</vUnCom>
+                <vProd>44026.12</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>47724.64</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18945.98</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>9444.65</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>2737.00</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19644.66</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>34684.37</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5917340</cProd>
+                <cEAN />
+                <xProd>NEGRESCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4231.9223</qCom>
+                <vUnCom>61.2771</vUnCom>
+                <vProd>46530.93</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8865.90</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>7111.06</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>40024.85</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35327.20</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4435.06</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>44543.09</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3715931</cProd>
+                <cEAN />
+                <xProd>NESTLÉ CLASSIC COOKIES</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4851.9717</qCom>
+                <vUnCom>36.8826</vUnCom>
+                <vProd>21179.64</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>21047.27</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>1314.71</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29219.48</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>24556.94</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>23990.64</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>30592.22</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6979765</cProd>
+                <cEAN />
+                <xProd>NESTLÉ CLASSIC CREAM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2036.0286</qCom>
+                <vUnCom>92.3471</vUnCom>
+                <vProd>48222.70</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>28668.68</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>26008.00</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>6822.96</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>49888.06</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>252.17</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>32489.64</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5917340</cProd>
+                <cEAN />
+                <xProd>NEGRESCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4698.3132</qCom>
+                <vUnCom>66.4647</vUnCom>
+                <vProd>17689.49</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>5157.13</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>1109.11</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>22343.09</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>38670.53</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>18871.48</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46903.00</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4578421</cProd>
+                <cEAN />
+                <xProd>NESFIT</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1863.6180</qCom>
+                <vUnCom>91.8102</vUnCom>
+                <vProd>12365.52</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>10833.72</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>25251.42</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>23601.68</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>10562.55</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>8823.31</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>39546.53</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1426828</cProd>
+                <cEAN />
+                <xProd>CHOCO BISCUIT</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3565.6572</qCom>
+                <vUnCom>36.6106</vUnCom>
+                <vProd>43132.59</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>19648.25</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>26391.11</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>41041.10</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>9378.08</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>32608.68</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>39884.91</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7471997</cProd>
+                <cEAN />
+                <xProd>TOSTINES</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>115.3108</qCom>
+                <vUnCom>4.4052</vUnCom>
+                <vProd>7805.95</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>47561.54</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>35136.67</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>2283.39</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25880.52</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>20357.77</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>7388.31</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3715931</cProd>
+                <cEAN />
+                <xProd>NESTLÉ CLASSIC COOKIES</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3323.8216</qCom>
+                <vUnCom>45.9873</vUnCom>
+                <vProd>30435.04</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>46301.56</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>5906.71</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>21047.73</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>48814.83</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>18858.51</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>16340.80</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9834261</cProd>
+                <cEAN />
+                <xProd>PASSATEMPO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>43.4195</qCom>
+                <vUnCom>95.0688</vUnCom>
+                <vProd>27266.00</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8368.82</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>36981.61</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>20898.16</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>42159.76</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>27273.97</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>28251.18</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

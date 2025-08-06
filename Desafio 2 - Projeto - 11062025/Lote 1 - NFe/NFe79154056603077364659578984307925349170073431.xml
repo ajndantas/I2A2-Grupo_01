@@ -1,0 +1,760 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe79154056603077364659578984307925349170073431" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>953064778</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>334435</nNF>
+            <dEmi>2025-07-15</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>01:31:24</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>16702548000113</CNPJ>
+            <xNome>MERCEARIA CENTRAL S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Via João Gabriel Santos</xLgr>
+                <nro>3438</nro>
+                <xCpl>Sobreloja</xCpl>
+                <xBairro>Estrela Do Oriente</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>São Leopoldo</xMun>
+                <UF>RS</UF>
+                <CEP>93458870</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5511971258708</fone>
+            </enderEmit>
+            <IE>508214008565</IE>
+        </emit>
+        <dest>
+            <CNPJ>89532614000128</CNPJ>
+            <xNome>Dr. Davi Cardoso</xNome>
+            <enderDest>
+                <xLgr>Viaduto Vitor Pastor</xLgr>
+                <nro>9247</nro>
+                <xCpl>Galpão 65</xCpl>
+                <xBairro>Cachoeirinha</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Colombo</xMun>
+                <UF>PR</UF>
+                <CEP>41626230</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5511997547007</fone>
+            </enderDest>
+            <IE>577484539905</IE>
+        </dest>
+        <retirada>
+            <CNPJ>45938160000114</CNPJ>
+            <xLgr>Favela de Novaes</xLgr>
+            <nro>3008</nro>
+            <xCpl>Sala 93</xCpl>
+            <xBairro>Vila Olhos D'água</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Amajari</xMun>
+            <UF>RR</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>31487206000111</CNPJ>
+            <xLgr>Passarela de Novais</xLgr>
+            <nro>2733</nro>
+            <xCpl>Sobreloja</xCpl>
+            <xBairro>Cardoso</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Olinda</xMun>
+            <UF>PE</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>7363301</cProd>
+                <cEAN />
+                <xProd>MAIONESE HELLMANN'S CHURRASCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1177.8646</qCom>
+                <vUnCom>25.9361</vUnCom>
+                <vProd>23544.06</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>46907.41</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>6129.61</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3658.76</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3379.38</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48326.81</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>14023.31</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>7475.92</vBC>
+                <vICMS>31598.93</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>49218.72</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>43426.29</vPIS>
+                <vCOFINS>43987.70</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>13688.36</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>43691872000156</CNPJ>
+                <xNome>Sopro Divino Express</xNome>
+                <IE>879766286601</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Aquiraz</xMun>
+                <UF>CE</UF>
+            </transporta>
+            <veicTransp>
+                <placa>ZNQ8P38</placa>
+                <UF>CE</UF>
+                <RNTC>5829134230</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>ZZY4K62</placa>
+                <UF>CE</UF>
+                <RNTC>5201040324</RNTC>
+            </reboque>
+            <vol>
+                <qVol>9362</qVol>
+                <esp>CAIXA</esp>
+                <marca>UNILEVER</marca>
+                <nVol>6722</nVol>
+                <pesoL>9687.977</pesoL>
+                <pesoB>47318.146</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>8110559</cProd>
+                <cEAN />
+                <xProd>MOLHO DE TOMATE KNORR MANJERICÃO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3834.0320</qCom>
+                <vUnCom>94.7778</vUnCom>
+                <vProd>44125.53</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>19721.60</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>575.23</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>5262.65</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>13799.24</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>47876.79</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>48168.32</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3316139</cProd>
+                <cEAN />
+                <xProd>TEMPERO EM PÓ KNORR CARNE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2768.8987</qCom>
+                <vUnCom>5.4821</vUnCom>
+                <vProd>8868.94</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>2979.22</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>40452.41</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>36760.99</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>21376.90</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48351.80</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25913.43</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8110559</cProd>
+                <cEAN />
+                <xProd>MOLHO DE TOMATE KNORR MANJERICÃO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2864.2295</qCom>
+                <vUnCom>23.3615</vUnCom>
+                <vProd>8677.15</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>1905.41</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>10654.03</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>38916.54</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>41006.73</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>47243.00</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10952.85</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8110559</cProd>
+                <cEAN />
+                <xProd>MOLHO DE TOMATE KNORR MANJERICÃO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>991.1284</qCom>
+                <vUnCom>23.7738</vUnCom>
+                <vProd>37009.58</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>10060.69</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>19861.27</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>35597.13</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>24855.35</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>45649.26</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>24424.74</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9276879</cProd>
+                <cEAN />
+                <xProd>MILHO EM CONSERVA KNORR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>620.9646</qCom>
+                <vUnCom>65.5555</vUnCom>
+                <vProd>593.28</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>13502.83</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>45744.17</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>40204.18</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>32703.81</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>21651.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>12164.66</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7622741</cProd>
+                <cEAN />
+                <xProd>TEMPERO EM PÓ KNORR FEIJÃO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1280.0769</qCom>
+                <vUnCom>27.1047</vUnCom>
+                <vProd>43243.00</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>2786.43</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29553.45</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>48593.80</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25009.73</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>43542.56</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>23414.46</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3316139</cProd>
+                <cEAN />
+                <xProd>TEMPERO EM PÓ KNORR CARNE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1172.4045</qCom>
+                <vUnCom>31.5191</vUnCom>
+                <vProd>46199.92</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>4852.52</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>11242.03</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3153.48</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>10078.04</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>37486.03</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>48305.54</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7622741</cProd>
+                <cEAN />
+                <xProd>TEMPERO EM PÓ KNORR FEIJÃO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1885.7672</qCom>
+                <vUnCom>67.8107</vUnCom>
+                <vProd>29131.93</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>30791.48</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>16129.77</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29348.03</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7726.60</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19312.54</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>16509.31</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8110559</cProd>
+                <cEAN />
+                <xProd>MOLHO DE TOMATE KNORR MANJERICÃO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1016.6562</qCom>
+                <vUnCom>75.0745</vUnCom>
+                <vProd>16423.05</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>48316.35</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>23595.14</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>42460.82</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25783.54</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>8360.04</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>9503.92</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5540663</cProd>
+                <cEAN />
+                <xProd>MOSTARDA ARISCO TRADICIONAL</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4945.1049</qCom>
+                <vUnCom>30.0656</vUnCom>
+                <vProd>6444.24</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>18439.37</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18907.94</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>41040.13</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>23332.60</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19012.36</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>37353.19</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7881289</cProd>
+                <cEAN />
+                <xProd>TEMPERO ARISCO SEM PIMENTA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1752.2384</qCom>
+                <vUnCom>19.8720</vUnCom>
+                <vProd>20644.65</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>21394.83</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>17266.26</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>41130.26</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>12568.39</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>339.63</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>27307.49</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8110559</cProd>
+                <cEAN />
+                <xProd>MOLHO DE TOMATE KNORR MANJERICÃO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4494.4510</qCom>
+                <vUnCom>31.5051</vUnCom>
+                <vProd>7945.19</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>41029.67</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>36955.47</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>11463.92</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3786.37</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>21244.00</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>12270.19</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7052737</cProd>
+                <cEAN />
+                <xProd>AMIDO DE MILHO MAIZENA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4168.2317</qCom>
+                <vUnCom>11.9771</vUnCom>
+                <vProd>47058.72</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>36192.89</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>48576.63</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>36810.70</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>18252.88</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>12455.52</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>49960.51</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

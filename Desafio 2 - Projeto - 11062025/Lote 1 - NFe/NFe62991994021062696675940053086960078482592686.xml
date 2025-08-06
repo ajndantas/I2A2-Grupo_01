@@ -1,0 +1,760 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe62991994021062696675940053086960078482592686" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>887021243</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>517221</nNF>
+            <dEmi>2025-08-02</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>02:33:57</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>40152698000185</CNPJ>
+            <xNome>COMERCIAL DEZOTTI LTDA</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Viaduto de Santos</xLgr>
+                <nro>2500</nro>
+                <xCpl>Térreo</xCpl>
+                <xBairro>Barroca</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Natal</xMun>
+                <UF>RN</UF>
+                <CEP>03070173</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5531920771586</fone>
+            </enderEmit>
+            <IE>606053215185</IE>
+        </emit>
+        <dest>
+            <CNPJ>29061784000140</CNPJ>
+            <xNome>Maria Luísa Macedo</xNome>
+            <enderDest>
+                <xLgr>Condomínio de da Costa</xLgr>
+                <nro>2231</nro>
+                <xCpl>Loja 69</xCpl>
+                <xBairro>Nova Gameleira</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Águas Claras</xMun>
+                <UF>DF</UF>
+                <CEP>34275963</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5531942651396</fone>
+            </enderDest>
+            <IE>615812045999</IE>
+        </dest>
+        <retirada>
+            <CNPJ>26073415000189</CNPJ>
+            <xLgr>Feira Catarina Moraes</xLgr>
+            <nro>7840</nro>
+            <xCpl>Sobreloja</xCpl>
+            <xBairro>São Bernardo</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Rio de Janeiro</xMun>
+            <UF>RJ</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>50917246000109</CNPJ>
+            <xLgr>Lago Thiago Sampaio</xLgr>
+            <nro>1248</nro>
+            <xCpl>Térreo</xCpl>
+            <xBairro>Marieta 1ª Seção</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Ananindeua</xMun>
+            <UF>PA</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>8279836</cProd>
+                <cEAN />
+                <xProd>MANTEIGA VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1200.6923</qCom>
+                <vUnCom>39.8413</vUnCom>
+                <vProd>6275.53</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>44011.60</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>26271.33</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>16911.39</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>38598.28</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>28772.23</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>44702.06</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>39639.23</vBC>
+                <vICMS>11875.91</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>14614.93</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>43476.42</vPIS>
+                <vCOFINS>24434.98</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>42291.14</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>76382510000132</CNPJ>
+                <xNome>Felesmengo TransOeste</xNome>
+                <IE>875560199467</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Maceió</xMun>
+                <UF>AL</UF>
+            </transporta>
+            <veicTransp>
+                <placa>QXD4I39</placa>
+                <UF>AL</UF>
+                <RNTC>35011495840</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>BNX6P93</placa>
+                <UF>AL</UF>
+                <RNTC>615678050</RNTC>
+            </reboque>
+            <vol>
+                <qVol>1518</qVol>
+                <esp>CAIXA</esp>
+                <marca>VIGOR</marca>
+                <nVol>793</nVol>
+                <pesoL>19624.693</pesoL>
+                <pesoB>5431.722</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>8149822</cProd>
+                <cEAN />
+                <xProd>QUEIJO VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3603.7216</qCom>
+                <vUnCom>2.4477</vUnCom>
+                <vProd>17579.97</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>38193.90</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>4765.15</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>25980.71</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>46601.42</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48232.23</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>4834.72</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9063223</cProd>
+                <cEAN />
+                <xProd>LEITE VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3796.9211</qCom>
+                <vUnCom>72.9177</vUnCom>
+                <vProd>465.64</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>42812.23</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>49579.64</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>4754.38</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>39124.02</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>27124.94</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>15083.55</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8279836</cProd>
+                <cEAN />
+                <xProd>MANTEIGA VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4088.6518</qCom>
+                <vUnCom>93.6955</vUnCom>
+                <vProd>29611.33</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>38181.95</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>33993.06</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>32167.05</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7787.56</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>49138.68</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>49780.90</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6866632</cProd>
+                <cEAN />
+                <xProd>CREME DE LEITE VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4055.0714</qCom>
+                <vUnCom>69.9951</vUnCom>
+                <vProd>6631.72</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>40663.41</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>40871.06</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>34927.29</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>26699.05</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48077.52</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>12389.57</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8149822</cProd>
+                <cEAN />
+                <xProd>QUEIJO VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1508.8921</qCom>
+                <vUnCom>4.5168</vUnCom>
+                <vProd>10448.19</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>5449.54</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>32062.83</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>36327.35</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>45935.06</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>30814.31</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>19189.98</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6468517</cProd>
+                <cEAN />
+                <xProd>REQUEIJÃO VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1803.2293</qCom>
+                <vUnCom>9.4082</vUnCom>
+                <vProd>45144.53</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>3951.70</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>7853.99</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>18206.59</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>9886.14</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>14883.93</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>16634.73</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7872133</cProd>
+                <cEAN />
+                <xProd>IOGURTE VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1308.0663</qCom>
+                <vUnCom>54.4422</vUnCom>
+                <vProd>48901.32</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>3886.42</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>45956.61</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>18607.99</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>11314.21</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>14444.19</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>21104.46</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7872133</cProd>
+                <cEAN />
+                <xProd>IOGURTE VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>445.6270</qCom>
+                <vUnCom>20.4448</vUnCom>
+                <vProd>40595.21</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>29633.24</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>12105.10</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>14067.60</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>49664.48</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>9667.66</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>26237.79</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8279836</cProd>
+                <cEAN />
+                <xProd>MANTEIGA VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1148.1234</qCom>
+                <vUnCom>10.2200</vUnCom>
+                <vProd>27149.92</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>47851.81</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>24388.91</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>2287.65</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>691.89</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>17317.91</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>11294.38</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8149822</cProd>
+                <cEAN />
+                <xProd>QUEIJO VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4307.6765</qCom>
+                <vUnCom>84.1689</vUnCom>
+                <vProd>33802.20</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>34410.18</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>23152.15</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17329.60</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>47963.92</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>36525.72</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>23835.42</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6866632</cProd>
+                <cEAN />
+                <xProd>CREME DE LEITE VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2495.4848</qCom>
+                <vUnCom>57.3553</vUnCom>
+                <vProd>2408.84</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>23120.70</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>25646.46</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>24238.48</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>46561.23</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>27303.82</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>31454.60</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6866632</cProd>
+                <cEAN />
+                <xProd>CREME DE LEITE VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4439.3593</qCom>
+                <vUnCom>21.8875</vUnCom>
+                <vProd>44402.09</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>9132.45</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>49344.99</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>19720.96</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3193.74</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>35326.02</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46625.18</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8279836</cProd>
+                <cEAN />
+                <xProd>MANTEIGA VIGOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4554.4252</qCom>
+                <vUnCom>11.1340</vUnCom>
+                <vProd>37971.83</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>49399.20</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>43022.32</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>26655.25</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>17162.50</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>32577.68</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46826.86</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

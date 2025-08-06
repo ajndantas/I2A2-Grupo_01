@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe71862529445890250336524783775432199497931820" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>822192411</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>832474</nNF>
+            <dEmi>2025-07-16</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>04:31:58</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>23658407000106</CNPJ>
+            <xNome>SUPERMERCADO IDEAL EPP</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Jardim de Casa Grande</xLgr>
+                <nro>5624</nro>
+                <xCpl>Galpão 69</xCpl>
+                <xBairro>Santo André</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Florianópolis</xMun>
+                <UF>SC</UF>
+                <CEP>67863039</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5571930167001</fone>
+            </enderEmit>
+            <IE>120057915850</IE>
+        </emit>
+        <dest>
+            <CNPJ>36512970000113</CNPJ>
+            <xNome>Rafael Sales</xNome>
+            <enderDest>
+                <xLgr>Condomínio Cauê Cassiano</xLgr>
+                <nro>1114</nro>
+                <xCpl>Box 13</xCpl>
+                <xBairro>São Tomaz</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>São Miguel dos Campos</xMun>
+                <UF>AL</UF>
+                <CEP>59535278</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5581995690735</fone>
+            </enderDest>
+            <IE>392307022311</IE>
+        </dest>
+        <retirada>
+            <CNPJ>69137042000175</CNPJ>
+            <xLgr>Colônia Silveira</xLgr>
+            <nro>3699</nro>
+            <xCpl>Loja 24</xCpl>
+            <xBairro>Primeiro De Maio</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Maceió</xMun>
+            <UF>AL</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>21643508000188</CNPJ>
+            <xLgr>Conjunto Maria Laura Andrade</xLgr>
+            <nro>5840</nro>
+            <xCpl>Galpão 73</xCpl>
+            <xBairro>Teixeira Dias</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>São Gonçalo do Amarante</xMun>
+            <UF>RN</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>2908052</cProd>
+                <cEAN />
+                <xProd>CLÁSSICA CHIFFERI N.41 BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3651.3058</qCom>
+                <vUnCom>82.7571</vUnCom>
+                <vProd>11179.24</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8379.22</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>47226.61</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>43076.74</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>584.57</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>1187.32</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>5895.06</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>24246.78</vBC>
+                <vICMS>10002.50</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>38503.72</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>40030.78</vPIS>
+                <vCOFINS>43117.05</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>8881.60</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>48623571000109</CNPJ>
+                <xNome>Cargo SP</xNome>
+                <IE>265777592753</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Laranjal do Jari</xMun>
+                <UF>AP</UF>
+            </transporta>
+            <veicTransp>
+                <placa>NCZ1J69</placa>
+                <UF>AP</UF>
+                <RNTC>82212016</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>SFH7H89</placa>
+                <UF>AP</UF>
+                <RNTC>169000692474</RNTC>
+            </reboque>
+            <vol>
+                <qVol>6306</qVol>
+                <esp>CAIXA</esp>
+                <marca>BARILLA</marca>
+                <nVol>5838</nVol>
+                <pesoL>25432.702</pesoL>
+                <pesoB>28004.463</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>8066951</cProd>
+                <cEAN />
+                <xProd>MOLHO POMODORO BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>690.6436</qCom>
+                <vUnCom>56.6811</vUnCom>
+                <vProd>41661.89</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>41623.16</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>15243.24</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>28958.60</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>29344.97</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>37019.28</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>15698.93</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7881115</cProd>
+                <cEAN />
+                <xProd>MOLHO ARRABBIATA BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1215.7931</qCom>
+                <vUnCom>43.6166</vUnCom>
+                <vProd>16186.78</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>31813.25</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>40231.26</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>41332.96</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>4080.06</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>2458.85</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>16061.80</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3614043</cProd>
+                <cEAN />
+                <xProd>GNOCCHI N.85 BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4441.7592</qCom>
+                <vUnCom>94.0738</vUnCom>
+                <vProd>24550.69</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>5009.77</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>17006.83</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>7283.47</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>2905.84</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>11616.97</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25390.71</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2908052</cProd>
+                <cEAN />
+                <xProd>CLÁSSICA CHIFFERI N.41 BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2649.9024</qCom>
+                <vUnCom>20.7045</vUnCom>
+                <vProd>23669.56</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>9516.72</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>37647.55</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>28513.76</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>10137.86</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>20209.26</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>35514.26</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2908052</cProd>
+                <cEAN />
+                <xProd>CLÁSSICA CHIFFERI N.41 BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2407.9048</qCom>
+                <vUnCom>26.9712</vUnCom>
+                <vProd>48923.85</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>23292.87</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>11890.51</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>37519.21</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25353.97</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19506.30</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>28106.03</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5845685</cProd>
+                <cEAN />
+                <xProd>CLÁSSICA ANGEL HAIR BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3062.4259</qCom>
+                <vUnCom>23.4460</vUnCom>
+                <vProd>29160.39</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>40879.17</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>6547.25</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>11381.76</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7453.55</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>2249.36</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>14565.28</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9048359</cProd>
+                <cEAN />
+                <xProd>MOLHO BOLOGNESE BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>51.0016</qCom>
+                <vUnCom>73.4934</vUnCom>
+                <vProd>4953.46</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>16128.75</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>46997.44</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>44240.46</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35051.23</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>47240.44</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>31590.22</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4000545</cProd>
+                <cEAN />
+                <xProd>CLÁSSICA PENNE RIGATE N.73 BARILLA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2030.2991</qCom>
+                <vUnCom>20.6959</vUnCom>
+                <vProd>13873.72</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>30691.64</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>43338.31</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>14024.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>18476.42</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>5805.09</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>11950.29</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

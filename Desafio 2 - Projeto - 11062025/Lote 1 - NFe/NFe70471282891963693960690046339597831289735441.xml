@@ -1,0 +1,717 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe70471282891963693960690046339597831289735441" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>424441223</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>248035</nNF>
+            <dEmi>2025-07-24</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>10:18:09</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>40279386000137</CNPJ>
+            <xNome>MERCEARIA OURO S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Loteamento da Mata</xLgr>
+                <nro>6640</nro>
+                <xCpl>Apto 31</xCpl>
+                <xBairro>Tupi B</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Teresina</xMun>
+                <UF>PI</UF>
+                <CEP>31097903</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5521950500973</fone>
+            </enderEmit>
+            <IE>462243150249</IE>
+        </emit>
+        <dest>
+            <CNPJ>97034521000100</CNPJ>
+            <xNome>Srta. Brenda Pereira</xNome>
+            <enderDest>
+                <xLgr>Loteamento de Pastor</xLgr>
+                <nro>1262</nro>
+                <xCpl>Fundos</xCpl>
+                <xBairro>Universo</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Ponta Porã</xMun>
+                <UF>MS</UF>
+                <CEP>99797466</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5531987747676</fone>
+            </enderDest>
+            <IE>627024992045</IE>
+        </dest>
+        <retirada>
+            <CNPJ>17605239000198</CNPJ>
+            <xLgr>Loteamento de Nascimento</xLgr>
+            <nro>3824</nro>
+            <xCpl>Anexo</xCpl>
+            <xBairro>Vila Paraíso</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Caucaia</xMun>
+            <UF>CE</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>74603218000177</CNPJ>
+            <xLgr>Alameda Bernardo Moreira</xLgr>
+            <nro>2345</nro>
+            <xCpl>Sobreloja</xCpl>
+            <xBairro>Vila Mantiqueira</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Pedro Afonso</xMun>
+            <UF>TO</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>5890055</cProd>
+                <cEAN />
+                <xProd>Tempero SAZÓN Meu Toque Tomate</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4444.3811</qCom>
+                <vUnCom>76.1266</vUnCom>
+                <vProd>8988.84</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45655.41</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>9536.74</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>36443.56</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>15567.96</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>14267.37</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>31901.80</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>32000.11</vBC>
+                <vICMS>27585.20</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>11554.69</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>44979.41</vPIS>
+                <vCOFINS>35059.73</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>38645.45</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>56492038000183</CNPJ>
+                <xNome>TransLog SP</xNome>
+                <IE>980327744635</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Santa Gertrudes</xMun>
+                <UF>SP</UF>
+            </transporta>
+            <veicTransp>
+                <placa>ESM4T71</placa>
+                <UF>SP</UF>
+                <RNTC>23781283868</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>BSN0F25</placa>
+                <UF>SP</UF>
+                <RNTC>3402374755</RNTC>
+            </reboque>
+            <vol>
+                <qVol>19769</qVol>
+                <esp>CAIXA</esp>
+                <marca>AJINOMOTO</marca>
+                <nVol>5599</nVol>
+                <pesoL>24133.129</pesoL>
+                <pesoB>16508.209</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>5890055</cProd>
+                <cEAN />
+                <xProd>Tempero SAZÓN Meu Toque Tomate</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4674.2897</qCom>
+                <vUnCom>52.2589</vUnCom>
+                <vProd>14115.76</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>17543.14</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28093.30</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29794.39</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>24352.83</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>2437.14</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>18339.15</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1978359</cProd>
+                <cEAN />
+                <xProd>Azeite de Oliva TERRANO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1532.1247</qCom>
+                <vUnCom>20.8580</vUnCom>
+                <vProd>9008.85</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>6145.68</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>3578.68</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>49566.52</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25032.58</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>24932.17</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>38923.53</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6384269</cProd>
+                <cEAN />
+                <xProd>Tempero SAZÓN para Pipoca sabor Churrasco</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4022.1174</qCom>
+                <vUnCom>95.0511</vUnCom>
+                <vProd>12814.30</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>42057.15</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>30945.79</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>32046.27</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25411.89</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>1114.63</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>9252.36</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5494625</cProd>
+                <cEAN />
+                <xProd>Caldo em pó SAZÓN Camarão</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>916.1655</qCom>
+                <vUnCom>97.9897</vUnCom>
+                <vProd>2569.63</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>25259.82</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>43038.34</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>40445.63</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>20538.18</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>35747.73</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>15769.68</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1978359</cProd>
+                <cEAN />
+                <xProd>Azeite de Oliva TERRANO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>527.3103</qCom>
+                <vUnCom>28.3706</vUnCom>
+                <vProd>45235.35</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>34730.99</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>4563.73</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3811.52</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>31454.05</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>37842.00</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10740.45</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5429586</cProd>
+                <cEAN />
+                <xProd>Tempero SAZÓN para Pipoca sabor Cebola &amp; Salsa</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1817.9565</qCom>
+                <vUnCom>21.4734</vUnCom>
+                <vProd>17555.64</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>35780.48</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>3273.78</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>8323.77</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>48658.89</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>909.20</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>43931.57</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6568984</cProd>
+                <cEAN />
+                <xProd>AJI-SAL Churrasco</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>16.1327</qCom>
+                <vUnCom>34.7374</vUnCom>
+                <vProd>24380.41</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>2691.36</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28656.86</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>36500.49</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>760.54</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>1390.29</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>37871.93</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2898248</cProd>
+                <cEAN />
+                <xProd>Tempero SAZÓN Meu Toque Ervas</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4740.6141</qCom>
+                <vUnCom>43.4400</vUnCom>
+                <vProd>26877.46</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>22807.19</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>32237.28</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>40069.74</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>48296.65</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>17311.85</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>2851.19</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3585538</cProd>
+                <cEAN />
+                <xProd>SAZÓN Tempera &amp; Dá Liga Sabor Tradicional</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2069.7109</qCom>
+                <vUnCom>28.8359</vUnCom>
+                <vProd>19928.22</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>28321.06</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>3159.56</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>48648.42</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>41600.78</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>43375.96</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>47049.24</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2796944</cProd>
+                <cEAN />
+                <xProd>Tempero SAZÓN Meu Toque Caseiro</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1169.5114</qCom>
+                <vUnCom>95.7299</vUnCom>
+                <vProd>10219.58</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>15466.79</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>26403.00</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>42442.72</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>34198.95</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>21901.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>32157.46</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9926728</cProd>
+                <cEAN />
+                <xProd>aminoVITAL GOLD</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>682.0887</qCom>
+                <vUnCom>77.7789</vUnCom>
+                <vProd>48246.51</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>44777.71</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>31859.51</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29441.40</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>23779.28</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>17899.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>29135.65</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6384269</cProd>
+                <cEAN />
+                <xProd>Tempero SAZÓN para Pipoca sabor Churrasco</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4414.7262</qCom>
+                <vUnCom>17.0548</vUnCom>
+                <vProd>36847.39</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>47850.50</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>22153.75</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>1487.32</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>18691.86</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29511.10</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>22963.40</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

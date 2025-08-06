@@ -1,0 +1,502 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe44586515627810262035853326843012130490817817" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>210396034</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>260633</nNF>
+            <dEmi>2025-07-10</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>00:29:42</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>98560324000189</CNPJ>
+            <xNome>MERCEARIA CENTRAL EIRELI</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Estação de Cassiano</xLgr>
+                <nro>230</nro>
+                <xCpl>Apto 73</xCpl>
+                <xBairro>Vila Fumec</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Maceió</xMun>
+                <UF>AL</UF>
+                <CEP>87909013</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5511924431375</fone>
+            </enderEmit>
+            <IE>462545215560</IE>
+        </emit>
+        <dest>
+            <CNPJ>73590241000101</CNPJ>
+            <xNome>Rebeca Mendonça</xNome>
+            <enderDest>
+                <xLgr>Via de Carvalho</xLgr>
+                <nro>9443</nro>
+                <xCpl>Unidade 44</xCpl>
+                <xBairro>Colégio Batista</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Jaboatão dos Guararapes</xMun>
+                <UF>PE</UF>
+                <CEP>25231865</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5531908554339</fone>
+            </enderDest>
+            <IE>682279369782</IE>
+        </dest>
+        <retirada>
+            <CNPJ>97615830000165</CNPJ>
+            <xLgr>Chácara de Ramos</xLgr>
+            <nro>3848</nro>
+            <xCpl>Térreo</xCpl>
+            <xBairro>Vila Olhos D'água</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Gravataí</xMun>
+            <UF>RS</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>25814093000119</CNPJ>
+            <xLgr>Esplanada Sampaio</xLgr>
+            <nro>9044</nro>
+            <xCpl>Térreo</xCpl>
+            <xBairro>Vila Bandeirantes</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Humaitá</xMun>
+            <UF>AM</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>3170798</cProd>
+                <cEAN />
+                <xProd>KIRIN ICHIBAN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4200.6401</qCom>
+                <vUnCom>53.1996</vUnCom>
+                <vProd>29339.60</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>47613.57</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>36954.48</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>26266.61</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>40829.94</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48464.79</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25094.33</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>27917.98</vBC>
+                <vICMS>28237.98</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>22217.73</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>38654.21</vPIS>
+                <vCOFINS>10899.28</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>2294.55</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>58974601000185</CNPJ>
+                <xNome>Rodonaves Transp</xNome>
+                <IE>349821335315</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Linhares</xMun>
+                <UF>ES</UF>
+            </transporta>
+            <veicTransp>
+                <placa>AQA0H41</placa>
+                <UF>ES</UF>
+                <RNTC>569180534816</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>HIU1N87</placa>
+                <UF>ES</UF>
+                <RNTC>943180414739</RNTC>
+            </reboque>
+            <vol>
+                <qVol>19255</qVol>
+                <esp>CAIXA</esp>
+                <marca>HEINEKEN</marca>
+                <nVol>5643</nVol>
+                <pesoL>2234.917</pesoL>
+                <pesoB>24752.445</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>2490294</cProd>
+                <cEAN />
+                <xProd>SCHIN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4130.8123</qCom>
+                <vUnCom>77.6460</vUnCom>
+                <vProd>867.81</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>39201.13</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>30000.01</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>12341.24</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>28574.89</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>39105.57</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>44720.73</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3170798</cProd>
+                <cEAN />
+                <xProd>KIRIN ICHIBAN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3101.0309</qCom>
+                <vUnCom>26.9846</vUnCom>
+                <vProd>30106.74</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>44139.40</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>10438.61</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>41238.87</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>39766.19</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>14386.50</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>13282.42</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4414029</cProd>
+                <cEAN />
+                <xProd>HEINEKEN 0,0%</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4069.1089</qCom>
+                <vUnCom>42.4654</vUnCom>
+                <vProd>39140.06</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>41482.95</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>26997.49</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>14118.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>12448.88</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>10674.99</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>35824.82</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4414029</cProd>
+                <cEAN />
+                <xProd>HEINEKEN 0,0%</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4264.7779</qCom>
+                <vUnCom>82.7301</vUnCom>
+                <vProd>48572.25</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>7336.84</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>13619.74</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>45472.53</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>5060.88</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>10326.36</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>26950.64</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3926246</cProd>
+                <cEAN />
+                <xProd>BADEN BADEN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>CX</uCom>
+                <qCom>886.7212</qCom>
+                <vUnCom>52.3504</vUnCom>
+                <vProd>1718.18</vProd>
+                <cEANTrib />
+                <uTrib>CX</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>13805.42</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>16229.99</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>45691.54</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25548.43</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4994.24</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>48641.20</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1738704</cProd>
+                <cEAN />
+                <xProd>TIGER</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>CX</uCom>
+                <qCom>2325.5856</qCom>
+                <vUnCom>31.3873</vUnCom>
+                <vProd>35531.41</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>38356.62</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>25337.36</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>31539.10</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>45694.16</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>3462.38</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>13330.43</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5240100</cProd>
+                <cEAN />
+                <xProd>EISENBAHN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>CX</uCom>
+                <qCom>2042.5978</qCom>
+                <vUnCom>63.3465</vUnCom>
+                <vProd>4495.48</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>14831.93</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>38927.18</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>38766.93</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7535.95</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>49424.86</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36006.07</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

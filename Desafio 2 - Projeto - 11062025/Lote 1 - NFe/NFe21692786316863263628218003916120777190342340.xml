@@ -1,0 +1,631 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe21692786316863263628218003916120777190342340" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>831533071</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>791060</nNF>
+            <dEmi>2025-07-21</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>21:03:30</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>02948715000104</CNPJ>
+            <xNome>DISTRIBUIDORA SUCESSO ME</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Praça Siqueira</xLgr>
+                <nro>7677</nro>
+                <xCpl>Térreo</xCpl>
+                <xBairro>Vila Madre Gertrudes 2ª Seção</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Coruripe</xMun>
+                <UF>AL</UF>
+                <CEP>67474572</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5584959227003</fone>
+            </enderEmit>
+            <IE>906958747703</IE>
+        </emit>
+        <dest>
+            <CNPJ>58796302000106</CNPJ>
+            <xNome>Vicente Pimenta</xNome>
+            <enderDest>
+                <xLgr>Rua de Martins</xLgr>
+                <nro>238</nro>
+                <xCpl>Box 50</xCpl>
+                <xBairro>Vila Satélite</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Quixadá</xMun>
+                <UF>CE</UF>
+                <CEP>30056882</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5511994177318</fone>
+            </enderDest>
+            <IE>744646130368</IE>
+        </dest>
+        <retirada>
+            <CNPJ>70159643000168</CNPJ>
+            <xLgr>Favela Fogaça</xLgr>
+            <nro>1012</nro>
+            <xCpl>Térreo</xCpl>
+            <xBairro>Gameleira</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Brasiléia</xMun>
+            <UF>AC</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>61287043000194</CNPJ>
+            <xLgr>Conjunto de Costela</xLgr>
+            <nro>800</nro>
+            <xCpl>Loja 21</xCpl>
+            <xBairro>Vila Nova Gameleira 1ª Seção</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Águas Claras</xMun>
+            <UF>DF</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>7149770</cProd>
+                <cEAN />
+                <xProd>LASANHA ADRIA 500g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>387.5200</qCom>
+                <vUnCom>55.3465</vUnCom>
+                <vProd>47722.42</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>30533.51</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29092.26</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>37536.25</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>9329.14</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48170.53</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>22508.57</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>43401.67</vBC>
+                <vICMS>17976.94</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>44115.29</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>3269.28</vPIS>
+                <vCOFINS>27084.33</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>22794.32</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>13579684000170</CNPJ>
+                <xNome>Papa Léguas Express</xNome>
+                <IE>911130673768</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Plácido de Castro</xMun>
+                <UF>AC</UF>
+            </transporta>
+            <veicTransp>
+                <placa>WPK2B91</placa>
+                <UF>AC</UF>
+                <RNTC>091632406205</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>LFP7G58</placa>
+                <UF>AC</UF>
+                <RNTC>552703257580</RNTC>
+            </reboque>
+            <vol>
+                <qVol>4150</qVol>
+                <esp>CAIXA</esp>
+                <marca>ADRIA</marca>
+                <nVol>3233</nVol>
+                <pesoL>31652.948</pesoL>
+                <pesoB>2839.058</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>2992441</cProd>
+                <cEAN />
+                <xProd>LÁMEN MINIONS CARNE SUAVE ADRIA 75g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>342.6907</qCom>
+                <vUnCom>5.7609</vUnCom>
+                <vProd>6330.96</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>3980.54</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>485.42</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>12766.02</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>29867.56</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>16686.24</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>7399.12</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6270877</cProd>
+                <cEAN />
+                <xProd>LÁMEN MINIONS TOMATE ADRIA 75g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2878.7852</qCom>
+                <vUnCom>8.8556</vUnCom>
+                <vProd>19208.11</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>5184.38</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>44955.73</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3486.88</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>44521.31</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>37674.38</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>47735.91</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2992441</cProd>
+                <cEAN />
+                <xProd>LÁMEN MINIONS CARNE SUAVE ADRIA 75g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>84.0755</qCom>
+                <vUnCom>89.3608</vUnCom>
+                <vProd>38641.55</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>28761.27</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29342.29</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>6440.86</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3836.84</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>34105.09</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>1300.38</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9038329</cProd>
+                <cEAN />
+                <xProd>PENA ADRIA 400g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2199.1653</qCom>
+                <vUnCom>72.0484</vUnCom>
+                <vProd>35960.68</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>11064.11</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>4169.69</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>6969.81</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>36655.83</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>41285.00</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>2439.80</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6270877</cProd>
+                <cEAN />
+                <xProd>LÁMEN MINIONS TOMATE ADRIA 75g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3204.2048</qCom>
+                <vUnCom>30.3555</vUnCom>
+                <vProd>47081.06</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>10794.98</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>36221.47</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>21150.03</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>8803.87</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>44626.90</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>28866.90</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8887544</cProd>
+                <cEAN />
+                <xProd>ESPAGUETE 8 ADRIA 750g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>46.6464</qCom>
+                <vUnCom>76.9322</vUnCom>
+                <vProd>48214.39</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>34392.20</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>49422.30</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>14556.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>9499.04</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>16446.09</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>11041.44</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2992441</cProd>
+                <cEAN />
+                <xProd>LÁMEN MINIONS CARNE SUAVE ADRIA 75g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2678.4238</qCom>
+                <vUnCom>3.4750</vUnCom>
+                <vProd>14413.35</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>33008.00</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>17851.54</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>46062.42</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>10867.64</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>37475.86</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>4101.13</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6270877</cProd>
+                <cEAN />
+                <xProd>LÁMEN MINIONS TOMATE ADRIA 75g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3192.5667</qCom>
+                <vUnCom>92.0520</vUnCom>
+                <vProd>25566.62</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>42807.83</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>42127.76</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>825.39</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>32227.72</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>27325.40</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>26612.21</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2992441</cProd>
+                <cEAN />
+                <xProd>LÁMEN MINIONS CARNE SUAVE ADRIA 75g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1191.3939</qCom>
+                <vUnCom>95.7468</vUnCom>
+                <vProd>40393.92</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>28743.67</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>6257.25</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17998.49</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7855.86</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>22824.34</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>17851.93</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8817892</cProd>
+                <cEAN />
+                <xProd>PARAFUSO ADRIA 400g</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2319.1933</qCom>
+                <vUnCom>62.1391</vUnCom>
+                <vProd>5547.49</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>49091.14</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>40056.19</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3937.22</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>9993.09</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29426.06</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>20461.53</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

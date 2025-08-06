@@ -1,0 +1,717 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe09187719985484957053476592926198964629372060" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>812216514</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>5101</nNF>
+            <dEmi>2025-07-04</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>10:26:08</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>83017945000143</CNPJ>
+            <xNome>SUPERMERCADO AMÉRICA EPP</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Travessa Ramos</xLgr>
+                <nro>7773</nro>
+                <xCpl>Unidade 63</xCpl>
+                <xBairro>Vila Oeste</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Itabaiana</xMun>
+                <UF>SE</UF>
+                <CEP>24081613</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5584951605220</fone>
+            </enderEmit>
+            <IE>450381465795</IE>
+        </emit>
+        <dest>
+            <CNPJ>39582076000108</CNPJ>
+            <xNome>Carolina Rocha</xNome>
+            <enderDest>
+                <xLgr>Loteamento de Araújo</xLgr>
+                <nro>4252</nro>
+                <xCpl>Fundos</xCpl>
+                <xBairro>Santa Rita De Cássia</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Petrolina</xMun>
+                <UF>PE</UF>
+                <CEP>43655821</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5531989997767</fone>
+            </enderDest>
+            <IE>703673444915</IE>
+        </dest>
+        <retirada>
+            <CNPJ>48905632000120</CNPJ>
+            <xLgr>Trevo Luigi Machado</xLgr>
+            <nro>2015</nro>
+            <xCpl>Sala 51</xCpl>
+            <xBairro>Flavio Marques Lisboa</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Taguatinga</xMun>
+            <UF>DF</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>41536820000180</CNPJ>
+            <xLgr>Chácara de Cunha</xLgr>
+            <nro>1576</nro>
+            <xCpl>Térreo</xCpl>
+            <xBairro>Boa União 2ª Seção</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Atalaia</xMun>
+            <UF>AL</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>3595152</cProd>
+                <cEAN />
+                <xProd>TORRADA PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3153.8576</qCom>
+                <vUnCom>7.3606</vUnCom>
+                <vProd>24999.76</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>1100.01</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28710.68</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>21919.06</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>41108.71</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>45252.11</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>44639.70</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>36599.99</vBC>
+                <vICMS>15466.72</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>19286.16</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>260.14</vPIS>
+                <vCOFINS>12951.11</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>45766.82</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>62190857000179</CNPJ>
+                <xNome>Sopro Divino Express</xNome>
+                <IE>411317213963</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Pelotas</xMun>
+                <UF>RS</UF>
+            </transporta>
+            <veicTransp>
+                <placa>WMW5W73</placa>
+                <UF>RS</UF>
+                <RNTC>483987278417</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>CVZ4Y80</placa>
+                <UF>RS</UF>
+                <RNTC>702563225</RNTC>
+            </reboque>
+            <vol>
+                <qVol>3896</qVol>
+                <esp>CAIXA</esp>
+                <marca>PIRAQUÊ</marca>
+                <nVol>4933</nVol>
+                <pesoL>2262.707</pesoL>
+                <pesoB>19708.547</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>2767749</cProd>
+                <cEAN />
+                <xProd>WAFER PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2861.7698</qCom>
+                <vUnCom>11.6431</vUnCom>
+                <vProd>9394.72</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>37699.77</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>44972.94</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>538.53</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>20805.76</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4537.77</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10228.59</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2767749</cProd>
+                <cEAN />
+                <xProd>WAFER PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>983.9830</qCom>
+                <vUnCom>3.0346</vUnCom>
+                <vProd>11620.43</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>9367.49</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>34986.66</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>15957.16</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>11616.25</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>1945.42</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>12362.73</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5579223</cProd>
+                <cEAN />
+                <xProd>ROSQUINHA PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4362.3458</qCom>
+                <vUnCom>76.3042</vUnCom>
+                <vProd>24808.91</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>22269.67</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>49300.89</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>13376.86</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>31433.39</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>22148.56</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>21023.48</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3595152</cProd>
+                <cEAN />
+                <xProd>TORRADA PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1276.6176</qCom>
+                <vUnCom>93.7066</vUnCom>
+                <vProd>42811.50</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>31681.10</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>1011.50</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>12688.37</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>33412.45</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>40313.82</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>33547.12</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2767749</cProd>
+                <cEAN />
+                <xProd>WAFER PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2525.5476</qCom>
+                <vUnCom>86.4750</vUnCom>
+                <vProd>48851.57</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>41176.13</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>16084.37</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>18961.84</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>49098.51</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>20400.31</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>34110.19</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2767749</cProd>
+                <cEAN />
+                <xProd>WAFER PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2629.7143</qCom>
+                <vUnCom>54.6891</vUnCom>
+                <vProd>22076.27</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>24388.05</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>8523.63</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29684.06</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>46731.43</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>10005.68</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>34640.29</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9993538</cProd>
+                <cEAN />
+                <xProd>BISCOITO PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2064.2203</qCom>
+                <vUnCom>3.0441</vUnCom>
+                <vProd>15719.04</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>5146.13</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>33995.33</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>8061.61</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35546.78</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>24557.20</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>14168.71</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3595152</cProd>
+                <cEAN />
+                <xProd>TORRADA PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4942.1256</qCom>
+                <vUnCom>9.3742</vUnCom>
+                <vProd>19831.19</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>20714.83</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>47252.34</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>9148.21</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>38564.74</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>3366.21</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>19017.64</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6091669</cProd>
+                <cEAN />
+                <xProd>INTEGRAL PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2776.4428</qCom>
+                <vUnCom>20.1675</vUnCom>
+                <vProd>22090.61</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>16417.77</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>5792.18</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>49955.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>14594.28</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>12341.63</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25437.17</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3898886</cProd>
+                <cEAN />
+                <xProd>CREAM CRACKER PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4562.4247</qCom>
+                <vUnCom>43.3772</vUnCom>
+                <vProd>20067.47</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>22249.97</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18935.32</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17832.90</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>39604.33</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>8643.84</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>45014.08</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6091669</cProd>
+                <cEAN />
+                <xProd>INTEGRAL PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4199.5078</qCom>
+                <vUnCom>98.2131</vUnCom>
+                <vProd>8662.68</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>1884.74</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28032.98</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>9328.84</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>20430.92</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>30622.36</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>19176.64</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2767749</cProd>
+                <cEAN />
+                <xProd>WAFER PIRAQUÊ</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3115.5563</qCom>
+                <vUnCom>7.1127</vUnCom>
+                <vProd>20475.80</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>36101.62</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>31105.43</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>33272.56</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>31261.48</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>34706.51</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>32318.39</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

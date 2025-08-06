@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe29095492867551729753101760155459696871490628" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>883520145</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>450834</nNF>
+            <dEmi>2025-07-24</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>03:50:32</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>64320719000192</CNPJ>
+            <xNome>COMERCIAL SILVA S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Aeroporto Freitas</xLgr>
+                <nro>256</nro>
+                <xCpl>Sobreloja</xCpl>
+                <xBairro>Solar Do Barreiro</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Gravataí</xMun>
+                <UF>RS</UF>
+                <CEP>43740092</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5541949113387</fone>
+            </enderEmit>
+            <IE>913802150839</IE>
+        </emit>
+        <dest>
+            <CNPJ>97261583000146</CNPJ>
+            <xNome>Srta. Ana Lívia Pereira</xNome>
+            <enderDest>
+                <xLgr>Parque de Almeida</xLgr>
+                <nro>2948</nro>
+                <xCpl>Loja 43</xCpl>
+                <xBairro>Vila Rica</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Maracanaú</xMun>
+                <UF>CE</UF>
+                <CEP>02697418</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5521900817011</fone>
+            </enderDest>
+            <IE>598485446617</IE>
+        </dest>
+        <retirada>
+            <CNPJ>48036972000162</CNPJ>
+            <xLgr>Favela Sampaio</xLgr>
+            <nro>6282</nro>
+            <xCpl>Sala 20</xCpl>
+            <xBairro>Estoril</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Manacapuru</xMun>
+            <UF>AM</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>95213074000112</CNPJ>
+            <xLgr>Colônia Cunha</xLgr>
+            <nro>6525</nro>
+            <xCpl>Bloco 61</xCpl>
+            <xBairro>Vila Nova Cachoeirinha 1ª Seção</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Amapá</xMun>
+            <UF>AP</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>6434105</cProd>
+                <cEAN />
+                <xProd>ACTIVIA ZERO SABOR MORANGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1356.6560</qCom>
+                <vUnCom>25.2743</vUnCom>
+                <vProd>24154.57</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>43882.56</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>35882.99</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>33575.73</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>38396.81</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>36254.71</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>33710.85</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>44588.13</vBC>
+                <vICMS>17474.38</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>2948.77</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>27273.22</vPIS>
+                <vCOFINS>44687.21</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>37289.47</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>82603197000118</CNPJ>
+                <xNome>Papa Léguas Nacional</xNome>
+                <IE>185439828112</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>São Luiz</xMun>
+                <UF>RR</UF>
+            </transporta>
+            <veicTransp>
+                <placa>ARE3T58</placa>
+                <UF>RR</UF>
+                <RNTC>595669478</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>DAX1J50</placa>
+                <UF>RR</UF>
+                <RNTC>35375715</RNTC>
+            </reboque>
+            <vol>
+                <qVol>19458</qVol>
+                <esp>CAIXA</esp>
+                <marca>DANONE</marca>
+                <nVol>8796</nVol>
+                <pesoL>13880.297</pesoL>
+                <pesoB>40468.902</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>4847609</cProd>
+                <cEAN />
+                <xProd>DANETTE COM CALDAS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4728.5639</qCom>
+                <vUnCom>84.8025</vUnCom>
+                <vProd>27544.66</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>41490.49</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>39577.35</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>33478.31</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>39153.12</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>28716.93</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>29385.92</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4048895</cProd>
+                <cEAN />
+                <xProd>YOPRO BEBIDA LÁCTEA UHT MORANGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4840.0087</qCom>
+                <vUnCom>65.3835</vUnCom>
+                <vProd>4600.27</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>19435.89</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>2758.38</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>35151.13</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>44342.52</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>9062.96</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>15776.22</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2064134</cProd>
+                <cEAN />
+                <xProd>SILK AMÊNDOA E CACAU</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4902.3520</qCom>
+                <vUnCom>41.3328</vUnCom>
+                <vProd>33176.25</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>42962.82</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>10818.91</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>7618.47</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>43090.43</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4058.17</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>34512.01</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9765625</cProd>
+                <cEAN />
+                <xProd>CORPUS SLEEVE MORANGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>433.1670</qCom>
+                <vUnCom>43.5252</vUnCom>
+                <vProd>35163.24</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45548.15</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>19751.55</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>15269.25</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>21876.04</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>10219.24</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>7045.89</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2167494</cProd>
+                <cEAN />
+                <xProd>ACTIVIA POLPA SABOR AMEIXA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4490.4968</qCom>
+                <vUnCom>48.6905</vUnCom>
+                <vProd>30416.02</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>33130.94</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>46827.37</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>13140.31</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7558.19</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>13362.02</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36685.64</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2103925</cProd>
+                <cEAN />
+                <xProd>DANETTE COM COOKIES</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1897.8773</qCom>
+                <vUnCom>68.9289</vUnCom>
+                <vProd>30483.71</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>15765.68</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>37671.10</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>1616.01</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>37811.29</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>33103.75</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>32252.77</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2103925</cProd>
+                <cEAN />
+                <xProd>DANETTE COM COOKIES</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1131.9609</qCom>
+                <vUnCom>57.0649</vUnCom>
+                <vProd>35028.16</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45098.56</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29403.52</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>8832.21</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>43838.01</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>21122.91</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>26100.81</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9947304</cProd>
+                <cEAN />
+                <xProd>ACTIVIA LEITE FERMENTADO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2781.3186</qCom>
+                <vUnCom>30.6063</vUnCom>
+                <vProd>2931.37</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>23586.00</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>14844.96</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>37382.39</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>16098.13</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4000.62</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>8769.03</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

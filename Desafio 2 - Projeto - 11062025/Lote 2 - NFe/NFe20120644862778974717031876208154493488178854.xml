@@ -1,0 +1,760 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe20120644862778974717031876208154493488178854" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>694880821</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>773567</nNF>
+            <dEmi>2025-07-20</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>01:27:48</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>97280341000108</CNPJ>
+            <xNome>SUPERMERCADO AMÉRICA EIRELI</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Campo da Rocha</xLgr>
+                <nro>6934</nro>
+                <xCpl>Unidade 20</xCpl>
+                <xBairro>Novo Tupi</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Fortaleza</xMun>
+                <UF>CE</UF>
+                <CEP>70278420</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5581944761845</fone>
+            </enderEmit>
+            <IE>632841376854</IE>
+        </emit>
+        <dest>
+            <CNPJ>53024971000138</CNPJ>
+            <xNome>Bryan Ramos</xNome>
+            <enderDest>
+                <xLgr>Largo de Casa Grande</xLgr>
+                <nro>2006</nro>
+                <xCpl>Galpão 87</xCpl>
+                <xBairro>Goiania</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Mucajaí</xMun>
+                <UF>RR</UF>
+                <CEP>49599015</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5561923244184</fone>
+            </enderDest>
+            <IE>099930604863</IE>
+        </dest>
+        <retirada>
+            <CNPJ>93784512000177</CNPJ>
+            <xLgr>Conjunto Sofia Melo</xLgr>
+            <nro>1256</nro>
+            <xCpl>Sobreloja</xCpl>
+            <xBairro>Jaqueline</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Rorainópolis</xMun>
+            <UF>RR</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>58624109000180</CNPJ>
+            <xLgr>Condomínio de Nogueira</xLgr>
+            <nro>8413</nro>
+            <xCpl>Galpão 95</xCpl>
+            <xBairro>Monte Azul</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>São Lourenço</xMun>
+            <UF>MG</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>7729686</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO MEIO AMARGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3973.8731</qCom>
+                <vUnCom>53.2467</vUnCom>
+                <vProd>13834.01</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>35657.05</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>46734.57</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>35396.86</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>41361.51</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>2375.28</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>44195.01</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>37594.05</vBC>
+                <vICMS>23020.59</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>32201.09</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>42494.18</vPIS>
+                <vCOFINS>38083.19</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>41331.41</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>64782395000104</CNPJ>
+                <xNome>Felesmengo Transp</xNome>
+                <IE>479051762956</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Nossa Senhora do Socorro</xMun>
+                <UF>SE</UF>
+            </transporta>
+            <veicTransp>
+                <placa>TOM8X26</placa>
+                <UF>SE</UF>
+                <RNTC>006845385</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>XEE5H99</placa>
+                <UF>SE</UF>
+                <RNTC>7875860577</RNTC>
+            </reboque>
+            <vol>
+                <qVol>10116</qVol>
+                <esp>CAIXA</esp>
+                <marca>GAROTO</marca>
+                <nVol>2998</nVol>
+                <pesoL>17464.339</pesoL>
+                <pesoB>46567.226</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>8006226</cProd>
+                <cEAN />
+                <xProd>CHOCOLATE GAROTO BATON BRANCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1482.1387</qCom>
+                <vUnCom>5.6622</vUnCom>
+                <vProd>43671.65</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>36333.09</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>34496.61</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>13445.10</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>45513.86</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>13369.97</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>25210.87</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9228679</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE AO LEITE GAROTO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4338.3714</qCom>
+                <vUnCom>44.8166</vUnCom>
+                <vProd>16828.51</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>20942.36</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>11027.65</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>37626.51</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>42709.11</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>1323.54</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10845.40</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4526506</cProd>
+                <cEAN />
+                <xProd>CHOCOLATE GAROTO BATON AO LEITE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>942.9552</qCom>
+                <vUnCom>51.9261</vUnCom>
+                <vProd>43627.66</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>4279.94</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>19268.43</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>45172.39</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>36571.14</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29977.48</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>18736.01</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7837742</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO C/CASTANHA DE CAJU</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1068.4785</qCom>
+                <vUnCom>19.3735</vUnCom>
+                <vProd>18199.64</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>6701.28</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>15824.36</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>27024.10</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>31610.34</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>15479.33</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>6448.81</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9228679</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE AO LEITE GAROTO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>971.1727</qCom>
+                <vUnCom>69.6912</vUnCom>
+                <vProd>1031.40</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>26161.96</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>43952.92</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>1984.70</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>43222.62</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>40637.34</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>38921.94</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7729686</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO MEIO AMARGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4510.2810</qCom>
+                <vUnCom>2.5497</vUnCom>
+                <vProd>2319.64</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>48873.62</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29378.03</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>40397.15</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>48457.15</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>44638.77</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>30291.40</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7729686</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO MEIO AMARGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1402.1396</qCom>
+                <vUnCom>64.9139</vUnCom>
+                <vProd>2296.37</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>14167.89</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>38375.85</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>18280.06</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>41255.84</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>9706.81</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>31311.19</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7729686</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO MEIO AMARGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3429.7679</qCom>
+                <vUnCom>61.7904</vUnCom>
+                <vProd>4268.35</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45832.63</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>26874.41</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>42197.09</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>40842.54</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>6257.04</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10417.06</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7837742</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO C/CASTANHA DE CAJU</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3646.2410</qCom>
+                <vUnCom>3.6962</vUnCom>
+                <vProd>20172.31</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>25071.21</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>42759.59</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>39899.19</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35712.30</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48883.58</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>21409.31</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7837742</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO C/CASTANHA DE CAJU</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1942.9600</qCom>
+                <vUnCom>49.4522</vUnCom>
+                <vProd>25473.50</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>11293.87</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18781.34</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>33166.37</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>13649.07</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>24459.35</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>48134.83</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9926544</cProd>
+                <cEAN />
+                <xProd>CAIXA DE BOMBOM GAROTO SORTIDO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4235.6356</qCom>
+                <vUnCom>63.3112</vUnCom>
+                <vProd>49662.55</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>3459.56</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>9664.86</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>9996.05</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>28867.22</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19701.66</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>11692.49</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2008784</cProd>
+                <cEAN />
+                <xProd>BOMBOM GAROTO SERENATA DE AMOR</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3249.3038</qCom>
+                <vUnCom>52.1223</vUnCom>
+                <vProd>8819.03</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>28389.97</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>34138.34</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>6873.97</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>23871.75</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29149.24</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>24791.46</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7402053</cProd>
+                <cEAN />
+                <xProd>BARRA DE CHOCOLATE GAROTO NEGRESCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4418.3693</qCom>
+                <vUnCom>91.1151</vUnCom>
+                <vProd>49729.38</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>39864.56</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>42772.45</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>32127.76</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>16772.36</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>1638.23</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>19617.10</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

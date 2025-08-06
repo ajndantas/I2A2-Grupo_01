@@ -1,0 +1,631 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe69317978604308770626059520632200801686826402" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>857255907</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>448818</nNF>
+            <dEmi>2025-07-28</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>00:24:06</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>68574390000147</CNPJ>
+            <xNome>SUPERMERCADO ROYAL S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Alameda Nicole da Cunha</xLgr>
+                <nro>6644</nro>
+                <xCpl>Térreo</xCpl>
+                <xBairro>Vila Nova Gameleira 1ª Seção</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Oiapoque</xMun>
+                <UF>AP</UF>
+                <CEP>40656473</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5561945740918</fone>
+            </enderEmit>
+            <IE>018489874673</IE>
+        </emit>
+        <dest>
+            <CNPJ>10342987000186</CNPJ>
+            <xNome>Vitor Gabriel Souza</xNome>
+            <enderDest>
+                <xLgr>Vale de Brito</xLgr>
+                <nro>5248</nro>
+                <xCpl>Loja 87</xCpl>
+                <xBairro>São Pedro</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Santa Maria Madalena</xMun>
+                <UF>RJ</UF>
+                <CEP>74822275</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5584996761236</fone>
+            </enderDest>
+            <IE>525892557161</IE>
+        </dest>
+        <retirada>
+            <CNPJ>58327046000108</CNPJ>
+            <xLgr>Residencial de Novaes</xLgr>
+            <nro>4802</nro>
+            <xCpl>Galpão 52</xCpl>
+            <xBairro>Independência</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Vila Velha</xMun>
+            <UF>ES</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>49370658000184</CNPJ>
+            <xLgr>Estrada Andrade</xLgr>
+            <nro>1936</nro>
+            <xCpl>Sobreloja</xCpl>
+            <xBairro>Santa Amelia</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Colombo</xMun>
+            <UF>PR</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>5318062</cProd>
+                <cEAN />
+                <xProd>MACARRÃO RENATA SEM GLÚTEN ESPAGUETE 8</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4752.3377</qCom>
+                <vUnCom>36.7562</vUnCom>
+                <vProd>41142.30</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>6978.99</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>39114.17</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>33474.95</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>32793.47</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4130.50</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>1537.75</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>40755.75</vBC>
+                <vICMS>41738.55</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>4949.17</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>535.56</vPIS>
+                <vCOFINS>49603.56</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>1417.12</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>48359612000100</CNPJ>
+                <xNome>TransLog Transportes</xNome>
+                <IE>863317026192</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Caruaru</xMun>
+                <UF>PE</UF>
+            </transporta>
+            <veicTransp>
+                <placa>OXA6K90</placa>
+                <UF>PE</UF>
+                <RNTC>528348260765</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>JOP3L64</placa>
+                <UF>PE</UF>
+                <RNTC>274981759</RNTC>
+            </reboque>
+            <vol>
+                <qVol>5453</qVol>
+                <esp>CAIXA</esp>
+                <marca>RENATA</marca>
+                <nVol>9003</nVol>
+                <pesoL>21215.641</pesoL>
+                <pesoB>43967.762</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>2433223</cProd>
+                <cEAN />
+                <xProd>MACARRÃO RENATA PENA SEM GLÚTEN</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1640.9638</qCom>
+                <vUnCom>47.4274</vUnCom>
+                <vProd>13003.36</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>40521.19</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>11721.54</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17360.82</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>33530.47</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>45388.22</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>31235.81</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5318062</cProd>
+                <cEAN />
+                <xProd>MACARRÃO RENATA SEM GLÚTEN ESPAGUETE 8</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1293.5829</qCom>
+                <vUnCom>83.1290</vUnCom>
+                <vProd>29479.35</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8430.41</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>32287.57</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>22548.19</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>32175.87</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>28248.96</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>20680.15</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8598644</cProd>
+                <cEAN />
+                <xProd>FARINHA DE TRIGO TIPO 1 DIA A DIA RENATA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4077.1770</qCom>
+                <vUnCom>91.4964</vUnCom>
+                <vProd>19781.70</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8038.48</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>42679.69</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>20142.35</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>43495.28</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>13277.52</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>44434.12</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6854878</cProd>
+                <cEAN />
+                <xProd>FARINHA DE TRIGO ESPECIAL RENATA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4209.6895</qCom>
+                <vUnCom>64.3092</vUnCom>
+                <vProd>36567.52</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>39117.58</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>36157.45</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>26976.83</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>21702.15</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>28795.17</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>40128.03</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3330657</cProd>
+                <cEAN />
+                <xProd>LASANHA RENATA SUPERIORE GRANO DURO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1135.0715</qCom>
+                <vUnCom>26.3984</vUnCom>
+                <vProd>45093.81</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>15839.18</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28662.68</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>1367.22</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3662.14</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>6540.93</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>35762.59</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6854878</cProd>
+                <cEAN />
+                <xProd>FARINHA DE TRIGO ESPECIAL RENATA</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3762.4415</qCom>
+                <vUnCom>95.1086</vUnCom>
+                <vProd>18145.04</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>3520.16</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>4652.42</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>26572.01</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>30275.68</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>26250.73</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>8471.85</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4895622</cProd>
+                <cEAN />
+                <xProd>MACARRÃO RENATA SEM GLÚTEN PARAFUSO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2028.5230</qCom>
+                <vUnCom>94.0340</vUnCom>
+                <vProd>41280.23</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>33664.86</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>21304.76</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>26150.05</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>48581.75</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>45496.75</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>5091.46</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6441288</cProd>
+                <cEAN />
+                <xProd>MISTURA PARA BOLO RENATA AIPIM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3488.6107</qCom>
+                <vUnCom>37.9283</vUnCom>
+                <vProd>49355.61</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>38075.48</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28240.94</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3650.08</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>37529.96</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>8448.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36388.13</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6441288</cProd>
+                <cEAN />
+                <xProd>MISTURA PARA BOLO RENATA AIPIM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>630.7411</qCom>
+                <vUnCom>78.7189</vUnCom>
+                <vProd>26131.80</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8002.52</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>30316.87</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>22298.13</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>1017.13</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>6758.42</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>3384.36</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>5318062</cProd>
+                <cEAN />
+                <xProd>MACARRÃO RENATA SEM GLÚTEN ESPAGUETE 8</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2063.7627</qCom>
+                <vUnCom>42.1814</vUnCom>
+                <vProd>29909.29</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>1915.46</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>39040.73</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>7726.05</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>2172.80</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>44215.24</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>3389.44</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

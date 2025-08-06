@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe95560933252008703821674313761528929279555856" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>353550451</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>244664</nNF>
+            <dEmi>2025-07-13</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>19:18:46</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>90437685000120</CNPJ>
+            <xNome>MERCEARIA OURO LTDA</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Praia Vitória Silveira</xLgr>
+                <nro>4731</nro>
+                <xCpl>Unidade 11</xCpl>
+                <xBairro>Vila Real 2ª Seção</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Macaíba</xMun>
+                <UF>RN</UF>
+                <CEP>16744178</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5541953554011</fone>
+            </enderEmit>
+            <IE>482121599125</IE>
+        </emit>
+        <dest>
+            <CNPJ>83941725000101</CNPJ>
+            <xNome>Mariana Macedo</xNome>
+            <enderDest>
+                <xLgr>Estrada Rodrigues</xLgr>
+                <nro>8228</nro>
+                <xCpl>Unidade 51</xCpl>
+                <xBairro>Marçola</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Maringá</xMun>
+                <UF>PR</UF>
+                <CEP>44206790</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5531918001628</fone>
+            </enderDest>
+            <IE>525856266228</IE>
+        </dest>
+        <retirada>
+            <CNPJ>12049856000130</CNPJ>
+            <xLgr>Rua de da Conceição</xLgr>
+            <nro>2296</nro>
+            <xCpl>Térreo</xCpl>
+            <xBairro>Palmares</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Colombo</xMun>
+            <UF>PR</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>90768412000169</CNPJ>
+            <xLgr>Travessa Guerra</xLgr>
+            <nro>2713</nro>
+            <xCpl>Galpão 60</xCpl>
+            <xBairro>Vila Bandeirantes</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Itabuna</xMun>
+            <UF>BA</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>3199427</cProd>
+                <cEAN />
+                <xProd>RAÇÃO ÚMIDA SACHÊ CESAR FRANGO MARS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>804.3134</qCom>
+                <vUnCom>15.0845</vUnCom>
+                <vProd>39320.40</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>10449.85</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>7843.94</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>34964.42</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>49556.14</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>21069.14</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>14352.22</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>49020.74</vBC>
+                <vICMS>32007.49</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>13270.20</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>38639.45</vPIS>
+                <vCOFINS>17143.89</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>30132.58</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>71592864000198</CNPJ>
+                <xNome>Rodonaves Transportes</xNome>
+                <IE>508316756840</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Dourados</xMun>
+                <UF>MS</UF>
+            </transporta>
+            <veicTransp>
+                <placa>IOG9V33</placa>
+                <UF>MS</UF>
+                <RNTC>759726140100</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>OHF4Q45</placa>
+                <UF>MS</UF>
+                <RNTC>12408697</RNTC>
+            </reboque>
+            <vol>
+                <qVol>19594</qVol>
+                <esp>CAIXA</esp>
+                <marca>MARS</marca>
+                <nVol>6248</nVol>
+                <pesoL>40503.238</pesoL>
+                <pesoB>48174.972</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>9136872</cProd>
+                <cEAN />
+                <xProd>PEDIGREE RAÇÃO SECA FILHOTE SABOR CARNE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3076.9598</qCom>
+                <vUnCom>46.1579</vUnCom>
+                <vProd>24039.28</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>10046.32</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>36959.55</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>21670.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>40824.12</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>4471.50</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>32939.18</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9085027</cProd>
+                <cEAN />
+                <xProd>ROYAL CANIN FIT FELINE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3678.7944</qCom>
+                <vUnCom>7.0156</vUnCom>
+                <vProd>12099.98</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>28675.97</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>30260.45</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29430.61</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>39665.45</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>46510.34</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>36986.13</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9085027</cProd>
+                <cEAN />
+                <xProd>ROYAL CANIN FIT FELINE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>322.1636</qCom>
+                <vUnCom>37.6726</vUnCom>
+                <vProd>47177.76</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>36603.20</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>12723.98</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>11223.85</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>13124.48</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>14822.57</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>37587.90</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9085027</cProd>
+                <cEAN />
+                <xProd>ROYAL CANIN FIT FELINE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3496.9882</qCom>
+                <vUnCom>73.4908</vUnCom>
+                <vProd>12032.23</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>34920.53</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>22567.65</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>37168.56</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>26674.53</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>45564.95</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>18555.78</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3199427</cProd>
+                <cEAN />
+                <xProd>RAÇÃO ÚMIDA SACHÊ CESAR FRANGO MARS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3985.3309</qCom>
+                <vUnCom>24.1602</vUnCom>
+                <vProd>25178.18</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>32886.10</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>5127.80</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>40955.47</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>28970.10</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>37190.94</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46083.61</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9085027</cProd>
+                <cEAN />
+                <xProd>ROYAL CANIN FIT FELINE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2873.9772</qCom>
+                <vUnCom>60.5089</vUnCom>
+                <vProd>20700.94</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8777.43</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>2475.05</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>29059.83</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>10550.97</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>12089.85</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>27654.16</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3907594</cProd>
+                <cEAN />
+                <xProd>PETISCO CREMOSO SHEBA ATUM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3205.0983</qCom>
+                <vUnCom>70.9051</vUnCom>
+                <vProd>47156.87</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>6163.97</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>18719.50</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>30096.99</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>8945.22</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>7368.11</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>30333.19</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2180914</cProd>
+                <cEAN />
+                <xProd>WHISKAS SACHÊ ADULTO CORDEIRO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>33.4560</qCom>
+                <vUnCom>55.5011</vUnCom>
+                <vProd>22293.28</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>31551.54</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29546.42</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>6232.42</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>33186.83</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>36246.94</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>8894.10</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

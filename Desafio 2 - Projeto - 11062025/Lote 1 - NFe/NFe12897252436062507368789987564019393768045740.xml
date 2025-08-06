@@ -1,0 +1,674 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe12897252436062507368789987564019393768045740" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>334971512</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>404080</nNF>
+            <dEmi>2025-07-31</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>05:09:13</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>30648521000110</CNPJ>
+            <xNome>MERCEARIA POPULAR S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Morro de Jesus</xLgr>
+                <nro>4113</nro>
+                <xCpl>Térreo</xCpl>
+                <xBairro>São Gonçalo</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Viamão</xMun>
+                <UF>RS</UF>
+                <CEP>21603858</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5581965344635</fone>
+            </enderEmit>
+            <IE>926108262413</IE>
+        </emit>
+        <dest>
+            <CNPJ>39071825000132</CNPJ>
+            <xNome>Dr. Yuri Brito</xNome>
+            <enderDest>
+                <xLgr>Pátio de Pereira</xLgr>
+                <nro>4943</nro>
+                <xCpl>Sobreloja</xCpl>
+                <xBairro>Salgado Filho</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Vilhena</xMun>
+                <UF>RO</UF>
+                <CEP>76784853</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5541962482254</fone>
+            </enderDest>
+            <IE>928341900732</IE>
+        </dest>
+        <retirada>
+            <CNPJ>85769012000138</CNPJ>
+            <xLgr>Praça de Mendonça</xLgr>
+            <nro>904</nro>
+            <xCpl>Fundos</xCpl>
+            <xBairro>Colégio Batista</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Queimados</xMun>
+            <UF>RJ</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>67382150000188</CNPJ>
+            <xLgr>Avenida Pedro Lucas Dias</xLgr>
+            <nro>5667</nro>
+            <xCpl>Loja 92</xCpl>
+            <xBairro>Conjunto Paulo Vi</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Paranaíba</xMun>
+            <UF>MS</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>3509672</cProd>
+                <cEAN />
+                <xProd>TOAST BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>404.8934</qCom>
+                <vUnCom>6.5634</vUnCom>
+                <vProd>49448.10</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>42242.81</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>32741.85</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>48196.87</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>3918.14</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19498.88</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>21858.08</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>26150.26</vBC>
+                <vICMS>33660.10</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>27064.92</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>45724.29</vPIS>
+                <vCOFINS>19260.60</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>41464.16</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>72185049000177</CNPJ>
+                <xNome>LusoCargo Transp</xNome>
+                <IE>174315960865</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Campo Maior</xMun>
+                <UF>PI</UF>
+            </transporta>
+            <veicTransp>
+                <placa>ZDL6N22</placa>
+                <UF>PI</UF>
+                <RNTC>305183838</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>CXL9E18</placa>
+                <UF>PI</UF>
+                <RNTC>7173238580</RNTC>
+            </reboque>
+            <vol>
+                <qVol>13683</qVol>
+                <esp>CAIXA</esp>
+                <marca>BAUDUCCO</marca>
+                <nVol>6787</nVol>
+                <pesoL>25312.611</pesoL>
+                <pesoB>3865.344</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>1250229</cProd>
+                <cEAN />
+                <xProd>PANETTONE BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3979.4966</qCom>
+                <vUnCom>92.3033</vUnCom>
+                <vProd>664.87</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>19712.60</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>38633.73</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>8108.62</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35504.94</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>39458.29</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>9865.78</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3095613</cProd>
+                <cEAN />
+                <xProd>MINI PANETONE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3472.7855</qCom>
+                <vUnCom>2.3352</vUnCom>
+                <vProd>3521.89</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>27540.48</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>19341.76</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>38513.08</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>5724.79</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48515.08</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>18222.80</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9137414</cProd>
+                <cEAN />
+                <xProd>WAFER BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4738.7885</qCom>
+                <vUnCom>88.3922</vUnCom>
+                <vProd>33792.19</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>23474.23</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>20409.36</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>3515.91</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>39787.39</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>3125.71</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>6513.35</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3986443</cProd>
+                <cEAN />
+                <xProd>ROSQUINHA BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2225.4173</qCom>
+                <vUnCom>50.8278</vUnCom>
+                <vProd>17318.38</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>6703.44</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>2948.25</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>48153.46</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7239.19</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>13196.86</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>44580.93</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>6160371</cProd>
+                <cEAN />
+                <xProd>CHOCOTTONE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3835.8064</qCom>
+                <vUnCom>57.7595</vUnCom>
+                <vProd>2779.99</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>34079.30</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>17558.33</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>6850.55</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>17048.47</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>27664.48</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>29822.70</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9137414</cProd>
+                <cEAN />
+                <xProd>WAFER BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3907.0547</qCom>
+                <vUnCom>11.8883</vUnCom>
+                <vProd>26109.63</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>8093.29</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>10163.44</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>20133.40</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>47027.78</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>15048.20</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>5752.59</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3509672</cProd>
+                <cEAN />
+                <xProd>TOAST BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3641.7265</qCom>
+                <vUnCom>5.8612</vUnCom>
+                <vProd>8321.33</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>35555.96</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>2057.98</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>43728.47</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>47074.51</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>31857.00</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>4433.38</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9137414</cProd>
+                <cEAN />
+                <xProd>WAFER BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>123.4625</qCom>
+                <vUnCom>88.6033</vUnCom>
+                <vProd>16773.45</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>15322.74</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>9694.81</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>39175.20</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>32580.39</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>44488.84</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>192.93</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2549379</cProd>
+                <cEAN />
+                <xProd>COOKIES BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1790.2272</qCom>
+                <vUnCom>85.1520</vUnCom>
+                <vProd>24810.39</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>2591.17</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>7877.45</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>27181.99</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>40048.94</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>17908.13</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>35731.97</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3986443</cProd>
+                <cEAN />
+                <xProd>ROSQUINHA BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>2504.2476</qCom>
+                <vUnCom>76.5569</vUnCom>
+                <vProd>29650.42</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>42362.59</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>27421.72</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17313.41</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>20623.53</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>43664.44</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46666.43</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9137414</cProd>
+                <cEAN />
+                <xProd>WAFER BAUDUCCO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>1343.2977</qCom>
+                <vUnCom>12.6010</vUnCom>
+                <vProd>22912.94</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>29128.05</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>38251.36</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>27317.02</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>38033.85</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>17096.79</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>38878.24</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

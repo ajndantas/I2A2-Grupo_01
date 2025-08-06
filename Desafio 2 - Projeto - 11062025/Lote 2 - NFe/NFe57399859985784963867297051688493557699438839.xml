@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe57399859985784963867297051688493557699438839" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>171406111</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>400408</nNF>
+            <dEmi>2025-07-16</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>05:23:30</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>86904371000113</CNPJ>
+            <xNome>SUPERMERCADO ESPERANÇA S.A.</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Praça de Oliveira</xLgr>
+                <nro>2723</nro>
+                <xCpl>Loja 47</xCpl>
+                <xBairro>Maravilha</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Trindade</xMun>
+                <UF>RJ</UF>
+                <CEP>79343497</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5581981030328</fone>
+            </enderEmit>
+            <IE>161701403137</IE>
+        </emit>
+        <dest>
+            <CNPJ>43790156000126</CNPJ>
+            <xNome>Melissa da Luz</xNome>
+            <enderDest>
+                <xLgr>Lago de Cardoso</xLgr>
+                <nro>1678</nro>
+                <xCpl>Bloco 53</xCpl>
+                <xBairro>Lagoinha</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Humaitá</xMun>
+                <UF>AM</UF>
+                <CEP>45648298</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5521975490345</fone>
+            </enderDest>
+            <IE>100161268178</IE>
+        </dest>
+        <retirada>
+            <CNPJ>17543982000160</CNPJ>
+            <xLgr>Rodovia Silva</xLgr>
+            <nro>9846</nro>
+            <xCpl>Sobreloja</xCpl>
+            <xBairro>Nova Gameleira</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Palhoça</xMun>
+            <UF>SC</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>18520397000108</CNPJ>
+            <xLgr>Sítio Juliana Teixeira</xLgr>
+            <nro>4806</nro>
+            <xCpl>Box 36</xCpl>
+            <xBairro>Jardim Vitoria</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Petrolina</xMun>
+            <UF>PE</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>2454350</cProd>
+                <cEAN />
+                <xProd>SHRIMP FLAVOR SOUP</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3987.5392</qCom>
+                <vUnCom>20.0842</vUnCom>
+                <vProd>16441.37</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>45689.62</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>28787.86</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>37972.99</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7788.88</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>31568.62</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>10890.46</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>14159.71</vBC>
+                <vICMS>34469.12</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>16904.77</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>25204.53</vPIS>
+                <vCOFINS>21857.05</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>47771.46</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>03768514000180</CNPJ>
+                <xNome>Cargo Minas</xNome>
+                <IE>107721615684</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Calçoene</xMun>
+                <UF>AP</UF>
+            </transporta>
+            <veicTransp>
+                <placa>VLT3F19</placa>
+                <UF>AP</UF>
+                <RNTC>037074492048</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>UPX3R84</placa>
+                <UF>AP</UF>
+                <RNTC>46241539</RNTC>
+            </reboque>
+            <vol>
+                <qVol>722</qVol>
+                <esp>CAIXA</esp>
+                <marca>NISSIN</marca>
+                <nVol>7072</nVol>
+                <pesoL>1377.336</pesoL>
+                <pesoB>34704.008</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>8086614</cProd>
+                <cEAN />
+                <xProd>MACARRÃO INSTANTANEO GALINHA CAIPIRA E CARNE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3628.6203</qCom>
+                <vUnCom>48.0374</vUnCom>
+                <vProd>44991.25</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>24779.88</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>8694.08</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17909.71</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>7699.28</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>25157.46</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>8025.67</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7888123</cProd>
+                <cEAN />
+                <xProd>MACARRÃO INSTANTÂNEO YAKISSOBA TRADICIONAL CUP NOODLES COPO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>713.5606</qCom>
+                <vUnCom>70.8215</vUnCom>
+                <vProd>2502.59</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>42441.59</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>11651.79</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>42889.36</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25507.86</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>49377.81</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>29512.90</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4488484</cProd>
+                <cEAN />
+                <xProd>SOUPER MEAL BEEF MINESTRONE RAMEN NOODLE SOUP</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4457.5609</qCom>
+                <vUnCom>63.4599</vUnCom>
+                <vProd>46886.74</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>39511.79</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29915.36</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>8060.67</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>48136.42</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>3123.14</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>28849.20</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8086614</cProd>
+                <cEAN />
+                <xProd>MACARRÃO INSTANTANEO GALINHA CAIPIRA E CARNE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2104.3156</qCom>
+                <vUnCom>71.9862</vUnCom>
+                <vProd>42250.40</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>37031.99</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>3073.77</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>28279.17</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>9555.23</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>7733.33</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>28021.29</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4749262</cProd>
+                <cEAN />
+                <xProd>MACARRÃO INSTANTÂNEO LÁMEN GALINHA NISSIN MIOJO HOT</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>767.6614</qCom>
+                <vUnCom>17.6850</vUnCom>
+                <vProd>45927.36</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>38299.60</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>29814.11</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>43810.99</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>42363.60</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>3175.21</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>28833.59</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>1615195</cProd>
+                <cEAN />
+                <xProd>MACARRÃO INSTANTÂNEO LÁMEN COSTELA NISSIN MIOJO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1218.1809</qCom>
+                <vUnCom>75.2681</vUnCom>
+                <vProd>49719.76</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>6805.66</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>37818.23</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>28179.50</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25017.34</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>38329.14</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>24019.42</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>8086614</cProd>
+                <cEAN />
+                <xProd>MACARRÃO INSTANTANEO GALINHA CAIPIRA E CARNE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>620.7439</qCom>
+                <vUnCom>23.3716</vUnCom>
+                <vProd>5015.44</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>15768.84</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>9378.58</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>23752.21</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25878.07</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>35880.60</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>383.62</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4488484</cProd>
+                <cEAN />
+                <xProd>SOUPER MEAL BEEF MINESTRONE RAMEN NOODLE SOUP</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2883.4606</qCom>
+                <vUnCom>5.5978</vUnCom>
+                <vProd>35947.10</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>40118.65</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>46945.49</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>4017.65</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>32330.04</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29215.60</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>6141.19</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>

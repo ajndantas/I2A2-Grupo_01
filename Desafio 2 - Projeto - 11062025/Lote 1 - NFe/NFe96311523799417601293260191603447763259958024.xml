@@ -1,0 +1,674 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NFe>
+    <infNFe Id="NFe96311523799417601293260191603447763259958024" versao="1.10">
+        <ide>
+            <cUF>35</cUF>
+            <cNF>865418366</cNF>
+            <natOp>Venda a vista</natOp>
+            <indPag>0</indPag>
+            <mod>55</mod>
+            <serie>1</serie>
+            <nNF>175560</nNF>
+            <dEmi>2025-08-01</dEmi>
+            <dSaiEnt>2008-05-06</dSaiEnt>
+            <hSaiEnt>15:51:31</hSaiEnt>
+            <tpNF>0</tpNF>
+            <cMunFG>3550308</cMunFG>
+            <tpImp>1</tpImp>
+            <tpEmis>1</tpEmis>
+            <cDV>3</cDV>
+            <tpAmb>2</tpAmb>
+            <finNFe>1</finNFe>
+            <procEmi>0</procEmi>
+            <verProc>NF-eletronica.com</verProc>
+        </ide>
+        <emit>
+            <CNPJ>15296380000120</CNPJ>
+            <xNome>COMERCIAL SILVA EPP</xNome>
+            <xFant>NF-e</xFant>
+            <enderEmit>
+                <xLgr>Aeroporto João Miguel Souza</xLgr>
+                <nro>2420</nro>
+                <xCpl>Box 66</xCpl>
+                <xBairro>Grajaú</xBairro>
+                <cMun>3502200</cMun>
+                <xMun>Chapecó</xMun>
+                <UF>SC</UF>
+                <CEP>33701477</CEP>
+                <cPais>1058</cPais>
+                <xPais>Brasil</xPais>
+                <fone>5551917660099</fone>
+            </enderEmit>
+            <IE>866628167675</IE>
+        </emit>
+        <dest>
+            <CNPJ>85749236000188</CNPJ>
+            <xNome>Srta. Luara da Paz</xNome>
+            <enderDest>
+                <xLgr>Largo Thales Cavalcante</xLgr>
+                <nro>1468</nro>
+                <xCpl>Fundos</xCpl>
+                <xBairro>Lagoinha</xBairro>
+                <cMun>5030801</cMun>
+                <xMun>Sapé</xMun>
+                <UF>PB</UF>
+                <CEP>22439152</CEP>
+                <cPais>1058</cPais>
+                <xPais>BRASIL</xPais>
+                <fone>5571949689729</fone>
+            </enderDest>
+            <IE>336267461121</IE>
+        </dest>
+        <retirada>
+            <CNPJ>49817350000134</CNPJ>
+            <xLgr>Ladeira Ana Andrade</xLgr>
+            <nro>2408</nro>
+            <xCpl>Apto 61</xCpl>
+            <xBairro>Cidade Jardim</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Guarapuava</xMun>
+            <UF>PR</UF>
+        </retirada>
+        <entrega>
+            <CNPJ>03541962000146</CNPJ>
+            <xLgr>Estrada Ísis da Costa</xLgr>
+            <nro>7580</nro>
+            <xCpl>Apto 50</xCpl>
+            <xBairro>Vila Betânia</xBairro>
+            <cMun>3550308</cMun>
+            <xMun>Coruripe</xMun>
+            <UF>AL</UF>
+        </entrega>
+        <det nItem="1">
+            <prod>
+                <cProd>3199427</cProd>
+                <cEAN />
+                <xProd>RAÇÃO ÚMIDA SACHÊ CESAR FRANGO MARS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>293.1151</qCom>
+                <vUnCom>67.2127</vUnCom>
+                <vProd>32136.04</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>6125.13</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>17572.26</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>19070.26</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>41893.08</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>46306.70</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>19084.75</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det>
+        <total>
+            <ICMSTot>
+                <vBC>27252.29</vBC>
+                <vICMS>25633.82</vICMS>
+                <vBCST>0</vBCST>
+                <vST>0</vST>
+                <vProd>4057.23</vProd>
+                <vFrete>0</vFrete>
+                <vSeg>0</vSeg>
+                <vDesc>0</vDesc>
+                <vII>0</vII>
+                <vIPI>0</vIPI>
+                <vPIS>15731.93</vPIS>
+                <vCOFINS>38547.68</vCOFINS>
+                <vOutro>0</vOutro>
+                <vNF>20513.70</vNF>
+            </ICMSTot>
+        </total>
+        <transp>
+            <modFrete>0</modFrete>
+            <transporta>
+                <CNPJ>76809543000116</CNPJ>
+                <xNome>Sopro Divino Logistica</xNome>
+                <IE>885313949463</IE>
+                <xEnder>Rua Central 100 - Fundos - Distrito Industrial</xEnder>
+                <xMun>Tabatinga</xMun>
+                <UF>AM</UF>
+            </transporta>
+            <veicTransp>
+                <placa>RBP4R25</placa>
+                <UF>AM</UF>
+                <RNTC>64008701</RNTC>
+            </veicTransp>
+            <reboque>
+                <placa>HMM7B50</placa>
+                <UF>AM</UF>
+                <RNTC>53515400</RNTC>
+            </reboque>
+            <vol>
+                <qVol>7153</qVol>
+                <esp>CAIXA</esp>
+                <marca>MARS</marca>
+                <nVol>9619</nVol>
+                <pesoL>18987.287</pesoL>
+                <pesoB>37977.403</pesoB>
+                <lacres>
+                    <nLacre>XYZ10231486</nLacre>
+                </lacres>
+            </vol>
+        </transp>
+        <infAdic>
+            <infAdFisco>DOCUMENTO SEM VALOR FISCAL - USO EXCLUSIVO PARA TESTES</infAdFisco>
+            <infCpl>As informações exibidas são fictícias e não correspondem à realidade</infCpl>
+        </infAdic>
+    <det nItem="1">
+            <prod>
+                <cProd>3907594</cProd>
+                <cEAN />
+                <xProd>PETISCO CREMOSO SHEBA ATUM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1720.2512</qCom>
+                <vUnCom>30.4150</vUnCom>
+                <vProd>36729.98</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>20015.96</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>26523.05</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>26342.27</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>30450.59</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>45619.43</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>17006.28</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9085027</cProd>
+                <cEAN />
+                <xProd>ROYAL CANIN FIT FELINE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1647.8346</qCom>
+                <vUnCom>46.4195</vUnCom>
+                <vProd>7653.26</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>25996.82</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>37680.42</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>32730.66</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>30844.17</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>19889.55</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>24947.30</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3199427</cProd>
+                <cEAN />
+                <xProd>RAÇÃO ÚMIDA SACHÊ CESAR FRANGO MARS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2784.1599</qCom>
+                <vUnCom>83.9159</vUnCom>
+                <vProd>23900.76</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>30737.73</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>48226.52</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>46654.62</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>12333.33</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>29125.30</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>47070.06</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2180914</cProd>
+                <cEAN />
+                <xProd>WHISKAS SACHÊ ADULTO CORDEIRO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>975.5132</qCom>
+                <vUnCom>78.2921</vUnCom>
+                <vProd>32366.19</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>3671.99</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>31499.17</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>22899.48</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>32962.12</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>45624.20</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>29073.52</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>9136872</cProd>
+                <cEAN />
+                <xProd>PEDIGREE RAÇÃO SECA FILHOTE SABOR CARNE</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>2645.7021</qCom>
+                <vUnCom>21.1321</vUnCom>
+                <vProd>42813.12</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>44132.53</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>23190.55</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>19201.24</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35411.54</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>48736.96</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>8065.77</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2180914</cProd>
+                <cEAN />
+                <xProd>WHISKAS SACHÊ ADULTO CORDEIRO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>4702.8667</qCom>
+                <vUnCom>9.8846</vUnCom>
+                <vProd>45644.54</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>38841.83</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>16983.87</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>5472.80</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>25018.91</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>24227.65</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>22015.05</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3199427</cProd>
+                <cEAN />
+                <xProd>RAÇÃO ÚMIDA SACHÊ CESAR FRANGO MARS</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>481.5740</qCom>
+                <vUnCom>87.7065</vUnCom>
+                <vProd>28182.77</vProd>
+                <cEANTrib />
+                <uTrib>UN</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>4501.46</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>23470.44</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>22230.97</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>35670.25</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>32115.56</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>12631.90</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>2180914</cProd>
+                <cEAN />
+                <xProd>WHISKAS SACHÊ ADULTO CORDEIRO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>UN</uCom>
+                <qCom>3198.1910</qCom>
+                <vUnCom>51.4618</vUnCom>
+                <vProd>46340.74</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>24388.11</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>3542.09</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>20394.07</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>18700.13</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>20495.25</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>23599.35</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>3907594</cProd>
+                <cEAN />
+                <xProd>PETISCO CREMOSO SHEBA ATUM</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>1032.2589</qCom>
+                <vUnCom>85.4392</vUnCom>
+                <vProd>1194.37</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>12234.05</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>34773.93</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>44442.67</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>42571.39</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>3313.20</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>17099.11</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>7491554</cProd>
+                <cEAN />
+                <xProd>WHISKAS SACHÊ ADULTO FRANGO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>3931.5336</qCom>
+                <vUnCom>93.8661</vUnCom>
+                <vProd>40934.93</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>21673.87</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>12804.13</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>31857.76</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>40598.49</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>25581.76</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>21076.51</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det><det nItem="1">
+            <prod>
+                <cProd>4029371</cProd>
+                <cEAN />
+                <xProd>WHISKAS SACHÊ ADULTO PESCADO</xProd>
+                <CFOP>5101</CFOP>
+                <uCom>PC</uCom>
+                <qCom>4981.6885</qCom>
+                <vUnCom>42.9961</vUnCom>
+                <vProd>48348.91</vProd>
+                <cEANTrib />
+                <uTrib>PC</uTrib>
+                <qTrib>12000000.0000</qTrib>
+                <vUnTrib>1</vUnTrib>
+            </prod>
+            <imposto>
+                <ICMS>
+                    <ICMS00>
+                        <orig>0</orig>
+                        <CST>00</CST>
+                        <modBC>0</modBC>
+                        <vBC>24485.04</vBC>
+                        <pICMS>18.00</pICMS>
+                        <vICMS>8036.97</vICMS>
+                    </ICMS00>
+                </ICMS>
+                <PIS>
+                    <PISAliq>
+                        <CST>01</CST>
+                        <vBC>17836.73</vBC>
+                        <pPIS>0.65</pPIS>
+                        <vPIS>33063.03</vPIS>
+                    </PISAliq>
+                </PIS>
+                <COFINS>
+                    <COFINSAliq>
+                        <CST>01</CST>
+                        <vBC>27768.33</vBC>
+                        <pCOFINS>2.00</pCOFINS>
+                        <vCOFINS>46423.97</vCOFINS>
+                    </COFINSAliq>
+                </COFINS>
+            </imposto>
+        </det></infNFe>
+    <Signature>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#NFe35080599999090910270550010000000015180051273">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>xhTSDMH61e9uqe04lnoHT4ZzLSY=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>Iz5Z3PLQbzZt9jnBtr6xsmHZMOu/3plXG9xxfFjRCQYGnD1rjlhzBGrqt026Ca2VHHM/bHNepi6FuFkAi595GScKVuHREUotzifE2OIjgavvTOrMwbXG7+0LYgkwPFiPCao2S33UpZe7MneaxcmKQGKQZw1fP8fsWmaQ4cczZT8=</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIEuzCCA6OgAwIBAgIDMTMxMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJCUjELMAkGA1UECBMCUlMxFTATBgNVBAcTDFBvcnRvIEFsZWdyZTEdMBsGA1UEChMUVGVzdGUgUHJvamV0byBORmUgUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMSEwHwYDVQQDExhORmUgLSBBQyBJbnRlcm1lZGlhcmlhIDEwHhcNMDgwNDI4MDkwMTAyWhcNMDkwNDMwMjM1OTU5WjCBnjELMAkGA1UECBMCUlMxHTAbBgNVBAsTFFRlc3RlIFByb2pldG8gTkZlIFJTMR0wGwYDVQQKExRUZXN0ZSBQcm9qZXRvIE5GZSBSUzEVMBMGA1UEBxMMUE9SVE8gQUxFR1JFMQswCQYDVQQGEwJCUjEtMCsGA1UEAxMkTkZlIC0gQXNzb2NpYWNhbyBORi1lOjk5OTk5MDkwOTEwMjcwMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDh6RRv0bj4RYX+tDQrZRb5opa77LBVVs+6LphIfSF3TSWPfnKh0+xLlBFdmnB5YGgbbW9Uon6pZQTfaC8jZhRhI5eFRRofY/Ugoeo0NGt6PcIQNZQd6lLQ/ASd1qWwjqJoEa7udriKjy3h351Mf1bng1VxS1urqC3Dn39ZWIEwQIDAQABo4IBjjCCAYowIgYDVR0jAQEABBgwFoAUPT5TqhNWAm+ZpcVsvB7malDBjEQwDwYDVR0TAQH/BAUwAwEBADAPBgNVHQ8BAf8EBQMDAOAAMAwGA1UdIAEBAAQCMAAwgbwGA1UdEQEBAASBsTCBrqA4BgVgTAEDBKAvBC0wNzA4MTk1MTE1MTk0NTMxMDg3MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgHQYFYEwBAwKgFAQSRmVybmFuZG8gQ2FudG8gQWx0oBkGBWBMAQMDoBAEDjk5OTk5MDkwOTEwMjcwoBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEfZmVybmFuZG8tYWx0QHByb2NlcmdzLnJzLmdvdi5icjAgBgNVHSUBAf8EFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwUwYDVR0fAQEABEkwRzBFoEOgQYY/aHR0cDovL25mZWNlcnRpZmljYWRvLnNlZmF6LnJzLmdvdi5ici9MQ1IvQUNJbnRlcm1lZGlhcmlhMzguY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQCNPpaZ3Byu3/70nObXE8NiM53j1ddIFXsb+v2ghCVd4ffExv3hYc+/a3lfgV8H/WfQsdSCTzS2cHrd4Aasr/eXfclVDmf2hcWz+R7iysOHuT6B6r+DvV3JcMdJJCDdynR5REa+zViMnVZo1G3KuceQ7/y5X3WFNVq4kwHvonJ9oExsWyw8rTwUK5bsjz0A2yEwXkmkJIngnF41sP31+9jCImiqkXcmsesFhxzX7iurAQAQCZOm7iwMWxQKcAjXCZrgSZWRQy6mU224sX3HTArHahmLJ9Iw+WYAua5qBJsiN6PC7v5tfhrEQFpcG39yMnOecxvkkPolDUyBa7d7xwgm</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</NFe>
