@@ -328,31 +328,6 @@ def agente2(pergunta,arquivo,engine):
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-"""
-        Código para autenticação do usuário
-        
-        1) Criar usuário
-        
-            Se na tela for clicado em "Criar usuário", exibir para o usuário uma tela para preencher login, senha e nome. Executar a função gestao_usuarios
-            com os parâmetros a seguir. A função sempre responderá com True ou False se o procedimento ocorrer, respectivamente, com sucesso ou não.
-            resposta = gestao_usuario(login,senha,nome,novo_usuario=True)
-        
-        2) Esqueci minha senha
-        
-            Se na tela for clicado em "Esqueci minha senha", exibir para o usuário uma tela para preencher a nova senha e o login. Executar a função gestao_usuarios
-            com os parâmetros a seguir. A função sempre responderá com True ou False se o procedimento ocorrer, respectivamente, com sucesso ou não. 
-            resposta = gestao_usuario(login,senha,esqueci_senha=True)
-            
-        3) Autenticação
-
-            Se na tela for clicado em "Realizar login". Executar a função gestao_usuarios 
-            com os parâmetros a seguir. A função sempre responderá com True ou False se o procedimento ocorrer, respectivamente, com sucesso ou não. 
-            resposta = gestao_usuario(login,senha,autenticacao=True)
-        
-        Obs1: As ausências nos preenchimentos dos campos para as opções acima, devem ser tratadas com mensagens de erro apropriadas.
-        Obs2: Ocorrendo sucesso na autenticação, o usuário deve ser redirecionado para a tela seguinte, que é a tela atual.
-                    
-"""
 def agente1(engine): # FRONTEND
 
     print("Executando o agente 1...")
