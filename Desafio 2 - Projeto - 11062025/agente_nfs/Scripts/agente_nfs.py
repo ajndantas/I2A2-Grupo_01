@@ -18,7 +18,7 @@
 from os import getenv,remove
 from os.path import exists
 from pandas import read_csv, read_sql, DataFrame
-from sqlalchemy import create_engine, inspect, text, MetaData, Table, Column, String
+from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
