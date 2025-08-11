@@ -42,7 +42,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            nomecampos: list = Field(description="significado. Em poucas palavras e com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF)")
+            campos: list = Field(description="campos extraídos do documento fiscal")
+            sigcampos: list = Field(description="significado. Em poucas palavras e com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF)")
             valores: list = Field(description="Somente os Valores")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
@@ -56,10 +57,10 @@ def consultallmdocfiscal(texto,llm,tipo):
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
-        
-        3 - Os valores para cada um dos campos do item 2.
-        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
-        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
+        3 - Campos para cada um dos valores 
+        4 - Os valores para cada um dos campos do item 2.
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
+        6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
             
         {formatador_saida_ia}
@@ -84,7 +85,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            nomecampos: list = Field(description="significado")           
+            sigcampos: list = Field(description="significado")           
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
@@ -246,9 +247,6 @@ def agente2(pergunta,arquivo,engine):
         google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
     )
     
-    # CATALOGANDO OS ARQUIVOS NO BD
-    inspector = inspect(engine) # INSPECTOR PARA LISTAR AS TABELAS DO BANCO DE DADOS
-
     ocr = NotaFiscalOCR() # INSTÂNCIA DO MOTOR OCR
     
     tipo = from_buffer(arquivo.getvalue(),mime=True)
@@ -264,14 +262,17 @@ def agente2(pergunta,arquivo,engine):
         print("\nTexto\n",texto)
         resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
         
-        listacampos = resposta['nomecampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO CSV
+        campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
         
-        df = DataFrame([resposta['valores']], columns=resposta['nomecampos'])                                       
+        listacampos = resposta['nomecampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO
+               
+        df = DataFrame([resposta['valores']], columns=listacampos)                                       
                     
               
     elif tipo in ['text/plain','text/csv']: 
         
         df = read_csv(arquivo)
+        campos = list(df.columns.values)
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
     
@@ -286,7 +287,8 @@ def agente2(pergunta,arquivo,engine):
     df['ARQUIVO'] = arquivo.name        
             
     dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
-    dfcampos = DataFrame({'CAMPOS':[listacampos]}) # LISTA COM UMA LISTA DE CAMPOS
+    
+    dfcampos = DataFrame({'CAMPOS':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
     
     resposta = obtem_sim_nao(pergunta,df,llm)                 
     
