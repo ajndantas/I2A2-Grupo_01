@@ -69,19 +69,19 @@ def gestao_usuarios(engine, login, senha, nome, novo_usuario = False, esqueci_se
         with engine.connect() as conn:
             
             if novo_usuario:
-                hashed = bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt())
+                hashed = hashpw(senha.encode('utf-8'), gensalt())
                 conn.execute(usuarios.insert().values(login=login, senha=hashed.decode("utf-8"), nome=nome))
                 conn.commit()
                 return True
             
             elif esqueci_senha:
-                hashed = bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt())
+                hashed = hashpw(senha.encode('utf-8'), gensalt())
                 conn.execute(usuarios.update().where(usuarios.c.login == login).values(senha=hashed.decode("utf-8")))
                 return True
                 
             elif autenticacao:
                 result = conn.execute(usuarios.select().where(usuarios.c.login == login, usuarios.c.senha == senha)).fetchone()
-                if result and bcrypt.checkpw(senha.encode('utf-8'), result['senha'].encode('utf-8')):
+                if result and checkpw(senha.encode('utf-8'), result['senha'].encode('utf-8')):
                     return True
                 else:
                     return False
