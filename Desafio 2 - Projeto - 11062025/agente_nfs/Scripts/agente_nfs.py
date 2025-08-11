@@ -34,55 +34,6 @@ set_debug(True)
 class SemResposta(Exception):
     pass
 
-def gestao_usuarios(engine, login, senha, nome, novo_usuario = False, esqueci_senha = False, autenticacao = False):
-    
-    """
-        Função para gerenciar usuários.
-        
-        :param login: Login do usuário
-        :param senha: Senha do usuário
-        :param nome: Nome do usuário (opcional, usado para novo usuário)
-        :param esqueci_senha: Flag para indicar se é uma solicitação de recuperação de senha
-        :return: True se o procedimento ocorrer com sucesso, False caso contrário
-    """
-     # Objeto metadata para manter informações das tabelas
-    metadata = MetaData()
-
-    # Define a tabela com chave primária
-    usuarios = Table(
-            'usuarios', metadata,
-            Column('login', String, primary_key=True),  # Chave primária
-            Column('nome', String),
-            Column('senha', String)
-    )
-        
-    inspector = inspect(engine)  # INSPECTOR PARA LISTAR AS TABELAS DO BANCO DE DADOS
-    
-    if 'usuarios' not in inspector.get_table_names(): 
-                        
-        # Cria a tabela no banco
-        metadata.create_all(engine)
-        
-    else:
-        
-        with engine.connect() as conn:
-            
-            if novo_usuario:
-                conn.execute(usuarios.insert().values(login=login, senha=senha, nome=nome))
-                conn.commit()
-                return True
-            
-            elif esqueci_senha:
-                conn.execute(usuarios.update().where(usuarios.c.login == login).values(senha=senha))
-                return True
-                
-            elif autenticacao:
-                result = conn.execute(usuarios.select().where(usuarios.c.login == login, usuarios.c.senha == senha)).fetchone()
-                if result:
-                    return True
-                else:
-                    return False
-
 def consultallmdocfiscal(texto,llm,tipo):
     
     if tipo not in ['text/plain','text/csv']:
