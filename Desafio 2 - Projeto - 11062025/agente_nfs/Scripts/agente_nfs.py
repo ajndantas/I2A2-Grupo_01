@@ -264,7 +264,7 @@ def agente2(pergunta,arquivo,engine):
         
         campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
         
-        listacampos = resposta['nomecampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO
+        listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO
                
         df = DataFrame([resposta['valores']], columns=listacampos)                                       
                     
@@ -276,7 +276,7 @@ def agente2(pergunta,arquivo,engine):
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
     
-        listacampos = [x['significado'] for x in resposta['nomecampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
+        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
         df = DataFrame(df.values, columns=listacampos)    
     
