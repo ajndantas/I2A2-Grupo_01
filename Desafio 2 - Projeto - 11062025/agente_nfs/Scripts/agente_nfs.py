@@ -150,16 +150,6 @@ def obtem_sim_nao(pergunta,df,llm):
     return resposta
 
 def llm_gera_query(llm,engine,pergunta):
-    
-        """
-          Seu código cria um assistente inteligente que:
-
-            1) Recebe uma pergunta em português.
-            2) Consulta o banco de dados para saber quais colunas existem em uma tabela.
-            3) Monta uma instrução detalhada (prompt) para um LLM, pedindo para ele criar uma query SQL com base na pergunta e nas colunas disponíveis, e exigindo que a resposta venha em um formato JSON específico.
-            4) Envia essa instrução para o LLM.
-            5) Recebe a resposta, a valida, extrai a query SQL e a exibe.  
-        """        
 
         template_query = """Qual query deve ser executada para responder
         a pergunta "{pergunta}"? Considere os seguintes passos:
