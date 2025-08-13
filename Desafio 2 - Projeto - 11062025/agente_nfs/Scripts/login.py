@@ -15,9 +15,8 @@ def calcular_forca(senha):
 
 
 # Configuração da página
-st.set_page_config(page_title="Agente NFS – Autenticação", page_icon="🔑", layout="centered")
-
-st.title("Agente NFS – Autenticação")
+st.set_page_config(page_title="Agente NFe", layout="centered")
+st.title("🤖 Agente NFe")
 st.write("Faça login ou crie sua conta para continuar.")
 
 # Menu de abas
@@ -41,6 +40,7 @@ with aba[0]:
         elif len(login_pass) >= 12:
             st.session_state.login_fails = 0
             st.success("✅ Login realizado com sucesso.")
+            
         else:
             st.session_state.login_fails += 1
             st.error("❌ Credenciais inválidas.")
