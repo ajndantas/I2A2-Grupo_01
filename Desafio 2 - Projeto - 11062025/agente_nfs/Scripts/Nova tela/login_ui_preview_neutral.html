@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prévia - Autenticação (Design Neutro)</title>
+<style>
+  :root { --bg1:#0f172a; --bg2:#1f2937; --card:#111827; --text:#e5e7eb; --muted:#9ca3af;
+          --primary:#22c55e; --border:rgba(255,255,255,.08); --shadow:0 14px 40px rgba(0,0,0,.35); }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial;
+         background: linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 100%); color: var(--text); }
+  .wrap { max-width: 960px; margin: 36px auto 60px; padding: 0 16px; }
+  .brandline { display:flex; align-items:center; gap:12px; margin: 6px 0 10px 0; }
+  .logo { width: 42px; height: 42px; border-radius: 10px; background: #1f2937; display:flex; align-items:center; justify-content:center; font-weight:800; color:#a5b4fc; border:1px solid var(--border); }
+  .headline { font-size: 1.8rem; font-weight: 800; margin: 0; }
+  .sub { color: var(--muted); margin: 8px 0 16px; }
+  .card { background: var(--card); border:1px solid var(--border); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
+  .tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap: wrap; }
+  .tab-btn { appearance:none; border:1px solid var(--border); background: rgba(255,255,255,.06); color:var(--text); border-radius: 999px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+  .tab-btn.active { background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.35); }
+  .tab-panel { display:none; } .tab-panel.active { display:block; }
+  label { display:block; font-weight: 600; margin: 12px 0 6px; }
+  input[type="text"], input[type="password"] { width: 100%; padding: 12px 12px; border-radius: 12px; border:1px solid var(--border); background: rgba(255,255,255,.04); color: var(--text); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .actions { margin-top: 14px; display:flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .btn { background: var(--primary); color:#0b111d; border:0; padding: 10px 16px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+  .small { font-size: .88rem; color: var(--muted); }
+  .msg { margin-top: 10px; padding: 10px 12px; border-radius: 10px; border:1px solid var(--border); }
+  .msg.ok { background: rgba(34,197,94,.10); }
+  .msg.err { background: rgba(239,68,68,.10); }
+  .msg.warn { background: rgba(245,158,11,.10); }
+  .check { display:flex; gap:8px; align-items:center; margin-top: 8px; }
+  .progress { width: 100%; height: 12px; background: rgba(255,255,255,.08); border-radius: 999px; overflow: hidden; border:1px solid var(--border); }
+  .bar { height:100%; width:0%; background: var(--primary); transition: width .3s ease; }
+  .pill { display:inline-block; padding: 4px 10px; border-radius:999px; background: rgba(255,255,255,.06); border:1px solid var(--border); color:var(--text); font-size:.85rem; margin-right:6px;}
+  .hint { margin-top: 8px; color: var(--muted); }
+  .split { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; }
+  @media (max-width: 680px) { .row, .split { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brandline">
+      <div class="logo">AI</div>
+      <h1 class="headline">Agente NFS – Autenticação</h1>
+    </div>
+    <p class="sub">Faça login ou crie sua conta para continuar.</p>
+    <div class="card">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="login">🔑 Realizar login</button>
+        <button class="tab-btn" data-tab="signup">🆕 Criar conta</button>
+        <button class="tab-btn" data-tab="reset">🧩 Esqueci minha senha</button>
+      </div>
+      <!-- LOGIN -->
+      <section id="tab-login" class="tab-panel active">
+        <label>Login</label>
+        <input id="login_user" type="text" placeholder="ex.: joaosilva"/>
+        <div class="split">
+          <div style="width:100%">
+            <label>Senha</label>
+            <input id="login_pass" type="password" placeholder="Sua senha"/>
+          </div>
+          <div class="check">
+            <input id="login_show" type="checkbox"/>
+            <label for="login_show" class="small">Mostrar</label>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="btn_login" class="btn">Entrar</button>
+          <span class="small">Dica: pressione Enter para enviar</span>
+        </div>
+        <div id="login_msg" class="msg" style="display:none"></div>
+      </section>
+      <!-- SIGNUP -->
+      <section id="tab-signup" class="tab-panel">
+        <label>Novo login</label>
+        <input id="su_user" type="text" placeholder="ex.: maria.souza"/>
+        <div class="row">
+          <div>
+            <label>Nova senha</label>
+            <input id="su_pass" type="password" placeholder="Mínimo 12 caracteres"/>
+          </div>
+          <div>
+            <label>Confirmar senha</label>
+            <input id="su_conf" type="password" placeholder="Repita a senha"/>
+          </div>
+        </div>
+        <div class="progress" title="Força da senha">
+          <div id="su_bar" class="bar"></div>
+        </div>
+        <div id="su_strength" class="small hint">Força da senha: —</div>
+        <label>Nome completo</label>
+        <input id="su_name" type="text" placeholder="Seu nome"/>
+        <div class="actions">
+          <button id="btn_signup" class="btn">Criar conta</button>
+          <span class="pill">Senha ≥ 12</span><span class="pill">Mensagens neutras</span><span class="pill">Rate limit visual</span>
+        </div>
+        <details class="hint">
+          <summary>Dicas para criar uma senha forte</summary>
+          Use <b>frases</b> longas (≥ 12). Misture maiúsculas, minúsculas, números e símbolos. Evite dados pessoais e senhas repetidas.
+        </details>
+        <div id="su_msg" class="msg" style="display:none"></div>
+      </section>
+      <!-- RESET -->
+      <section id="tab-reset" class="tab-panel">
+        <label>Login</label>
+        <input id="rs_user" type="text" placeholder="Seu login"/>
+        <div class="row">
+          <div>
+            <label>Nova senha</label>
+            <input id="rs_pass" type="password" placeholder="Mínimo 12 caracteres"/>
+          </div>
+          <div>
+            <label>Confirmar nova senha</label>
+            <input id="rs_conf" type="password" placeholder="Repita a nova senha"/>
+          </div>
+        </div>
+        <div class="progress" title="Força da senha">
+          <div id="rs_bar" class="bar"></div>
+        </div>
+        <div id="rs_strength" class="small hint">Força da senha: —</div>
+        <div class="actions">
+          <button id="btn_reset" class="btn">Redefinir senha</button>
+          <span class="small">As mensagens são neutras (anti-enumeração).</span>
+        </div>
+        <div id="rs_msg" class="msg" style="display:none"></div>
+      </section>
+    </div>
+  </div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.getAttribute('data-tab')).classList.add('active');
+  });
+});
+document.getElementById('login_show').addEventListener('change', function(e){
+  var p = document.getElementById('login_pass');
+  p.type = e.target.checked ? 'text' : 'password';
+});
+function strength(pw){
+  var s=0; if(!pw) return {s:0,l:"Digite uma senha"};
+  if(pw.length>=12) s++; if(/[a-z]/.test(pw)) s++; if(/[A-Z]/.test(pw)) s++; if(/[0-9]/.test(pw)) s++; if(/[^a-zA-Z0-9]/.test(pw)) s++;
+  var L=["Muito fraca","Fraca","Ok","Boa","Forte","Excelente"]; return {s:s, l:L[s]};
+}
+function update(id,b,l){
+  var v=document.getElementById(id).value; var o=strength(v);
+  document.getElementById(b).style.width=Math.round((o.s/5)*100)+'%';
+  document.getElementById(l).textContent="Força da senha: "+o.l;
+}
+document.getElementById('su_pass').addEventListener('input',function(){ update('su_pass','su_bar','su_strength'); });
+document.getElementById('rs_pass').addEventListener('input',function(){ update('rs_pass','rs_bar','rs_strength'); });
+function showMsg(el, text, kind){ el.textContent=text; el.className="msg "+(kind||""); el.style.display="block"; }
+function hideMsg(el){ el.style.display="none"; }
+var loginFails=0;
+document.getElementById('btn_login').addEventListener('click', function(){
+  var u=document.getElementById('login_user').value.trim().toLowerCase();
+  var p=document.getElementById('login_pass').value;
+  var m=document.getElementById('login_msg'); hideMsg(m);
+  if(!u||!p){ showMsg(m,"⚠️ Preencha login e senha.","warn"); return; }
+  if(loginFails>=5){ showMsg(m,"⏳ Muitas tentativas falhas. Tente novamente mais tarde.","warn"); return; }
+  if(p.length>=12){ loginFails=0; showMsg(m,"✅ Login realizado com sucesso.","ok"); } else { loginFails++; showMsg(m,"❌ Credenciais inválidas.","err"); }
+});
+document.getElementById('btn_signup').addEventListener('click', function(){
+  var u=document.getElementById('su_user').value.trim().toLowerCase();
+  var p=document.getElementById('su_pass').value;
+  var c=document.getElementById('su_conf').value;
+  var n=document.getElementById('su_name').value.trim();
+  var m=document.getElementById('su_msg'); hideMsg(m);
+  if(!u||!p||!c||!n){ showMsg(m,"⚠️ Preencha login, senha, confirmação e nome.","warn"); return; }
+  if(p!==c){ showMsg(m,"❌ As senhas não coincidem.","err"); return; }
+  if(p.length<12){ showMsg(m,"🔒 A senha deve ter pelo menos 12 caracteres.","err"); return; }
+  showMsg(m,"✅ Conta criada. Agora faça o login.","ok");
+});
+document.getElementById('btn_reset').addEventListener('click', function(){
+  var u=document.getElementById('rs_user').value.trim().toLowerCase();
+  var p=document.getElementById('rs_pass').value;
+  var c=document.getElementById('rs_conf').value;
+  var m=document.getElementById('rs_msg'); hideMsg(m);
+  if(!u||!p||!c){ showMsg(m,"⚠️ Preencha login, nova senha e confirmação.","warn"); return; }
+  if(p!==c){ showMsg(m,"❌ As senhas não coincidem.","err"); return; }
+  if(p.length<12){ showMsg(m,"🔒 A senha deve ter pelo menos 12 caracteres.","err"); return; }
+  showMsg(m,"✅ Senha redefinida. Faça o login.","ok");
+});
+</script>
+</body>
+</html>
