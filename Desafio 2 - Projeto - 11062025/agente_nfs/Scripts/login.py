@@ -93,7 +93,7 @@ def login(engine):
             elif st.session_state.login_fails >= 5:
                 st.warning("⏳ Muitas tentativas falhas. Tente novamente mais tarde.")
                 
-            elif gestao_usuarios(engine=engine, login=login_user,senha=login_pass,autenticacao=True) #len(login_pass) >= 12:
+            elif gestao_usuarios(engine=engine, login=login_user,senha=login_pass,autenticacao=True): #len(login_pass) >= 12:
                 st.session_state.login_fails = 0
                 st.success("✅ Login realizado com sucesso.")
                 
