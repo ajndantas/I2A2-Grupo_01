@@ -47,7 +47,10 @@ def gestao_usuarios(engine, login, senha, nome = None, novo_usuario = False, esq
                 return True
                 
             elif autenticacao:
-                result = conn.execute(usuarios.select().where(usuarios.c.login == login, usuarios.c.senha == senha)).fetchone()
+                hashed = hashpw(senha.encode('utf-8'), gensalt())
+                result = conn.execute(usuarios.select().where(usuarios.c.login == login, usuarios.c.senha == hashed.decode("utf-8"))).fetchone()
+                print('Result: ', result)
+                print('Checkpw: ',checkpw(senha.encode('utf-8'), result['senha'].encode('utf-8')))
                 if result and checkpw(senha.encode('utf-8'), result['senha'].encode('utf-8')):
                     return True
                 else:
