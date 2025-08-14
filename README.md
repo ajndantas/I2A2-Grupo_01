@@ -1,4 +1,4 @@
-# 📄 Agente Inteligente para Análise de Documentos Fiscais
+# 📄 Agente Inteligente para Análise de Documentos Fiscais - Teste
 
 Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract, OpenCV, Streamlit **e** **SQLAlchemy** para analisar, extrair e responder perguntas sobre **Documentos Fiscais, tais como NF-e** a partir de arquivos PDF, PNG e CSV.**
 
