@@ -47,11 +47,10 @@ def gestao_usuarios(engine, login, senha, nome = None, novo_usuario = False, esq
                 return True
                 
             elif autenticacao:
-                hashed = hashpw(senha.encode('utf-8'), gensalt())
-                result = conn.execute(usuarios.select().where(usuarios.c.login == login, usuarios.c.senha == hashed.decode("utf-8"))).fetchone()
-                print('Result: ', result)
-                print('Checkpw: ',checkpw(senha.encode('utf-8'), result['senha'].encode('utf-8')))
-                if result and checkpw(senha.encode('utf-8'), result['senha'].encode('utf-8')):
+                result = conn.execute(usuarios.select().where(usuarios.c.login == login)).fetchone()
+                senhabd = result[2]
+                
+                if checkpw(senha.encode('utf-8'), senhabd.encode('utf-8')):
                     return True
                 else:
                     return False
@@ -88,17 +87,16 @@ def login(engine):
         login_user = st.text_input("Login", key="login_user")
         login_pass = st.text_input("Senha", type="password", key="login_pass")       
             
-        if st.checkbox("Mostrar senha"):
-            st.write(f"Senha: {login_pass}")
         if st.button("Entrar"):
             if not login_user or not login_pass:
                 st.warning("⚠️ Preencha login e senha.")
             elif st.session_state.login_fails >= 5:
                 st.warning("⏳ Muitas tentativas falhas. Tente novamente mais tarde.")
                 
-            elif gestao_usuarios(engine=engine, login=login_user,senha=login_pass,autenticacao=True): #len(login_pass) >= 12:
+            elif gestao_usuarios(engine=engine, login=login_user,senha=login_pass,autenticacao=True):
                 st.session_state.login_fails = 0
                 st.success("✅ Login realizado com sucesso.")
+                st.session_state.pagina = "agente1"
                 
             else:
                 st.session_state.login_fails += 1
