@@ -22,6 +22,9 @@ set_debug(True)
 class SemResposta(Exception):
     pass
 
+# [markdown]
+# ### AUTENTICAÇÃO
+
 def gestao_usuarios(engine, login, senha, nome = None, novo_usuario = False, esqueci_senha = False, autenticacao = False):
     
     """
@@ -146,9 +149,8 @@ def login(engine):
                 st.error("🔒 A senha deve ter pelo menos 8 caracteres.")
                 
             elif gestao_usuarios(engine=engine, login=su_user,senha=su_pass,nome=su_name,novo_usuario=True):
-                st.success("✅ Conta criada. Agora faça o login.")
+                st.success("✅ Conta criada. Agora faça o login.")                
                 
-                return None
 
         with st.expander("Dicas para criar uma senha forte"):
             st.write(
@@ -177,10 +179,8 @@ def login(engine):
             elif len(rs_pass) < 8:
                 st.error("🔒 A senha deve ter pelo menos 8 caracteres.")
             else:
-                st.success("✅ Senha redefinida. Faça o login.")
-                return None
-
-
+                if gestao_usuarios(engine=engine, login=rs_user, senha=rs_pass, esqueci_senha=True):
+                    st.success("✅ Senha redefinida. Faça o login.")
 
 def consultallmdocfiscal(texto,llm,tipo):
     
