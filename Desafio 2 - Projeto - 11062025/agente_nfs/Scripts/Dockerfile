@@ -37,6 +37,7 @@ COPY agente_nfs.ipynb .
 RUN jupyter nbconvert --to script agente_nfs.ipynb
 
 COPY motor_ocr_otimizado.py .
+COPY login.py .
 
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements_linux.txt

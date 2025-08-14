@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ] 
+    branches: [ "usuarios" ] 
         
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - name: Build the Docker image
         run: |
           # github.repository_owner = ajndantas
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_nfs
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_nfs_login
           #IMAGE_ID=agente_nfs
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
