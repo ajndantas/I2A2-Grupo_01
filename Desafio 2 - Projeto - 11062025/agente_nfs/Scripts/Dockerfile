@@ -52,5 +52,5 @@ EXPOSE 8000
 CMD ["streamlit", "run", "agente_nfs.py", "--server.port", "8000", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
-# Para baixar -> docker pull ghcr.io/ajndantas/agente_nfs:latest
-# Tentar executar como -> docker run -d -p 8000:8000 --restart unless-stopped ghcr.io/ajndantas/agente_nfs_login
+# Para baixar -> docker pull ghcr.io/ajndantas/agente_nfs_login:latest
+# Executar como -> docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs_login
