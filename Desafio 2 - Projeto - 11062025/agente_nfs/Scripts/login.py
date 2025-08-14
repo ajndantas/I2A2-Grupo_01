@@ -47,6 +47,7 @@ def gestao_usuarios(engine, login, senha, nome = None, novo_usuario = False, esq
                 
                 if result is not None:
                     conn.execute(usuarios.update().where(usuarios.c.login == login).values(senha=hashed.decode("utf-8")))
+                    conn.commit()
                     return True
                 else:
                     return False
