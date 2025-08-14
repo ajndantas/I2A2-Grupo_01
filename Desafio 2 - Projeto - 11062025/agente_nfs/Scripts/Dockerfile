@@ -17,7 +17,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libmagic1 \
     curl \
     build-essential \
-    libgl1-mesa-glx \
+    #libgl1-mesa-glx \ # DEVIDO A VERSÃO DO UBUNTU DO YAML docker-image.yml
+    libgl1 \
+    libglx-mesa0 \
  && rm -rf /var/lib/apt/lists/*
 
 # Defina o diretório de trabalho dentro do contêiner
