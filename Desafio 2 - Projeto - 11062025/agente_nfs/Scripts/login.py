@@ -67,7 +67,7 @@ def calcular_forca(senha):
     return score, niveis[score]
 
 
-def main(engine):
+def login(engine):
     # Configuração da página
     st.set_page_config(page_title="Agente NFe", layout="centered")
     st.title("🤖 Agente NFe")

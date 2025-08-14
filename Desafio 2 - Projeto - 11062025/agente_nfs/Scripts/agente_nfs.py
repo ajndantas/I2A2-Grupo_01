@@ -15,10 +15,10 @@
 # [markdown]
 # ### IMPORTS
 
-from os import getenv,remove
+from os import getenv
 from os.path import exists
 from pandas import read_csv, read_sql, DataFrame
-from sqlalchemy import create_engine, inspect, text, MetaData, Table, Column, String
+from sqlalchemy import create_engine, inspect, text
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
@@ -27,64 +27,13 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.globals import set_debug
 from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
+from login import login
 from magic import from_buffer
-from bcrypt import hashpw, gensalt, checkpw
 
 set_debug(True)
 
 class SemResposta(Exception):
     pass
-
-def gestao_usuarios(engine, login, senha, nome, novo_usuario = False, esqueci_senha = False, autenticacao = False):
-    
-    """
-        Função para gerenciar usuários.
-        
-        :param login: Login do usuário
-        :param senha: Senha do usuário
-        :param nome: Nome do usuário (opcional, usado para novo usuário)
-        :param esqueci_senha: Flag para indicar se é uma solicitação de recuperação de senha
-        :return: True se o procedimento ocorrer com sucesso, False caso contrário
-    """
-     # Objeto metadata para manter informações das tabelas
-    metadata = MetaData()
-
-    # Define a tabela com chave primária
-    usuarios = Table(
-            'usuarios', metadata,
-            Column('login', String, primary_key=True),  # Chave primária
-            Column('nome', String),
-            Column('senha', String)
-    )
-        
-    inspector = inspect(engine)  # INSPECTOR PARA LISTAR AS TABELAS DO BANCO DE DADOS
-    
-    if 'usuarios' not in inspector.get_table_names(): 
-                        
-        # Cria a tabela no banco
-        metadata.create_all(engine)
-        
-    else:
-        
-        with engine.connect() as conn:
-            
-            if novo_usuario:
-                hashed = hashpw(senha.encode('utf-8'), gensalt())
-                conn.execute(usuarios.insert().values(login=login, senha=hashed.decode("utf-8"), nome=nome))
-                conn.commit()
-                return True
-            
-            elif esqueci_senha:
-                hashed = hashpw(senha.encode('utf-8'), gensalt())
-                conn.execute(usuarios.update().where(usuarios.c.login == login).values(senha=hashed.decode("utf-8")))
-                return True
-                
-            elif autenticacao:
-                result = conn.execute(usuarios.select().where(usuarios.c.login == login, usuarios.c.senha == senha)).fetchone()
-                if result and checkpw(senha.encode('utf-8'), result['senha'].encode('utf-8')):
-                    return True
-                else:
-                    return False
 
 def consultallmdocfiscal(texto,llm,tipo):
     
@@ -408,7 +357,7 @@ def agente1(engine): # FRONTEND
     print("Executando o agente 1...")
     
     st.set_page_config(page_title="Agente NFe", layout="centered")
-    st.title("🤖 Agente NFe")
+    st.title("🤖 Agente NFe")    
         
     uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])        
         
@@ -449,9 +398,11 @@ if __name__ == "__main__":
     
     DATABASE_URL = "sqlite:///nfs_data.db" 
     engine = create_engine(DATABASE_URL,echo=True)        
-          
+    
+    main(engine)
+    
     # INICIALIZAÇÃO DO AGENTE
-    agente1(engine)  # Executa a função que inicia o agente
+    #agente1(engine)  # Executa a função que inicia o agente
      
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
