@@ -30,10 +30,9 @@ def gestao_usuarios(engine, login, senha, nome = None, novo_usuario = False, esq
                         
         # Cria a tabela no banco
         metadata.create_all(engine)
-        
-    else:
-        
-        with engine.connect() as conn:
+               
+    
+    with engine.connect() as conn:
             
             if novo_usuario:
                 hashed = hashpw(senha.encode('utf-8'), gensalt())
@@ -97,10 +96,14 @@ def login(engine):
                 st.session_state.login_fails = 0
                 st.success("✅ Login realizado com sucesso.")
                 st.session_state.pagina = "agente1"
+                st.rerun() 
+                                
+                #return st.session_state.pagina
                 
             else:
                 st.session_state.login_fails += 1
-                st.error("❌ Credenciais inválidas.")
+                st.error("❌ Credenciais inválidas.")               
+                
 
     # -------- SIGNUP --------
     with aba[1]:
@@ -122,7 +125,8 @@ def login(engine):
                 st.error("🔒 A senha deve ter pelo menos 8 caracteres.")
                 
             elif gestao_usuarios(engine=engine, login=su_user,senha=su_pass,nome=su_name,novo_usuario=True):
-                st.success("✅ Conta criada. Agora faça o login.")
+                st.success("✅ Conta criada. Agora faça o login.")                
+                
 
         with st.expander("Dicas para criar uma senha forte"):
             st.write(
@@ -151,4 +155,5 @@ def login(engine):
             elif len(rs_pass) < 8:
                 st.error("🔒 A senha deve ter pelo menos 8 caracteres.")
             else:
-                st.success("✅ Senha redefinida. Faça o login.")
+                if gestao_usuarios(engine=engine, login=rs_user, senha=rs_pass, esqueci_senha=True):
+                    st.success("✅ Senha redefinida. Faça o login.")
