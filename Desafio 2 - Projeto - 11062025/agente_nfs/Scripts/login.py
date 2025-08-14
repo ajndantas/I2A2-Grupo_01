@@ -42,17 +42,25 @@ def gestao_usuarios(engine, login, senha, nome = None, novo_usuario = False, esq
             
             elif esqueci_senha:
                 hashed = hashpw(senha.encode('utf-8'), gensalt())
-                conn.execute(usuarios.update().where(usuarios.c.login == login).values(senha=hashed.decode("utf-8")))
-                return True
                 
-            elif autenticacao:
                 result = conn.execute(usuarios.select().where(usuarios.c.login == login)).fetchone()
-                senhabd = result[2]
                 
-                if checkpw(senha.encode('utf-8'), senhabd.encode('utf-8')):
+                if result is not None:
+                    conn.execute(usuarios.update().where(usuarios.c.login == login).values(senha=hashed.decode("utf-8")))
                     return True
                 else:
                     return False
+                
+            elif autenticacao:
+                result = conn.execute(usuarios.select().where(usuarios.c.login == login)).fetchone()
+                
+                if result is not None:
+                    senhabd = result[2]
+                
+                    if checkpw(senha.encode('utf-8'), senhabd.encode('utf-8')):
+                        return True
+                    else:
+                        return False
 
 # Função para calcular força da senha
 def calcular_forca(senha):
@@ -96,9 +104,7 @@ def login(engine):
                 st.session_state.login_fails = 0
                 st.success("✅ Login realizado com sucesso.")
                 st.session_state.pagina = "agente1"
-                st.rerun() 
-                                
-                #return st.session_state.pagina
+                st.rerun()        
                 
             else:
                 st.session_state.login_fails += 1
@@ -157,3 +163,6 @@ def login(engine):
             else:
                 if gestao_usuarios(engine=engine, login=rs_user, senha=rs_pass, esqueci_senha=True):
                     st.success("✅ Senha redefinida. Faça o login.")
+                    
+                else:
+                    st.error("❌ Login não encontrado.")
