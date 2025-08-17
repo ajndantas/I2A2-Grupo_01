@@ -371,4 +371,3 @@ if __name__ == "__main__":
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
 #!streamlit run agente_nfs.py --server.port 8000
-
