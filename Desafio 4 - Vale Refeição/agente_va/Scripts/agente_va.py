@@ -245,6 +245,99 @@ def llm_gera_query(llm,engine,pergunta):
 
 
 # [markdown]
+# ### <b>AGENTE 2: Extração - Estou Aqui</b>
+# <b>Responsabilidade:</b> Processar documentos e extrair dados relevantes<br/><br/>
+# <b>Funcionalidades:</b>
+# <ul><li>Identificação e extração de campos específicos</li></ul>
+# <ul><li>Validação cruzada de dados extraídos</li></ul>
+
+def agente2(uploaded_files,engine):
+
+    print('\nExecutando agente 2...')
+    
+    cria_tabelas(engine)
+    
+    # INTEGRAÇÃO COM A LLM
+    load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
+
+    llm = ChatGoogleGenerativeAI( 
+        model="gemini-1.5-flash",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini, gemini-2.0-flash
+        temperature=0.5, # Padrão é 0.5
+        google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
+    )
+    
+        
+    #analise_dados(uploaded_files['ferias'][0],engine,llm)
+    analise_dados(uploaded_files,engine,llm)           
+       
+    #print('Uploaded_files: ', uploaded_files)
+    
+    if tipo not in ['text/plain','text/csv']:        
+        
+        imagem_proc = ocr.preprocessar_imagem(ocr.carregar_arquivo(arquivo))
+        texto = ocr.extrair_texto(imagem_proc)
+        
+        print("\nTexto\n",texto)
+        resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
+        
+        campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
+        
+        listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO
+               
+        df = DataFrame([resposta['valores']], columns=listacampos)                                       
+                    
+              
+    elif tipo in ['text/plain','text/csv']: 
+        
+        df = read_csv(arquivo)
+        campos = list(df.columns.values)
+        
+        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
+    
+        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
+        
+        df = DataFrame(df.values, columns=listacampos)    
+    
+            
+    df['TIPO'] = resposta['tipo']
+    df['MODELO_DOC'] = resposta['modelo']        
+    df['VERSÃO_DOC'] = resposta['versao']    
+    df['ARQUIVO'] = arquivo.name        
+            
+    dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
+    
+    dfcampos = DataFrame({'CAMPOS':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
+    
+    resposta = obtem_sim_nao(pergunta,df,llm)                 
+    
+    if resposta == "Sim":
+        
+        # PERSISTINDO OS DADOS NO BANCO DE DADOS
+        print('Sim para o arquivo: ',arquivo.name)
+
+        df.to_sql(name='arquivo', con=engine, if_exists='replace', index=False)               
+                    
+        query = llm_gera_query(llm,engine,pergunta)
+        
+        # OBTENÇÃO DO RESULTADO DA QUERY
+        with engine.connect() as con:
+            dfsql = read_sql(query, con)                        
+            dfresposta = dfsql      
+                
+        lista_df = []
+        lista_df.append(dfdocfiscal)
+        lista_df.append(dfresposta)
+        lista_df.append(dfcampos)
+                        
+        resposta = lista_df
+                                    
+        return resposta # RESPOSTA PARA O FRONTEND, AGENTE 1
+    
+    elif resposta == "Não":
+        print('Não é possível responder a essa pergunta com o arquivo carregado')
+        return resposta
+
+# [markdown]
 # ### <b>AGENTE 1: Aquisição de Documentos</b>
 # <b>Responsabilidade:</b> Obter e pré-processar documentos fiscais<br/><br/>
 # <b>Funcionalidades:</b>
@@ -378,99 +471,6 @@ def css():
 
     </style>
     """, unsafe_allow_html=True)
-
-# [markdown]
-# ### <b>AGENTE 2: Extração - Estou Aqui</b>
-# <b>Responsabilidade:</b> Processar documentos e extrair dados relevantes<br/><br/>
-# <b>Funcionalidades:</b>
-# <ul><li>Identificação e extração de campos específicos</li></ul>
-# <ul><li>Validação cruzada de dados extraídos</li></ul>
-
-def agente2(uploaded_files,engine):
-
-    print('\nExecutando agente 2...')
-    
-    cria_tabelas(engine)
-    
-    # INTEGRAÇÃO COM A LLM
-    load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
-
-    llm = ChatGoogleGenerativeAI( 
-        model="gemini-1.5-flash",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini, gemini-2.0-flash
-        temperature=0.5, # Padrão é 0.5
-        google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
-    )
-    
-        
-    #analise_dados(uploaded_files['ferias'][0],engine,llm)
-    analise_dados(uploaded_files,engine,llm)           
-       
-    #print('Uploaded_files: ', uploaded_files)
-    
-    if tipo not in ['text/plain','text/csv']:        
-        
-        imagem_proc = ocr.preprocessar_imagem(ocr.carregar_arquivo(arquivo))
-        texto = ocr.extrair_texto(imagem_proc)
-        
-        print("\nTexto\n",texto)
-        resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
-        
-        campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
-        
-        listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO
-               
-        df = DataFrame([resposta['valores']], columns=listacampos)                                       
-                    
-              
-    elif tipo in ['text/plain','text/csv']: 
-        
-        df = read_csv(arquivo)
-        campos = list(df.columns.values)
-        
-        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
-    
-        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
-        
-        df = DataFrame(df.values, columns=listacampos)    
-    
-            
-    df['TIPO'] = resposta['tipo']
-    df['MODELO_DOC'] = resposta['modelo']        
-    df['VERSÃO_DOC'] = resposta['versao']    
-    df['ARQUIVO'] = arquivo.name        
-            
-    dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
-    
-    dfcampos = DataFrame({'CAMPOS':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
-    
-    resposta = obtem_sim_nao(pergunta,df,llm)                 
-    
-    if resposta == "Sim":
-        
-        # PERSISTINDO OS DADOS NO BANCO DE DADOS
-        print('Sim para o arquivo: ',arquivo.name)
-
-        df.to_sql(name='arquivo', con=engine, if_exists='replace', index=False)               
-                    
-        query = llm_gera_query(llm,engine,pergunta)
-        
-        # OBTENÇÃO DO RESULTADO DA QUERY
-        with engine.connect() as con:
-            dfsql = read_sql(query, con)                        
-            dfresposta = dfsql      
-                
-        lista_df = []
-        lista_df.append(dfdocfiscal)
-        lista_df.append(dfresposta)
-        lista_df.append(dfcampos)
-                        
-        resposta = lista_df
-                                    
-        return resposta # RESPOSTA PARA O FRONTEND, AGENTE 1
-    
-    elif resposta == "Não":
-        print('Não é possível responder a essa pergunta com o arquivo carregado')
-        return resposta
 
 # [markdown]
 # ### <b>TESTANDO</b>
