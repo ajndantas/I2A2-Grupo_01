@@ -87,56 +87,24 @@ def recria_dataframe(df,resposta) -> DataFrame:
     
     return df
 
-def llm_gera_query(llm,engine,pergunta):
+# [markdown]
+# ESTOU AQUI TAMBÉM
 
-        template_query = """Qual query deve ser executada para responder
-        a pergunta "{pergunta}"? Considere os seguintes passos:
-        ##############################################################
-        1 - As colunas "{colunas}" 
-        2 - O nome da tabela é "arquivo".
-        ##############################################################
-                    
-        {formatacao_saida}"""
-
-        # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
-        class Query(BaseModel):
-            query: str = Field(description='Esta é a query com DISTINCT, sem UNION, com todas as colunas necessárias, aonde o nome de cada coluna e o da tabela {nome_arquivo} devem ficar entre "')
-
-        parseador = JsonOutputParser(pydantic_object=Query)
-        
-        prompt_template_query = PromptTemplate(
-                                                template=template_query,
-                                                input_variables=["pergunta","colunas"],
-                                                partial_variables={"formatacao_saida" : parseador.get_format_instructions()}
-                                              )
-
-        # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
-        chain = prompt_template_query | llm | parseador
-
-        with engine.connect() as con:
-            query = text(f'PRAGMA table_info("arquivo")') # OBTENDO AS COLUNAS DO BD
-            rs = con.execute(query)
-            rows = rs.fetchall()
-            colunas_query = sorted([col[1] for col in rows])
-        
-        query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query})['query']
-
-        print('\nQuery: ',query)
-        
-        return query
-
-
-def checa_colunas(key, file, engine, llm) -> DataFrame:
+def checa_colunas(file, engine, llm) -> DataFrame:
     
     print('Checando colunas...')    
             
-    df = read_excel(file)
+    df = read_excel(file.values()[0])
     
-    if key is not None:
-        # file.keys() in ['afastamentos','exterior','férias']:
-        
+    if file.keys() in ['afastamentos','exterior']:
         df['qtd_dias'] = None
-    
+    elif file.keys() in ['ferias','afastamentos','exterior']:
+        df['data_inicio_apuracao'] = None
+        df['data_pgto'] = None
+    elif file.keys() in ['sindicato']:
+        df['estado'] = None
+        df['valor'] = None
+        
     colunas_df = df.columns.tolist()
     
     with engine.connect() as conn:
@@ -184,7 +152,7 @@ def checa_colunas(key, file, engine, llm) -> DataFrame:
     
     # RECRIANDO DATAFRAME COM OS MESMOS NOMES DE COLUNA DO BD   
     df = recria_dataframe(df, resposta)
-       
+           
     
     return df
 
@@ -206,10 +174,8 @@ def analise_dados(uploaded_files,engine,llm):
                                 'estagaprendiz': uploaded_file_estagaprendiz
                         } 
     """
-    for file in uploaded_files:
-        if file.keys() in ['afastamentos','exterior','férias']:
-            df = checa_colunas(file.keys(),file,engine,llm) # RETORNA O DATAFRAME COM AS COLUNAS VALIDADAS          
-            
+    for file in uploaded_files:        
+            df = checa_colunas(file,engine,llm) # RETORNA O DATAFRAME COM AS COLUNAS VALIDADAS           
     
     print('Novo Dataframe')
     print(df)
@@ -239,30 +205,179 @@ def analise_dados(uploaded_files,engine,llm):
         
         #if row['desc_situacao'] == 'Férias' and (not isnull(row['dia_retorno']) or     """
 
+def llm_gera_query(llm,engine,pergunta):
+
+        template_query = """Qual query deve ser executada para responder
+        a pergunta "{pergunta}"? Considere os seguintes passos:
+        ##############################################################
+        1 - As colunas "{colunas}" 
+        2 - O nome da tabela é "arquivo".
+        ##############################################################
+                    
+        {formatacao_saida}"""
+
+        # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
+        class Query(BaseModel):
+            query: str = Field(description='Esta é a query com DISTINCT, sem UNION, com todas as colunas necessárias, aonde o nome de cada coluna e o da tabela {nome_arquivo} devem ficar entre "')
+
+        parseador = JsonOutputParser(pydantic_object=Query)
+        
+        prompt_template_query = PromptTemplate(
+                                                template=template_query,
+                                                input_variables=["pergunta","colunas"],
+                                                partial_variables={"formatacao_saida" : parseador.get_format_instructions()}
+                                              )
+
+        # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
+        chain = prompt_template_query | llm | parseador
+
+        with engine.connect() as con:
+            query = text(f'PRAGMA table_info("arquivo")') # OBTENDO AS COLUNAS DO BD
+            rs = con.execute(query)
+            rows = rs.fetchall()
+            colunas_query = sorted([col[1] for col in rows])
+        
+        query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query})['query']
+
+        print('\nQuery: ',query)
+        
+        return query
+
+
 # [markdown]
-# ### <b>AGENTE 3: Resposta e Interação</b>
-# <b>Responsabilidade:</b> Interface inteligente com usuários<br/><br/>
+# ### <b>AGENTE 1: Aquisição de Documentos</b>
+# <b>Responsabilidade:</b> Obter e pré-processar documentos fiscais<br/><br/>
 # <b>Funcionalidades:</b>
-# <ul><li>Integração com LLMs para consultas em linguagem natural.</li></ul>
+# <ul><li>Interface para upload manual de arquivos</li></ul>
+# <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
+# <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-def agente3(uploaded_files,engine):
+def agente1(engine): # FRONTEND
 
-    try:
-            print('\nExecutando agente 3...')
+    #css()
+    
+    print("Executando o agente 1...")
+    
+    st.set_page_config(page_title="Agente VA", layout="centered")
+    st.title("🤖 Agente VA")
+    
+    combo_atestado = st.selectbox('Considerar Atestado médico para desconto ?',['Sim','Não'])
+    
+    mes_competencia = st.selectbox('Selecione o mês de competência',[1,2,3,4,5,6,7,8,9,10,11,12],index=3) #index = date.today().month - 1   
+    
+    uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])
+    uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"])
+    st.text('Se estiver como OK o comunicado até dia 15, não considerar compra. Se informado depois do dia 15, considerar compra proporcional') 
+    uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"]) # VALIDANDO AS COLUNAS COM ESSE
+    uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
+    uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])
+    uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])
+           
+    uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha BASE SINDICATOS X VALOR", type=["xls","xlsx"])    
+    uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
+                                              
+    if st.button("🔍 Consultar"):
+        # if not uploaded_file_ativos:
+        #     st.error("Você precisa fazer o upload da planilha ATIVOS")
+        # elif not uploaded_file_ferias:
+        #     st.error("Você precisa fazer o upload da planilha FÉRIAS")
+        # elif not uploaded_file_desligados:
+        #     st.error("Você precisa fazer o upload da planilha DESLIGADOS")
+        if not uploaded_file_afastamentos:
+             st.error("Você precisa fazer o upload da planilha AFASTAMENTOS")
+        # elif not uploaded_file_exterior:
+        #     st.error("Você precisa fazer o upload da planilha EXTERIOR")
+        # elif not uploaded_file_admissao:
+        #     st.error("Você precisa fazer o upload da planilha ADMISSAO")             
+        # elif not uploaded_file_sindvalor:
+        #     st.error("Você precisa fazer o upload da planilha BASE SINDICATOS X VALOR")
+        # elif not uploaded_file_estagaprendiz or len(uploaded_file_estagaprendiz) != 2:
+        #     st.error("Você precisa fazer o upload somente das planilhas ESTÁGIO e APRENDIZ")            
+                
+        else:
+            uploaded_files = {
+                                'ativos':[uploaded_file_ativos],
+                                'ferias':[uploaded_file_ferias],
+                                'desligados':[uploaded_file_desligados],
+                                'afastamentos':[uploaded_file_afastamentos],
+                                'exterior': [uploaded_file_exterior],
+                                'admissao': [uploaded_file_admissao],
+                                'sindvalor': [uploaded_file_sindvalor],
+                                'estagaprendiz': uploaded_file_estagaprendiz
+                            }
+            
+            with st.spinner("Analisando os dados com IA..."):
+                #try:
+                    resultado_df = agente2(uploaded_files,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
-            resposta = agente2(uploaded_files,engine) # A ENGINE NÃO É FECHADA AUTOMATICAMENTE, APENAS AS CONEXÕES QUANDO USADAS COM WITH
+                    if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
+                        st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
+                    
+                    elif resultado_df is not None:
+                        st.success("Dados sobre o documento fiscal")
+                        st.table(resultado_df[0])
+                        st.table(resultado_df[2])
+                        st.success("✅ Resultado encontrado:")                        
+                        st.dataframe(resultado_df[1])                                       
+                                                
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
-            if (not isinstance(resposta,str)) and resposta is not None: # VERIFICA SE A LLM RESPONDEU SIM PARA ALGUM ARQUIVO (DEVOLVEU UM DATAFRAME), OU SEJA, SE É CAPAZ DE RESPONDER A PERGUNTA DO USUÁRIO COM O
-                                                                        # ARQUIVO FORNECIDO
-               
-               return resposta
+def css():
+    
+    st.markdown("""
+    <style>
+        :root {
+            --bg1:#0f172a; --bg2:#1f2937; --card:#111827; --text:#e5e7eb; --muted:#9ca3af;
+            --primary:#22c55e; --border:rgba(255,255,255,.08);
+            --fileupload-bg: #d3d3d3; /* light gray */
+        }
+        body, .main, .stApp {
+            background: linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 100%) !important;
+            color: var(--text) !important;
+        }
+        h1, h2, h3, h4, h5, h6, p, label, span, div {
+            color: var(--text) !important;
+        }
+        
+        div[data-testid="stForm"] {
+            background: var(--card);
+            padding: 22px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: 0 14px 40px rgba(0,0,0,.35);
+        }
+        
+        .stButton > button {
+            background: var(--primary);
+            color: #0b111d;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
 
-            elif resposta == "Não":
-                raise SemResposta
+        /* Light gray background for file uploader areas */
+        div[data-testid="stFileUploader"] {
+            background-color: var(--fileupload-bg) !important;
+            border-radius: 12px;
+            padding: 10px;
+        }
 
-    except SemResposta:
-            resposta = "SemResposta"
-            return resposta # RETORNANDO A EXCEÇÃO PARA O FRONTEND, AGENTE 1
+        /* Black text for uploader labels containing "Adicione ..." */
+        div[data-testid="stFileUploader"] label {
+            color: black !important;
+            font-weight: 600;
+        }
+
+        /* Black text for tables and dataframes */
+        div[data-testid="stTable"] table, 
+        div[data-testid="stDataFrame"] table {
+            color: black !important;
+        }
+
+    </style>
+    """, unsafe_allow_html=True)
 
 # [markdown]
 # ### <b>AGENTE 2: Extração - Estou Aqui</b>
@@ -284,20 +399,9 @@ def agente2(uploaded_files,engine):
         model="gemini-1.5-flash",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini, gemini-2.0-flash
         temperature=0.5, # Padrão é 0.5
         google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
-    )    
+    )
     
-    """ uploaded_files = {
-                                'ativos':list[uploaded_file_ativos],
-                                'ferias':list[uploaded_file_ferias],
-                                'desligados':list[uploaded_file_desligados],
-                                'afastamentos':list[uploaded_file_afastamentos],
-                                'exterior': list[uploaded_file_exterior],
-                                'admissao': list[uploaded_file_admissao],''
-                                'sindvalor': list[uploaded_file_sindvalor],
-                                'estagaprendiz': uploaded_file_estagaprendiz
-                        } 
-    """
-    
+        
     #analise_dados(uploaded_files['ferias'][0],engine,llm)
     analise_dados(uploaded_files,engine,llm)           
        
@@ -367,141 +471,6 @@ def agente2(uploaded_files,engine):
     elif resposta == "Não":
         print('Não é possível responder a essa pergunta com o arquivo carregado')
         return resposta
-
-# [markdown]
-# ### <b>AGENTE 1: Aquisição de Documentos</b>
-# <b>Responsabilidade:</b> Obter e pré-processar documentos fiscais<br/><br/>
-# <b>Funcionalidades:</b>
-# <ul><li>Interface para upload manual de arquivos</li></ul>
-# <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
-# <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
-
-def css():
-    
-    st.markdown("""
-    <style>
-        :root {
-            --bg1:#0f172a; --bg2:#1f2937; --card:#111827; --text:#e5e7eb; --muted:#9ca3af;
-            --primary:#22c55e; --border:rgba(255,255,255,.08);
-            --fileupload-bg: #d3d3d3; /* light gray */
-        }
-        body, .main, .stApp {
-            background: linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 100%) !important;
-            color: var(--text) !important;
-        }
-        h1, h2, h3, h4, h5, h6, p, label, span, div {
-            color: var(--text) !important;
-        }
-        
-        div[data-testid="stForm"] {
-            background: var(--card);
-            padding: 22px;
-            border-radius: 18px;
-            border: 1px solid var(--border);
-            box-shadow: 0 14px 40px rgba(0,0,0,.35);
-        }
-        
-        .stButton > button {
-            background: var(--primary);
-            color: #0b111d;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-weight: 700;
-        }
-
-        /* Light gray background for file uploader areas */
-        div[data-testid="stFileUploader"] {
-            background-color: var(--fileupload-bg) !important;
-            border-radius: 12px;
-            padding: 10px;
-        }
-
-        /* Black text for uploader labels containing "Adicione ..." */
-        div[data-testid="stFileUploader"] label {
-            color: black !important;
-            font-weight: 600;
-        }
-
-        /* Black text for tables and dataframes */
-        div[data-testid="stTable"] table, 
-        div[data-testid="stDataFrame"] table {
-            color: black !important;
-        }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-def agente1(engine): # FRONTEND
-
-    #css()
-    
-    print("Executando o agente 1...")
-    
-    st.set_page_config(page_title="Agente VA", layout="centered")
-    st.title("🤖 Agente VA")
-    
-    combo_atestado = st.selectbox('Considerar Atestado médico para desconto ?',['Sim','Não'])
-    
-    mes_competencia = st.selectbox('Selecione o mês de competência',[1,2,3,4,5,6,7,8,9,10,11,12],index=3) #index = date.today().month - 1   
-    
-    uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])
-    uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"])
-    st.text('Se estiver como OK o comunicado até dia 15, não considerar compra. Se informado depois do dia 15, considerar compra proporcional') 
-    uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"]) # VALIDANDO AS COLUNAS COM ESSE
-    uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
-    uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])
-    uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])
-           
-    uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha BASE SINDICATOS X VALOR", type=["xls","xlsx"])    
-    uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
-                                              
-    if st.button("🔍 Consultar"):
-        # if not uploaded_file_ativos:
-        #     st.error("Você precisa fazer o upload da planilha ATIVOS")
-        # elif not uploaded_file_ferias:
-        #     st.error("Você precisa fazer o upload da planilha FÉRIAS")
-        # elif not uploaded_file_desligados:
-        #     st.error("Você precisa fazer o upload da planilha DESLIGADOS")
-        if not uploaded_file_afastamentos:
-             st.error("Você precisa fazer o upload da planilha AFASTAMENTOS")
-        # elif not uploaded_file_exterior:
-        #     st.error("Você precisa fazer o upload da planilha EXTERIOR")
-        # elif not uploaded_file_admissao:
-        #     st.error("Você precisa fazer o upload da planilha ADMISSAO")             
-        # elif not uploaded_file_sindvalor:
-        #     st.error("Você precisa fazer o upload da planilha BASE SINDICATOS X VALOR")
-        # elif not uploaded_file_estagaprendiz or len(uploaded_file_estagaprendiz) != 2:
-        #     st.error("Você precisa fazer o upload somente das planilhas ESTÁGIO e APRENDIZ")            
-                
-        else:
-            uploaded_files = {
-                                'ativos':[uploaded_file_ativos],
-                                'ferias':[uploaded_file_ferias],
-                                'desligados':[uploaded_file_desligados],
-                                'afastamentos':[uploaded_file_afastamentos],
-                                'exterior': [uploaded_file_exterior],
-                                'admissao': [uploaded_file_admissao],
-                                'sindvalor': [uploaded_file_sindvalor],
-                                'estagaprendiz': uploaded_file_estagaprendiz
-                            }
-            
-            with st.spinner("Analisando os dados com IA..."):
-                #try:
-                    resultado_df = agente3(uploaded_files,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
-
-                    if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
-                        st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
-                    
-                    elif resultado_df is not None:
-                        st.success("Dados sobre o documento fiscal")
-                        st.table(resultado_df[0])
-                        st.table(resultado_df[2])
-                        st.success("✅ Resultado encontrado:")                        
-                        st.dataframe(resultado_df[1])                                       
-                                                
-                #except Exception as e:
-                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
