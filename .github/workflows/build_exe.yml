@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+      paths:
+        - 'Desafio 2 - Projeto - 11062025/agente_nfs/**'
+      
   workflow_dispatch:
 
 jobs:
