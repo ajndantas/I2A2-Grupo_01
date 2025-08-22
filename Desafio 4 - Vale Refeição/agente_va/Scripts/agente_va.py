@@ -8,13 +8,14 @@
 
 from os import getenv, remove
 from os.path import exists
-from pandas import read_csv, read_sql, DataFrame, read_excel, isnull
+from pandas import read_csv, read_sql, DataFrame, read_excel
 from sqlalchemy import create_engine, text, Table, MetaData, Integer, String, Date, Numeric, Column, CheckConstraint, ForeignKey, inspect
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
-from langchain_google_genai import ChatGoogleGenerativeAI
+#from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain.globals import set_debug
 from datetime import date
 import streamlit as st
@@ -46,17 +47,16 @@ def cria_tabelas(engine):
             Column('sindicato', String, nullable=False),            
             Column('desc_situacao', String, nullable=False), # ESTA NA PLANILHA ATIVOS E NAS OUTRAS
             Column('qtd_dias', Integer), # NOVA COLUNA
-            Column('data_inicio_apuracao',Date,nullable=False), # NOVA COLUNA
-            Column('data_pgto',Date,nullable=False), # NOVA COLUNA
+            Column('data_inicio_mes_competencia',Date,nullable=False), # NOVA COLUNA
+            Column('data_fim_mes_competencia',Date,nullable=False), # NOVA COLUNA
             Column('qtd_dias_uteis', Integer,nullable=False), # NOVA COLUNA
-            Column('dia_demissao', Date), # NOVA COLUNA
+            Column('data_demissao', Date), # NOVA COLUNA
             Column('comunicado_desligamento', String),  # NOVA COLUNA # Coluna para o comunicado de desligamento          
             CheckConstraint("desc_situacao IN ('Trabalhando', 'Férias', 'Licença Maternidade','Auxílio Doença','Exterior','Desligado')", name="ck_desc_situacao"), 
-            CheckConstraint("NOT (desc_situacao = 'Férias' AND qtd_dias IS NULL)", name="ck_ferias_qtd_dias_obrigatorio"),
-            CheckConstraint("NOT (desc_situacao = 'Desligado' AND (dia_demissao IS NULL OR dia_retorno IS NOT NULL))", name="ck_desligado_dia_demissao_obrigatorio"),
-            CheckConstraint("NOT (desc_situacao = 'Férias' AND (dia_demissao IS NOT NULL OR comunicado_desligamento IS NOT NULL))", name="ck_ferias"),
-            CheckConstraint("NOT (desc_situacao = 'Trabalhando' AND qtd_dias IS NOT NULL)", name="ck_nao_ferias_qtd_dias"),
-            CheckConstraint("NOT (desc_situacao IN ('Licença Maternidade','Auxílio Doença','Exterior') AND qtd_dias IS NULL)", name="ck_afastamento_qtd_dias_obrigatorio")                                   
+            CheckConstraint("NOT (desc_situacao = 'Férias' AND (qtd_dias IS NULL OR data_demissao IS NOT NULL))", name="ck_ferias_qtd_dias_obrigatorio"),
+            CheckConstraint("NOT (desc_situacao = 'Desligado' AND (data_demissao IS NULL))", name="ck_desligado_data_demissao_obrigatorio"),
+            CheckConstraint("NOT (desc_situacao = 'Trabalhando' AND (qtd_dias IS NOT NULL OR data_demissao IS NOT NULL))", name="ck_nao_ferias_qtd_dias"),
+            CheckConstraint("NOT (desc_situacao IN ('Licença Maternidade','Auxílio Doença','Exterior') AND data_demissao IS NOT NULL)", name="ck_afastamento")                                   
     )
     
     sindicato = Table(
@@ -87,23 +87,80 @@ def recria_dataframe(df,resposta) -> DataFrame:
     
     return df
 
+def checa_dias_uteis(uploaded_file_base_dias,llm):
+    
+    dfbase_dias = read_excel(uploaded_file_base_dias)
+    
+    class base_dias(BaseModel):
+        data_inicio_mes_competencia : date = Field(description="data_inicio_mes_competencia")
+        data_fim_mes_competencia : date = Field(description="data_fim_mes_competencia")                          
+                    
+    parseador = JsonOutputParser(pydantic_object=base_dias) 
+    
+    template = """
+                   Você é um assistente que ajuda a encontrar datas dentro de um DataFrame.
+                   Dado o DataFrame {df}, Você deve seguir os seguintes passos:
+                                     
+                   ###################################################                   
+                   1 - A data de inicio do mês de competencia, será a menor data encontrada. Caso não encontre, retorne null
+                   2 - A data fim do mês de competencia, será a maior data encontrada. Caso não encontre, retorne null
+                   3 - Caso não encontre o ano no DataFrame {df}, retorne o ano atual no formato YYYY
+                   4 - Retorne as datas no formato DD/MM/AAAA  
+                   ###################################################
+                                      
+                   {formatador_saida_ia}
+                """
+    
+    prompt_template = PromptTemplate(
+                                        template=template,
+                                        input_variables=["df"],
+                                        partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
+                                    )
+                                    
+    # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
+    chain = prompt_template | llm | parseador
+        
+    # INVOCANDO A LLM
+    resposta = chain.invoke(input={"df":dfbase_dias.to_string()})
+       
+    data_inicio_mes_competencia = resposta['data_inicio_mes_competencia']
+    data_fim_mes_competencia = resposta['data_fim_mes_competencia']
+    
+    return data_inicio_mes_competencia, data_fim_mes_competencia
+
 # [markdown]
 # ESTOU AQUI TAMBÉM
 
-def checa_colunas(file, engine, llm) -> DataFrame:
+def checa_colunas(uploaded_files, engine, llm) -> DataFrame:
     
-    print('Checando colunas...')    
+    print('Checando colunas...')
+    
+    """ uploaded_files = {
+                                'base_dias':[uploaded_file_base_dias],
+                                'ativos':[uploaded_file_ativos],
+                                'ferias':[uploaded_file_ferias],
+                                'desligados':[uploaded_file_desligados],
+                                'afastamentos':[uploaded_file_afastamentos],
+                                'exterior': [uploaded_file_exterior],
+                                'admissao': [uploaded_file_admissao],
+                                'sindvalor': [uploaded_file_sindvalor],
+                                'estagaprendiz': uploaded_file_estagaprendiz
+                        } 
+    """    
             
-    df = read_excel(file.values()[0])
+    dfexterior = read_excel(uploaded_files['exterior'][0])
+    #data_inicio_apuracao, data_pgto = checa_dias_uteis(uploaded_files)
     
-    if file.keys() in ['afastamentos','exterior']:
+    df = dfexterior
+    
+    """     if file.keys() in ['afastamentos','exterior']:
         df['qtd_dias'] = None
     elif file.keys() in ['ferias','afastamentos','exterior']:
         df['data_inicio_apuracao'] = None
         df['data_pgto'] = None
     elif file.keys() in ['sindicato']:
         df['estado'] = None
-        df['valor'] = None
+        df['valor'] = None """
         
     colunas_df = df.columns.tolist()
     
@@ -130,7 +187,7 @@ def checa_colunas(file, engine, llm) -> DataFrame:
                    Este mapeamento deve ser feito da seguinte forma:
                    1 - Lado esquerdo, {colunas_df}
                    2 - Lado direito, {colunas_tabela}
-                   3 - Caso exista alguma coluna da tabela que não tenha sido mapeada para alguma coluna do dataframe, não considere no mapeamento
+                   3 - Não mapear qualquer coluna do dataframe com o significado de valor, para qualquer outra coluna da tabela, com o significado de titulo                   
                    ###################################################
                                       
                    {formatador_saida_ia}
@@ -151,8 +208,7 @@ def checa_colunas(file, engine, llm) -> DataFrame:
     resposta = resposta['mapeamento']        
     
     # RECRIANDO DATAFRAME COM OS MESMOS NOMES DE COLUNA DO BD   
-    df = recria_dataframe(df, resposta)
-           
+    df = recria_dataframe(df, resposta)           
     
     return df
 
@@ -164,18 +220,21 @@ def analise_dados(uploaded_files,engine,llm):
     print('Analisando os dados...')    
     
     """ uploaded_files = {
-                                'ativos':list[uploaded_file_ativos],
-                                'ferias':list[uploaded_file_ferias],
-                                'desligados':list[uploaded_file_desligados],
-                                'afastamentos':list[uploaded_file_afastamentos],
-                                'exterior': list[uploaded_file_exterior],
-                                'admissao': list[uploaded_file_admissao],''
-                                'sindvalor': list[uploaded_file_sindvalor],
+                                'base_dias':[uploaded_file_base_dias],
+                                'ativos':[uploaded_file_ativos],
+                                'ferias':[uploaded_file_ferias],
+                                'desligados':[uploaded_file_desligados],
+                                'afastamentos':[uploaded_file_afastamentos],
+                                'exterior': [uploaded_file_exterior],
+                                'admissao': [uploaded_file_admissao],
+                                'sindvalor': [uploaded_file_sindvalor],
                                 'estagaprendiz': uploaded_file_estagaprendiz
-                        } 
+                         }
     """
-    for file in uploaded_files:        
-            df = checa_colunas(file,engine,llm) # RETORNA O DATAFRAME COM AS COLUNAS VALIDADAS           
+    
+    cria_tabelas(engine)
+    
+    df = checa_colunas(uploaded_files,engine,llm) # RETORNA O DATAFRAME COM AS COLUNAS VALIDADAS           
     
     print('Novo Dataframe')
     print(df)
@@ -251,21 +310,9 @@ def llm_gera_query(llm,engine,pergunta):
 # <ul><li>Identificação e extração de campos específicos</li></ul>
 # <ul><li>Validação cruzada de dados extraídos</li></ul>
 
-def agente2(uploaded_files,engine):
+def agente2(uploaded_files,engine,llm):
 
-    print('\nExecutando agente 2...')
-    
-    cria_tabelas(engine)
-    
-    # INTEGRAÇÃO COM A LLM
-    load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
-
-    llm = ChatGoogleGenerativeAI( 
-        model="gemini-1.5-flash",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini, gemini-2.0-flash
-        temperature=0.5, # Padrão é 0.5
-        google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
-    )
-    
+    print('\nExecutando agente 2...')   
         
     #analise_dados(uploaded_files['ferias'][0],engine,llm)
     analise_dados(uploaded_files,engine,llm)           
@@ -345,76 +392,89 @@ def agente2(uploaded_files,engine):
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-def agente1(engine): # FRONTEND
+def agente1(engine,llm): # FRONTEND
 
     #css()
     
-    print("Executando o agente 1...")
+    print("Executando o agente 1...")    
     
     st.set_page_config(page_title="Agente VA", layout="centered")
     st.title("🤖 Agente VA")
     
-    combo_atestado = st.selectbox('Considerar Atestado médico para desconto ?',['Sim','Não'])
+    combo_atestado = st.selectbox('Considerar Atestado médico para desconto ?',['Não','Sim'])
     
-    mes_competencia = st.selectbox('Selecione o mês de competência',[1,2,3,4,5,6,7,8,9,10,11,12],index=3) #index = date.today().month - 1   
+    uploaded_file_base_dias = st.file_uploader("📂 Adicione a planilha Base dias uteis", type=["xls","xlsx"])    
     
-    uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])
-    uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"])
-    st.text('Se estiver como OK o comunicado até dia 15, não considerar compra. Se informado depois do dia 15, considerar compra proporcional') 
-    uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"]) # VALIDANDO AS COLUNAS COM ESSE
-    uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
-    uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])
-    uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])
-           
-    uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha BASE SINDICATOS X VALOR", type=["xls","xlsx"])    
-    uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
+    data_inicio_mes_competencia = ""
+    data_fim_mes_competencia = ""
+        
+    if uploaded_file_base_dias:
+        data_inicio_mes_competencia, data_fim_mes_competencia = checa_dias_uteis(uploaded_file_base_dias,llm)
+        
+        if data_inicio_mes_competencia is None or data_fim_mes_competencia is None:
+            st.error("Não foi possível determinar as datas de início e fim do mês de competência. Verifique a planilha Base dias uteis.")
+        else:            
+        
+            st.text(f'Data início mês de competência: {data_inicio_mes_competencia} - Data fim mês de competência: {data_fim_mes_competencia}')  
+            uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])
+            uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"])
+            uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"]) # VALIDANDO AS COLUNAS COM ESSE
+            st.text('Se estiver como OK o comunicado até dia 15, não considerar compra, se informado depois do dia 15, considerar compra proporcional')
+            uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
+            uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])
+            uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])           
+            uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha Base sindicato x valor", type=["xls","xlsx"])    
+            uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
                                               
-    if st.button("🔍 Consultar"):
-        # if not uploaded_file_ativos:
-        #     st.error("Você precisa fazer o upload da planilha ATIVOS")
-        # elif not uploaded_file_ferias:
-        #     st.error("Você precisa fazer o upload da planilha FÉRIAS")
-        # elif not uploaded_file_desligados:
-        #     st.error("Você precisa fazer o upload da planilha DESLIGADOS")
-        if not uploaded_file_afastamentos:
-             st.error("Você precisa fazer o upload da planilha AFASTAMENTOS")
-        # elif not uploaded_file_exterior:
-        #     st.error("Você precisa fazer o upload da planilha EXTERIOR")
-        # elif not uploaded_file_admissao:
-        #     st.error("Você precisa fazer o upload da planilha ADMISSAO")             
-        # elif not uploaded_file_sindvalor:
-        #     st.error("Você precisa fazer o upload da planilha BASE SINDICATOS X VALOR")
-        # elif not uploaded_file_estagaprendiz or len(uploaded_file_estagaprendiz) != 2:
-        #     st.error("Você precisa fazer o upload somente das planilhas ESTÁGIO e APRENDIZ")            
-                
-        else:
-            uploaded_files = {
-                                'ativos':[uploaded_file_ativos],
-                                'ferias':[uploaded_file_ferias],
-                                'desligados':[uploaded_file_desligados],
-                                'afastamentos':[uploaded_file_afastamentos],
-                                'exterior': [uploaded_file_exterior],
-                                'admissao': [uploaded_file_admissao],
-                                'sindvalor': [uploaded_file_sindvalor],
-                                'estagaprendiz': uploaded_file_estagaprendiz
-                            }
-            
-            with st.spinner("Analisando os dados com IA..."):
-                #try:
-                    resultado_df = agente2(uploaded_files,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
+            if st.button("🔍 Consultar"):                
 
-                    if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
-                        st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
+                # if not uploaded_file_ativos:
+                #     st.error("Você precisa fazer o upload da planilha ATIVOS")
+                # elif not uploaded_file_ferias:
+                #     st.error("Você precisa fazer o upload da planilha FÉRIAS")
+                # elif not uploaded_file_desligados:
+                #     st.error("Você precisa fazer o upload da planilha DESLIGADOS")
+                # elif not uploaded_file_afastamentos:
+                #     st.error("Você precisa fazer o upload da planilha AFASTAMENTOS")
+                if not uploaded_file_exterior:
+                    st.error("Você precisa fazer o upload da planilha EXTERIOR")
+                # elif not uploaded_file_admissao:
+                #     st.error("Você precisa fazer o upload da planilha ADMISSAO")             
+                # elif not uploaded_file_sindvalor:
+                #     st.error("Você precisa fazer o upload da planilha Base sindicato x valor")
+                # elif not uploaded_file_estagaprendiz or len(uploaded_file_estagaprendiz) != 2:
+                #     st.error("Você precisa fazer o upload somente das planilhas ESTÁGIO e APRENDIZ")            
+                        
+                else:
+                    uploaded_files = {
+                                        'base_dias':[uploaded_file_base_dias],
+                                        'ativos':[uploaded_file_ativos],
+                                        'ferias':[uploaded_file_ferias],
+                                        'desligados':[uploaded_file_desligados],
+                                        'afastamentos':[uploaded_file_afastamentos],
+                                        'exterior': [uploaded_file_exterior],
+                                        'admissao': [uploaded_file_admissao],
+                                        'sindvalor': [uploaded_file_sindvalor],
+                                        'estagaprendiz': uploaded_file_estagaprendiz
+                                    }
                     
-                    elif resultado_df is not None:
-                        st.success("Dados sobre o documento fiscal")
-                        st.table(resultado_df[0])
-                        st.table(resultado_df[2])
-                        st.success("✅ Resultado encontrado:")                        
-                        st.dataframe(resultado_df[1])                                       
-                                                
-                #except Exception as e:
-                #    st.error(f"Erro ao processar: {e}")
+                    with st.spinner("Analisando os dados com IA..."):
+                        #try:
+                            resultado_df = agente2(uploaded_files,engine,llm) 
+
+                            if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
+                                st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
+                            
+                            elif resultado_df is not None:
+                                st.success("Dados sobre o documento fiscal")
+                                st.table(resultado_df[0])
+                                st.table(resultado_df[2])
+                                st.success("✅ Resultado encontrado:")                        
+                                st.dataframe(resultado_df[1])                                       
+                                                        
+                        #except Exception as e:
+                        #    st.error(f"Erro ao processar: {e}")             
+
 
 def css():
     
@@ -477,10 +537,20 @@ def css():
 
 if __name__ == "__main__":
     
+    # INTEGRAÇÃO COM A LLM
+    load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
+
+    llm = ChatOpenAI ( #ChatGoogleGenerativeAI( 
+        model="openai/gpt-oss-20b:free",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini, gemini-2.0-flash
+        temperature=0.5, # Padrão é 0.5
+        base_url="https://openrouter.ai/api/v1",
+        api_key=getenv("OPENROUTER_GPT_OSS") # google_api_key        
+    )
+    
     #if not exists('va_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
     #    print('\nCriando o banco de dados va_data...')     
     
-     # PARA TESTES
+    # PARA TESTES
     if exists('va_data.db'):
         remove('va_data.db')
     
@@ -488,7 +558,7 @@ if __name__ == "__main__":
     engine = create_engine(DATABASE_URL,echo=True)        
           
     # INICIALIZAÇÃO DO AGENTE
-    agente1(engine)  # Executa a função que inicia o agente
+    agente1(engine,llm)  # Executa a função que inicia o agente
      
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
