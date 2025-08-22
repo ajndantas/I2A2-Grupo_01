@@ -56,7 +56,8 @@ def cria_tabelas(engine,data_inicio_mes_competencia, data_fim_mes_competencia):
             CheckConstraint("NOT (desc_situacao = 'Férias' AND (qtd_dias IS NULL OR data_demissao IS NOT NULL))", name="ck_ferias_qtd_dias_obrigatorio"),
             CheckConstraint("NOT (desc_situacao = 'Desligado' AND (data_demissao IS NULL))", name="ck_desligado_data_demissao_obrigatorio"),
             CheckConstraint("NOT (desc_situacao = 'Trabalhando' AND (qtd_dias IS NOT NULL OR data_demissao IS NOT NULL))", name="ck_nao_ferias_qtd_dias"),
-            CheckConstraint("NOT (desc_situacao IN ('Licença Maternidade','Auxílio Doença','Exterior') AND data_demissao IS NOT NULL)", name="ck_afastamento")                                   
+            CheckConstraint("NOT (desc_situacao IN ('Licença Maternidade','Auxílio Doença','Exterior') AND data_demissao IS NOT NULL)", name="ck_afastamento"),
+            CheckConstraint("NOT (qtd_dias > 30 OR qtd_dias uteis > 22)", name="ck_qtd_dias_dias_uteis")                                               
     )
     
     sindicato = Table(

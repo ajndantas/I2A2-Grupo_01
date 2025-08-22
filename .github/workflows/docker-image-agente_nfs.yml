@@ -1,9 +1,10 @@
-name: Docker Image CI
+name: Docker Image agente_nfs CI
 
 on:
   push:
-    branches: [ "master" ] 
-        
+    branches: [ "master" ]
+    paths: 
+      - 'Desafio 2 - Projeto - 11062025/agente_nfs/**'        
 
 jobs:
 
@@ -25,5 +26,4 @@ jobs:
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
           docker build --build-arg GOOGLE_API_KEY="AIzaSyAOhPIBGBJyhmQFGwcuMxGqS0MniA_7TQ8" -t $IMAGE_ID:$TAG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/"
-          docker push $IMAGE_ID:$TAG
-          
+          docker push $IMAGE_ID:$TAG       
