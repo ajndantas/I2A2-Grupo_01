@@ -25,7 +25,7 @@ set_debug(True)
 class SemResposta(Exception):
     pass
 
-def cria_tabelas(engine):
+def cria_tabelas(engine,data_inicio_mes_competencia, data_fim_mes_competencia):
     
     """
         Prompt para elaborar um diagrama de classes por meio do Deepseek.
@@ -45,10 +45,10 @@ def cria_tabelas(engine):
             Column('matricula', Integer, nullable=False),  
             Column('titulo_cargo', String, nullable=False),
             Column('sindicato', String, nullable=False),            
-            Column('desc_situacao', String, nullable=False), # ESTA NA PLANILHA ATIVOS E NAS OUTRAS
+            Column('desc_situacao', String, server_default="Trabalhando"), # ESTA NA PLANILHA ATIVOS E NAS OUTRAS
             Column('qtd_dias', Integer), # NOVA COLUNA
-            Column('data_inicio_mes_competencia',Date,nullable=False), # NOVA COLUNA
-            Column('data_fim_mes_competencia',Date,nullable=False), # NOVA COLUNA
+            Column('data_inicio_mes_competencia',Date, server_default=data_inicio_mes_competencia), # NOVA COLUNA
+            Column('data_fim_mes_competencia',Date, server_default=data_fim_mes_competencia), # NOVA COLUNA
             Column('qtd_dias_uteis', Integer,nullable=False), # NOVA COLUNA
             Column('data_demissao', Date), # NOVA COLUNA
             Column('comunicado_desligamento', String),  # NOVA COLUNA # Coluna para o comunicado de desligamento          
@@ -87,6 +87,9 @@ def recria_dataframe(df,resposta) -> DataFrame:
     
     return df
 
+# [markdown]
+# DEPOIS VALIDAR O RETORNO NA TELA, QUANDO O ARQUIVO NÃO POSSUI DATAS
+
 def checa_dias_uteis(uploaded_file_base_dias,llm):
     
     dfbase_dias = read_excel(uploaded_file_base_dias)
@@ -124,7 +127,8 @@ def checa_dias_uteis(uploaded_file_base_dias,llm):
     resposta = chain.invoke(input={"df":dfbase_dias.to_string()})
        
     data_inicio_mes_competencia = resposta['data_inicio_mes_competencia']
-    data_fim_mes_competencia = resposta['data_fim_mes_competencia']
+    data_fim_mes_competencia = resposta['data_fim_mes_competencia']    
+    
     
     return data_inicio_mes_competencia, data_fim_mes_competencia
 
@@ -147,11 +151,13 @@ def checa_colunas(uploaded_files, engine, llm) -> DataFrame:
                                 'estagaprendiz': uploaded_file_estagaprendiz
                         } 
     """    
-            
-    dfexterior = read_excel(uploaded_files['exterior'][0])
-    #data_inicio_apuracao, data_pgto = checa_dias_uteis(uploaded_files)
     
-    df = dfexterior
+    # CHECANDO AS COLUNAS
+    dfferias = read_excel(uploaded_files['ferias'][0])        
+    #dfexterior = read_excel(uploaded_files['exterior'][0])
+        
+    
+    df = dfferias
     
     """     if file.keys() in ['afastamentos','exterior']:
         df['qtd_dias'] = None
@@ -232,8 +238,6 @@ def analise_dados(uploaded_files,engine,llm):
                          }
     """
     
-    cria_tabelas(engine)
-    
     df = checa_colunas(uploaded_files,engine,llm) # RETORNA O DATAFRAME COM AS COLUNAS VALIDADAS           
     
     print('Novo Dataframe')
@@ -304,7 +308,7 @@ def llm_gera_query(llm,engine,pergunta):
 
 
 # [markdown]
-# ### <b>AGENTE 2: Extração - Estou Aqui</b>
+# ### <b>AGENTE 2: Extração</b>
 # <b>Responsabilidade:</b> Processar documentos e extrair dados relevantes<br/><br/>
 # <b>Funcionalidades:</b>
 # <ul><li>Identificação e extração de campos específicos</li></ul>
@@ -409,72 +413,77 @@ def agente1(engine,llm): # FRONTEND
     data_fim_mes_competencia = ""
         
     if uploaded_file_base_dias:
-        data_inicio_mes_competencia, data_fim_mes_competencia = checa_dias_uteis(uploaded_file_base_dias,llm)
+        
+        with st.spinner("Analisando os dados com IA..."):
+            data_inicio_mes_competencia, data_fim_mes_competencia = checa_dias_uteis(uploaded_file_base_dias,llm)
         
         if data_inicio_mes_competencia is None or data_fim_mes_competencia is None:
             st.error("Não foi possível determinar as datas de início e fim do mês de competência. Verifique a planilha Base dias uteis.")
-        else:            
-        
-            st.text(f'Data início mês de competência: {data_inicio_mes_competencia} - Data fim mês de competência: {data_fim_mes_competencia}')  
-            uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])
-            uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"])
-            uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"]) # VALIDANDO AS COLUNAS COM ESSE
-            st.text('Se estiver como OK o comunicado até dia 15, não considerar compra, se informado depois do dia 15, considerar compra proporcional')
-            uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
-            uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])
-            uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])           
-            uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha Base sindicato x valor", type=["xls","xlsx"])    
-            uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
-                                              
-            if st.button("🔍 Consultar"):                
-
-                # if not uploaded_file_ativos:
-                #     st.error("Você precisa fazer o upload da planilha ATIVOS")
-                # elif not uploaded_file_ferias:
-                #     st.error("Você precisa fazer o upload da planilha FÉRIAS")
-                # elif not uploaded_file_desligados:
-                #     st.error("Você precisa fazer o upload da planilha DESLIGADOS")
-                # elif not uploaded_file_afastamentos:
-                #     st.error("Você precisa fazer o upload da planilha AFASTAMENTOS")
-                if not uploaded_file_exterior:
-                    st.error("Você precisa fazer o upload da planilha EXTERIOR")
-                # elif not uploaded_file_admissao:
-                #     st.error("Você precisa fazer o upload da planilha ADMISSAO")             
-                # elif not uploaded_file_sindvalor:
-                #     st.error("Você precisa fazer o upload da planilha Base sindicato x valor")
-                # elif not uploaded_file_estagaprendiz or len(uploaded_file_estagaprendiz) != 2:
-                #     st.error("Você precisa fazer o upload somente das planilhas ESTÁGIO e APRENDIZ")            
-                        
-                else:
-                    uploaded_files = {
-                                        'base_dias':[uploaded_file_base_dias],
-                                        'ativos':[uploaded_file_ativos],
-                                        'ferias':[uploaded_file_ferias],
-                                        'desligados':[uploaded_file_desligados],
-                                        'afastamentos':[uploaded_file_afastamentos],
-                                        'exterior': [uploaded_file_exterior],
-                                        'admissao': [uploaded_file_admissao],
-                                        'sindvalor': [uploaded_file_sindvalor],
-                                        'estagaprendiz': uploaded_file_estagaprendiz
-                                    }
-                    
-                    with st.spinner("Analisando os dados com IA..."):
-                        #try:
-                            resultado_df = agente2(uploaded_files,engine,llm) 
-
-                            if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
-                                st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
+        else:
                             
-                            elif resultado_df is not None:
-                                st.success("Dados sobre o documento fiscal")
-                                st.table(resultado_df[0])
-                                st.table(resultado_df[2])
-                                st.success("✅ Resultado encontrado:")                        
-                                st.dataframe(resultado_df[1])                                       
-                                                        
-                        #except Exception as e:
-                        #    st.error(f"Erro ao processar: {e}")             
+                st.text(f'Data início mês de competência: {data_inicio_mes_competencia} - Data fim mês de competência: {data_fim_mes_competencia}')  
+                uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])
+                uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"]) # VALIDANDO AS COLUNAS COM ESSE
+                uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"]) 
+                st.text('Se estiver como OK o comunicado até dia 15, não considerar compra, se informado depois do dia 15, considerar compra proporcional')
+                uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
+                uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])
+                uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])           
+                uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha Base sindicato x valor", type=["xls","xlsx"])    
+                uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
+                                                
+                if st.button("🔍 Consultar"):                
+                    
+                    cria_tabelas(engine, data_inicio_mes_competencia, data_fim_mes_competencia) # CRIANDO AS TABELAS NO BD
+                    
+                    # if not uploaded_file_ativos:
+                    #     st.error("Você precisa fazer o upload da planilha ATIVOS")
+                    if not uploaded_file_ferias:
+                        st.error("Você precisa fazer o upload da planilha FÉRIAS")
+                    # elif not uploaded_file_desligados:
+                    #     st.error("Você precisa fazer o upload da planilha DESLIGADOS")
+                    # elif not uploaded_file_afastamentos:
+                    #     st.error("Você precisa fazer o upload da planilha AFASTAMENTOS")
+                    # elif not uploaded_file_exterior:
+                    #    st.error("Você precisa fazer o upload da planilha EXTERIOR")
+                    # elif not uploaded_file_admissao:
+                    #     st.error("Você precisa fazer o upload da planilha ADMISSAO")             
+                    # elif not uploaded_file_sindvalor:
+                    #     st.error("Você precisa fazer o upload da planilha Base sindicato x valor")
+                    # elif not uploaded_file_estagaprendiz or len(uploaded_file_estagaprendiz) != 2:
+                    #     st.error("Você precisa fazer o upload somente das planilhas ESTÁGIO e APRENDIZ")            
+                            
+                    else:
+                        uploaded_files = {
+                                            'base_dias':[uploaded_file_base_dias],
+                                            'ativos':[uploaded_file_ativos],
+                                            'ferias':[uploaded_file_ferias],
+                                            'desligados':[uploaded_file_desligados],
+                                            'afastamentos':[uploaded_file_afastamentos],
+                                            'exterior': [uploaded_file_exterior],
+                                            'admissao': [uploaded_file_admissao],
+                                            'sindvalor': [uploaded_file_sindvalor],
+                                            'estagaprendiz': uploaded_file_estagaprendiz
+                                        }
+                        
+                        with st.spinner("Analisando os dados com IA..."):
+                            #try:
+                                resultado_df = agente2(uploaded_files,engine,llm) 
 
+                                if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
+                                    st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
+                                
+                                elif resultado_df is not None:
+                                    st.success("Dados sobre o documento fiscal")
+                                    st.table(resultado_df[0])
+                                    st.table(resultado_df[2])
+                                    st.success("✅ Resultado encontrado:")                        
+                                    st.dataframe(resultado_df[1])                                       
+                                                            
+                            #except Exception as e:
+                            #    st.error(f"Erro ao processar: {e}")             
+
+                    
 
 def css():
     
