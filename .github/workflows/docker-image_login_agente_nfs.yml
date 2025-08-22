@@ -1,9 +1,8 @@
-name: Docker Image CI Login
+name: Docker Image CI Login agente_nfs
 
 on:
   push:
-    branches: [ "usuarios" ] 
-        
+    branches: [ "usuarios" ]        
 
 jobs:
 
