@@ -8,16 +8,16 @@
 
 from os import getenv, remove
 from os.path import exists
-from pandas import read_csv, read_sql, DataFrame, read_excel
+from pydantic import BaseModel, Field
+from datetime import date
+from typing import Dict
+from pandas import DataFrame, read_excel
 from sqlalchemy import create_engine, text, Table, MetaData, Integer, String, Date, Numeric, Column, CheckConstraint, ForeignKey, inspect
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from pydantic import BaseModel, Field
-#from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 from langchain.globals import set_debug
-from datetime import date
 import streamlit as st
 
 set_debug(True)
@@ -30,49 +30,73 @@ def cria_tabelas(engine,data_inicio_mes_competencia, data_fim_mes_competencia):
     """
         Prompt para elaborar um diagrama de classes por meio do Deepseek.
     
-        '1 - Gere uma figura de um diagrama de classes, baseado na função def cria_tabelas do script em anexo, para o SQLAlchemy.
-         2 - Informe todos os possíveis registros, que não podem ser inseridos nessa estrutura de tabelas, sem repetição de cenários'
+        Gere o diagrama de classes, referente a função cria_tabelas, do script em anexo. 
+
+        #########################
+        Siga os seguintes passos:
+
+        1 - Crie o script para ser executado no aplicativo de sua escolha para a geração do diagrama.
+        2 - Execute o script no aplicativo.
+        3 - Se não ocorrer erros, informe a imagem.
+        4 - Caso ocorram erros, voltar para o passo 1
+        5 - Adicione as cardinalidades e os relacionamentos entre as tabelas.
+        6 - Gere a imagem final do diagrama de classes.
+        7 - Explique o diagrama por meio de todos os exemplos possíveis, utilizando todas as classes.
+        #########################
     
     """
     print('Criando as tabelas...')            
     
+    # Objeto metadata para manter informações das tabelas
+    metadata = MetaData()    
+    
+    print('Criando as tabelas...')
+    
+
     # Objeto metadata para manter informações das tabelas
     metadata = MetaData()
 
     # Define a tabela com chave primária e restrição CHECK
     funcionarios = Table( # RECEBERÁ A CARGA DE TODAS AS OUTRAS PLANILHAS
             'funcionarios', metadata,
-            Column('matricula', Integer, nullable=False),  
-            Column('titulo_cargo', String, nullable=False),
-            Column('sindicato', String, nullable=False),            
-            Column('desc_situacao', String, server_default="Trabalhando"), # ESTA NA PLANILHA ATIVOS E NAS OUTRAS
+            Column('matricula', Integer, primary_key=True),  
+            Column('titulo_cargo', String, primary_key=True),
+            Column('sindicato', String, ForeignKey('sindicato.nome'), primary_key=True), # NOVA COLUNA. REFERENCIA PARA A MESMA COLUNA PARA A PLANILHA BASE SINDICATO X VALOR. RECEBERÁ A CARGA DA PLANILHA Base dias uteis
+            Column('desc_situacao', String, server_default="Trabalhando",primary_key=True), # ESTA NA PLANILHA ATIVOS E NAS OUTRAS
             Column('qtd_dias', Integer), # NOVA COLUNA
-            Column('data_inicio_mes_competencia',Date, server_default=data_inicio_mes_competencia), # NOVA COLUNA
-            Column('data_fim_mes_competencia',Date, server_default=data_fim_mes_competencia), # NOVA COLUNA
-            Column('qtd_dias_uteis', Integer,nullable=False), # NOVA COLUNA
+            Column('data_inicio_mes_competencia',Date, server_default=data_inicio_mes_competencia, primary_key=True), # NOVA COLUNA
+            Column('data_fim_mes_competencia',Date, server_default=data_fim_mes_competencia, primary_key=True), # NOVA COLUNA
+            Column('qtd_dias_uteis', Integer,ForeignKey('sindicato.qtd_dias_uteis'), primary_key=True), # NOVA COLUNA
+            Column('valor',Numeric(7,2), ForeignKey('valor.valor'), primary_key=True), # NOVA COLUNA. REFERENCIA PARA A MESMA COLUNA PARA A PLANILHA BASE SINDICATO X VALOR. RECEBERÁ A CARGA DA PLANILHA Base sindicato x valor
             Column('data_demissao', Date), # NOVA COLUNA
             Column('comunicado_desligamento', String),  # NOVA COLUNA # Coluna para o comunicado de desligamento          
             CheckConstraint("desc_situacao IN ('Trabalhando', 'Férias', 'Licença Maternidade','Auxílio Doença','Exterior','Desligado')", name="ck_desc_situacao"), 
             CheckConstraint("NOT (desc_situacao = 'Férias' AND (qtd_dias IS NULL OR data_demissao IS NOT NULL))", name="ck_ferias_qtd_dias_obrigatorio"),
-            CheckConstraint("NOT (desc_situacao = 'Desligado' AND (data_demissao IS NULL))", name="ck_desligado_data_demissao_obrigatorio"),
-            CheckConstraint("NOT (desc_situacao = 'Trabalhando' AND (qtd_dias IS NOT NULL OR data_demissao IS NOT NULL))", name="ck_nao_ferias_qtd_dias"),
+            CheckConstraint("NOT (desc_situacao = 'Desligado' AND (data_demissao IS NULL OR qtd_dias IS NOT NULL))", name="ck_desligado_data_demissao_obrigatorio"),
+            CheckConstraint("NOT (desc_situacao = 'Trabalhando' AND (data_demissao IS NOT NULL OR qtd_dias IS NOT NULL))", name="ck_trabalhando"),
             CheckConstraint("NOT (desc_situacao IN ('Licença Maternidade','Auxílio Doença','Exterior') AND data_demissao IS NOT NULL)", name="ck_afastamento"),
-            CheckConstraint("NOT (qtd_dias > 30 OR qtd_dias uteis > 22)", name="ck_qtd_dias_dias_uteis")                                               
+            CheckConstraint("NOT (qtd_dias > 30 OR qtd_dias_uteis > 22)", name="ck_qtd_dias_dias_uteis")                                               
     )
     
-    sindicato = Table(
+    sindicato = Table( # DADOS DA PLANILHA Base dias uteis
             'sindicato', metadata,
-            Column('sindicato', String, ForeignKey('funcionarios.sindicato'), primary_key=True), # NOVA COLUNA 
-            Column('estado', String, primary_key=True),
-            Column('valor', Numeric(7,2),nullable=False)            
-    )   
-            
+            Column('nome', String, primary_key=True),    
+            Column('estado', String), # SENÃO FOR INFORMADO, OBTÉM DO NOME DO SINDICATO POR MEIO DE IA, POIS CADA SINDICATO TEM UM ESTADO.
+            Column('qtd_dias_uteis', Integer, primary_key=True) # RECEBERÁ O VALOR POR IA, DE ACORDO COM O SINDICATO E/OU ESTADO                                      
+    )
+    
+    valor = Table( # DADOS DA PLANILHA BASE SINDICATO X VALOR
+            'valor', metadata,
+            Column('sindicato', String, ForeignKey('sindicato.nome'),primary_key=True), 
+            Column('estado', String, ForeignKey('sindicato.estado')),                                
+            Column('valor', Numeric(7,2),primary_key=True), # RECEBERÁ A CARGA DA PLANILHA BASE SINDICATO X VALOR E SERÁ REFERÊNCIA PARA A MESMA COLUNA PARA A PLANILHA ATIVOS.                                                                                                 #                        
+    )           
        
     if not inspect(engine).get_table_names(): 
                                     
         # Cria a tabela no banco
         metadata.create_all(engine)
-        
+
 
 def recria_dataframe(df,resposta) -> DataFrame:
     
@@ -91,138 +115,123 @@ def recria_dataframe(df,resposta) -> DataFrame:
 # [markdown]
 # DEPOIS VALIDAR O RETORNO NA TELA, QUANDO O ARQUIVO NÃO POSSUI DATAS
 
-def checa_dias_uteis(uploaded_file_base_dias,llm):
-    
+def obtem_dias_uteis(uploaded_file_base_dias, llm) -> Dict: # UTILIZADO NO FRONTEND
+        
     dfbase_dias = read_excel(uploaded_file_base_dias)
-    
+
     class base_dias(BaseModel):
-        data_inicio_mes_competencia : date = Field(description="data_inicio_mes_competencia")
-        data_fim_mes_competencia : date = Field(description="data_fim_mes_competencia")                          
-                    
-    parseador = JsonOutputParser(pydantic_object=base_dias) 
-    
+        data_inicio_mes_competencia: date = Field(description="data de inicio do mes de competencia")
+        data_fim_mes_competencia: date = Field(description="data fim do mês de competencia")
+        qtd_dias_uteis: list[dict] = Field(description="quantidade de dias uteis por sindicato")
+
+    parseador = JsonOutputParser(pydantic_object=base_dias)
+
     template = """
-                   Você é um assistente que ajuda a encontrar datas dentro de um DataFrame.
+                   Você é um assistente que ajuda a encontrar datas e quantidade de dias úteis dentro de um DataFrame.
                    Dado o DataFrame {df}, Você deve seguir os seguintes passos:
-                                     
-                   ###################################################                   
+
+                   ###################################################
                    1 - A data de inicio do mês de competencia, será a menor data encontrada. Caso não encontre, retorne null
                    2 - A data fim do mês de competencia, será a maior data encontrada. Caso não encontre, retorne null
-                   3 - Caso não encontre o ano no DataFrame {df}, retorne o ano atual no formato YYYY
-                   4 - Retorne as datas no formato DD/MM/AAAA  
+                   3 - Caso não encontre o ano no DataFrame, retorne o ano atual no formato YYYY
+                   4 - Retorne as datas no formato DD/MM/AAAA
+                   5 - A quantidade de dias úteis, deve ser de acordo com a convenção mais recente para cada sindicato, e seu respectivo estado, estando o valor do estado não nulo ou nulo, 
+                   informados no DataFrame. Caso não encontre a quantidade de dias úteis, retorne null
                    ###################################################
-                                      
+
                    {formatador_saida_ia}
                 """
-    
+
     prompt_template = PromptTemplate(
-                                        template=template,
-                                        input_variables=["df"],
-                                        partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
-                                    )
-                                    
+        template=template,
+        input_variables=["df"],
+        partial_variables={"formatador_saida_ia": parseador.get_format_instructions()}
+    )
+
     # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
     chain = prompt_template | llm | parseador
-        
+
     # INVOCANDO A LLM
-    resposta = chain.invoke(input={"df":dfbase_dias.to_string()})
-       
-    data_inicio_mes_competencia = resposta['data_inicio_mes_competencia']
-    data_fim_mes_competencia = resposta['data_fim_mes_competencia']    
-    
-    
-    return data_inicio_mes_competencia, data_fim_mes_competencia
+    resposta = chain.invoke(input={"df": dfbase_dias.to_string()})
+
+    return resposta
 
 # [markdown]
-# ESTOU AQUI TAMBÉM
+# OK
 
-def checa_colunas(uploaded_files, engine, llm) -> DataFrame:
+def checa_colunas(uploaded_files, engine, llm) -> Dict:
     
-    print('Checando colunas...')
+    print('Mapeando colunas...')
+            
     
-    """ uploaded_files = {
-                                'base_dias':[uploaded_file_base_dias],
-                                'ativos':[uploaded_file_ativos],
-                                'ferias':[uploaded_file_ferias],
-                                'desligados':[uploaded_file_desligados],
-                                'afastamentos':[uploaded_file_afastamentos],
-                                'exterior': [uploaded_file_exterior],
-                                'admissao': [uploaded_file_admissao],
-                                'sindvalor': [uploaded_file_sindvalor],
-                                'estagaprendiz': uploaded_file_estagaprendiz
-                        } 
-    """    
-    
-    # CHECANDO AS COLUNAS
-    dfferias = read_excel(uploaded_files['ferias'][0])        
-    #dfexterior = read_excel(uploaded_files['exterior'][0])
+    # MAPEANDO AS COLUNAS DOS DATAFRAMES PARA AS COLUNAS DO BANCO DE DADOS
+    dictdf = {} # DICIONÁRIO PARA ARMAZENAR OS DATAFRAMES COM AS COLUNAS CORRIGIDAS. CHAVE = NOME DO ARQUIVO, VALOR = DATAFRAME
+    for item in uploaded_files.items():
         
-    
-    df = dfferias
-    
-    """     if file.keys() in ['afastamentos','exterior']:
-        df['qtd_dias'] = None
-    elif file.keys() in ['ferias','afastamentos','exterior']:
-        df['data_inicio_apuracao'] = None
-        df['data_pgto'] = None
-    elif file.keys() in ['sindicato']:
-        df['estado'] = None
-        df['valor'] = None """
+            print('Mapeando colunas do arquivo de chave: ', item[0])
         
-    colunas_df = df.columns.tolist()
-    
-    with engine.connect() as conn:
-        inspector = inspect(conn)
-        tabela = inspector.get_table_names()[0]
-        columns = inspector.get_columns(tabela)
-    
-    colunas_tabela = [col['name'] for col in columns]
-    
-    class colunas(BaseModel):
-        mapeamento: dict = Field(description="mapeamento")
-                          
-                    
-    parseador = JsonOutputParser(pydantic_object=colunas) 
-    
-    template = """
-                   Você é um assistente que ajuda a mapear colunas de um DataFrame para as colunas de uma tabela de banco de dados.
-                   Dada a lista de colunas do DataFrame e a lista de colunas da tabela, você deve sugerir um mapeamento entre elas com base no significado das colunas.
-                   Colunas do DataFrame: {colunas_df}
-                   Colunas da Tabela: {colunas_tabela}
-                   
-                   ###################################################
-                   Este mapeamento deve ser feito da seguinte forma:
-                   1 - Lado esquerdo, {colunas_df}
-                   2 - Lado direito, {colunas_tabela}
-                   3 - Não mapear qualquer coluna do dataframe com o significado de valor, para qualquer outra coluna da tabela, com o significado de titulo                   
-                   ###################################################
-                                      
-                   {formatador_saida_ia}
-                """
-    
-    prompt_template = PromptTemplate(
-                                        template=template,
-                                        input_variables=["colunas_df", "colunas_tabela"],
-                                        partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
-                                    )
-                                    
-    # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
-    chain = prompt_template | llm | parseador
+            file = item[1]
+            key = item[0]
+            
+            df = read_excel(file)           
+                
+            colunas_df = df.columns.tolist()
+            
+            with engine.connect() as conn:
+                inspector = inspect(conn)
+                tabela = inspector.get_table_names()[0]
+                columns = inspector.get_columns(tabela)
+            
+            colunas_tabela = [col['name'] for col in columns]
+            
+            class colunas(BaseModel):
+                mapeamento: dict = Field(description="mapeamento")
+                                
+                            
+            parseador = JsonOutputParser(pydantic_object=colunas) 
+            
+            template = """
+                            Você é um assistente que ajuda a mapear colunas de um DataFrame para as colunas de uma tabela de banco de dados.
+                            Dada a lista de colunas do DataFrame e a lista de colunas da tabela, você deve sugerir um mapeamento entre elas com base no significado das colunas.
+                            Colunas do DataFrame: {colunas_df}
+                            Colunas da Tabela: {colunas_tabela}
+                            
+                            ###################################################
+                            Este mapeamento deve ser feito da seguinte forma:
+                            1 - Lado esquerdo, {colunas_df}
+                            2 - Lado direito, {colunas_tabela}
+                            3 - Não mapear qualquer coluna do dataframe com o significado de valor, para qualquer outra coluna da tabela, com o significado de titulo                   
+                            ###################################################
+                                                
+                            {formatador_saida_ia}
+                        """
+            
+            prompt_template = PromptTemplate(
+                                                template=template,
+                                                input_variables=["colunas_df", "colunas_tabela"],
+                                                partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
+                                            )
+                                            
+            # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
+            chain = prompt_template | llm | parseador
+                
+            # INVOCANDO A LLM
+            resposta = chain.invoke(input={"colunas_df":colunas_df, "colunas_tabela":colunas_tabela})
+            
+            resposta = resposta['mapeamento']        
+            
+            # RECRIANDO DATAFRAME COM OS MESMOS NOMES DE COLUNA DO BD   
+            df = recria_dataframe(df, resposta)
+            
+            dictdf[key] = df
+                            
         
-    # INVOCANDO A LLM
-    resposta = chain.invoke(input={"colunas_df":colunas_df, "colunas_tabela":colunas_tabela})
-    
-    resposta = resposta['mapeamento']        
-    
-    # RECRIANDO DATAFRAME COM OS MESMOS NOMES DE COLUNA DO BD   
-    df = recria_dataframe(df, resposta)           
-    
-    return df
+    return dictdf
 
 # [markdown]
 # ESTOU AQUI
 
-def analise_dados(uploaded_files,engine,llm):
+def analise_dados(uploaded_files,engine,llm,dictdias_uteis):
     
     print('Analisando os dados...')    
     
@@ -239,10 +248,15 @@ def analise_dados(uploaded_files,engine,llm):
                          }
     """
     
-    df = checa_colunas(uploaded_files,engine,llm) # RETORNA O DATAFRAME COM AS COLUNAS VALIDADAS           
+    dictdf = checa_colunas(uploaded_files,engine,llm) # RETORNA O DATAFRAME COM AS COLUNAS VALIDADAS           
     
-    print('Novo Dataframe')
-    print(df)
+    for item in dictdf.items():
+        print(f'Novo Dataframe {item[0]}')
+        print(item[1])
+        
+    for item in dictdias_uteis.items():
+        print(f'Chave: {item[0]}')
+        print(f'Valor: {item[1]}')
     
     # NADA ABAIXO EXECUTADO
     
@@ -315,79 +329,15 @@ def llm_gera_query(llm,engine,pergunta):
 # <ul><li>Identificação e extração de campos específicos</li></ul>
 # <ul><li>Validação cruzada de dados extraídos</li></ul>
 
-def agente2(uploaded_files,engine,llm):
+def agente2(uploaded_files,engine,llm,dictdias_uteis):
 
     print('\nExecutando agente 2...')   
         
-    #analise_dados(uploaded_files['ferias'][0],engine,llm)
-    analise_dados(uploaded_files,engine,llm)           
+    analise_dados(uploaded_files,engine,llm,dictdias_uteis)           
        
-    #print('Uploaded_files: ', uploaded_files)
-    
-    if tipo not in ['text/plain','text/csv']:        
-        
-        imagem_proc = ocr.preprocessar_imagem(ocr.carregar_arquivo(arquivo))
-        texto = ocr.extrair_texto(imagem_proc)
-        
-        print("\nTexto\n",texto)
-        resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
-        
-        campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
-        
-        listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO
-               
-        df = DataFrame([resposta['valores']], columns=listacampos)                                       
-                    
-              
-    elif tipo in ['text/plain','text/csv']: 
-        
-        df = read_csv(arquivo)
-        campos = list(df.columns.values)
-        
-        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
-    
-        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
-        
-        df = DataFrame(df.values, columns=listacampos)    
-    
-            
-    df['TIPO'] = resposta['tipo']
-    df['MODELO_DOC'] = resposta['modelo']        
-    df['VERSÃO_DOC'] = resposta['versao']    
-    df['ARQUIVO'] = arquivo.name        
-            
-    dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
-    
-    dfcampos = DataFrame({'CAMPOS':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
-    
-    resposta = obtem_sim_nao(pergunta,df,llm)                 
-    
-    if resposta == "Sim":
-        
-        # PERSISTINDO OS DADOS NO BANCO DE DADOS
-        print('Sim para o arquivo: ',arquivo.name)
+    #print('Uploaded_files: ', uploaded_files) 
+   
 
-        df.to_sql(name='arquivo', con=engine, if_exists='replace', index=False)               
-                    
-        query = llm_gera_query(llm,engine,pergunta)
-        
-        # OBTENÇÃO DO RESULTADO DA QUERY
-        with engine.connect() as con:
-            dfsql = read_sql(query, con)                        
-            dfresposta = dfsql      
-                
-        lista_df = []
-        lista_df.append(dfdocfiscal)
-        lista_df.append(dfresposta)
-        lista_df.append(dfcampos)
-                        
-        resposta = lista_df
-                                    
-        return resposta # RESPOSTA PARA O FRONTEND, AGENTE 1
-    
-    elif resposta == "Não":
-        print('Não é possível responder a essa pergunta com o arquivo carregado')
-        return resposta
 
 # [markdown]
 # ### <b>AGENTE 1: Aquisição de Documentos</b>
@@ -416,21 +366,24 @@ def agente1(engine,llm): # FRONTEND
     if uploaded_file_base_dias:
         
         with st.spinner("Analisando os dados com IA..."):
-            data_inicio_mes_competencia, data_fim_mes_competencia = checa_dias_uteis(uploaded_file_base_dias,llm)
+           dictdias_uteis = obtem_dias_uteis(uploaded_file_base_dias,llm)
+           
+           data_inicio_mes_competencia = dictdias_uteis['data_inicio_mes_competencia']
+           data_fim_mes_competencia = dictdias_uteis['data_fim_mes_competencia']
         
         if data_inicio_mes_competencia is None or data_fim_mes_competencia is None:
             st.error("Não foi possível determinar as datas de início e fim do mês de competência. Verifique a planilha Base dias uteis.")
         else:
                             
-                st.text(f'Data início mês de competência: {data_inicio_mes_competencia} - Data fim mês de competência: {data_fim_mes_competencia}')  
+                st.text(f'Data início mês de competência: {data_inicio_mes_competencia} - Data fim mês de competência: {data_fim_mes_competencia}') 
+                uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha Base sindicato x valor. Obrigatória", type=["xls","xlsx"])  
                 uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])
                 uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"]) # VALIDANDO AS COLUNAS COM ESSE
                 uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"]) 
                 st.text('Se estiver como OK o comunicado até dia 15, não considerar compra, se informado depois do dia 15, considerar compra proporcional')
                 uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
                 uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])
-                uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])           
-                uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha Base sindicato x valor", type=["xls","xlsx"])    
+                uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])                  
                 uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
                                                 
                 if st.button("🔍 Consultar"):                
@@ -439,8 +392,8 @@ def agente1(engine,llm): # FRONTEND
                     
                     # if not uploaded_file_ativos:
                     #     st.error("Você precisa fazer o upload da planilha ATIVOS")
-                    if not uploaded_file_ferias:
-                        st.error("Você precisa fazer o upload da planilha FÉRIAS")
+                    # elif not uploaded_file_ferias:
+                    #    st.error("Você precisa fazer o upload da planilha FÉRIAS")
                     # elif not uploaded_file_desligados:
                     #     st.error("Você precisa fazer o upload da planilha DESLIGADOS")
                     # elif not uploaded_file_afastamentos:
@@ -449,8 +402,8 @@ def agente1(engine,llm): # FRONTEND
                     #    st.error("Você precisa fazer o upload da planilha EXTERIOR")
                     # elif not uploaded_file_admissao:
                     #     st.error("Você precisa fazer o upload da planilha ADMISSAO")             
-                    # elif not uploaded_file_sindvalor:
-                    #     st.error("Você precisa fazer o upload da planilha Base sindicato x valor")
+                    if not uploaded_file_sindvalor:
+                         st.error("Você precisa fazer o upload da planilha Base sindicato x valor")
                     # elif not uploaded_file_estagaprendiz or len(uploaded_file_estagaprendiz) != 2:
                     #     st.error("Você precisa fazer o upload somente das planilhas ESTÁGIO e APRENDIZ")            
                             
@@ -469,7 +422,7 @@ def agente1(engine,llm): # FRONTEND
                         
                         with st.spinner("Analisando os dados com IA..."):
                             #try:
-                                resultado_df = agente2(uploaded_files,engine,llm) 
+                                resultado_df = agente2(uploaded_files,engine,llm,dictdias_uteis) 
 
                                 if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
                                     st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
