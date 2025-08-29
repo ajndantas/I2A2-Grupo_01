@@ -1,0 +1,47 @@
+Aja como um desenvolvedor python, e desenvolva um código, com o objetivo de calcular o valor, que deve ser pago pela 
+empresa, em Vale Refeição (VR), para cada um de seus profissionais, de acordo com suas matrículas, e em função da 
+quantidade de dias úteis, dentro do Intervalo de Competência, que vai de 15/04/2025 à 15/05/2025 inclusive.
+
+A planilha de resultado final, chamada VR MENSAL RESULTADO.xlsx, deverá ter o mesmo layout da planilha VR MENSAL 05.2025.xlsx em anexo, com os mesmos nomes de colunas e
+conter todas as matrículas das planilhas em anexo, sem duplicatas.
+
+O significado das colunas para a planilha VR MENSAL RESULTADO.xlsx é o seguinte:
+- Matrícula -> matricula do profissional
+- Admissão -> Data de admissão do profissional
+- Sindicato -> Sindicato do profissional obtido das planilhas em anexo.
+- Competência -> preencher como 05/2025
+- Dias -> quantidade de dias úteis para a matricula
+- VALOR DIÁRIO VR -> Valor obtido da planilha Base sindicato x valor.xlsx
+- TOTAL = (valor informado pelo sindicato da matricula) x (quantidade de dias úteis da matrícula)
+- Custo empresa = TOTALx0,8
+- Desconto profissional = TOTALx0,2
+
+As informações devem ser obtidas das planilhas em anexo.
+
+Para o cálculo do valor para cada profissional, os seguintes passos devem ser seguidos:
+####################################################
+1 - Considerar as regras vigentes, decorrentes dos acordos coletivos de cada um dos sindicatos, e seus estados associados.
+2 - Para as matrículas de estagiários e aprendizes, contidos respectivamente nas planilhas ESTÁGIOS.xlsx e APRENDIZ.xlsx, o TOTAL será zero.
+3 - Obter a quantidade de dias úteis dentro do Intervalo de Competência, para cada matrícula, de acordo com os passos abaixo:
+3.1 - Considerar para a obtenção da quantidade de dias úteis referentes as matrículas informadas na planilha FÉRIAS.xlsx, que os dias lá informados estão dentro do Intervalo de Competência.
+3.2 - Para os profisionais afastados da planilha AFASTAMENTOS.xlsx, aqueles que não possuem informação de data de retorno, considerar zero dias úteis dentro do Intervalo de Competência.
+3.3 - Na planilha ATIVOS.xlsx, considerar para os profissionais afastados, que são aqueles que possuem status diferente de 'Trabalhando' e 'Férias' na coluna desc.situacao, e que também não possuem matrícula na planilha AFASTAMENTOS.xlsx, que eles não retornaram dentro do Intervalo de Competência, logo, considerar a quantidade de dias úteis como zero para eles.
+3.4 - Para os profissionais desligados com matrícula na planilha DESLIGAMENTOS.xlsx, aqueles que foram comunicados do desligamento antes do dia 15 do início do Intervalo de Competência inclusive,
+terão valor zero como dias úteis. Para aqueles que foram comunicados do desligamento, depois do dia 15 do início do Intervalo de Competência inclusive, terão como valor de quantidade de dias úteis, a 
+quantidade entre o dia 15 do Intervalo de Competência inclusive, até a data de demissão inclusive.
+3.5 - Para os profissionais que se encontram no exterior, contidos nas planilha EXTERIOR.xlsx, caso não haja informação de retorno, considerar como quantidade de dias úteis, zero.
+Para aqueles que possuem data de retorno, verificar a quantidade de dias úteis dentro do Intervalo de Competência.
+3.8 - Para as matrículas de profissionais que se encontram na planilha ADMISSÃO ABRIL.xlsx, o cálculo da quantidade de dias úteis deverá ser feito da seguinte forma:
+3.8.1 - Quando a data de admissão do profissional inclusive, for posterior a data de início do Intervalo de Competência inclusive, contar a quantidade de dias úteis os dias entre
+a data de admissão inclusive e o último dia do Intervalo de Competência inclusive  
+3.8.2 - Quando a data de admissão do profissional inclusive, for anterior a data de início do Intervalo de Competência inclusive, a quantidade de dias úteis será
+igual a quantidade existe no Intervalo de Competência.
+a data de admissão inclusive e o último dia do Intervalo de Competência inclusive  
+5 - Para a quantidade de dias úteis para a matriculas, descontar os dias correspontes à:
+5.1 - Dias de feriados nacionais, estaduais obrigatórios de acordo com o estado do sindicato do profissional e sindicais obrigatórios de acordo com o estado do sindicato, 
+dentro do Intervalo de Competência. Para os feriados estaduais e sindicais, considerar os estados de seus sindicatos para obtê-los.
+5.2 - Dias correspondentes aos sábados e domingos, dentro do Intervalo de Competência.
+6 - O TOTAL para cada matrícula de profissional, deverá ser calculado da seguinte forma:
+TOTAL = (valor informado pelo sindicato da matricula) x (quantidade de dias úteis da matrícula)
+####################################################
+
