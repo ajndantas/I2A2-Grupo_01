@@ -145,7 +145,7 @@ def obtem_sim_nao(pergunta,df,llm):
     chain = prompt_template | llm | parseador
     
     # INVOCANDO A LLM
-    resposta = chain.invoke(input={"pergunta":pergunta, "df": df, "colunas_df": list(df.columns.values)})['resposta']
+    resposta = chain.invoke(input={"pergunta":pergunta, "df": df.to_string(index=False), "colunas_df": list(df.columns.values)})['resposta']
         
     return resposta
 
@@ -371,3 +371,4 @@ if __name__ == "__main__":
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
 #!streamlit run agente_nfs.py --server.port 8000
+
