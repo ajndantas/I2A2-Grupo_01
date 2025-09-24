@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field
 from datetime import date, datetime, timedelta
 from time import sleep
 from typing import Dict, List, TypedDict, Any
-from pandas import DataFrame, read_excel, read_sql
+from pandas import DataFrame, read_excel, read_sql, to_datetime
 from sqlalchemy import create_engine, text, Table, MetaData, Integer, String, Date, Numeric, Column, CheckConstraint, UniqueConstraint ,ForeignKey, inspect, select, delete
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
@@ -57,17 +57,19 @@ def cria_tabelas(engine,data_inicio_mes_competencia, data_fim_mes_competencia):
     funcionarios = Table( # RECEBERÁ A CARGA DE TODAS AS OUTRAS PLANILHAS
             'funcionarios', metadata,
             Column('matricula', Integer,primary_key=True),  
-            Column('titulo_cargo', String, nullable=False),
-            Column('sindicato', String, ForeignKey('sindicato.sindicato')), 
+            #Column('titulo_cargo', String, nullable=False),
+            Column('titulo_cargo', String), # DEVIDO A PLANILHA DESLIGADOS
+            Column('sindicato', String, ForeignKey('sindicato.sindicato')),
             Column('desc_situacao', String, CheckConstraint("desc_situacao IN ('Trabalhando', 'Férias', 'Licença Maternidade','Auxílio Doença','Exterior','Desligado','Atestado')"), server_default="Trabalhando",primary_key=True), 
             Column('qtd_dias', Integer), 
             Column('data_inicio_mes_competencia',Date, server_default=data_inicio_mes_competencia,primary_key=True),
             Column('data_fim_mes_competencia',Date, server_default=data_fim_mes_competencia,primary_key=True),
             Column('data_demissao', Date),
-            Column('data_retorno',Date),
-            Column('data_admissao',Date),  
-            Column('qtd_dias_uteis', Integer,ForeignKey('sindicato.qtd_dias_uteis'), nullable=False), 
-            Column('valor_va',Numeric(7,2), ForeignKey('valor.valor_va')),            
+            Column('data_retorno', Date),
+            Column('data_admissao', Date),
+            #Column('qtd_dias_uteis', Integer,ForeignKey('sindicato.qtd_dias_uteis'), nullable=False), # DEVIDO A PLANILHA DESLIGADOS  
+            Column('qtd_dias_uteis', Integer,ForeignKey('sindicato.qtd_dias_uteis')), 
+            Column('valor_va',Numeric(7,2), ForeignKey('valor.valor_va')), # PARA QUEM VAI PARA O EXTERIOR NÃO TEM, RECEBE REEMBOLSO            
             Column('comunicado_desligamento', String, CheckConstraint("comunicado_desligamento IN ('OK', 'Ok') OR comunicado_desligamento IS NULL"))                        
     ) 
     
@@ -85,7 +87,7 @@ def cria_tabelas(engine,data_inicio_mes_competencia, data_fim_mes_competencia):
     dias_nao_uteis = Table(
             'dias_nao_uteis',metadata,
             Column('id',Integer, primary_key=True),
-            Column('estado',String), # PARA FERIADO NACIONAL
+            Column('estado',String), 
             Column('data',Date, nullable=False),
             Column('nome',String, nullable=False),
             Column('dia_semana',String, nullable=False),
@@ -184,39 +186,6 @@ def checa_colunas(uploaded_file, engine, llm) -> DataFrame:
         
     return df
 
-def obtem_finaisdesemana(data_inicio_mes_competencia: date, data_fim_mes_competencia: date) -> Dict:
-    
-    data = data_inicio_mes_competencia
-    finaisdesemana = {}
-    sabado = []
-    domingo = []
-    
-    while data <= data_fim_mes_competencia:
-        if data.weekday() == 5:            
-            sabado.append(data.strftime('%Y-%m-%d')) # TRANSFORMA EM STRING NOVAMENTE PARA INSERIR NA LISTA
-        elif data.weekday() == 6:
-            domingo.append(data.strftime('%Y-%m-%d')) # TRANSFORMA EM STRING NOVAMENTE PARA INSERIR NA LISTA
-
-        data = data + timedelta(days=1)
-        
-    finaisdesemana = {'sabado': sabado, 'domingo': domingo, 'total_dias':len(sabado) + len(domingo)}
-    
-    return finaisdesemana
-
-def obtem_qtd_dias_corridos(data_inicio_mes_competencia: date, data_fim_mes_competencia: date) -> int:
-    
-    data = data_inicio_mes_competencia
-    dias = []
-    while data <= data_fim_mes_competencia:
-        dias.append(data.strftime('%Y-%m-%d')) # CONVERTENDO EM STRING PARA ADICIONAR NA LISTA
-        data = data + timedelta(days=1)
-        
-    print(f'Dias corridos entre {data_inicio_mes_competencia.strftime('%Y-%m-%d')} e {data_fim_mes_competencia.strftime('%Y-%m-%d')}: ',dias)
-    
-    qtd_dias_corridos = len(dias)
-    
-    return qtd_dias_corridos
-
 # [markdown]
 # ### <b>AGENTE 2: INTERVALO COMPETÊNCIA</b>
 
@@ -288,19 +257,21 @@ def escreve_bd(engine,resposta,nome_tabela):
                 for r in dffuncionarios_afastados.values:
                     stmt = text(f"UPDATE funcionarios SET qtd_dias = :qtd_dias, data_retorno = :data_retorno WHERE matricula = :matricula AND desc_situacao = :desc_situacao")                
                     conn.execute(stmt,{"qtd_dias":r[2] , "matricula": r[0], "desc_situacao":r[1], "data_retorno" : r[5]})
-                conn.commit()
-                
-            elif nome_tabela == "Desligado":
-                dffuncionarios_desligados = resposta
-                for r in dffuncionarios_desligados.values:
-                    stmt = text(f"UPDATE funcionarios SET qtd_dias = :qtd_dias, data_demissao = :data_demissao WHERE matricula = :matricula AND desc_situacao = :desc_situacao'")                
-                    conn.execute(stmt,{"qtd_dias":r[6] , "matricula": r[0], "desc_situacao":r[1], "data_demissao" : r[2]})                                            
-                conn.commit()                
+                conn.commit()                   
             
             elif nome_tabela == 'dias_nao_uteis':
                 df = DataFrame(resposta) # TRANSFORMAR UMA LISTA DE DICIONÁRIOS EM DATAFRAME
                 df.to_sql(name=f'{nome_tabela}', con=engine, if_exists='append',index=False)
+            
+            elif nome_tabela == 'Desligados':
+                dffuncionarios_desligados = resposta
+                stmt = text(f"DELETE FROM funcionarios WHERE desc_situacao = 'Desligados'")                
+                conn.execute(stmt)
+                conn.commit()
                 
+                df = DataFrame(dffuncionarios_desligados) # TRANSFORMAR UMA LISTA DE DICIONÁRIOS EM DATAFRAME
+                df.to_sql(name=f'funcionarios', con=engine, if_exists='append',index=False)
+                    
             elif nome_tabela == 'admissao':
                 dffuncionarios_admissao = resposta
                 for r in dffuncionarios_admissao.values:
@@ -310,7 +281,7 @@ def escreve_bd(engine,resposta,nome_tabela):
                                             
             else: # TABELA FUNCIONÁRIO, SINDICATO, VALOR, ESTAGIARIO, APRENDIZES. INSERTs
                 tabela = Table(nome_tabela,MetaData(),autoload_with=engine)
-                stmt = delete(tabela) # POR CAUSA DO COMPORTAMENTO DO STREAMLIT EM RECARREGAR OS UPLOADED FILES
+                stmt = delete(tabela) # POR CAUSA DO COMPORTAMENTO DO STREAMLIT EM RECARREGAR OS UPLOADED FILES. PROBLEMA JÁ CORRIGIDO. SE QUISER, PODE REMOVER
                 conn.execute(stmt)
                 conn.commit()
                 
@@ -319,6 +290,55 @@ def escreve_bd(engine,resposta,nome_tabela):
 
 # [markdown]
 # ### <b>AGENTE 3: DIAS ÚTEIS</b>
+
+def obtem_qtd_dias_corridos(data_inicio_mes_competencia: date, data_fim_mes_competencia: date) -> int:
+    
+    data = data_inicio_mes_competencia
+    dias = []
+    while data <= data_fim_mes_competencia:
+        dias.append(data.strftime('%Y-%m-%d')) # CONVERTENDO EM STRING PARA ADICIONAR NA LISTA
+        data = data + timedelta(days=1)
+        
+    print(f'Dias corridos entre {data_inicio_mes_competencia.strftime('%Y-%m-%d')} e {data_fim_mes_competencia.strftime('%Y-%m-%d')}: ',dias)
+    
+    qtd_dias_corridos = len(dias)
+    
+    return qtd_dias_corridos
+
+def obtem_finaisdesemana(data_inicio_mes_competencia: date, data_fim_mes_competencia: date) -> Dict:
+    
+    data = data_inicio_mes_competencia
+    finaisdesemana = {}
+    sabado = []
+    domingo = []
+    
+    while data <= data_fim_mes_competencia:
+        if data.weekday() == 5:            
+            sabado.append(data.strftime('%Y-%m-%d')) # TRANSFORMA EM STRING NOVAMENTE PARA INSERIR NA LISTA
+        elif data.weekday() == 6:
+            domingo.append(data.strftime('%Y-%m-%d')) # TRANSFORMA EM STRING NOVAMENTE PARA INSERIR NA LISTA
+
+        data = data + timedelta(days=1)
+        
+    finaisdesemana = {'sabado': sabado, 'domingo': domingo, 'total_dias':len(sabado) + len(domingo)}
+    
+    return finaisdesemana
+
+def dias_nao_uteis(engine, data_inicio:date, data_fim:date, estado:str):
+    
+    tabela = Table('dias_nao_uteis',MetaData(),autoload_with=engine)
+    stmt = select(tabela).where(tabela.c.estado._in(['FD','NA',estado]))
+    dfdias_nao_uteis = read_sql(stmt,engine)
+    
+    listadias_nao_uteis_intervalo = []
+    
+    if not dfdias_nao_uteis.empty:
+        for d in dfdias_nao_uteis['data'].values: # VEM DO BD como datetime.date
+                                        
+            if (data_inicio <= d <= data_fim):
+                listadias_nao_uteis_intervalo.append(d)
+                
+    return listadias_nao_uteis_intervalo
 
 def agente_dias_uteis(uploaded_file_base_dias, llm, dictintervalo_competencia,engine): # UTILIZADO NO FRONTEND
     
@@ -554,7 +574,7 @@ def agente_valores_sindicato(uploaded_file_sindvalor, engine, llm):
                                 
                   {formatador_saida_ia}
                   ###########################################################################
-                """
+              """
                 
    prompt_template = PromptTemplate(
                                       template=template,
@@ -607,6 +627,11 @@ def agente_valores_sindicato(uploaded_file_sindvalor, engine, llm):
       
    return dfestado_valor     
 
+# [markdown]
+# #### <b>PADRONIZAÇÃO PARA AS SITUAÇÕES</b>
+# <li>Padroniza a descrição das situações informadas na planilha AFASTAMENTOS</li>
+
+
 def padroniza_situacao(df,llm):
     
     print("Padronizando a descrição da situação para 'Trabalhando', 'Férias', 'Licença Maternidade','Auxílio Doença','Exterior','Desligado' ou 'Atestado'...")
@@ -615,8 +640,7 @@ def padroniza_situacao(df,llm):
     dfativos_situacao = df['desc_situacao'].drop_duplicates()
         
     print('Dataframe sem duplicatas')
-    print(dfativos_situacao)
-    
+    print(dfativos_situacao)    
            
     class dictsituacao(TypedDict):
         situacao_antes : str
@@ -631,6 +655,7 @@ def padroniza_situacao(df,llm):
     template = """
                     Aja como um assistente que é capaz de mapear valores, de acordo com os significados 
                     dos valores informados na coluna desc_situacao no Dataframe {context}.
+                    **SEMPRE** fornecer um **JSON VÁLIDO**
                     **- Não faça perguntas nem adicione esclarecimentos.**
                                                        
                     Para isso, devem ser seguidos os seguintes passos:
@@ -653,7 +678,6 @@ def padroniza_situacao(df,llm):
                     férias, ou não se encontra em licença maternidade, ou não foi beneficiada por auxílio doença, ou não se encontra em viagem no exterior,
                     ou foi desligada da empresa, ou se encontra ausente por apresentação de atestado médico, informar **SEMPRE O VALOR DO CAMPO DA COLUNA DESC_SITUACAO** 
                     como situação antes, e para a situação depois, informar "erro situacao".
-                    9 - **SEMPRE** informar um JSON **válido**
                     ##########################################################################################################################################
                     
                     {formatador_saida_ia}
@@ -703,12 +727,18 @@ def valor_sindicato(sindicato_id,engine,sindicato_table):
     
     return valor_sindicato
 
+# [markdown]
+# #### <b>PADRONIZAÇÃO PARA OS SINDICATOS</b>
+# <li>Padroniza o nome dos sindicatos informados nas outras planilhas com a planilha base dias úteis</li> 
+# <li>Obtém os valores dos VAs</li>
+# <li>Obtém a quantidade de dias úteis por sindicato</li>
+
 def padroniza_sindicato_valor(df, llm, engine, sindicato_table): 
     
     print('Padroniza o nome do sindicato com as outras planilhas previamente carregadas, e obtém qtd_dias_uteis...')
     sleep(5)
     
-    print('Dataframe sem duplicatas de sindicatos do')
+    print('Dataframe sem duplicatas de sindicatos')
     dfsindicato = df['sindicato'].drop_duplicates()
     print(dfsindicato) 
     
@@ -784,6 +814,9 @@ def padroniza_sindicato_valor(df, llm, engine, sindicato_table):
 # [markdown]
 # ### <b>AGENTE 5: ATIVOS</b>
 
+# [markdown]
+# Tem que possuir todas as matriculas que possuem a descrição de situação como: 'Trabalhando', 'Férias', 'Licença Maternidade','Auxílio Doença','Exterior','Atestado'
+
 def agente_ativos(uploaded_file_ativos,engine,llm):
     
     print('Executando agente ativos...')
@@ -799,8 +832,8 @@ def agente_ativos(uploaded_file_ativos,engine,llm):
     dfativos.drop(labels=dfativos.loc[dfativos['desc_situacao'] == "."].index,inplace=True)
     
     # INSERE COLUNAS, PARA PERSISTIR VALORES NA TABELA FUNCIONARIOS
-    dfativos.insert(loc=len(list(dfativos.columns.values)), column='qtd_dias_uteis',value=0) 
-    dfativos.insert(loc=len(list(dfativos.columns.values)), column='valor_va',value=0.0)
+    dfativos.insert(loc=len(list(dfativos.columns.values)), column='qtd_dias_uteis',value=0) # DEFININDO VALORES PARA AS COLUNAS GANHAREM UM TIPO
+    dfativos.insert(loc=len(list(dfativos.columns.values)), column='valor_va',value=0.0) # DEFININDO VALORES PARA AS COLUNAS GANHAREM UM TIPO
     
     sindicato_table = Table("sindicato", MetaData(), autoload_with=engine)
 
@@ -820,6 +853,9 @@ def agente_ativos(uploaded_file_ativos,engine,llm):
 
 # [markdown]
 # ### <b>AGENTE 6: FÉRIAS</b>
+
+# [markdown]
+# Considerando que a quantidade de dias informados na planilha, está dentro do intervalo de competência
 
 def agente_ferias(uploaded_file_ferias,engine,llm):
     
@@ -860,6 +896,9 @@ def agente_ferias(uploaded_file_ferias,engine,llm):
 # [markdown]
 # ### <b>AGENTE 7 - AFASTAMENTOS</b>
 
+# [markdown]
+# Deve possuir todas as matriculas na planilha ATIVOS
+
 def agente_afastamentos(uploaded_file_afastamentos, engine,llm):
     
     print('Executando agente afastamentos...')
@@ -874,7 +913,7 @@ def agente_afastamentos(uploaded_file_afastamentos, engine,llm):
     print(df)
         
     # VERIFICA SE TODAS AS MATRICULAS EXISTEM NA TABELA FUNCIONÁRIOS
-    dffuncionarios_afastados = read_sql("SELECT matricula, desc_situacao, qtd_dias, data_inicio_mes_competencia, data_fim_mes_competencia, data_retorno FROM funcionarios WHERE desc_situacao IN ('Licença Maternidade','Auxílio Doença','Atestado')",engine)
+    dffuncionarios_afastados = read_sql("SELECT matricula, desc_situacao, qtd_dias, sindicato, data_inicio_mes_competencia, data_fim_mes_competencia, data_retorno FROM funcionarios WHERE desc_situacao IN ('Licença Maternidade','Auxílio Doença','Atestado')",engine)
     
     if (~df['MATRICULA'].isin(dffuncionarios_afastados['matricula'])).any():
         print("Erro: Existem matrículas na planilha de afastamento que não estão na planilha ativos que foram afastados") 
@@ -959,32 +998,21 @@ def agente_afastamentos(uploaded_file_afastamentos, engine,llm):
                                         
                 else: # DATA RETORNO DENTRO DO INTERVALO DE COMPETÊNCIA                    
                     
-                    qtd_dias_corridos = (data_fim_mes_competencia - data_retorno + timedelta(days=1)).days # QTD DIAS CORRIDOS DE VALE PARA PAGAR.
+                    qtd_dias_corridos = (data_fim_mes_competencia - data_retorno + timedelta(days=1)).days # QTD DIAS CORRIDOS DE VALE PARA PAGAR. 
                     
-                    tabela = Table('dias_nao_uteis',MetaData(),autoload_with=engine)
-                    stmt = select(tabela)
-                    dfdias_nao_uteis = read_sql(stmt,engine)
+                    tabela = Table('sindicato',MetaData(),autoloload_with=engine)
+                    stmt = select(tabela.c.estado).where(tabela.c.sindicato == dffuncionarios_afastados['sindicato'].values[0])
+                    estado = read_sql(stmt,engine).values[0]
                     
-                    listadias_nao_uteis_intervalo = []
-                    
-                    if not dfdias_nao_uteis.empty:
-                        for d in dfdias_nao_uteis['data'].values:
-                                                        
-                            d = datetime.strptime(d,'%Y-%m-%d').date()
-                            
-                            if (data_retorno <= d <= data_fim_mes_competencia):
-                                listadias_nao_uteis_intervalo.append(d)
-                        
-                        qtd_dias = qtd_dias_corridos - len(listadias_nao_uteis_intervalo)
-                        
-                    else:
-                        qtd_dias = qtd_dias_corridos           
-                    
+                    qtd_dias = qtd_dias_corridos - len(dias_nao_uteis(engine, data_retorno, data_fim_mes_competencia, estado))
+                                
                 print('Data retorno: ',data_retorno)       
                                                             
             else:
                 print('Data retorno nula')
                 qtd_dias = None
+            
+            print('Qtd dias: ', qtd_dias)
             
             dffuncionarios_afastados.loc[((dffuncionarios_afastados['matricula'] == r['matricula']) & (dffuncionarios_afastados['desc_situacao'] == r['desc_situacao'])),'qtd_dias'] = qtd_dias
                 
@@ -993,9 +1021,13 @@ def agente_afastamentos(uploaded_file_afastamentos, engine,llm):
     return dffuncionarios_afastados
 
 # [markdown]
-# ### <b>AGENTE 8 - DESLIGADOS - ESTOU AQUI</b>
+# ### <b>AGENTE 8 - DESLIGADOS</b>
 
-def agente_desligados(uploaded_file_desligados, engine,llm):
+# [markdown]
+# Não deve possuir registros na planilha ATIVOS, mas deveria informar os sindicatos e os cargos, para que fosse possível calcular os valores.<br/>
+# O cargo, porque diretores não recebem VA.
+
+def agente_desligados(uploaded_file_desligados, engine,llm, data_inicio_mes_competencia, data_fim_mes_competencia):
     
     print('Executando agente desligados...')
         
@@ -1005,105 +1037,124 @@ def agente_desligados(uploaded_file_desligados, engine,llm):
     df = df.dropna(how='all').drop_duplicates()
     df = df.dropna(subset=['matricula'])
     
-    # VERIFICA SE TODAS AS MATRICULAS EXISTEM NA TABELA FUNCIONÁRIOS (PLANILHA ATIVOS)
-    dffuncionarios_desligados = read_sql("SELECT matricula, desc_situacao, data_demissao, data_inicio_mes_competencia, data_fim_mes_competencia, comunicado_desligamento, qtd_dias FROM funcionarios WHERE desc_situacao = 'Desligado'",engine)
-    
-    if (~df['matricula'].isin(dffuncionarios_desligados['matricula']).any()): # NÃO EXISTE NENHUMA MATRICULA DA PLANILHA DESLIGADOS, NA PLANILHA ATIVOS
-        dfsem_matricula = df.loc[(df['matricula'].isin(dffuncionarios_desligados['matricula']) == False)]
-        print('Matrículas desligadas que não estão na planilha de ativos') # COMO A PLANILHA NÃO POSSUI OS SINDICATOS, NÃO TEM COMO CALCULAR O VALOR DO VA PARA
-                                                                           # ESSAS MATRICULAS
-        print(dfsem_matricula) 
-        #return "erro matricula"
+    df.insert(loc=len(df.columns.values), column='qtd_dias',value=0)
+    df.insert(loc=len(df.columns.values), column='valor_va',value=0.0) 
+    df.insert(loc=len(df.columns.values), column='desc_situacao',value='Desligado')   
     
     for l in df.values:
         matricula = l[0]
         
-        if (df.loc[df['matricula'] == matricula,'comunicado_desligamento'].str.upper() == 'OK') and df.loc[df['matricula'] == matricula,'data_demissao'].isna():
+        # VERIFICA SE FOI INFORMADO COMUNICADO, MAS NÃO POSSUI DATA DE DEMISSÃO
+        if (df.loc[df['matricula'] == matricula,'comunicado_desligamento'].str.upper() == 'OK').any() and df.loc[df['matricula'] == matricula,'data_demissao'].isna().any():
             return "erro data_demissao"
-
-        else: # MATRICULA PRESENTE NA TABELA FUNCIONÁRIOS (PLANILHA ATIVOS)        
+        
+        elif df.loc[df['matricula'] == matricula,'sindicato'].isna().any():
+            print(f'Matricula {l[0]} sem informação de sindicato. Verificar planilha DESLIGADOS')
+            #return "erro sindicato" # PARA INSCREVER NA TABELA FUNCIONARIOS, MESMO SEM SINDICATO
             
-            # OBTENDO OS DADOS DO BD 
-            data_inicio_mes_competencia = dffuncionarios_desligados['data_inicio_mes_competencia'].drop_duplicates().values[0]
-            data_fim_mes_competencia = dffuncionarios_desligados['data_fim_mes_competencia'].drop_duplicates().values[0]
-                            
-            print('Tipo da data_fim_mes_competencia: ', type(data_fim_mes_competencia)) # TIPO DA DATA NO BD.       
+    data_inicio_mes_competencia = datetime.strptime(data_inicio_mes_competencia,'%Y-%m-%d').date() # PARA FAZER DIFERENÇA OU COMPARAÇÕES, TEM QUE TRANSFORMAR PARA O TIPO DATE 
+    data_fim_mes_competencia = datetime.strptime(data_fim_mes_competencia,'%Y-%m-%d').date() # PARA FAZER DIFERENÇA OU COMPARAÇÕES, TEM QUE TRANSFORMAR PARA O TIPO DATE        
+    
+    # PADRONIZANDO SINDICATOS E VALORES
+    sindicato_table = Table("sindicato", MetaData(), autoload_with=engine)    
+      
+    if not df['sindicato'].isna().any():
+        dfsindicato_valor = padroniza_sindicato_valor(df,llm,engine, sindicato_table)
+               
+        for l in df.values:
+            matricula = l[0]
+            data_demissao = l[1].date()
+            comunicado_desligamento = l[2]        
+            sindicato_id = dfsindicato_valor.loc[dfsindicato_valor['sindicato_df'].str.contains(l[3]),'sindicato_id_tab'].values[0]
+            dfresposta = read_sql(select(sindicato_table.c.estado).where(sindicato_table.c.id == sindicato_id),engine) # PROCURANDO O SINDICATO
+                                                                                                                       # E O VALOR PARA O 
+                                                                                                                       # SINDICATO_ID_TAB
+            sindicato = dfresposta['sindicato'].values[0]
+            valor_va = dfresposta['valor'].values[0]
+            estado = dfresposta['estado'].values[0]
+            
+            print('Matrícula: ',matricula)
+            print('Sindicato: ',sindicato)
+            print('data_demissao: ',data_demissao)
+            print('Comunicado desligamento: ',comunicado_desligamento)                
                     
-            data_inicio_mes_competencia = datetime.strptime(data_inicio_mes_competencia,'%Y-%m-%d').date() # PARA FAZER DIFERENÇA OU COMPARAÇÕES, TEM QUE TRANSFORMAR PARA O TIPO DATE 
-            data_fim_mes_competencia = datetime.strptime(data_fim_mes_competencia,'%Y-%m-%d').date() # PARA FAZER DIFERENÇA OU COMPARAÇÕES, TEM QUE TRANSFORMAR PARA O TIPO DATE        
+            if data_demissao <= data_inicio_mes_competencia:
+                qtd_dias = None                              
+                
+            elif data_inicio_mes_competencia < data_demissao <= data_fim_mes_competencia:
+                qtd_dias_corridos = (data_demissao - data_inicio_mes_competencia + timedelta(days=1)).days
+                
+                tabela = Table('sindicato',MetaData(),autoloload_with=engine)
+                stmt = select(tabela.c.estado).where(tabela.c.id == sindicato_id)
+                estado = read_sql(stmt,engine).values[0]
+                       
+                qtd_dias = qtd_dias_corridos - len(dias_nao_uteis(engine, data_inicio_mes_competencia, data_demissao, estado))
+                                
+            else: # data_demissao > data_fim_mes_competencia
+                qtd_dias = None      
+            
+            df.loc[df['matricula'] == matricula,'qtd_dias'] = qtd_dias
+            df.loc[df['matricula'] == matricula,'valor_va'] = valor_va
+            df.loc[df['matricula'] == matricula,'sindicato'] = sindicato # PADRONIZAÇAO            
+            
+            print('Qtd dias: ', qtd_dias)
+                                           
+        
+    else: # PARA FAZER A INSCRITA NA TABELA FUNCIONARIOS, MESMO SEM O SINDICATO
+        for l in df.values:
+            matricula = l[0]
+            data_demissao = l[1].date()
+            comunicado_desligamento = l[2]        
+            
+            sindicato = None
+            valor_va = None
+            
+            print('Matrícula: ',matricula)
+            print('Sindicato: ',sindicato)
+            print('data_demissao: ',data_demissao)
+            print('Comunicado desligamento: ',comunicado_desligamento,'\n')                
                     
-            for l in df.values:
-                matricula = l[0]
-                data_demissao = datetime.strptime(l[1],'%Y-%m-$d').date()
-                comunicado_desligamento = l[2]
+            if data_demissao <= data_inicio_mes_competencia:
+                qtd_dias = None                              
                 
-                dffuncionarios_desligados.loc[((dffuncionarios_desligados['matricula'] == matricula) & (dffuncionarios_desligados['desc_situacao'] == 'Desligado'),'data_demissao')] = data_demissao
-                
-                print('Matrícula: ',matricula)
-                print('data_demissao: ',data_demissao)
-                print('Comunicado desligamento: ',comunicado_desligamento)                
+            elif data_inicio_mes_competencia < data_demissao <= data_fim_mes_competencia:
+                qtd_dias_corridos = (data_demissao - data_inicio_mes_competencia + timedelta(days=1)).days                   
+                                                       
+                qtd_dias = None # POR NÃO TER O SINDICATO           
+                                
+            else: # data_demissao > data_fim_mes_competencia
+                qtd_dias = None      
+            
+            df.loc[df['matricula'] == matricula,'qtd_dias'] = qtd_dias
+            df.loc[df['matricula'] == matricula,'valor_va'] = valor_va
+            df.loc[df['matricula'] == matricula,'sindicato'] = sindicato
+            
+            print('Qtd dias: ', qtd_dias)    
+            
+    df['data_demissao'] = to_datetime(df['data_demissao'],format="%Y-%m-%d")             
+    print('DataFrame\n',df)
                         
-                if data_demissao <= data_inicio_mes_competencia:
-                    qtd_dias = None
-                    
-                    dffuncionarios_desligados.loc[((dffuncionarios_desligados['matricula'] == matricula) & (dffuncionarios_desligados['desc_situacao'] == 'Desligado'),'qtd_dias')] = qtd_dias                    
-                    
-                elif data_inicio_mes_competencia < data_demissao <= data_fim_mes_competencia:
-                    qtd_dias_corridos = (data_demissao - data_inicio_mes_competencia + timedelta(days=1)).days
-                    
-                    tabela = Table('dias_nao_uteis',MetaData(),autoload_with=engine)
-                    stmt = select(tabela)
-                    dfdias_nao_uteis = read_sql(stmt,engine)
-                    
-                    listadias_nao_uteis_intervalo = []
-                    
-                    if not dfdias_nao_uteis.empty:
-                        for d in dfdias_nao_uteis['data'].values:
-                                                        
-                            d = datetime.strptime(d,'%Y-%m-%d').date()
-                            
-                            if (data_inicio_mes_competencia <= d <= data_demissao):
-                                listadias_nao_uteis_intervalo.append(d)
-                        
-                        qtd_dias = qtd_dias_corridos - len(listadias_nao_uteis_intervalo)
-                        
-                        dffuncionarios_desligados.loc[((dffuncionarios_desligados['matricula'] == matricula) & (dffuncionarios_desligados['desc_situacao'] == 'Desligado'),'qtd_dias')] = qtd_dias
-                                                    
-                    else:
-                        qtd_dias = qtd_dias_corridos 
-                        
-                        dffuncionarios_desligados.loc[((dffuncionarios_desligados['matricula'] == matricula) & (dffuncionarios_desligados['desc_situacao'] == 'Desligado'),'qtd_dias')] = qtd_dias                        
-                              
-                else:
-                    qtd_dias = None                
-                
-                print('Qtd dias: ', qtd_dias) 
-                
-                
-    print('DataFrame\n',dffuncionarios_desligados)
-              
-    return dffuncionarios_desligados
+    return df
 
 # [markdown]
-# ### <b>AGENTE 9: ADMISSÃO</b>
+# ### <b>AGENTE 9: ADMISSÃO - ESTOU AQUI</b>
 
-def agente_admissao(uploaded_file_admissao, engine):
+def agente_admissao(uploaded_file_admissao, engine, llm):
     
     print('Executando agente admissao...')
-        
-    df = read_excel(uploaded_file_admissao)
-        
+    
+    df = checa_colunas(uploaded_file_admissao,engine, llm)
+    
     # ELIMINANDO NULOS E DUPLICATAS
     df = df.dropna(how='all').drop_duplicates()
-    df = df.dropna(subset=['MATRICULA'])
+    df = df.dropna(subset=['matricula'])
     
-    print('DataFrame \n',df)
+    print('DataFrame \n',df)        
     
-    # VERIFICA SE TODAS AS MATRICULAS EXISTEM NA TABELA FUNCIONÁRIOS (PLANILHA ATIVOS)
-        
-    dffuncionarios_admissao = read_sql("SELECT matricula, desc_situacao, data_inicio_mes_competencia, data_fim_mes_competencia, data_admissao, qtd_dias FROM funcionarios WHERE matricula IN :listamatriculas AND desc_situacao = 'Trabalhando'",engine,params=tuple(listamatriculas))
+    # VERIFICA SE TODAS AS MATRICULAS EXISTEM NA TABELA FUNCIONÁRIOS (PLANILHA ATIVOS)        
+    dffuncionarios_admissao = read_sql("SELECT matricula, desc_situacao, data_inicio_mes_competencia, data_fim_mes_competencia, data_admissao, qtd_dias, sindicato FROM funcionarios WHERE matricula IN :listamatriculas AND desc_situacao = 'Trabalhando'",engine,params=tuple(listamatriculas))
     
-    if (~df[df.columns.values.tolist()[-1]].isna().any()): # MATRICULAS DA PLANILHA ADMISSAO ABRIL, QUE NÃO NA PLANILHA ATIVOS
+    if (~df[df.columns.values.tolist()[-1]].isna().any()): # MATRICULAS DA PLANILHA ADMISSAO ABRIL, QUE NÃO ESTÃO NA PLANILHA ATIVOS
                                                            # 35699, 35708, 35715, 35716, 35719, 35725, 35737, 35742, 35755, 35767
                                                                             
         print('Planilha faltando valor') 
@@ -1123,7 +1174,7 @@ def agente_admissao(uploaded_file_admissao, engine):
                         
         for l in df.values:
             matricula = l[0]
-            data_admissao = datetime.strptime(l[1],'%Y-%m-$d').date()
+            data_admissao = l[1]
                         
             print('Matrícula: ',matricula)
             print('data_admissao: ',data_admissao)
@@ -1131,43 +1182,25 @@ def agente_admissao(uploaded_file_admissao, engine):
             if (data_inicio_mes_competencia <= data_admissao <= data_fim_mes_competencia):
                qtd_dias_corridos = (data_fim_mes_competencia - data_admissao + timedelta(days=1)).days
                
-               print('Qtd dias corridos: ', qtd_dias)
-               
-               tabela = Table('dias_nao_uteis',MetaData(),autoload_with=engine)
-               stmt = select(tabela)
-               dfdias_nao_uteis = read_sql(stmt,engine)
-               
-               listadias_nao_uteis_intervalo = []
-               
-               if not dfdias_nao_uteis.empty:
-                   for d in dfdias_nao_uteis['data'].values:
-                                                   
-                       d = datetime.strptime(d,'%Y-%m-%d').date()
-                       
-                       if (data_admissao <= d <= data_fim_mes_competencia):
-                           listadias_nao_uteis_intervalo.append(d)
-                   
-                   qtd_dias = qtd_dias_corridos - len(listadias_nao_uteis_intervalo)
-                   
-               else:
-                   qtd_dias = qtd_dias_corridos   
-               
-               print('Qtd dias: ', qtd_dias)
+               tabela = Table('sindicato',MetaData(),autoloload_with=engine)
+               stmt = select(tabela.c.estado).where(tabela.c.sindicato == l[6])
+               estado = read_sql(stmt,engine).values[0]
+                
+               qtd_dias = qtd_dias_corridos - len(dias_nao_uteis(engine, data_admissao, data_fim_mes_competencia, estado))          
                
             else:
                 qtd_dias = None
             
             dffuncionarios_admissao.loc[((dffuncionarios_admissao['matricula'] == matricula) & (dffuncionarios_admissao['desc_situacao'] == 'Trabalhando'),'qtd_dias')] = qtd_dias
             dffuncionarios_admissao.loc[((dffuncionarios_admissao['matricula'] == matricula) & (dffuncionarios_admissao['desc_situacao'] == 'Trabalhando'),'data_admissao')] = data_admissao
-           
-    
+            
+            print('Qtd dias: ', qtd_dias)
+            
+    dffuncionarios_admissao['data_demissao'] = dffuncionarios_admissao['data_demissao'].to_datetime.strftime('%Y-%m-%d').date()
     print('DataFrame\n',dffuncionarios_admissao)
               
     return dffuncionarios_admissao
     
-
-# [markdown]
-# ### <b>AGENTE 10: EXTERIOR</b>
 
 def agente_exterior(uploaded_file_exterior, engine):
     
@@ -1181,6 +1214,7 @@ def agente_exterior(uploaded_file_exterior, engine):
         
     print('DataFrame \n',df)
     
+        
     # VERIFICA SE TODAS AS MATRICULAS EXISTEM NA TABELA FUNCIONÁRIOS (PLANILHA ATIVOS)
     listamatriculas = tuple(df['MATRICULA'].values)
     
@@ -1269,19 +1303,55 @@ def agente1(engine,llm): # FRONTEND.
     st.set_page_config(page_title="Agente VA", layout="centered")
     st.title("🤖 Agente VA")
     
-       
-    uploaded_file_base_dias = st.file_uploader("📂 Adicione a planilha Base dias uteis", type=["xls","xlsx"])    
+    # Inicializa session_state para os arquivos
+    # SE NÃO FIZER ESSE TRATAMENTO DE SESSÃO, O STREAMLIT VAI RECARREGAR TODOS OS WIDGETS A CADA UPLOAD DE ARQUIVO QUE FOR FEITO
+    if 'base_dias_done' not in st.session_state: # if chave not in session_state. A chave não pode se chamar base_dias, porque esse já é nome escolhido pelo streamlit
+        st.session_state['base_dias_done'] = False
                     
-    if uploaded_file_base_dias is not None:       
-                
-        with st.spinner("Analisando os dados com IA..."):
-           dictintervalo_competencia = agente_intervalo_competencia(uploaded_file_base_dias,llm)
+    if 'sindvalor_done' not in st.session_state:
+        st.session_state['sindvalor_done'] = False
+            
+    if 'ativos_done' not in st.session_state:
+        st.session_state['ativos_done'] = False
+            
+    if 'ferias_done' not in st.session_state:
+        st.session_state['ferias_done'] = False
+            
+    if 'afastamentos_done' not in st.session_state:
+        st.session_state['afastamentos_done'] = False
            
-        if dictintervalo_competencia is not None:
-                       
+    if 'desligados_done' not in st.session_state:
+        st.session_state['desligados_done'] = False
+            
+    if 'admissao_done' not in st.session_state:
+        st.session_state['admissao_done'] = False
+            
+    if 'exterior_done' not in st.session_state:
+        st.session_state['exterior_done'] = False
+            
+    if 'estagaprendiz_done' not in st.session_state:
+        st.session_state['estagaprendiz_done'] = False
+        
+    if 'data_inicio_mes_competencia' not in st.session_state:
+        st.session_state['data_inicio_mes_competencia'] = False
+        
+    if 'data_fim_mes_competencia' not in st.session_state:
+        st.session_state['data_fim_mes_competencia'] = False
+    
+    uploaded_file_base_dias = st.file_uploader("📂 Adicione a planilha Base dias uteis", type=["xls","xlsx"])
+    
+    if uploaded_file_base_dias and not st.session_state['base_dias_done']: 
+        with st.spinner("Analisando os dados com IA..."):
+            dictintervalo_competencia = agente_intervalo_competencia(uploaded_file_base_dias,llm)
+        
+        if dictintervalo_competencia:
+                        
             data_inicio_mes_competencia = dictintervalo_competencia['data_inicio_mes_competencia']
             data_fim_mes_competencia = dictintervalo_competencia['data_fim_mes_competencia']
-                                                
+            
+            st.session_state['data_inicio_mes_competencia'] = data_inicio_mes_competencia
+            st.session_state['data_fim_mes_competencia'] = data_fim_mes_competencia
+                                              
             st.text(f'Data início mês de competência: {datetime.strptime(data_inicio_mes_competencia,'%Y-%m-%d').strftime('%d/%m/%Y')} - Data fim mês de competência: {datetime.strptime(data_fim_mes_competencia,'%Y-%m-%d').strftime('%d/%m/%Y')}') 
                     
             # CRIANDO AS TABELAS PARA COMEÇAR A REALIZAR O MAPEAMENTO DAS COLUNAS DAS PLANILHAS COM AS COLUNAS DO BD
@@ -1292,143 +1362,150 @@ def agente1(engine,llm): # FRONTEND.
             
             if resposta_qtd_dias_uteis:
                 escreve_bd(engine,resposta_qtd_dias_uteis,'sindicato') 
+                st.session_state['base_dias_done'] = True
                 
-                uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha Base sindicato x valor.", type=["xls","xlsx"])                                                
-                                                
-                if uploaded_file_sindvalor: 
-                                                               
-                    print('Arquivo com os valores...')
-                                
-                    with st.spinner("Analisando os dados com IA..."):                                            
-                        resposta = agente_valores_sindicato(uploaded_file_sindvalor, engine, llm) # ESTADO E VALOR
-                    
-                    if resposta is not None:
-                            
-                        escreve_bd(engine, resposta, 'valor')
-                        
-                        uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])                         
-                        
-                        if uploaded_file_ativos:
-                            with st.spinner("Analisando os dados com IA..."):
-                                resposta = agente_ativos(uploaded_file_ativos,engine, llm)
-                                
-                            if isinstance(resposta,DataFrame) and not resposta.empty:                                
-                                escreve_bd(engine,resposta,'funcionarios')                               
-                                
-                                uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"])
-                                
-                                if uploaded_file_ferias:
-                                    with st.spinner("Analisando os dados com IA..."):
-                                        resposta = agente_ferias(uploaded_file_ferias, engine,llm)
-                                    
-                                    if isinstance(resposta,DataFrame) and not resposta.empty:
-                                        escreve_bd(engine,resposta,'Férias')                                   
-                                                           
-                                        uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
-                                        
-                                        if uploaded_file_afastamentos:
-                                            with st.spinner("Analisando os dados com IA..."):
-                                                resposta = agente_afastamentos(uploaded_file_afastamentos, engine,llm) 
-                                                
-                                            if isinstance(resposta,DataFrame) and not resposta.empty:
-                                                escreve_bd(engine,resposta,'afastamentos') 
-                                                                                                        
-                                                uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"])
-                                                st.text('Se estiver como OK o comunicado até dia 15, não considerar compra, se informado depois do dia 15, considerar compra proporcional') 
-                                                
-                                                if uploaded_file_desligados:
-                                                    with st.spinner("Analisando os dados com IA..."):
-                                                        resposta = agente_desligados(uploaded_file_desligados, engine, llm)
-                                                        
-                                                    if isinstance(resposta, DataFrame) and not resposta.empty:
-                                                        escreve_bd(engine,resposta,'Desligado')                                      
-                                                    
-                                                        uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])
-                                                        
-                                                        if uploaded_file_admissao:
-                                                            with st.spinner("Analisando os dados com IA..."):
-                                                                resposta = agente_desligados(uploaded_file_desligados, engine, llm)
-                                                        
-                                                        if isinstance(resposta,DataFrame) and not resposta.empty:
-                                                            escreve_bd(engine,resposta,'admissao')
-                                                                                                                
-                                                            uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])                  
-                                                            
-                                                            uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
-                                                                                                    
-                                                            if st.button("🔍 Consultar"):                
-                                                                                                            
-                                                                    uploaded_files = {
-                                                                                        'base_dias':uploaded_file_base_dias,
-                                                                                        'ativos':uploaded_file_ativos,
-                                                                                        'ferias':uploaded_file_ferias,
-                                                                                        'desligados':uploaded_file_desligados,
-                                                                                        'afastamentos':uploaded_file_afastamentos,
-                                                                                        'exterior': uploaded_file_exterior,
-                                                                                        'admissao': uploaded_file_admissao,
-                                                                                        'sindvalor': uploaded_file_sindvalor,
-                                                                                        'estagaprendiz': uploaded_file_estagaprendiz
-                                                                                    }
-                                                                    
-                                                                    with st.spinner("Analisando os dados com IA..."):
-                                                                        #try:
-                                                                            resultado_df = agente2(uploaded_files,engine,llm,dictintervalo_competencia,resposta_dias_uteis,combo_atestado) # RETORNA UM DATAFRAME COM O RESULTADO DA CONSULTA
-
-                                                                            if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
-                                                                                st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
-                                                                            
-                                                                            elif resultado_df is not None:
-                                                                                st.success("Dados sobre o documento fiscal")
-                                                                                st.table(resultado_df[0])
-                                                                                st.table(resultado_df[2])
-                                                                                st.success("✅ Resultado encontrado:")                        
-                                                                                st.dataframe(resultado_df[1])                                       
-                                                                                                        
-                                                                        #except Exception as e:
-                                                                        #    st.error(f"Erro ao processar: {e}")
-                                                                    
-                                                    elif isinstance(resposta,str):
-                                                        # NENHUMA MATRICULA DA PLANILHA DESLIGAMENTOS SE ENCONTRA NA PLANILHA ATIVOS
-                                                        # if resposta == "erro matricula": 
-                                                        #     st.error(""" Verifique se todas as matriculas da planilha desligados estão na planilha ativos.""")
-                                                            
-                                                        if resposta == "erro data_demissao":
-                                                            st.error(""" Verifique se todas as datas de demissão foram preenchidas """)                                                                    
-                                                
-                                                    
-                                            elif isinstance(resposta,str): 
-                                                if resposta == "erro matricula":
-                                                    st.error(""" Verifique se todas as matriculas da planilha afastamentos estão na planilha ativos.""")
-                                                        
-                                                elif resposta == "erro situacao":
-                                                    st.error(""" Verifique se todas as desc_situacao cadastradas na planilha de afastamentos estão na planilha de ativos """)                                            
-                                            
-                                    elif isinstance(resposta,str): 
-                                        if resposta == "erro matricula":
-                                            st.error(""" Verifique se todas as matriculas da planilha Férias estão na planilha ativos.""")
-                                                
-                                        elif resposta == "erro ferias":
-                                            st.error(""" Verifique se a planilha está completamente preenchida """)                                                             
-                                            
-                            elif isinstance(resposta,str): 
-                                if resposta == "erro sindicato":
-                                    st.error(""" Verifique se planilha de ativos possui os mesmos sindicatos que as outras.""")
-                                        
-                                elif resposta == "erro situacao":
-                                    st.error(""" Verifique se planilha de ativos possui uma descrição de situação diferente de 
-                                                 'Trabalhando', 'Férias', 'Licença Maternidade','Auxílio Doença','Exterior','Desligado' ou 'Atestado'      
-                                             """)                                                             
-                                   
-                    else:
-                        st.error(""" Verifique se planilha sindicato x valor está completamente preenchida, 
-                                    ou se os estados entre essa planilha e a sindicato x dias úteis são os mesmos.""")           
             else:
-                st.error(""" Verifique se planilha de base de dias úteis, possui os nomes dos sindicatos e seus estados.""")                                                   
-        else:            
+                st.error(""" Verifique se planilha de base de dias úteis, possui os nomes dos sindicatos e seus estados.""")                                                
+            
+        else:
             st.error(""" Não foi possível determinar as datas de início ou de fim do mês de competência. 
-                        Verifique se planilha informa o intervalo de dias úteis.""")
+                         Verifique se planilha informa o intervalo de dias úteis.""")           
+        
+    
+    if st.session_state['base_dias_done']:    
+        uploaded_file_sindvalor = st.file_uploader("📂 Adicione a planilha Base sindicato x valor.", type=["xls","xlsx"])                                                
+        
+        if uploaded_file_sindvalor and not st.session_state['sindvalor_done']:
+            with st.spinner("Analisando os dados com IA..."):                                            
+                resposta = agente_valores_sindicato(uploaded_file_sindvalor, engine, llm) # ESTADO E VALOR
                         
+            if resposta is not None:
+                escreve_bd(engine, resposta, 'valor')
+                st.session_state['sindvalor_done'] = True
+                            
+            else:
+                st.error(""" Verifique se planilha sindicato x valor está completamente preenchida, 
+                             ou se os estados entre essa planilha e a sindicato x dias úteis são os mesmos.""") 
+                    
+    
+    if st.session_state['sindvalor_done']:
+        uploaded_file_ativos = st.file_uploader("📂 Adicione a planilha ATIVOS", type=["xls","xlsx"])                         
+                        
+        if uploaded_file_ativos and not st.session_state['ativos_done']:                                    
+            with st.spinner("Analisando os dados com IA..."):
+                resposta = agente_ativos(uploaded_file_ativos, engine, llm)
+                                
+            if isinstance(resposta,DataFrame) and not resposta.empty:                                
+                escreve_bd(engine,resposta,'funcionarios') 
+                st.session_state['ativos_done'] = True                              
+            
+            elif isinstance(resposta,str): 
+                if resposta == "erro sindicato":
+                    st.error(""" Verifique se planilha de ativos possui os mesmos sindicatos que as outras.""")
+                                
+                elif resposta == "erro situacao":
+                    st.error(""" Verifique se planilha de ativos possui uma descrição de situação diferente de 
+                                 'Trabalhando', 'Férias', 'Licença Maternidade','Auxílio Doença','Exterior','Desligado' ou 'Atestado'      
+                             """)
+        
+                         
+    if st.session_state['ativos_done']:
+        uploaded_file_ferias = st.file_uploader("📂 Adicione a planilha FÉRIAS", type=["xls","xlsx"])
+                    
+        if uploaded_file_ferias and not st.session_state['ferias_done']:
+            st.session_state.ferias = True
+                            
+            with st.spinner("Analisando os dados com IA..."):
+                resposta = agente_ferias(uploaded_file_ferias, engine,llm)
+                        
+            if isinstance(resposta,DataFrame) and not resposta.empty:
+                escreve_bd(engine,resposta,'Férias')
+                st.session_state['ferias_done'] = True                                   
+            
+            elif isinstance(resposta,str): 
+                if resposta == "erro matricula":
+                    st.error(""" Verifique se todas as matriculas da planilha Férias estão na planilha ativos.""")
+                                    
+                elif resposta == "erro ferias":
+                    st.error(""" Verifique se a planilha está completamente preenchida """)
+                            
+                            
+    if st.session_state['ferias_done']:                
+        uploaded_file_afastamentos = st.file_uploader("📂 Adicione a planilha AFASTAMENTO", type=["xls","xlsx"])
+                                        
+        if uploaded_file_afastamentos and not st.session_state['afastamentos_done']:
+           with st.spinner("Analisando os dados com IA..."):
+               resposta = agente_afastamentos(uploaded_file_afastamentos, engine,llm) 
+                          
+           if isinstance(resposta,DataFrame) and not resposta.empty:
+               escreve_bd(engine,resposta,'afastamentos')
+               st.session_state['afastamentos_done'] = True
+               
+           elif isinstance(resposta,str): 
+               if resposta == "erro matricula":
+                   st.error(""" Verifique se todas as matriculas da planilha afastamentos estão na planilha ativos.""")
+                                           
+               elif resposta == "erro situacao":
+                   st.error(""" Verifique se todas as desc_situacao cadastradas na planilha de afastamentos estão na planilha de ativos """)                       
+                    
+                                         
+    if st.session_state['afastamentos_done']:
+        uploaded_file_desligados = st.file_uploader("📂 Adicione a planilha DESLIGADOS", type=["xls","xlsx"])
+        st.text('Se estiver como OK o comunicado até dia 15, não considerar compra, se informado depois do dia 15, considerar compra proporcional') 
+                                    
+        if uploaded_file_desligados and not st.session_state['desligados_done']:
+                        
+            with st.spinner("Analisando os dados com IA..."):
+                resposta = agente_desligados(uploaded_file_desligados, engine, llm, st.session_state['data_inicio_mes_competencia'], st.session_state['data_fim_mes_competencia'])
+                                        
+            if isinstance(resposta, DataFrame) and not resposta.empty:
+                escreve_bd(engine,resposta,'Desligados')                                      
+                st.session_state['desligados_done'] = True
                 
+            elif isinstance(resposta,str):
+                # NENHUMA MATRICULA DA PLANILHA DESLIGAMENTOS SE ENCONTRA NA PLANILHA ATIVOS
+                if resposta == "erro sindicato": 
+                    st.error(""" Verifique se todas as matriculas possuem informação de sindicato.""")
+                                                                   
+                if resposta == "erro data_demissao":
+                    st.error(""" Verifique se todas as datas de demissão foram preenchidas """)                               
+                        
+                        
+    if st.session_state['desligados_done']:
+       uploaded_file_admissao = st.file_uploader("📂 Adicione a planilha ADMISSAO", type=["xls","xlsx"])
+       
+       if uploaded_file_admissao and not st.session_state['admissao_done']:
+                      
+           with st.spinner("Analisando os dados com IA..."):
+               resposta = agente_admissao(uploaded_file_admissao, engine, llm)
+                                   
+               if isinstance(resposta,DataFrame) and not resposta.empty:
+                   escreve_bd(engine,resposta,'admissao')
+                   st.session_state['admissao_done'] = True                                                
+                            
+                            
+    if st.session_state['admissao_done']:                                                                            
+        uploaded_file_exterior = st.file_uploader("📂 Adicione a planilha EXTERIOR", type=["xls","xlsx"])                                                                
+        uploaded_file_estagaprendiz = st.file_uploader("📂 Adicione as planilhas ESTÁGIO e APRENDIZ", type=["xls","xlsx"],accept_multiple_files=True)
+                                                                            
+        if st.button("🔍 Consultar"):                
+                with st.spinner("Analisando os dados com IA..."):
+                    #try:
+                        resultado_df = agente2(uploaded_files,engine,llm,dictintervalo_competencia,resposta_dias_uteis,combo_atestado) # RETORNA UM DATAFRAME COM O RESULTADO DA CONSULTA
+
+                        if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
+                            st.warning("Consulta realizada, mas nenhum dado foi encontrado.")                  
+                        
+                        elif resultado_df is not None:
+                            st.success("Dados sobre o documento fiscal")
+                            st.table(resultado_df[0])
+                            st.table(resultado_df[2])
+                            st.success("✅ Resultado encontrado:")                        
+                            st.dataframe(resultado_df[1])                                       
+                                                    
+                    #except Exception as e:
+                    #    st.error(f"Erro ao processar: {e}") 
+                            
 
 def css():
     
