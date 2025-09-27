@@ -1112,7 +1112,7 @@ def agente_desligados(uploaded_file_desligados, engine,llm, data_inicio_mes_comp
             print('Matrícula: ',matricula)
             print('Sindicato: ',sindicato)
             print('data_demissao: ',data_demissao)
-            print('Comunicado desligamento: ',comunicado_desligamento,'\n')                
+            print('Comunicado desligamento: ',comunicado_desligamento)                
                     
             if data_demissao <= data_inicio_mes_competencia:
                 qtd_dias = None                              
@@ -1129,9 +1129,10 @@ def agente_desligados(uploaded_file_desligados, engine,llm, data_inicio_mes_comp
             df.loc[df['matricula'] == matricula,'valor_va'] = valor_va
             df.loc[df['matricula'] == matricula,'sindicato'] = sindicato
             
-            print('Qtd dias: ', qtd_dias)    
+            print('Qtd dias: ', qtd_dias,'\n')    
             
-    df['data_demissao'] = to_datetime(df['data_demissao'],format="%Y-%m-%d")             
+    df['data_demissao'] = df['data_demissao'].dt.date
+    print('Dataframe data_demissao: ', df['data_demissao'])             
     print('DataFrame\n',df)
                         
     return df
