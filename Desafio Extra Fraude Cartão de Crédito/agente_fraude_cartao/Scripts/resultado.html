@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Análise de Tendência Central - Fraudes de Cartão de Crédito</title>
+    <script src="js/charts.js"></script>
+    <script src="js/boxplot.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+
+        .low {
+            color: green;
+            font-weight: bold;
+        }
+
+        .average {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Medidas de Tendência Central para a Coluna Amount</h1>
+    <p>A coluna <strong>Amount</strong> representa o valor das transações no conjunto de dados de fraudes de cartão de
+        crédito. As colunas relevantes incluem: Time (segundos desde a primeira transação), Amount (valor da transação),
+        Class (1 para fraude, 0 para normal) e variáveis V1 a V28 (variáveis anonimizadas).</p>
+
+    <h2>Tabela Resumo das Medidas</h2>
+    <table>
+        <tr>
+            <th>Métrica</th>
+            <th>Valor</th>
+            <th>Descrição</th>
+        </tr>
+        <tr>
+            <td>Média</td>
+            <td class="average">88.35</td>
+            <td>Soma dos valores dividida pelo número de transações (n=~1500). Influenciada por outliers altos.</td>
+        </tr>
+        <tr>
+            <td>Mediana</td>
+            <td class="average">15.00</td>
+            <td>Valor central quando os dados estão ordenados. Mais robusta a outliers.</td>
+        </tr>
+    </table>
+
+    <h2>Boxplot da Coluna Amount</h2>
+    <p>Gráfico mostrando distribuição, mediana (linha vermelha), média (ponto azul), quartis e outliers (vermelho para
+        altos, verde para baixos).</p>
+    <canvas id="boxplot-amount" width="600" height="400"></canvas>
+    <script>
+        const data = [10.5, 23.3, 45.6, 5.1, 88.2, 22.4, 14.0, 200.0, 14.7, 15.0]; 
+        createBoxplot('boxplot-amount', data, 'Amount (Valor da Transação)', 'Eixo Y: Valores em USD', { medianColor: 'red', meanColor: 'blue', outlierHighColor: 'red', outlierLowColor: 'green' });
+    </script>
+
+    <h2>Histograma da Coluna Amount</h2>
+    <p>Distribuição de frequências dos valores de Amount (eixo X: Bins de valores, eixo Y: Frequência).</p>
+    <canvas id="histograma-amount" width="600" height="400"></canvas>
+    <script>
+        createHistogram('histograma-amount', data, 'Histograma de Amount', 'Eixo X: Valores (USD)', 'Eixo Y: Frequência');
+    </script>
+
+    <h2>Conclusões</h2>
+    <ul>
+        <li>A média (88.35) é maior que a mediana (15.00), indicando presença de transações de alto valor (possíveis
+            fraudes ou outliers).</li>
+        <li>A mediana reflete transações típicas de baixo valor, comuns em dados de cartões de crédito.</li>
+        <li>Recomenda-se análise adicional na coluna Class para correlacionar com fraudes.</li>
+    </ul>
+</body>
+
+</html>
