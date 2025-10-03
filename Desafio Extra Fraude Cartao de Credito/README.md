@@ -64,7 +64,7 @@ pip install -r requirements.txt
 Crie o arquivo `.env` com sua chave de API:
 
 ```ini
-API_KEY=sua_chave_aqui
+API_KEY="sua_chave_aqui"
 ```
 
 Rode a aplicação:
@@ -73,7 +73,7 @@ Rode a aplicação:
 streamlit run agente_fraudecredito.py
 ```
 
-Arquivo com os dados para a análise 
+Arquivo com os dados para a análise -> [creditcard.zip](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip)
 
 ---
 

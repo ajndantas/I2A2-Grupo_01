@@ -23,7 +23,8 @@ from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
+#from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.globals import set_debug
 from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
@@ -231,10 +232,12 @@ def agente2(pergunta,arquivo,engine):
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
 
-    llm = ChatGoogleGenerativeAI( # ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",  # ou "gemini-2.5-pro" ou "gemini-2.5-flash", gpt-4.1-mini
-        temperature=0.5, # Padrão é 0.5
-        google_api_key=getenv("GOOGLE_API_KEY") # google_api_key
+    llm = ChatOpenAI( 
+        model="x-ai/grok-4-fast:free",
+        base_url="https://openrouter.ai/api/v1",
+        cache=True,        
+        reasoning_effort="high",        
+        api_key=getenv("API_KEY")        
     )
     
     ocr = NotaFiscalOCR() # INSTÂNCIA DO MOTOR OCR
