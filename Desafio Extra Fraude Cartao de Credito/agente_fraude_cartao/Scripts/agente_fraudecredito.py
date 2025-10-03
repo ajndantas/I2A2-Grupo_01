@@ -7,6 +7,7 @@
 # ### IMPORTS
 
 from os import getenv
+from os.path import splitext
 from time import sleep
 from pydantic import BaseModel, Field
 from typing import Dict, List, Any
@@ -24,7 +25,7 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 from openai import InternalServerError
 from json import JSONDecodeError
 
-#set_debug(True)
+set_debug(True)
 
 
 # [markdown]
@@ -58,10 +59,12 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         5 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
                         6 - Inclua títulos e legendas para clareza.
                         7 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 7.1, 7.2 e 7.3
+                        dos gráficos, siga os passos 7.1, 7.2, 7.3 e 7.4
                         7.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        7.2 - Para a criação dos gráficos, utilize o script localizado em js/plotly.js                         
+                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o script da aplicação ** PLOTY **, localizado em js/plotly.js                         
                         7.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
+                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS **
+                        7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, RETORNE PARA O PASSO 7 **
                         8 - Incorpore tabelas, se necessário, para melhor visualização.
                         9 - Adicione uma seção de conclusões no final.  
                         
@@ -92,7 +95,8 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
         try:
             print("\nInvocando a LLM...\n")
             resposta = chain.invoke({"conclusoes":conclusoes})   
-            
+            break
+        
         except InternalServerError as e:
             print("\nAguardando 10 segundos para tentar novamente...\n")
             
@@ -119,7 +123,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
                             
                             ** SEMPRE ** use apenas parte dos dados, usando WHERE, LIMIT, ou outras cláusulas SQL.
                             A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**
-                            A quantidade de registros da query, ** SEMPRE ** deve resultar em uma **janela de contexto para a llm**, de **tamanho menor que 2 milhóes de tokens.**
+                            A quantidade de registros da query, ** SEMPRE ** deve resultar em uma **janela de contexto para a llm**, de **tamanho menor que 2 milhões de tokens.**
                               
                             ** SEMPRE ** forneça um ** JSON VÁLIDO **
                             
@@ -161,6 +165,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
         # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
         chain = prompt_template_query | llm | parseador
 
+                
         with engine.connect() as con:
             query = text(f'PRAGMA table_info("{nome_arquivo}")') # OBTENDO AS COLUNAS DO BD
             rs = con.execute(query)
@@ -180,9 +185,10 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
             err += 1
             try:
                 query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe})['query']
-                
+                break
+            
             except Exception as e:
-                print('Aguardando 10 segs para nova execução...')
+                print('Gera query. Aguardando 10 segs para nova execução...')
                 sleep(10)
                 continue
 
@@ -194,13 +200,14 @@ def rag(arquivo:UploadedFile, pergunta:str,llm:ChatOpenAI, engine:Engine, conclu
     
     df = read_csv(arquivo)
     
-    df.to_sql(arquivo.name, con=engine, if_exists="replace", index=False)
+    nome_tabela = splitext(arquivo.name)[0]
+    df.to_sql(nome_tabela, con=engine, if_exists="replace", index=False)
     
-    query = llm_gera_query(llm, engine, pergunta, arquivo.name, conclusoes, df)   
+    query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df)   
     stmt = text(query)
-    
+
     dfcontext = read_sql(stmt, con=engine)
-    
+        
     print('\nPrimeiras linhas do dataframe de contexto:\n',dfcontext.head())
         
     return dfcontext
@@ -241,11 +248,12 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         5 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
                         6 - Inclua títulos e legendas para clareza.
                         7 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 7.1, 7.2 e 7.3
+                        dos gráficos, siga os passos 7.1, 7.2, 7.3 e 7.4
                         7.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        7.2 - Para a criação dos gráficos, utilize o script localizado em js/plotly.js                         
+                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o script localizado em js/plotly.js                         
                         7.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
-                        7.4 - As escalas utilizadas nos eixos dos gráficos, devem permitir que valores sejam exibidos.  
+                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS ** 
+                        7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, RETORNE PARA O PASSO 7 **
                         8 - Incorpore tabelas, se necessário, para melhor visualização.
                         9 - Adicione uma seção de conclusões no final incluíndo a resposta à PERGUNTA                       
                         
@@ -275,9 +283,10 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     while err <= 3:
         err += 1
         try:
-            print("\nInvocando a LLM...\n")
+            print("\nAgente 2. Invocando a LLM...\n")
             resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
-                   
+            break
+              
         except (InternalServerError, JSONDecodeError) as e:
             print("\nAguardando 10 segundos para tentar novamente...\n")
             
@@ -354,7 +363,9 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
             with st.spinner("Analisando com IA..."):
                 
                 resposta = agente2(pergunta_distribuicao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                #print('Conclusôes Antes: ', conclusoes)
                 conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
+                conclusoes = st.session_state['conclusoes_done']
                 conclusoes.append(conclusao)
                 print("Conclusões: ", conclusoes)            
                                 
@@ -389,7 +400,9 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
             with st.spinner("Analisando com IA..."):
                 
                 resposta = agente2(pergunta_padroes, uploaded_file, llm, engine,st.session_state['conclusoes_done'])
-                conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
+                #print('Conclusôes Antes: ', conclusoes)
+                conclusao = {"pergunta":pergunta_padroes, "resposta":resposta['texto']}
+                conclusoes = st.session_state['conclusoes_done']
                 conclusoes.append(conclusao)
                 print("Conclusões: ", conclusoes) 
                 
@@ -426,7 +439,8 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
             with st.spinner("Analisando com IA..."):
                 
                 resposta = agente2(pergunta_anomalias, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
-                conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
+                conclusao = {"pergunta":pergunta_anomalias, "resposta":resposta['texto']}
+                conclusoes = st.session_state['conclusoes_done']
                 conclusoes.append(conclusao)
                 print("Conclusões: ", conclusoes) 
                                 
@@ -460,8 +474,9 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
         if st.button("🔍 Consultar",key="relacao"):
             with st.spinner("Analisando com IA..."):
                 
-                resposta,conclusoes = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
-                conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
+                resposta = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                conclusao = {"pergunta":pergunta_relacao, "resposta":resposta['texto']}
+                conclusoes = st.session_state['conclusoes_done']
                 conclusoes.append(conclusao)
                 print("Conclusões: ", conclusoes) 
                 
@@ -488,7 +503,12 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
                 resposta = ""
                 conclusoes = [{"pergunta":pergunta,"resposta":resposta}]
                 st.session_state['conclusoes_done'] = conclusoes
-     
+                
+                st.session_state['distribuicao_done'] = {}                    
+                st.session_state['padroes_done'] = {}
+                st.session_state['anomalias_done'] = {}
+                st.session_state['relacao_done'] = {}
+            
 
 # [markdown]
 # ### <b>TESTANDO</b>
@@ -505,10 +525,11 @@ if __name__ == "__main__":
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
         #model="gpt-5-mini",
+        #model="microsoft/mai-ds-r1:free",
         model="x-ai/grok-4-fast:free",
         base_url="https://openrouter.ai/api/v1",
-        temperature = 0.7,
-        cache=True,
+        #temperature = 0.2,
+        cache=True,        
         reasoning_effort="high",
         api_key=getenv("API_KEY")        
     )

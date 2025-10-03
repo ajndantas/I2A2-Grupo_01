@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=G:\Meu Drive\Cursos e Treinamentos\Cientista de Dados\Treinamento Python\I2A2\Desafios\Desafio Extra - Fraude Cartão de Crédito\agente_fraude_cartao"
+set "VIRTUAL_ENV=G:\Meu Drive\Cursos e Treinamentos\Cientista de Dados\Treinamento Python\I2A2\Desafios\Desafio Extra Fraude Cartao de Credito\agente_fraude_cartao"
 
 if not defined PROMPT set PROMPT=$P$G
 
