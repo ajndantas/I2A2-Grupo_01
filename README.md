@@ -84,7 +84,7 @@ venv\Scripts\activate # Windows
 
 **Faça o download dos arquivos a seguir para dentro da pasta Scripts. (Caso perguntado pelo Google, insista em fazer o download)**
 
-- [requirements.txt (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements.txt)
+- [requirements.txt (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/requirements.txt)
 - [requirements_linux.txt (Linux)](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt)
 - [agente_nfs.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfs.py)
 - [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
@@ -119,7 +119,7 @@ Arquivos para teste:
 
 - **Streamlit** – Frontend Web
 - **LangChain** – Orquestração de LLMs
-- **Google Gemini API** – LLM
+- **Grok4 - Fast** – LLM
 - **Tesseract**
 - **OpenCV**
 - **SQLAlchemy + SQLite** – Persistência de Dados
