@@ -90,7 +90,7 @@ venv\Scripts\activate # Windows
 - [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
 - [libmagic.ddl (Windows) ](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/libmagic.dll)
 - [magic.mgc (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/magic.mgc)
-- [.env](https://drive.google.com/open?id=1OKahIeVq_W75fd4b4DvE26suUbi03lNl&usp=drive_fs) (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API)
+- [.env](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/.env) (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API)
 
 **Dentro da pasta Script, execute:**
 
