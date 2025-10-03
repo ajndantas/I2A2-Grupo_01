@@ -35,7 +35,7 @@ Ele é dividido em **3 agentes** principais:
 - Python 🐍
 - Streamlit 💻
 - LangChain + OpenAI 🤯
-- Pandas, SQLAlchemy e Matplotlib 📊
+- Pandas, SQLAlchemy e [Plotly](https://plotly.com/javascript/)📊
 
 ---
 
@@ -43,7 +43,7 @@ Ele é dividido em **3 agentes** principais:
 
 Faça o download do código e do arquivo requirements.txt:
 
-[Script agente_fraude_cartao.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/agente_fraudecredito.py) 
+[Script agente_fraude_cartao.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/agente_fraudecredito.py)
 
 [Arquivo requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/requirements.txt)
 
@@ -72,6 +72,8 @@ Rode a aplicação:
 ```bash
 streamlit run agente_fraudecredito.py
 ```
+
+Arquivo com os dados para a análise 
 
 ---
 
