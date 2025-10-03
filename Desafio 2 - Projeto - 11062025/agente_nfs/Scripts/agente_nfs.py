@@ -25,7 +25,8 @@ from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 #from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.globals import set_debug
+from langchain.globals import set_debug, set_llm_cache
+from langchain_community.cache import InMemoryCache
 from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
 from magic import from_buffer
@@ -232,6 +233,7 @@ def agente2(pergunta,arquivo,engine):
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
 
+    set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
         model="x-ai/grok-4-fast:free",
         base_url="https://openrouter.ai/api/v1",
