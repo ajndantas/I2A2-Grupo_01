@@ -25,8 +25,11 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 from openai import InternalServerError
 from json import JSONDecodeError
 
+
 set_debug(True)
 
+class ErroProcessamento(Exception):
+    pass
 
 # [markdown]
 # ### <b>AGENTE 3: Conclusão Geral</b>
@@ -91,19 +94,23 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
     
     err = 0
     while err <= 3:
-        err += 1
-        try:
-            print("\nInvocando a LLM...\n")
-            resposta = chain.invoke({"conclusoes":conclusoes})   
-            break
+        if err > 3:
+            raise ErroProcessamento()
         
-        except InternalServerError as e:
-            print("\nAguardando 10 segundos para tentar novamente...\n")
+        else:
+            err += 1
+            try:
+                print("\nInvocando a LLM...\n")
+                resposta = chain.invoke({"conclusoes":conclusoes})   
+                break
             
-            sleep(10)
+            except Exception as e:
+                print("\nAguardando 10 segundos para tentar novamente...\n")
+                
+                sleep(10)
+                
+                continue
             
-            continue
-        
     print("\n Código HTML gerado:\n",resposta['codigo'])    
     
     with open('codigo.html', 'w', encoding='utf-8') as f:
@@ -182,15 +189,20 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
         
         err = 0
         while err <= 3:
-            err += 1
-            try:
-                query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe})['query']
-                break
+            if err > 3:
+                raise ErroProcessamento()
             
-            except Exception as e:
-                print('Gera query. Aguardando 10 segs para nova execução...')
-                sleep(10)
-                continue
+            else:                
+                err += 1
+                
+                try:
+                    query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe})['query']
+                    break
+                
+                except Exception as e:
+                    print('Gera query. Aguardando 10 segs para nova execução...')
+                    sleep(10)
+                    continue
 
         print('\nQuery: ',query)
                     
@@ -281,19 +293,23 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     
     err = 0
     while err <= 3:
-        err += 1
-        try:
-            print("\nAgente 2. Invocando a LLM...\n")
-            resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
-            break
-              
-        except (InternalServerError, JSONDecodeError) as e:
-            print("\nAguardando 10 segundos para tentar novamente...\n")
-            
-            sleep(10)
-            
-            continue
-        
+        if err > 3:
+           raise ErroProcessamento()
+       
+        else: 
+            err += 1 
+            try:
+                print("\nAgente 2. Invocando a LLM...\n")
+                resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
+                break
+                
+            except Exception as e:
+                print("\nAguardando 10 segundos para tentar novamente...\n")
+                
+                sleep(10)
+                
+                continue
+           
     print("\n Código HTML gerado:\n",resposta['codigo'])
     print("\n Texto da análise de dados:\n",resposta['texto'])
         
@@ -337,178 +353,183 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
     uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados", type=["csv"])        
     default_index = 0
     
-    if uploaded_file:       
+    if uploaded_file: 
+              
+        try:
+            
+            # COMBO BOX DISTRIBUIÇÃO
+            options_distribuicao = [
+                                        "Quais são os tipos de dados (numéricos, categóricos)?",
+                                        "Qual a distribuição de cada variável ? (histogramas,distribuições)",
+                                        "Qual o intervalo de cada variável (mínimo, máximo)?",
+                                        "Quais são as medidas de tendência central (média, mediana)?",
+                                        "Qual a variabilidade dos dados (desvio padrão, variância)?"
+                                ]
+            # tenta preservar a pergunta previamente selecionada, se existir no session_state
+            if st.session_state['distribuicao_done'] and 'pergunta' in st.session_state['distribuicao_done']:
+                default_index = options_distribuicao.index(st.session_state['distribuicao_done']['pergunta'])
+            else:
+                default_index = 0
 
-        # COMBO BOX DISTRIBUIÇÃO
-        options_distribuicao = [
-                                    "Quais são os tipos de dados (numéricos, categóricos)?",
-                                    "Qual a distribuição de cada variável ? (histogramas,distribuições)",
-                                    "Qual o intervalo de cada variável (mínimo, máximo)?",
-                                    "Quais são as medidas de tendência central (média, mediana)?",
-                                    "Qual a variabilidade dos dados (desvio padrão, variância)?"
-                               ]
-        # tenta preservar a pergunta previamente selecionada, se existir no session_state
-        if st.session_state['distribuicao_done'] and 'pergunta' in st.session_state['distribuicao_done']:
-            default_index = options_distribuicao.index(st.session_state['distribuicao_done']['pergunta'])
-        else:
-            default_index = 0
-
-        pergunta_distribuicao = st.selectbox(
-                                                "Descrição dos dados. Escolha uma opção",  # Pergunta
-                                                options_distribuicao,  # Opções
-                                                index=default_index
-                                            )  # Exibir histogramas
-        
-        if st.button("🔍 Consultar", key="distribuicao"):
-            with st.spinner("Analisando com IA..."):
-                
-                resposta = agente2(pergunta_distribuicao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
-                #print('Conclusôes Antes: ', conclusoes)
-                conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
-                conclusoes = st.session_state['conclusoes_done']
-                conclusoes.append(conclusao)
-                print("Conclusões: ", conclusoes)            
-                                
-            # Render raw HTML using Streamlit Components.
-            # components.html accepts the HTML string, optional height and scrolling.
-            components.html(resposta['codigo'], height=600, scrolling=True)
-            st.session_state['distribuicao_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_distribuicao}
-            st.session_state['conclusoes_done'] = conclusoes
-                    
-        elif st.session_state['distribuicao_done']:                 
-            components.html(st.session_state['distribuicao_done']['codigo'], height=600, scrolling=True)
-        
-        # COMBO BOX PADRÕES                       
-        options_padroes = [
-                            "Existem padrões ou tendências temporais?",
-                            "Quais os valores mais frequentes ou menos frequentes?",
-                            "Existem agrupamentos (clusters) nos dados?"
-                          ]
-        
-        if st.session_state['padroes_done']:
-            default_index = options_padroes.index(st.session_state['padroes_done']['pergunta'])
-        else:
-            default_index = 0
+            pergunta_distribuicao = st.selectbox(
+                                                    "Descrição dos dados. Escolha uma opção",  # Pergunta
+                                                    options_distribuicao,  # Opções
+                                                    index=default_index
+                                                )  # Exibir histogramas
             
-        pergunta_padroes = st.selectbox(
-                                            "identificação de padrões e tendências",
-                                            options_padroes,
-                                            index=default_index     
-                                        )
-            
-        if st.button("🔍 Consultar",key="padroes"):
-            with st.spinner("Analisando com IA..."):
-                
-                resposta = agente2(pergunta_padroes, uploaded_file, llm, engine,st.session_state['conclusoes_done'])
-                #print('Conclusôes Antes: ', conclusoes)
-                conclusao = {"pergunta":pergunta_padroes, "resposta":resposta['texto']}
-                conclusoes = st.session_state['conclusoes_done']
-                conclusoes.append(conclusao)
-                print("Conclusões: ", conclusoes) 
-                
-            # Render raw HTML using Streamlit Components.
-            # components.html accepts the HTML string, optional height and scrolling.
-            components.html(resposta['codigo'], height=600, scrolling=True)
-            st.session_state['padroes_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_padroes}
-            st.session_state['conclusoes_done'] = conclusoes
+            if st.button("🔍 Consultar", key="distribuicao"):
+                with st.spinner("Analisando com IA..."):
                     
-        elif st.session_state['padroes_done']:
-            components.html(st.session_state['padroes_done']['codigo'], height=600, scrolling=True)
-        
-        # COMBO BOX ANOMALIAS
-        options_anomalias = [
-                                "Existem valores atípicos nos dados?",
-                                "Como esses outliers afetam a análise?",
-                                "Podem ser removidos, transformados ou investigados?"
-                             ]
-        
-        if st.session_state['anomalias_done']:
-            default_index = options_anomalias.index(st.session_state['anomalias_done']['pergunta'])
-        else:
-            default_index = 0
-        
-        pergunta_anomalias = st.selectbox(
-                                            "Detecção de Anomalias (Outliers):",
-                                            options_anomalias,
-                                            index=default_index
-                                            
-                                            # Exibir Boxplots
-                                        )
-                
-        if st.button("🔍 Consultar",key="anomalias"):
-            with st.spinner("Analisando com IA..."):
-                
-                resposta = agente2(pergunta_anomalias, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
-                conclusao = {"pergunta":pergunta_anomalias, "resposta":resposta['texto']}
-                conclusoes = st.session_state['conclusoes_done']
-                conclusoes.append(conclusao)
-                print("Conclusões: ", conclusoes) 
-                                
-            # Render raw HTML using Streamlit Components.
-            # components.html accepts the HTML string, optional height and scrolling.
-            components.html(resposta['codigo'], height=600, scrolling=True)
-            st.session_state['anomalias_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_anomalias}
-            st.session_state['conclusoes_done'] = conclusoes
-                    
-        elif st.session_state['anomalias_done']:
-            components.html(st.session_state['anomalias_done']['codigo'], height=600, scrolling=True)
-        
-        # COMBO BOX RELAÇÃO
-        options_relacao = [
-                                "Como as variáveis estão relacionadas umas com as outras? (Gráficos de dispersão, tabelas cruzadas)",
-                                "Existe correlação entre as variáveis?",
-                                "Quais variáveis parecem ter maior ou menor influência sobre outras?"
-                          ]
-        
-        if st.session_state['relacao_done']:
-            default_index = options_relacao.index(st.session_state['relacao_done']['pergunta'])
-        else:
-            default_index = 0
-               
-        pergunta_relacao = st.selectbox(
-                                            "Relação entre variáveis:",
-                                            options_relacao,
-                                            index=default_index
-                                        ) # Plottar heatmaps
-        
-        if st.button("🔍 Consultar",key="relacao"):
-            with st.spinner("Analisando com IA..."):
-                
-                resposta = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
-                conclusao = {"pergunta":pergunta_relacao, "resposta":resposta['texto']}
-                conclusoes = st.session_state['conclusoes_done']
-                conclusoes.append(conclusao)
-                print("Conclusões: ", conclusoes) 
-                
-            # Render raw HTML using Streamlit Components.
-            # components.html accepts the HTML string, optional height and scrolling.
-            components.html(resposta['codigo'], height=600, scrolling=True)
-            st.session_state['relacao_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_relacao}
-            st.session_state['conclusoes_done'] = conclusoes
-                    
-        elif st.session_state['relacao_done']:
-            components.html(st.session_state['relacao_done']['codigo'], height=600, scrolling=True)
-        
-        # CONCLUSÃO GERAL
-        if st.button("🔍 Conclusão Geral",key="conclusao_geral"):
-            with st.spinner("Analisando com IA..."):
-                resposta = agente3(llm, st.session_state['conclusoes_done'])
-            
-            if resposta:
-                print("Conclusão Geral: ", resposta)
+                    resposta = agente2(pergunta_distribuicao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                    #print('Conclusôes Antes: ', conclusoes)
+                    conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
+                    conclusoes = st.session_state['conclusoes_done']
+                    conclusoes.append(conclusao)
+                    print("Conclusões: ", conclusoes)            
+                                    
+                # Render raw HTML using Streamlit Components.
+                # components.html accepts the HTML string, optional height and scrolling.
                 components.html(resposta['codigo'], height=600, scrolling=True)
-                
-                # DEPOIS DE EXECUTAR A CONCLUSÃO GERAL, TODAS AS CONCLUSÕES ANTERIORES SÃO REMOVIDAS
-                pergunta = ""
-                resposta = ""
-                conclusoes = [{"pergunta":pergunta,"resposta":resposta}]
+                st.session_state['distribuicao_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_distribuicao}
                 st.session_state['conclusoes_done'] = conclusoes
-                
-                st.session_state['distribuicao_done'] = {}                    
-                st.session_state['padroes_done'] = {}
-                st.session_state['anomalias_done'] = {}
-                st.session_state['relacao_done'] = {}
+                        
+            elif st.session_state['distribuicao_done']:                 
+                components.html(st.session_state['distribuicao_done']['codigo'], height=600, scrolling=True)
             
+            # COMBO BOX PADRÕES                       
+            options_padroes = [
+                                "Existem padrões ou tendências temporais?",
+                                "Quais os valores mais frequentes ou menos frequentes?",
+                                "Existem agrupamentos (clusters) nos dados?"
+                            ]
+            
+            if st.session_state['padroes_done']:
+                default_index = options_padroes.index(st.session_state['padroes_done']['pergunta'])
+            else:
+                default_index = 0
+                
+            pergunta_padroes = st.selectbox(
+                                                "identificação de padrões e tendências",
+                                                options_padroes,
+                                                index=default_index     
+                                            )
+                
+            if st.button("🔍 Consultar",key="padroes"):
+                with st.spinner("Analisando com IA..."):
+                    
+                    resposta = agente2(pergunta_padroes, uploaded_file, llm, engine,st.session_state['conclusoes_done'])
+                    #print('Conclusôes Antes: ', conclusoes)
+                    conclusao = {"pergunta":pergunta_padroes, "resposta":resposta['texto']}
+                    conclusoes = st.session_state['conclusoes_done']
+                    conclusoes.append(conclusao)
+                    print("Conclusões: ", conclusoes) 
+                    
+                # Render raw HTML using Streamlit Components.
+                # components.html accepts the HTML string, optional height and scrolling.
+                components.html(resposta['codigo'], height=600, scrolling=True)
+                st.session_state['padroes_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_padroes}
+                st.session_state['conclusoes_done'] = conclusoes
+                        
+            elif st.session_state['padroes_done']:
+                components.html(st.session_state['padroes_done']['codigo'], height=600, scrolling=True)
+            
+            # COMBO BOX ANOMALIAS
+            options_anomalias = [
+                                    "Existem valores atípicos nos dados?",
+                                    "Como esses outliers afetam a análise?",
+                                    "Podem ser removidos, transformados ou investigados?"
+                                ]
+            
+            if st.session_state['anomalias_done']:
+                default_index = options_anomalias.index(st.session_state['anomalias_done']['pergunta'])
+            else:
+                default_index = 0
+            
+            pergunta_anomalias = st.selectbox(
+                                                "Detecção de Anomalias (Outliers):",
+                                                options_anomalias,
+                                                index=default_index
+                                                
+                                                # Exibir Boxplots
+                                            )
+                    
+            if st.button("🔍 Consultar",key="anomalias"):
+                with st.spinner("Analisando com IA..."):
+                    
+                    resposta = agente2(pergunta_anomalias, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                    conclusao = {"pergunta":pergunta_anomalias, "resposta":resposta['texto']}
+                    conclusoes = st.session_state['conclusoes_done']
+                    conclusoes.append(conclusao)
+                    print("Conclusões: ", conclusoes) 
+                                    
+                # Render raw HTML using Streamlit Components.
+                # components.html accepts the HTML string, optional height and scrolling.
+                components.html(resposta['codigo'], height=600, scrolling=True)
+                st.session_state['anomalias_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_anomalias}
+                st.session_state['conclusoes_done'] = conclusoes
+                        
+            elif st.session_state['anomalias_done']:
+                components.html(st.session_state['anomalias_done']['codigo'], height=600, scrolling=True)
+            
+            # COMBO BOX RELAÇÃO
+            options_relacao = [
+                                    "Como as variáveis estão relacionadas umas com as outras? (Gráficos de dispersão, tabelas cruzadas)",
+                                    "Existe correlação entre as variáveis?",
+                                    "Quais variáveis parecem ter maior ou menor influência sobre outras?"
+                            ]
+            
+            if st.session_state['relacao_done']:
+                default_index = options_relacao.index(st.session_state['relacao_done']['pergunta'])
+            else:
+                default_index = 0
+                
+            pergunta_relacao = st.selectbox(
+                                                "Relação entre variáveis:",
+                                                options_relacao,
+                                                index=default_index
+                                            ) # Plottar heatmaps
+            
+            if st.button("🔍 Consultar",key="relacao"):
+                with st.spinner("Analisando com IA..."):
+                    
+                    resposta = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                    conclusao = {"pergunta":pergunta_relacao, "resposta":resposta['texto']}
+                    conclusoes = st.session_state['conclusoes_done']
+                    conclusoes.append(conclusao)
+                    print("Conclusões: ", conclusoes) 
+                    
+                # Render raw HTML using Streamlit Components.
+                # components.html accepts the HTML string, optional height and scrolling.
+                components.html(resposta['codigo'], height=600, scrolling=True)
+                st.session_state['relacao_done'] = {"codigo":resposta['codigo'], "pergunta":pergunta_relacao}
+                st.session_state['conclusoes_done'] = conclusoes
+                        
+            elif st.session_state['relacao_done']:
+                components.html(st.session_state['relacao_done']['codigo'], height=600, scrolling=True)
+            
+            # CONCLUSÃO GERAL
+            if st.button("🔍 Conclusão Geral",key="conclusao_geral"):
+                with st.spinner("Analisando com IA..."):
+                    resposta = agente3(llm, st.session_state['conclusoes_done'])
+                
+                if resposta:
+                    print("Conclusão Geral: ", resposta)
+                    components.html(resposta['codigo'], height=600, scrolling=True)
+                    
+                    # DEPOIS DE EXECUTAR A CONCLUSÃO GERAL, TODAS AS CONCLUSÕES ANTERIORES SÃO REMOVIDAS
+                    pergunta = ""
+                    resposta = ""
+                    conclusoes = [{"pergunta":pergunta,"resposta":resposta}]
+                    st.session_state['conclusoes_done'] = conclusoes
+                    
+                    st.session_state['distribuicao_done'] = {}                    
+                    st.session_state['padroes_done'] = {}
+                    st.session_state['anomalias_done'] = {}
+                    st.session_state['relacao_done'] = {}
+                    
+        except ErroProcessamento as e:
+            st.error("Erro de processamento. Favor tentar novamente mais tarde.")
+                
 
 # [markdown]
 # ### <b>TESTANDO</b>
