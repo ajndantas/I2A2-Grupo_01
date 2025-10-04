@@ -235,7 +235,7 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="x-ai/grok-4-fast:free",
+        model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,        
         reasoning_effort="high",        
