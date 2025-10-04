@@ -119,7 +119,7 @@ Arquivos para teste:
 
 - **Streamlit** – Frontend Web
 - **LangChain** – Orquestração de LLMs
-- **Grok4 - Fast** – LLM
+- **Microsoft: MAI-DS R1**  – LLM
 - **Tesseract**
 - **OpenCV**
 - **SQLAlchemy + SQLite** – Persistência de Dados
