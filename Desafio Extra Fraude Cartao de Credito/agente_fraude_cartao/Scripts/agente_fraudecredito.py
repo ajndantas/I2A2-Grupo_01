@@ -91,8 +91,8 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
     chain = prompt_template_query | llm | parseador
     
     err = 0
-    while err <= 3:
-        if err > 3:
+    while err <= 4:
+        if err == 3:
             raise ErroProcessamento()
         
         else:
@@ -186,8 +186,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
         describe = df.describe().to_string()
         
         err = 0
-        while err <= 3:
-            if err > 3:
+        while err < 4:
+            if err == 3:
                 raise ErroProcessamento()
             
             else:                
@@ -290,8 +290,8 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     chain = prompt_template_query | llm | parseador
     
     err = 0
-    while err <= 3:
-        if err > 3:
+    while err <= 4:
+        if err == 3:
            raise ErroProcessamento()
        
         else: 
@@ -543,8 +543,8 @@ if __name__ == "__main__":
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
         #model="gpt-5-mini",
-        #model="microsoft/mai-ds-r1:free",
-        model="x-ai/grok-4-fast:free",
+        model="microsoft/mai-ds-r1:free",
+        #model="x-ai/grok-4-fast:free",
         base_url="https://openrouter.ai/api/v1",
         #temperature = 0.2,
         cache=True,        
