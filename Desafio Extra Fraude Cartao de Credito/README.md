@@ -80,7 +80,7 @@ Arquivo com os dados para a análise -> [creditcard.zip](https://github.com/ajnd
 ## 🖥️ Demo Online
 
 Não quer instalar nada? A gente tem uma versão de testes hospedada aqui 👉
-[🔗 Acesse a demo](https://i2a2-grupo01-dzzbttbh7epxmxwppipqvh.streamlit.app/)
+[🔗 Acesse a demo](https://agente-fraude-cartao-credito.streamlit.app/)
 
 ---
 
