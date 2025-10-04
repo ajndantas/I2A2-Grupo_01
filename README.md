@@ -95,8 +95,12 @@ venv\Scripts\activate # Windows
 **Dentro da pasta Script, execute:**
 
 ```
-1 - Execute no terminal o comando -> streamlit run agente_nfs.py --server.port 8000
-2 - Abra o link http://localhost:8000
+1 - Instalação das dependências:
+- Se for Windows -> pip install -r requirements.txt
+- Se for Linux -> pip install -r requirements_linux.txt
+
+2 - Execute no terminal o comando -> streamlit run agente_nfs.py --server.port 8000
+3 - Abra o link http://localhost:8000
 ```
 
 Arquivos para teste:
