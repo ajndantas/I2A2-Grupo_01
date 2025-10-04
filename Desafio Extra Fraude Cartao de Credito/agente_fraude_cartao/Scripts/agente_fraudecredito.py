@@ -67,7 +67,8 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS **
                         7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, RETORNE PARA O PASSO 7 **
                         8 - Incorpore tabelas, se necessário, para melhor visualização.
-                        9 - Adicione uma seção de conclusões no final.  
+                        9 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as conclusões anteriores, e a ocorrência de 
+                        fraude.                        
                         
                         {formatacao_saida}
                         
@@ -98,7 +99,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
         else:
             err += 1
             try:
-                print("\nInvocando a LLM...\n")
+                print("\n Agente 3 - Invocando a LLM...\n")
                 resposta = chain.invoke({"conclusoes":conclusoes})   
                 break
             
@@ -120,37 +121,46 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
 # ### <b>AGENTE 2: Análise de Dados</b>
 # <b>Responsabilidade:</b> Processar documentos e extrair dados relevantes<br/><br/>
 
-def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
+def contador_linhas(df:DataFrame) -> int:
+    
+     comprimento_linhas = df.astype(str).apply(lambda x: x.str.len().sum(), axis=1)
+
+     # Máximo de todos
+     max_comprimento = comprimento_linhas.max()
+     
+     return max_comprimento
+                    
+    
+
+def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens):
 
         template_query = """
                             Qual query deve ser executada, ** SOMENTE PARA COLETAR OS DADOS, SEM REALIZAR QUALQUER OPERAÇÃO SOBRE ELES**, a fim de que se possa responder
-                            a pergunta "{pergunta}"? Os dados são relativos a fraude de cartões de crédito. 
-                            
-                            ** SEMPRE ** use apenas parte dos dados, usando WHERE, LIMIT, ou outras cláusulas SQL.
-                            A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**
-                            A quantidade de registros da query, ** SEMPRE ** deve resultar em uma **janela de contexto para a llm**, de **tamanho menor que 2 milhões de tokens.**
-                              
-                            ** SEMPRE ** forneça um ** JSON VÁLIDO **
-                            
-                            ** NÃO UTILIZE UNION ** 
-                                                        
+                            a pergunta "{pergunta}"? Os dados são relativos a fraude de cartões de crédito. Para isso, considere os passos a seguir
+                                                             
                             IMPORTANTE: Use apenas SQL compatível com SQLite. Não utilize INFORMATION_SCHEMA nem outras tabelas/metadados que não existam no SQLite. 
                             Para metadados use PRAGMA table_info("{arquivo}").
                             
                             #################################################################################
                             Considere os seguintes passos:
-                            1 - As colunas "{colunas}" da tabela 
-                            2 - A tabela possui {linhas} linhas
-                            3 - O nome da tabela é {arquivo}.        
-                            4 - Aonde as colunas que começam com V são valores de variáveis
-                            5 - A coluna Time -> Número de segundos passados desde a primeira transação.
-                            6 - A coluna Amount -> Valor da transação
-                            7 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal
-                            8 - Informações sobre os dados {describe}
-                            9 - As conclusões de análise anteriores foram {conclusoes}
+                            1 - As colunas que começam com V são valores de variáveis
+                            2 - A coluna Time -> Número de segundos passados desde a primeira transação.
+                            3 - A coluna Amount -> Valor da transação
+                            4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal
+                            5 - Informações sobre os dados {describe}
+                            6 - As conclusões de análise anteriores foram {conclusoes}
+                            7 - A quantidade de registros da query, ** SEMPRE ** deve resultar em uma **janela de contexto para a llm**, de **tamanho menor que {max_tokens} tokens**.
+                            8 - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
+                            9 - ** SEMPRE ** usar apenas parte dos dados, usando WHERE, LIMIT, ou outras cláusulas SQL.
+                            10 - Considere a regra de 1 token para 4 caracteres
+                            11 - A tabela possui {linhas} linhas, e cada linha ocupa no máximo {tamanho_linha} caracteres
+                            12 - O nome da tabela é {arquivo}.   
+                            13 - ** NÃO UTILIZE UNION **    
                                                         
                             #################################################################################
-                                        
+                            
+                            ** SEMPRE ** forneça um ** JSON VÁLIDO ** 
+                                       
                             {formatacao_saida}
                             
                          """
@@ -163,7 +173,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
         
         prompt_template_query = PromptTemplate(
                                                 template=template_query,
-                                                input_variables=["pergunta","colunas","linhas","arquivo","conclusoes","describe"],
+                                                input_variables=["pergunta","colunas","linhas","arquivo","conclusoes","describe","tamanho_linha","max_tokens"],
                                                 partial_variables={"formatacao_saida" : parseador.get_format_instructions()}
                                               )
 
@@ -194,7 +204,11 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
                 err += 1
                 
                 try:
-                    query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe})['query']
+                    
+                    tamanho = contador_linhas(df)
+                    
+                    query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe, "tamanho_linha" : tamanho, "max_tokens":qtd_tokens*0.5})['query']
+                                        
                     break
                 
                 except Exception as e:
@@ -206,14 +220,14 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df):
                     
         return query
 
-def rag(arquivo:UploadedFile, pergunta:str,llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]) -> DataFrame:
+def rag(arquivo:UploadedFile, pergunta:str,llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens:int) -> DataFrame:
     
     df = read_csv(arquivo)
     
     nome_tabela = splitext(arquivo.name)[0]
     df.to_sql(nome_tabela, con=engine, if_exists="replace", index=False)
     
-    query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df)   
+    query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df, qtd_tokens)   
     stmt = text(query)
 
     dfcontext = read_sql(stmt, con=engine)
@@ -222,11 +236,11 @@ def rag(arquivo:UploadedFile, pergunta:str,llm:ChatOpenAI, engine:Engine, conclu
         
     return dfcontext
 
-def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, conclusoes) -> Any:
+def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, conclusoes, qtd_tokens:int) -> Any:
 
     print('\nExecutando agente 2...')
     
-    dfcontext = rag(arquivo, pergunta, llm, engine,conclusoes)
+    dfcontext = rag(arquivo, pergunta, llm, engine,conclusoes,qtd_tokens)
     
     template_query = """
                         Aja como um analista de dados e responda a seguinte PERGUNTA {pergunta} a respeito do arquivo de fraudes de cartão 
@@ -323,7 +337,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
 # <ul><li>Interface para upload manual do arquivo</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FRONTEND
+def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens): # FRONTEND
 
     print("Executando o agente 1...")
     
@@ -362,7 +376,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
                                         "Qual o intervalo de cada variável (mínimo, máximo)?",
                                         "Quais são as medidas de tendência central (média, mediana)?",
                                         "Qual a variabilidade dos dados (desvio padrão, variância)?"
-                                ]
+                                   ]
             # tenta preservar a pergunta previamente selecionada, se existir no session_state
             if st.session_state['distribuicao_done'] and 'pergunta' in st.session_state['distribuicao_done']:
                 default_index = options_distribuicao.index(st.session_state['distribuicao_done']['pergunta'])
@@ -378,7 +392,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
             if st.button("🔍 Consultar", key="distribuicao"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_distribuicao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                    resposta = agente2(pergunta_distribuicao, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens)
                     #print('Conclusôes Antes: ', conclusoes)
                     conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
@@ -399,7 +413,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
                                 "Existem padrões ou tendências temporais?",
                                 "Quais os valores mais frequentes ou menos frequentes?",
                                 "Existem agrupamentos (clusters) nos dados?"
-                            ]
+                              ]
             
             if st.session_state['padroes_done']:
                 default_index = options_padroes.index(st.session_state['padroes_done']['pergunta'])
@@ -415,7 +429,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
             if st.button("🔍 Consultar",key="padroes"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_padroes, uploaded_file, llm, engine,st.session_state['conclusoes_done'])
+                    resposta = agente2(pergunta_padroes, uploaded_file, llm, engine,st.session_state['conclusoes_done'],qtd_tokens)
                     #print('Conclusôes Antes: ', conclusoes)
                     conclusao = {"pergunta":pergunta_padroes, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
@@ -454,7 +468,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
             if st.button("🔍 Consultar",key="anomalias"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_anomalias, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                    resposta = agente2(pergunta_anomalias, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens)
                     conclusao = {"pergunta":pergunta_anomalias, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
                     conclusoes.append(conclusao)
@@ -474,7 +488,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
                                     "Como as variáveis estão relacionadas umas com as outras? (Gráficos de dispersão, tabelas cruzadas)",
                                     "Existe correlação entre as variáveis?",
                                     "Quais variáveis parecem ter maior ou menor influência sobre outras?"
-                            ]
+                              ]
             
             if st.session_state['relacao_done']:
                 default_index = options_relacao.index(st.session_state['relacao_done']['pergunta'])
@@ -490,7 +504,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
             if st.button("🔍 Consultar",key="relacao"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'])
+                    resposta = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens)
                     conclusao = {"pergunta":pergunta_relacao, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
                     conclusoes.append(conclusao)
@@ -526,7 +540,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
                     st.session_state['relacao_done'] = {}
                     
         except ErroProcessamento as e:
-            st.error("Erro de processamento. Favor tentar novamente mais tarde.")
+            st.error("Erro de processamento ou limite de tokens alcançado. Favor tentar novamente mais tarde.")
                 
 
 # [markdown]
@@ -542,14 +556,11 @@ if __name__ == "__main__":
     
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        #model="gpt-5-mini",
-        model="microsoft/mai-ds-r1:free",
-        #model="x-ai/grok-4-fast:free",
+        #model="microsoft/mai-ds-r1:free",
+        model="tngtech/deepseek-r1t2-chimera:free",
         base_url="https://openrouter.ai/api/v1",
-        #temperature = 0.2,
         cache=True,        
-        reasoning_effort="high",
-        
+        reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
     
@@ -558,8 +569,10 @@ if __name__ == "__main__":
     resposta = ""
     conclusoes = [{"pergunta":pergunta,"resposta":resposta}]
 
+    qtd_tokens = 164000 # QUANTIDADE DE TOKENS DA JANELA DE CONTEXTO DA LLM
+    
     # INICIALIZAÇÃO DO AGENTE
-    agente1(llm,engine,conclusoes)  # Executa a função que inicia o agente
+    agente1(llm,engine,conclusoes,qtd_tokens)  # Executa a função que inicia o agente
      
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES

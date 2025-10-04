@@ -15,7 +15,7 @@
 # [markdown]
 # ### IMPORTS
 
-from os import getenv,remove
+from os import getenv
 from os.path import exists
 from pandas import read_csv, read_sql, DataFrame
 from sqlalchemy import create_engine, text
@@ -24,7 +24,6 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
-#from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.globals import set_debug, set_llm_cache
 from langchain_community.cache import InMemoryCache
 from motor_ocr_otimizado import NotaFiscalOCR
