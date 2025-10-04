@@ -61,7 +61,7 @@ Instale as dependências:
 pip install -r requirements.txt
 ```
 
-Crie o arquivo `.env` com sua chave de API:
+Crie o arquivo `.env` com sua chave de API gerada no provedor **[Openrouter](https://openrouter.ai/)**:
 
 ```ini
 API_KEY="sua_chave_aqui"
