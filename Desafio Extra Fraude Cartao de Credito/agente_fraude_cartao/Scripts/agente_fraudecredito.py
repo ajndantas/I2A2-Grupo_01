@@ -22,8 +22,6 @@ from langchain.globals import set_debug, set_llm_cache
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit.runtime.uploaded_file_manager import UploadedFile
-from openai import InternalServerError
-from json import JSONDecodeError
 
 
 set_debug(True)
@@ -349,7 +347,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]]): # FR
     if 'conclusoes_done' not in st.session_state:
         st.session_state['conclusoes_done'] = conclusoes
                
-         
+    st.markdown('<a href="https://drive.google.com/open?id=1SqrMwvZ_9pbily5NvW_G51stG5qZx3zV&usp=drive_fs" target="_blank">Ex: Arquivo csv de dados</a>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados", type=["csv"])        
     default_index = 0
     
@@ -539,7 +537,6 @@ if __name__ == "__main__":
     # INICIALIZAÇÃO DO BANCO DE DADOS
     engine = create_engine('sqlite:///./fraude_cartao.db', echo=False)
     
-    
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
     
@@ -552,6 +549,7 @@ if __name__ == "__main__":
         #temperature = 0.2,
         cache=True,        
         reasoning_effort="high",
+        
         api_key=getenv("API_KEY")        
     )
     
