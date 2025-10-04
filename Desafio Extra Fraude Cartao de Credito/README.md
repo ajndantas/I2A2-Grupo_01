@@ -34,7 +34,7 @@ Ele é dividido em **3 agentes** principais:
 
 - Python 🐍
 - Streamlit 💻
-- LangChain + OpenAI 🤯
+- LangChain + [TNG: DeepSeek R1T2 Chimera (free)](https://openrouter.ai/tngtech/deepseek-r1t2-chimera:free) LLM 🤯
 - Pandas, SQLAlchemy e [Plotly](https://plotly.com/javascript/)📊
 
 ---
