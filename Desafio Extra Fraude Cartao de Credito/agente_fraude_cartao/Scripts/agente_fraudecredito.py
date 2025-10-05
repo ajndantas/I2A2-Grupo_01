@@ -141,6 +141,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens)
                             IMPORTANTE: Use apenas SQL compatível com SQLite. Não utilize INFORMATION_SCHEMA nem outras tabelas/metadados que não existam no SQLite. 
                             Para metadados use PRAGMA table_info("{arquivo}").
                             
+                            **Não faça perguntas nem adicione esclarecimentos.**
+                            
                             #################################################################################
                             Considere os seguintes passos:
                             1 - As colunas que começam com V são valores de variáveis

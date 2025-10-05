@@ -38,7 +38,10 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Te
 - Python **3.10** ou superior
 - **API Key do provedor OpenRouter. (Informar uma chave do [OpenRouter ](https://openrouter.ai/)no arquivo .env, para o caso de instalação utilizando o fonte).**
 
----
+## 🖥️ Demo Online
+
+Não quer instalar nada? A gente tem uma versão de testes hospedada aqui 👉
+[🔗 Acesse a demo](https://agentenfe.streamlit.app/)
 
 ## 📦 Instalação
 
