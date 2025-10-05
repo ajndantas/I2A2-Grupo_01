@@ -240,8 +240,6 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
 
     print('\nExecutando agente 2...')
     
-    dfcontext = rag(arquivo, pergunta, llm, engine,conclusoes,qtd_tokens)
-    
     template_query = """
                         Aja como um analista de dados e responda a seguinte PERGUNTA {pergunta} a respeito do arquivo de fraudes de cartão 
                         de crédito fornecido.
@@ -311,6 +309,8 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         else: 
             err += 1 
             try:
+                dfcontext = rag(arquivo, pergunta, llm, engine,conclusoes,qtd_tokens)
+                
                 print("\nAgente 2. Invocando a LLM...\n")
                 resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
                 break
@@ -557,9 +557,11 @@ if __name__ == "__main__":
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
         #model="microsoft/mai-ds-r1:free",
-        model="tngtech/deepseek-r1t2-chimera:free",
+        #model="tngtech/deepseek-r1t2-chimera:free",
+        model="qwen/qwen3-235b-a22b:free",
         base_url="https://openrouter.ai/api/v1",
-        temperature=0,
+        temperature=0.6, 
+        top_p=0.95,
         cache=True,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
@@ -570,7 +572,7 @@ if __name__ == "__main__":
     resposta = ""
     conclusoes = [{"pergunta":pergunta,"resposta":resposta}]
 
-    qtd_tokens = 164000 # QUANTIDADE DE TOKENS DA JANELA DE CONTEXTO DA LLM
+    qtd_tokens = 131000 # QUANTIDADE DE TOKENS DA JANELA DE CONTEXTO DA LLM
     
     # INICIALIZAÇÃO DO AGENTE
     agente1(llm,engine,conclusoes,qtd_tokens)  # Executa a função que inicia o agente
