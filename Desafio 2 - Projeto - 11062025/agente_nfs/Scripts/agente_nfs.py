@@ -236,7 +236,8 @@ def agente2(pergunta,arquivo,engine):
     llm = ChatOpenAI( 
         model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
-        cache=True,        
+        cache=True,
+        temperature=0.6,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )

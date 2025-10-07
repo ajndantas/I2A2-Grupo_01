@@ -22,7 +22,8 @@ from langchain.globals import set_debug, set_llm_cache
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit.runtime.uploaded_file_manager import UploadedFile
-
+import transformers
+from re import findall,sub
 
 set_debug(True)
 
@@ -64,7 +65,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         7.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
                         7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o script da aplicação ** PLOTY **, localizado em js/plotly.js                         
                         7.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
-                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS **
+                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS **.
                         7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, RETORNE PARA O PASSO 7 **
                         8 - Incorpore tabelas, se necessário, para melhor visualização.
                         9 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as conclusões anteriores, e a ocorrência de 
@@ -121,21 +122,28 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
 # ### <b>AGENTE 2: Análise de Dados</b>
 # <b>Responsabilidade:</b> Processar documentos e extrair dados relevantes<br/><br/>
 
-def contador_linhas(df:DataFrame) -> int:
+def num_tokens_from_string(df:DataFrame) -> int:
     
-     comprimento_linhas = df.astype(str).apply(lambda x: x.str.len().sum(), axis=1)
+    # pip3 install transformers
+    # python3 deepseek_tokenizer.py
+    
+    chat_tokenizer_dir = "./"
 
-     # Máximo de todos
-     max_comprimento = comprimento_linhas.max()
+    tokenizer = transformers.AutoTokenizer.from_pretrained( 
+            chat_tokenizer_dir, trust_remote_code=True
+            )   
+    
+    result = len(tokenizer.encode(df.to_string(index=False)))
+    #print("Tokenizer encode: ",tokenizer.encode(df.to_string(index=False)))
+    print("Quantidade de tokens: ", result,"\n")
      
-     return max_comprimento
-                    
-    
+    return result
 
-def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens):
+
+def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens, taxa_reducao):
 
         template_query = """
-                            Qual query deve ser executada, ** SOMENTE PARA COLETAR OS DADOS, SEM REALIZAR QUALQUER OPERAÇÃO SOBRE ELES**, a fim de que se possa responder
+                            Qual query deve ser executada, ** SOMENTE PARA COLETAR OS DADOS, SEM REALIZAR QUALQUER OPERAÇÃO SOBRE ELES **, a fim de que se possa responder
                             a pergunta "{pergunta}"? Os dados são relativos a fraude de cartões de crédito. Para isso, considere os passos a seguir
                                                              
                             IMPORTANTE: Use apenas SQL compatível com SQLite. Não utilize INFORMATION_SCHEMA nem outras tabelas/metadados que não existam no SQLite. 
@@ -143,46 +151,46 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens)
                             
                             **Não faça perguntas nem adicione esclarecimentos.**
                             
-                            #################################################################################
+                            #######################################################################################
                             Considere os seguintes passos:
                             1 - As colunas que começam com V são valores de variáveis
                             2 - A coluna Time -> Número de segundos passados desde a primeira transação.
                             3 - A coluna Amount -> Valor da transação
                             4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal
                             5 - Informações sobre os dados {describe}
-                            6 - As conclusões de análise anteriores foram {conclusoes}
-                            7 - A quantidade de registros da query, ** SEMPRE ** deve resultar em uma **janela de contexto para a llm**, de **tamanho menor que {max_tokens} tokens**.
-                            8 - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
-                            9 - ** SEMPRE ** usar apenas parte dos dados, usando WHERE, LIMIT, ou outras cláusulas SQL.
-                            10 - Considere a regra de 1 token para 4 caracteres
-                            11 - A tabela possui {linhas} linhas, e cada linha ocupa no máximo {tamanho_linha} caracteres
+                            6 - Uma amostra dos dados {amostra}
+                            7 - As conclusões de análise anteriores foram {conclusoes}
+                            8 - A tabela possui {linhas} linhas
+                            9 - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
+                            10 - Usar apenas parte dos dados, usando WHERE ou outras cláusulas SQL.
+                            11 - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas}                           
                             12 - O nome da tabela é {arquivo}.   
                             13 - ** NÃO UTILIZE UNION **    
                                                         
-                            #################################################################################
+                            ########################################################################################
                             
-                            ** SEMPRE ** forneça um ** JSON VÁLIDO ** 
-                                       
+                            ** SEMPRE ** forneça um ** JSON VÁLIDO **                    
+                                      
                             {formatacao_saida}
                             
                          """
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
         class Query(BaseModel):
-            query: str = Field(description='Esta é a query com DISTINCT, com todas as colunas necessárias, aonde o nome de cada coluna e o da tabela {nome_arquivo} devem ficar entre "')
+            query: str = Field(description='Esta é a query com todas as colunas necessárias, aonde o nome de cada coluna e o da tabela {nome_arquivo} devem ficar entre ""')
 
         parseador = JsonOutputParser(pydantic_object=Query)
         
         prompt_template_query = PromptTemplate(
                                                 template=template_query,
-                                                input_variables=["pergunta","colunas","linhas","arquivo","conclusoes","describe","tamanho_linha","max_tokens"],
+                                                input_variables=["pergunta","colunas","linhas","arquivo","conclusoes","describe","qtd_tokens","amostra"],
                                                 partial_variables={"formatacao_saida" : parseador.get_format_instructions()}
                                               )
 
         # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
         chain = prompt_template_query | llm | parseador
 
-                
+                        
         with engine.connect() as con:
             query = text(f'PRAGMA table_info("{nome_arquivo}")') # OBTENDO AS COLUNAS DO BD
             rs = con.execute(query)
@@ -195,50 +203,62 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens)
             rows = rs.fetchone()
             linhas = rows[0]            
         
-        describe = df.describe().to_string()
+        describe = df.describe().to_string()       
         
-        err = 0
-        while err < 4:
-            if err == 3:
-                raise ErroProcessamento()
-            
-            else:                
-                err += 1
+        print('Invocando a LLM para obter query...')
+        
+        amostra = df.head().to_string(index=False)        
+        query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe, "qtd_tokens":qtd_tokens, "amostra":amostra})['query']
+        
+        stmt = text(query)
+        dfcontext = read_sql(stmt, con=engine)
+        
+        limit = int(findall(r'LIMIT (\d+)', query)[0])
+        tokens = num_tokens_from_string(dfcontext)
+        t = 0
+        
+        while tokens > qtd_tokens*0.4 and limit > 0:
                 
-                try:
-                    
-                    tamanho = contador_linhas(df)
-                    
-                    query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe, "tamanho_linha" : tamanho, "max_tokens":qtd_tokens*0.5})['query']
-                                        
-                    break
+                t+=1
+                print('t: ',t)
+                limit = int(limit*(1 - taxa_reducao*t))                        
+                print(f'LIMIT {limit}')                                  
                 
-                except Exception as e:
-                    print('Gera query. Aguardando 10 segs para nova execução...')
-                    sleep(10)
-                    continue
-
-        print('\nQuery: ',query)
-                    
+                result = sub(r'LIMIT \d+$',f'LIMIT {limit}', query)
+                print('Query: ', result)
+                
+                stmt = text(result)
+                dfcontext = read_sql(stmt, con=engine)
+                
+                tokens = num_tokens_from_string(dfcontext)
+                query = result
+                
+        else: 
+            if limit <= 0:
+                print("Valor negativo ou 0 para LIMIT...")
+                
+                result = sub(r'LIMIT \d+$',f'LIMIT 30',query)
+                stmt = text(result)
+                dfcontext = read_sql(stmt,con=engine)
+                
+                num_tokens_from_string(dfcontext)
+                            
+                query = result
+                            
         return query
 
-def rag(arquivo:UploadedFile, pergunta:str,llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens:int) -> DataFrame:
+def rag(arquivo:UploadedFile, pergunta:str, llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]], qtd_tokens:int, taxa_reducao:float) -> str:
     
     df = read_csv(arquivo)
     
     nome_tabela = splitext(arquivo.name)[0]
     df.to_sql(nome_tabela, con=engine, if_exists="replace", index=False)
     
-    query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df, qtd_tokens)   
-    stmt = text(query)
+    query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df, qtd_tokens, taxa_reducao)   
+            
+    return query
 
-    dfcontext = read_sql(stmt, con=engine)
-        
-    print('\nPrimeiras linhas do dataframe de contexto:\n',dfcontext.head())
-        
-    return dfcontext
-
-def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, conclusoes, qtd_tokens:int) -> Any:
+def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, conclusoes, qtd_tokens:int, taxa_reducao:float) -> Any:
 
     print('\nExecutando agente 2...')
     
@@ -248,7 +268,9 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         
                         Use as informações de contexto e conclusões anteriores abaixo.
                         
-                        Seja sucinto, informe os **NOMES DAS COLUNAS** na resposta. Ao final, deverá ser gerado um código HTML.
+                        Seja sucinto, informe os **NOMES DAS COLUNAS** na resposta. 
+                        Informe os dados que foram utilizados.
+                        Ao final, deverá ser gerado um código HTML com o resumo das análises.
                         
                         CONTEXTO:
                         {context}
@@ -258,10 +280,10 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         
                         A resposta deve ser no idioma português do Brasil.
                         
-                        ** SEMPRE GERE UM JSON VÁLIDO **.
-                        
                         **- Não faça perguntas nem adicione esclarecimentos.**
                         
+                        ** SEMPRE GERE UM JSON VÁLIDO **.
+                                         
                         Deverão ser seguidos os seguintes passos:
                         
                         PASSOS:
@@ -271,19 +293,19 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal   
                         5 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
                         6 - Inclua títulos e legendas para clareza.
-                        7 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
+                        7 - Informe os dados utilizados.
+                        8 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 7.1, 7.2, 7.3 e 7.4
-                        7.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o script localizado em js/plotly.js                         
-                        7.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
-                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS ** 
-                        7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, RETORNE PARA O PASSO 7 **
-                        8 - Incorpore tabelas, se necessário, para melhor visualização.
-                        9 - Adicione uma seção de conclusões no final incluíndo a resposta à PERGUNTA                       
+                        8.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
+                        8.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script localizado em js/plotly.js                         
+                        8.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
+                        8.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
+                        8.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
+                        LEGENDAS, RETORNE PARA O PASSO 7 **
+                        9 - Incorpore tabelas, se necessário, para melhor visualização.
+                        10 - ** SEMPRE ADICIONE UMA SEÇÃO DE CONCLUSÕES ** no final ** INCLUÍNDO A RESPOSTA à PERGUNTA **                       
                         
-                        {formatacao_saida}
-                        
-                        {{codigo : "HTML com a resposta da análise de dados", texto: "Toda parte, no formato texto, da resposta"}}                        
+                        {formatacao_saida}                                      
                         
                      """
                      
@@ -303,27 +325,34 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     
     chain = prompt_template_query | llm | parseador
     
-    err = 0
-    while err <= 4:
-        if err == 3:
-           raise ErroProcessamento()
-       
-        else: 
-            err += 1 
-            try:
-                dfcontext = rag(arquivo, pergunta, llm, engine,conclusoes,qtd_tokens)
+    print('Executando o RAG...')
+    query = rag(arquivo, pergunta, llm, engine, conclusoes, qtd_tokens, taxa_reducao)
+    
+    try:
+        
+        print('Executando agente 2...')
+        stmt = text(query)
                 
-                print("\nAgente 2. Invocando a LLM...\n")
-                resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
-                break
+        dfcontext = read_sql(stmt, con=engine)
+                                                                       
+        print('\nPrimeiras linhas do dataframe de contexto:\n',dfcontext.head())                    
+        print("\nAgente 2. Invocando a LLM...\n")
                 
-            except Exception as e:
-                print("\nAguardando 10 segundos para tentar novamente...\n")
-                
-                sleep(10)
-                
-                continue
-           
+        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
+        
+    except Exception as e:
+        
+        print("\nTentando executar novamente...\n")
+        
+        result = sub(r'LIMIT \d+$',f'LIMIT 30',query)
+        stmt = text(result)
+        dfcontext = read_sql(stmt, con=engine)
+        
+        num_tokens_from_string(dfcontext)
+        
+        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
+    
+                  
     print("\n Código HTML gerado:\n",resposta['codigo'])
     print("\n Texto da análise de dados:\n",resposta['texto'])
         
@@ -339,7 +368,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
 # <ul><li>Interface para upload manual do arquivo</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens): # FRONTEND
+def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens,taxa_reducao:float): # FRONTEND
 
     print("Executando o agente 1...")
     
@@ -394,7 +423,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
             if st.button("🔍 Consultar", key="distribuicao"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_distribuicao, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens)
+                    resposta = agente2(pergunta_distribuicao, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens,taxa_reducao)
                     #print('Conclusôes Antes: ', conclusoes)
                     conclusao = {"pergunta":pergunta_distribuicao, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
@@ -431,7 +460,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
             if st.button("🔍 Consultar",key="padroes"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_padroes, uploaded_file, llm, engine,st.session_state['conclusoes_done'],qtd_tokens)
+                    resposta = agente2(pergunta_padroes, uploaded_file, llm, engine,st.session_state['conclusoes_done'],qtd_tokens, taxa_reducao)
                     #print('Conclusôes Antes: ', conclusoes)
                     conclusao = {"pergunta":pergunta_padroes, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
@@ -470,7 +499,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
             if st.button("🔍 Consultar",key="anomalias"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_anomalias, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens)
+                    resposta = agente2(pergunta_anomalias, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens, taxa_reducao)
                     conclusao = {"pergunta":pergunta_anomalias, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
                     conclusoes.append(conclusao)
@@ -506,7 +535,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
             if st.button("🔍 Consultar",key="relacao"):
                 with st.spinner("Analisando com IA..."):
                     
-                    resposta = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens)
+                    resposta = agente2(pergunta_relacao, uploaded_file, llm, engine, st.session_state['conclusoes_done'],qtd_tokens, taxa_reducao)
                     conclusao = {"pergunta":pergunta_relacao, "resposta":resposta['texto']}
                     conclusoes = st.session_state['conclusoes_done']
                     conclusoes.append(conclusao)
@@ -542,7 +571,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
                     st.session_state['relacao_done'] = {}
                     
         except ErroProcessamento as e:
-            st.error("Erro de processamento ou limite de tokens alcançado. Favor tentar novamente mais tarde.")
+            st.error("Erro de processamento ou limite de tokens alcançado. Favor tentar novamente ou executar a conclusão geral.")
                 
 
 # [markdown]
@@ -557,15 +586,19 @@ if __name__ == "__main__":
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
     
     set_llm_cache(InMemoryCache())
-    llm = ChatOpenAI( 
+    #qtd_tokens = 131000 # QUANTIDADE DE TOKENS DA JANELA DE CONTEXTO DA LLM
+    qtd_tokens = 163000
+    #qtd_tokens = 2000000
+    #qtd_tokens = 66000
+    
+    llm = ChatOpenAI(
         #model="microsoft/mai-ds-r1:free",
-        #model="tngtech/deepseek-r1t2-chimera:free",
-        model="qwen/qwen3-235b-a22b:free",
+        model="tngtech/deepseek-r1t2-chimera:free",
+        #model="x-ai/grok-4-fast",
         base_url="https://openrouter.ai/api/v1",
-        temperature=0.6, 
-        top_p=0.95,
+        temperature=0.4,
         cache=True,        
-        reasoning_effort="high",        
+        reasoning_effort="high",                
         api_key=getenv("API_KEY")        
     )
     
@@ -573,11 +606,10 @@ if __name__ == "__main__":
     pergunta = ""
     resposta = ""
     conclusoes = [{"pergunta":pergunta,"resposta":resposta}]
-
-    qtd_tokens = 131000 # QUANTIDADE DE TOKENS DA JANELA DE CONTEXTO DA LLM
+    taxa_reducao = 0.1 # TAXA DE REDUÇÃO DA QUANTIDADE DE LINHAS DO DATASET
     
     # INICIALIZAÇÃO DO AGENTE
-    agente1(llm,engine,conclusoes,qtd_tokens)  # Executa a função que inicia o agente
+    agente1(llm,engine,conclusoes,qtd_tokens,taxa_reducao)  # Executa a função que inicia o agente
      
 
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
