@@ -3,74 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise Geral dos Dados de Transações</title>
+    <title>Análise de Tipos de Dados</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1, h2 { color: #333; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
-        .high { color: red; font-weight: bold; }
-        .low { color: green; font-weight: bold; }
-        .outlier { background-color: #ffebee; }
+        .numerico { background-color: #d4edda; }
+        .categorico { background-color: #f8d7da; }
+        h1, h2 { color: #333; }
     </style>
 </head>
 <body>
-    <h1>Análise Geral dos Dados de Transações</h1>
-    <p>Esta análise sintetiza as conclusões sobre o dataset de transações financeiras, com 284 registros, focando em tipos de dados, padrões temporais, outliers e recomendações.</p>
-
-    <h2>Tipos de Dados</h2>
-    <p>Colunas numéricas (contínuas): Time, V1 a V28, Amount. Coluna categórica (discreta): Class (todos valores 0, sem fraudes).</p>
-
-    <h2>Padrões e Tendências Temporais</h2>
-    <p>O Time aumenta monotonicamente até 265s, com Amount exibindo variabilidade (média ~80, mediana ~12.99). Tendência de aumento no volume e variância, sem fraudes detectadas.</p>
-    <div id="graph-temporal"></div>
-    <script>
-        var trace1 = {
-            x: [0, 50, 100, 150, 200, 265], // Exemplo de Time
-            y: [10, 20, 50, 100, 200, 3828.04], // Exemplo de Amount com outlier
-            type: 'scatter',
-            mode: 'lines+markers',
-            name: 'Amount vs Time'
-        };
-        var data = [trace1];
-        var layout = {
-            title: 'Tendência Temporal: Amount vs Time',
-            xaxis: { title: 'Time (segundos)' },
-            yaxis: { title: 'Amount' }
-        };
-        Plotly.newPlot('graph-temporal', data, layout);
-    </script>
-
-    <h2>Valores Atípicos (Outliers)</h2>
-    <p>Outliers identificados via IQR em V1-V28 (~7.7%) e Amount (8.8%, ex: 3828.04). Nenhum em Time ou Class.</p>
-    <div id="graph-outliers"></div>
-    <script>
-        var trace1 = {
-            y: [5.2, 12.99, 22.1, 80, 3828.04, 7712.43], // Exemplo de Amount com outliers
-            type: 'box',
-            name: 'Distribuição de Amount'
-        };
-        var data = [trace1];
-        var layout = {
-            title: 'Boxplot de Amount (Destacando Outliers)',
-            yaxis: { title: 'Amount' }
-        };
-        Plotly.newPlot('graph-outliers', data, layout);
-    </script>
+    <h1>Análise de Tipos de Dados do Dataset</h1>
+    <p><strong>Dados utilizados:</strong> O dataset consiste em colunas com tipos fornecidos no contexto: Time (FLOAT), V1 a V28 (FLOAT), Amount (FLOAT) e Class (BIGINT). Total de 30 colunas, todas numéricas.</p>
+    
+    <h2>Tabela de Colunas e Tipos</h2>
     <table>
-        <caption>Exemplo de Outliers em Amount (Formatação Condicional)</caption>
-        <tr><th>Time</th><th>Amount</th><th>Status</th></tr>
-        <tr><td>103</td><td class="high">3828.04</td><td class="outlier">Outlier Alto</td></tr>
-        <tr><td>50</td><td class="low">10</td><td>Normal</td></tr>
-        <tr><td>200</td><td class="high">7712.43</td><td class="outlier">Outlier Alto</td></tr>
+        <tr>
+            <th>Nome da Coluna</th>
+            <th>Tipo</th>
+            <th>Categoria</th>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V1</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V2</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V3</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V4</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V5</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V6</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V7</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V8</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V9</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V10</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V11</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V12</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V13</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V14</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V15</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V16</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V17</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V18</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V19</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V20</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V21</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V22</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V23</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V24</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V25</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V26</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V27</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>V28</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>Amount</td>
+            <td>FLOAT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
+        <tr>
+            <td>Class</td>
+            <td>BIGINT</td>
+            <td class="numerico">Numérico</td>
+        </tr>
     </table>
-
-    <h2>Remoção, Transformação ou Investigação</h2>
-    <p>Time: Remover se não essencial. V1-V28: Investigar e transformar (z-score). Amount: Log-transformar e investigar outliers. Class: Manter.</p>
-
-    <h2>Conclusões Gerais</h2>
-    <p>Os dados representam transações normais (sem fraudes), com tendências temporais de aumento na variabilidade de Amount. Outliers em features PCA e Amount sugerem necessidade de investigação para ruído ou anomalias potenciais. Recomenda-se transformações para normalização e remoção de Time irrelevante, preparando o dataset para modelagem preditiva. Insights principais: Atividade financeira estável, mas com picos que demandam atenção; ausência de fraudes reforça foco em detecção futura.</p>
+    
+    <h2>Gráfico de Distribuição de Tipos de Dados</h2>
+    <p>Legenda: Gráfico de barras mostrando a contagem de colunas por tipo (numérico vs categórico). Eixo X: Tipos; Eixo Y: Contagem de colunas.</p>
+    <div id="grafico" style="width:600px;height:400px;"></div>
+    
+    <script>
+        var trace1 = {
+            x: ['Numérico', 'Categórico'],
+            y: [30, 0],
+            type: 'bar',
+            marker: {color: ['green', 'red']}
+        };
+        var data = [trace1];
+        var layout = {
+            title: 'Distribuição de Tipos de Dados',
+            xaxis: {title: 'Tipo de Dado'},
+            yaxis: {title: 'Contagem de Colunas'}
+        };
+        Plotly.newPlot('grafico', data, layout);
+    </script>
+    
+    <h2>Conclusões</h2>
+    <p>Todas as colunas do dataset são de tipos numéricos: Time, V1 a V28, Amount (FLOAT - numérico contínuo) e Class (BIGINT - numérico discreto). Não há colunas categóricas. Resposta à pergunta: Os tipos de dados são predominantemente numéricos, sem presença de dados categóricos.</p>
 </body>
 </html>

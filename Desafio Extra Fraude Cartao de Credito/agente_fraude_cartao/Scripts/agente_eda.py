@@ -225,7 +225,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                 tokens = num_tokens_from_string(dfcontext)
                 query = result
                 
-                sleep(20)
+                sleep(10)
                 
         else: 
             if limit <= 0:
@@ -341,7 +341,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         
         resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
 
-        sleep(20)
+        sleep(10)
                   
     print("\n Código HTML gerado:\n",resposta['codigo'])
     print("\n Texto da análise de dados:\n",resposta['texto'])
