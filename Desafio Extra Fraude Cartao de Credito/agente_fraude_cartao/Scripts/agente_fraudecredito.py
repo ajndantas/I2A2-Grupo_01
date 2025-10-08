@@ -25,6 +25,15 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 import transformers
 from re import findall,sub
 
+import logging
+import warnings
+from transformers import logging as transformers_logging
+
+logging.getLogger("transformers").setLevel(logging.ERROR) # Setando logs somente para o nível de erros
+warnings.filterwarnings("ignore")
+transformers_logging.set_verbosity_error() # Setando logs somente para o nível de erros
+
+
 set_debug(True)
 
 class ErroProcessamento(Exception):
@@ -61,15 +70,16 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         5 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
                         6 - Inclua títulos e legendas para clareza.
                         7 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 7.1, 7.2, 7.3 e 7.4
+                        dos gráficos, siga os passos 7.1, 7.2, 7.3, 7.4 e 7.4.1
                         7.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o script da aplicação ** PLOTY **, localizado em js/plotly.js                         
+                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script localizado em js/plotly.js                         
                         7.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
-                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS **.
-                        7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, RETORNE PARA O PASSO 7 **
+                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
+                        7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
+                        LEGENDAS, RETORNE PARA O PASSO 7
                         8 - Incorpore tabelas, se necessário, para melhor visualização.
-                        9 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as conclusões anteriores, e a ocorrência de 
-                        fraude.                        
+                        9 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as conclusões anteriores e a ocorrência de 
+                        fraude.                      
                         
                         {formatacao_saida}
                         
@@ -233,6 +243,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                 tokens = num_tokens_from_string(dfcontext)
                 query = result
                 
+                sleep(20)
+                
         else: 
             if limit <= 0:
                 print("Valor negativo ou 0 para LIMIT...")
@@ -295,13 +307,13 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         6 - Inclua títulos e legendas para clareza.
                         7 - Informe os dados utilizados.
                         8 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 7.1, 7.2, 7.3 e 7.4
+                        dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4 e 8.4.1
                         8.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
                         8.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script localizado em js/plotly.js                         
                         8.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
                         8.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
                         8.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
-                        LEGENDAS, RETORNE PARA O PASSO 7 **
+                        LEGENDAS, RETORNE PARA O PASSO 8 **
                         9 - Incorpore tabelas, se necessário, para melhor visualização.
                         10 - ** SEMPRE ADICIONE UMA SEÇÃO DE CONCLUSÕES ** no final ** INCLUÍNDO A RESPOSTA à PERGUNTA **                       
                         
@@ -351,7 +363,8 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         num_tokens_from_string(dfcontext)
         
         resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
-    
+
+        sleep(20)
                   
     print("\n Código HTML gerado:\n",resposta['codigo'])
     print("\n Texto da análise de dados:\n",resposta['texto'])

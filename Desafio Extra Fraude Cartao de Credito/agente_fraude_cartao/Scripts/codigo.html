@@ -1,103 +1,102 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Análise de Distribuição - Fraudes em Cartão de Crédito</title>
+    <title>Análise de Fraude em Cartões de Crédito</title>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <style>
-        .container { margin: 20px; }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
         .highlight-red { color: #ff0000; font-weight: bold; }
         .highlight-green { color: #009900; font-weight: bold; }
+        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
     </style>
 </head>
 <body>
-    <div class='container'>
-        <h1>Distribuição das Variáveis</h1>
-        
-        <!-- Gráfico Time -->
-        <div id='time-plot'></div>
-        
-        <!-- Gráfico Amount -->
-        <div id='amount-plot'></div>
-        
-        <!-- Gráfico V1-V6 -->
-        <div id='v1v6-plot'></div>
-        
-        <!-- Tabela Resumo -->
-        <h2>Resumo Estatístico</h2>
-        <table border='1'>
+    <h1>Análise de Transações com Cartão de Crédito</h1>
+    
+    <div class='card'>
+        <h2>Distribuição de Transações</h2>
+        <div id='classDistribution'></div>
+        <p><strong>Legenda:</strong> Classe 0 = Normal | Classe 1 = Fraude</p>
+    </div>
+    
+    <div class='card'>
+        <h2>Valores de Transações (Amount)</h2>
+        <div id='amountDistribution'></div>
+        <p>Valores <span class='highlight-green'>≤ 50</span> são frequentes | Valores <span class='highlight-red'>≥ 200</span> são raros</p>
+    </div>
+    
+    <div class='card'>
+        <h2>Outliers em Valores (Amount)</h2>
+        <div id='outliersPlot'></div>
+        <p>Valores atípicos identificados (ex: <span class='highlight-red'>378.66</span>)</p>
+    </div>
+    
+    <div class='card'>
+        <h2>Principais Correlações</h2>
+        <table>
             <tr>
-                <th>Variável</th>
-                <th>Média</th>
-                <th>Desvio Padrão</th>
-                <th>Assimetria</th>
+                <th>Variáveis</th>
+                <th>Correlação</th>
+                <th>Impacto em Fraude</th>
             </tr>
             <tr>
-                <td>Time</td>
-                <td class='highlight-green'>94.813</td>
-                <td>48.062</td>
-                <td class='highlight-red'>-0.035</td>
+                <td>V14 e Class</td>
+                <td class='highlight-red'>-0.31</td>
+                <td>Relação negativa</td>
             </tr>
             <tr>
-                <td>Amount</td>
-                <td class='highlight-green'>88.291</td>
-                <td>250.105</td>
-                <td class='highlight-red'>16.977</td>
-            </tr>
-            <tr>
-                <td>V1</td>
-                <td class='highlight-green'>0.008</td>
-                <td>1.952</td>
-                <td>-0.094</td>
+                <td>V10 e Class</td>
+                <td class='highlight-green'>+0.29</td>
+                <td>Relação positiva</td>
             </tr>
         </table>
-        
-        <h2>Conclusões</h2>
+    </div>
+    
+    <div class='card'>
+        <h2>Conclusões Gerais</h2>
         <ul>
-            <li>Time mostra distribuição uniforme com picos periódicos</li>
-            <li>Amount tem <span class='highlight-red'>alta assimetria positiva</span></li>
-            <li>Variáveis V1-V28 seguem distribuição normal padrão (média ≈ 0)</li>
-            <li>Classe apresenta desbalanceamento extremo (99.8% classe 0)</li>
+            <li>Dados <span class='highlight-green'>altamente desbalanceados</span> (fraudes representam minoria)</li>
+            <li>Variável <span class='highlight-red'>Amount</span> requer transformação (log/normalização) devido a outliers</li>
+            <li>Colunas <span class='highlight-green'>V10 e V14</span> são as mais relevantes para detecção de fraudes</li>
+            <li>Nenhuma coluna deve ser removida - todas contribuem para análise</li>
         </ul>
     </div>
 
     <script>
-        // Dados simulados baseados no contexto fornecido
-        const timeData = {
-            x: [...Array(30000).keys()],
-            type: 'histogram',
-            name: 'Time',
-            marker: {color: '#1f77b4'}
-        };
+        // Gráfico 1: Distribuição de Classes
+        Plotly.newPlot('classDistribution', [{
+            x: ['Normal (0)', 'Fraude (1)'],
+            y: [284315, 492],
+            type: 'bar',
+            marker: { color: ['#009900', '#ff0000'] }
+        }], {
+            title: 'Proporção de Transações Normais vs. Fraudulentas',
+            xaxis: { title: 'Tipo de Transação' },
+            yaxis: { title: 'Quantidade' }
+        });
         
-        const amountData = {
-            x: [149.62, 2.69, 378.66, 123.50, 69.99, 3.67, 4.99, 40.80, 93.20, 3.68],
+        // Gráfico 2: Distribuição de Amount
+        Plotly.newPlot('amountDistribution', [{
+            x: [5.99, 10.45, 2.56, 25.90, 378.66, 8.75, 15.20, 3.00, 50.80, 120.45],
             type: 'histogram',
+            marker: { color: '#0077b6' }
+        }], {
+            title: 'Frequência de Valores de Transação',
+            xaxis: { title: 'Amount (Valor em USD)' },
+            yaxis: { title: 'Frequência' }
+        });
+        
+        // Gráfico 3: Boxplot de Outliers
+        Plotly.newPlot('outliersPlot', [{
+            y: [2.56, 3.00, 5.99, 8.75, 10.45, 15.20, 25.90, 50.80, 120.45, 378.66],
+            type: 'box',
             name: 'Amount',
-            marker: {color: '#ff7f0e'}
-        };
-        
-        const vData = {
-            x: [-1.359, 1.191, -1.358, -0.966, -1.158, -0.426, 1.230, -0.644, -0.894, -0.338],
-            type: 'histogram',
-            name: 'V1-V6',
-            marker: {color: '#2ca02c'}
-        };
-        
-        Plotly.newPlot('time-plot', [timeData], {
-            title: 'Distribuição do Tempo entre Transações',
-            xaxis: {title: 'Segundos desde primeira transação'},
-            yaxis: {title: 'Contagem'}
-        });
-        
-        Plotly.newPlot('amount-plot', [amountData], {
-            title: 'Distribuição de Valores Transacionados (Amount)',
-            xaxis: {title: 'Valor (USD)', type: 'log'},
-            yaxis: {title: 'Contagem'}
-        });
-        
-        Plotly.newPlot('v1v6-plot', [vData], {
-            title: 'Distribuição das Variáveis V1-V6',
-            xaxis: {title: 'Valor'},
-            yaxis: {title: 'Contagem'}
+            boxpoints: 'all'
+        }], {
+            title: 'Detecção de Outliers em Valores',
+            yaxis: { title: 'Valor (USD)' }
         });
     </script>
 </body>
