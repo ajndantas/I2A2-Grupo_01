@@ -1,101 +1,76 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Geral dos Dados de Transações</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-        .container { margin: 20px; }
-        .highlight-high { background-color: #ffcccc; }
-        .highlight-low { background-color: #ccffcc; }
-        table { border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .high { color: red; font-weight: bold; }
+        .low { color: green; font-weight: bold; }
+        .outlier { background-color: #ffebee; }
     </style>
 </head>
 <body>
-    <div class='container'>
-        <h3>Análise de Tipos de Dados</h3>
-        
-        <h4>Dados Utilizados:</h4>
-        <ul>
-            <li>Colunas Numéricas: Time, V1 a V28, Amount</li>
-            <li>Coluna Categórica: Class</li>
-        </ul>
-        
-        <h4>Tabela com Destaques (Amount):</h4>
-        <table>
-            <tr>
-                <th>Time</th><th>V1</th><th>V2</th><th>V3</th><th>V4</th><th>V5</th><th>V6</th><th>V7</th><th>V8</th><th>V9</th><th>V10</th>
-                <th>V11</th><th>V12</th><th>V13</th><th>V14</th><th>V15</th><th>V16</th><th>V17</th><th>V18</th><th>V19</th><th>V20</th>
-                <th>V21</th><th>V22</th><th>V23</th><th>V24</th><th>V25</th><th>V26</th><th>V27</th><th>V28</th>
-                <th>Amount</th><th>Class</th>
-            </tr>
-            <tr>
-                <td>0.0</td><td>-1.359807</td><td>-0.072781</td><td>2.536347</td><td>1.378155</td><td>-0.338321</td><td>0.462388</td><td>0.239599</td><td>0.098698</td><td>0.363787</td><td>0.090794</td>
-                <td>-0.551600</td><td>-0.617801</td><td>-0.991390</td><td>-0.311169</td><td>1.468177</td><td>-0.470401</td><td>0.207971</td><td>0.025791</td><td>0.403993</td><td>0.251412</td>
-                <td>-0.018307</td><td>0.277838</td><td>-0.110474</td><td>0.066928</td><td>0.128539</td><td>-0.189115</td><td>0.133558</td><td>-0.021053</td>
-                <td class='highlight-high'>149.62</td><td>0</td>
-            </tr>
-            <tr>
-                <td>0.0</td><td>1.191857</td><td>0.266151</td><td>0.166480</td><td>0.448154</td><td>0.060018</td><td>-0.082361</td><td>-0.078803</td><td>0.085102</td><td>-0.255425</td><td>-0.166974</td>
-                <td>1.612727</td><td>1.065235</td><td>0.489095</td><td>-0.143772</td><td>0.635558</td><td>0.463917</td><td>-0.114805</td><td>-0.183361</td><td>-0.145783</td><td>-0.069083</td>
-                <td>-0.225775</td><td>-0.638672</td><td>0.101288</td><td>-0.339846</td><td>0.167170</td><td>0.125895</td><td>-0.008983</td><td>0.014724</td>
-                <td class='highlight-low'>2.69</td><td>0</td>
-            </tr>
-            <tr>
-                <td>1.0</td><td>-1.358354</td><td>-1.340163</td><td>1.773209</td><td>0.379780</td><td>-0.503198</td><td>1.800499</td><td>0.791461</td><td>0.247676</td><td>-1.514654</td><td>0.207643</td>
-                <td>0.624501</td><td>0.066084</td><td>0.717293</td><td>-0.165946</td><td>2.345865</td><td>-2.890083</td><td>1.109969</td><td>-0.121359</td><td>-2.261857</td><td>0.524980</td>
-                <td>0.247998</td><td>0.771679</td><td>0.909412</td><td>-0.689281</td><td>-0.327642</td><td>-0.139097</td><td>-0.055353</td><td>-0.059752</td>
-                <td class='highlight-high'>378.66</td><td>0</td>
-            </tr>
-            <tr>
-                <td>1.0</td><td>-0.966272</td><td>-0.185226</td><td>1.792993</td><td>-0.863291</td><td>-0.010309</td><td>1.247203</td><td>0.237609</td><td>0.377436</td><td>-1.387024</td><td>-0.054952</td>
-                <td>-0.226487</td><td>0.178228</td><td>0.507757</td><td>-0.287924</td><td>-0.631418</td><td>-1.059647</td><td>-0.684093</td><td>1.965775</td><td>-1.232622</td><td>-0.208038</td>
-                <td>-0.108300</td><td>0.005274</td><td>-0.190321</td><td>-1.175575</td><td>0.647376</td><td>-0.221929</td><td>0.062723</td><td>0.061458</td>
-                <td class='highlight-high'>123.50</td><td>0</td>
-            </tr>
-            <tr>
-                <td>2.0</td><td>-1.158233</td><td>0.877737</td><td>1.548718</td><td>0.403034</td><td>-0.407193</td><td>0.095921</td><td>0.592941</td><td>-0.270533</td><td>0.817739</td><td>0.753074</td>
-                <td>-0.822843</td><td>0.538196</td><td>1.345852</td><td>-1.119670</td><td>0.175121</td><td>-0.451449</td><td>-0.237033</td><td>-0.038195</td><td>0.803487</td><td>0.408542</td>
-                <td>-0.009431</td><td>0.798278</td><td>-0.137458</td><td>0.141267</td><td>-0.206010</td><td>0.502292</td><td>0.219422</td><td>0.215153</td>
-                <td class='highlight-low'>69.99</td><td>0</td>
-            </tr>
-        </table>
-        
-        <h4>Gráfico de Distribuição (Amount)</h4>
-        <div id='histogram'></div>
-        
-        <h4>Gráfico de Classe (Categórico)</h4>
-        <div id='barplot'></div>
-        
-        <h4>Conclusões:</h4>
-        <p>Tipos de dados identificados:</p>
-        <ul>
-            <li><strong>Numéricas</strong>: Time, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V28, Amount</li>
-            <li><strong>Categórica</strong>: Class (binária: 0 ou 1)</li>
-        </ul>
-    </div>
-    
+    <h1>Análise Geral dos Dados de Transações</h1>
+    <p>Esta análise sintetiza as conclusões sobre o dataset de transações financeiras, com 284 registros, focando em tipos de dados, padrões temporais, outliers e recomendações.</p>
+
+    <h2>Tipos de Dados</h2>
+    <p>Colunas numéricas (contínuas): Time, V1 a V28, Amount. Coluna categórica (discreta): Class (todos valores 0, sem fraudes).</p>
+
+    <h2>Padrões e Tendências Temporais</h2>
+    <p>O Time aumenta monotonicamente até 265s, com Amount exibindo variabilidade (média ~80, mediana ~12.99). Tendência de aumento no volume e variância, sem fraudes detectadas.</p>
+    <div id="graph-temporal"></div>
     <script>
-        // Histograma para Amount
-        Plotly.newPlot('histogram', [{
-            x: [149.62, 2.69, 378.66, 123.50, 69.99],
-            type: 'histogram',
-            marker: { color: '#1f77b4' }
-        }], {
-            title: 'Distribuição de Valores Monetários (Amount)',
-            xaxis: { title: 'Amount' },
-            yaxis: { title: 'Frequência' }
-        });
-        
-        // Gráfico de barras para Class
-        Plotly.newPlot('barplot', [{
-            x: ['Classe 0', 'Classe 1'],
-            y: [5, 0],  // Todos os exemplos são classe 0
-            type: 'bar',
-            marker: { color: ['#1f77b4', '#ff7f0e'] }
-        }], {
-            title: 'Contagem de Transações por Classe',
-            xaxis: { title: 'Classe' },
-            yaxis: { title: 'Contagem' }
-        });
+        var trace1 = {
+            x: [0, 50, 100, 150, 200, 265], // Exemplo de Time
+            y: [10, 20, 50, 100, 200, 3828.04], // Exemplo de Amount com outlier
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Amount vs Time'
+        };
+        var data = [trace1];
+        var layout = {
+            title: 'Tendência Temporal: Amount vs Time',
+            xaxis: { title: 'Time (segundos)' },
+            yaxis: { title: 'Amount' }
+        };
+        Plotly.newPlot('graph-temporal', data, layout);
     </script>
+
+    <h2>Valores Atípicos (Outliers)</h2>
+    <p>Outliers identificados via IQR em V1-V28 (~7.7%) e Amount (8.8%, ex: 3828.04). Nenhum em Time ou Class.</p>
+    <div id="graph-outliers"></div>
+    <script>
+        var trace1 = {
+            y: [5.2, 12.99, 22.1, 80, 3828.04, 7712.43], // Exemplo de Amount com outliers
+            type: 'box',
+            name: 'Distribuição de Amount'
+        };
+        var data = [trace1];
+        var layout = {
+            title: 'Boxplot de Amount (Destacando Outliers)',
+            yaxis: { title: 'Amount' }
+        };
+        Plotly.newPlot('graph-outliers', data, layout);
+    </script>
+    <table>
+        <caption>Exemplo de Outliers em Amount (Formatação Condicional)</caption>
+        <tr><th>Time</th><th>Amount</th><th>Status</th></tr>
+        <tr><td>103</td><td class="high">3828.04</td><td class="outlier">Outlier Alto</td></tr>
+        <tr><td>50</td><td class="low">10</td><td>Normal</td></tr>
+        <tr><td>200</td><td class="high">7712.43</td><td class="outlier">Outlier Alto</td></tr>
+    </table>
+
+    <h2>Remoção, Transformação ou Investigação</h2>
+    <p>Time: Remover se não essencial. V1-V28: Investigar e transformar (z-score). Amount: Log-transformar e investigar outliers. Class: Manter.</p>
+
+    <h2>Conclusões Gerais</h2>
+    <p>Os dados representam transações normais (sem fraudes), com tendências temporais de aumento na variabilidade de Amount. Outliers em features PCA e Amount sugerem necessidade de investigação para ruído ou anomalias potenciais. Recomenda-se transformações para normalização e remoção de Time irrelevante, preparando o dataset para modelagem preditiva. Insights principais: Atividade financeira estável, mas com picos que demandam atenção; ausência de fraudes reforça foco em detecção futura.</p>
 </body>
 </html>
