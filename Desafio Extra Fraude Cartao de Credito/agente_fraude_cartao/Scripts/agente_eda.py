@@ -38,9 +38,9 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
     print('\nExecutando agente 3...')
     
     template_query = """
-                        Aja como um analista de dados que analisou dados relativos a fraude de cartões de crédito e que obteve as conclusões abaixo de análises anteriores.                     de crédito fornecido.
+                        Aja como um analista de dados que analisou dados relativos a um dataset e que obteve as conclusões abaixo de análises anteriores.
                         
-                        Seja sucinto. deverá ser gerado um código HTML com a conclusão geral sobre os dados a respeito de fraude em transações de cartões de crédito.
+                        Seja sucinto. deverá ser gerado um código HTML com a conclusão geral sobre os dados.
                         
                         CONCLUSÕES ANTERIORES:
                         {conclusoes}
@@ -54,23 +54,18 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         Deverão ser seguidos os seguintes passos:
                         
                         PASSOS:
-                        1 - As colunas que começam com V são as variáveis.
-                        2 - A coluna Time -> Número de segundos passados desde a primeira transação.
-                        3 - A coluna Amount -> Valor da transação
-                        4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal   
-                        5 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
-                        6 - Inclua títulos e legendas para clareza.
-                        7 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 7.1, 7.2, 7.3, 7.4 e 7.4.1
-                        7.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
-                        7.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
-                        7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
-                        7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
-                        LEGENDAS, RETORNE PARA O PASSO 7
-                        8 - Incorpore tabelas, se necessário, para melhor visualização.
-                        9 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as conclusões anteriores e a ocorrência de 
-                        fraude.                      
+                        1 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
+                        2 - Inclua títulos e legendas para clareza.
+                        3 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
+                        dos gráficos, siga os passos 3.1, 3.2, 3.3, 3.4 e 3.4.1
+                        3.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
+                        3.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
+                        3.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
+                        3.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
+                        3.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
+                        LEGENDAS, RETORNE PARA O PASSO 3
+                        4 - Incorpore tabelas, se necessário, para melhor visualização.
+                        5 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as conclusões anteriores.                      
                         
                         {formatacao_saida}
                         
@@ -145,7 +140,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
 
         template_query = """
                             Qual query deve ser executada, ** SOMENTE PARA COLETAR OS DADOS, SEM REALIZAR QUALQUER OPERAÇÃO SOBRE ELES **, a fim de que se possa responder
-                            a pergunta "{pergunta}"? Os dados são relativos a fraude de cartões de crédito. Para isso, considere os passos a seguir
+                            a pergunta "{pergunta}"? Para isso, considere os passos a seguir
                                                              
                             IMPORTANTE: Use apenas SQL compatível com SQLite. Não utilize INFORMATION_SCHEMA nem outras tabelas/metadados que não existam no SQLite. 
                             Para metadados use PRAGMA table_info("{arquivo}").
@@ -154,19 +149,15 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                             
                             #######################################################################################
                             Considere os seguintes passos:
-                            1 - As colunas que começam com V são valores de variáveis
-                            2 - A coluna Time -> Número de segundos passados desde a primeira transação.
-                            3 - A coluna Amount -> Valor da transação
-                            4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal
-                            5 - Informações sobre os dados {describe}
-                            6 - Uma amostra dos dados {amostra}
-                            7 - As conclusões de análise anteriores foram {conclusoes}
-                            8 - A tabela possui {linhas} linhas
-                            9 - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
-                            10 - Usar apenas parte dos dados, usando WHERE ou outras cláusulas SQL.
-                            11 - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas}                           
-                            12 - O nome da tabela é {arquivo}.   
-                            13 - ** NÃO UTILIZE UNION **    
+                            1 - Informações sobre os dados {describe}
+                            2 - Uma amostra dos dados {amostra}
+                            3 - As conclusões de análise anteriores foram {conclusoes}
+                            4 - A tabela possui {linhas} linhas
+                            5 - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
+                            6 - Usar apenas parte dos dados, usando WHERE ou outras cláusulas SQL.
+                            7 - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas}                           
+                            8 - O nome da tabela é {arquivo}.   
+                            9 - ** NÃO UTILIZE UNION **    
                                                         
                             ########################################################################################
                             
@@ -266,8 +257,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     print('\nExecutando agente 2...')
     
     template_query = """
-                        Aja como um analista de dados e responda a seguinte PERGUNTA {pergunta} a respeito do arquivo de fraudes de cartão 
-                        de crédito fornecido.
+                        Aja como um analista de dados e responda a seguinte PERGUNTA {pergunta} a respeito de um dataset fornecido.
                         
                         Use as informações de contexto e conclusões anteriores abaixo.
                         
@@ -290,23 +280,19 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         Deverão ser seguidos os seguintes passos:
                         
                         PASSOS:
-                        1 - As colunas que começam com V são as variáveis.
-                        2 - A coluna Time -> Número de segundos passados desde a primeira transação.
-                        3 - A coluna Amount -> Valor da transação
-                        4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal   
-                        5 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
-                        6 - Inclua títulos e legendas para clareza.
-                        7 - Informe os dados utilizados.
-                        8 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4 e 8.4.1
-                        8.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        8.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
-                        8.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
-                        8.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
-                        8.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
-                        LEGENDAS, RETORNE PARA O PASSO 8 **
-                        9 - Incorpore tabelas, se necessário, para melhor visualização.
-                        10 - ** SEMPRE ADICIONE UMA SEÇÃO DE CONCLUSÕES ** no final ** INCLUÍNDO A RESPOSTA à PERGUNTA **                       
+                        1 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
+                        2 - Inclua títulos e legendas para clareza.
+                        3 - Informe os dados utilizados.
+                        4 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
+                        dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4 e 4.4.1
+                        4.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
+                        4.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
+                        4.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
+                        4.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
+                        4.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
+                        LEGENDAS, RETORNE PARA O PASSO 4 **
+                        5 - Incorpore tabelas, se necessário, para melhor visualização.
+                        6 - ** SEMPRE ADICIONE UMA SEÇÃO DE CONCLUSÕES ** no final ** INCLUÍNDO A RESPOSTA à PERGUNTA **                       
                         
                         {formatacao_saida}                                      
                         
@@ -376,8 +362,8 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
 
     print("Executando o agente 1...")
     
-    st.set_page_config(page_title="Agente Análise Fraude Cartão AI", layout="centered")
-    st.title("🤖 Agente Análise Fraude Cartão AI")
+    st.set_page_config(page_title="Agente EDA AI", layout="centered")
+    st.title("🤖 Agente EDA AI")
     
     # Inicializa session_state para os combos
     # SE NÃO FIZER ESSE TRATAMENTO DE SESSÃO, O STREAMLIT VAI COLAPSAR TODOS OS WIDGETS,  A CADA INTERAÇÃO COM A INTERFACE
@@ -584,7 +570,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
 if __name__ == "__main__":    
     
     # INICIALIZAÇÃO DO BANCO DE DADOS
-    engine = create_engine('sqlite:///./fraude_cartao.db', echo=False)
+    engine = create_engine('sqlite:///./dados.db', echo=False)
     
     # INTEGRAÇÃO COM A LLM
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
