@@ -25,15 +25,6 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 import transformers
 from re import findall,sub
 
-import logging
-import warnings
-from transformers import logging as transformers_logging
-
-logging.getLogger("transformers").setLevel(logging.ERROR) # Setando logs somente para o nível de erros
-warnings.filterwarnings("ignore")
-transformers_logging.set_verbosity_error() # Setando logs somente para o nível de erros
-
-
 set_debug(True)
 
 class ErroProcessamento(Exception):
