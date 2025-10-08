@@ -72,7 +72,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         7 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 7.1, 7.2, 7.3, 7.4 e 7.4.1
                         7.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script localizado em js/plotly.js                         
+                        7.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
                         7.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
                         7.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
                         7.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
@@ -309,7 +309,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         8 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4 e 8.4.1
                         8.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        8.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script localizado em js/plotly.js                         
+                        8.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
                         8.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
                         8.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
                         8.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
