@@ -77,13 +77,12 @@ streamlit run agente_fraudecredito.py
 
 Arquivo exemplo com os dados para a análise -> [creditcard.zip](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip)
 
-
 ---
 
 ## 🖥️ Demo Online
 
 Não quer instalar nada? A gente tem uma versão de testes hospedada aqui 👉
-[🔗 Acesse a demo](https://agente-fraude-cartao-credito.streamlit.app/)
+[🔗 Acesse a demo](https://agente-eda-ai.streamlit.app/)
 
 ---
 
