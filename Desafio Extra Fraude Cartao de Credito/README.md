@@ -77,9 +77,12 @@ streamlit run agente_fraudecredito.py
 
 Arquivo com os dados para a análise -> [creditcard.zip](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip)
 
-1 - As colunas que começam com V são as variáveis.Essas colunas foram anonimizadas
+1 - As colunas que começam com V são as variáveis. Essas colunas foram anonimizadas
+
 2 - A coluna Time -> Número de segundos passados desde a primeira transação.
+
 3 - A coluna Amount -> Valor da transação
+
 4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal
 
 ---
