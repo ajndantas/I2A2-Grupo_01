@@ -1,7 +1,7 @@
-# 🤖 Agente Análise de Fraudes em Cartões de Crédito
+# 🤖 Agente EDA AI
 
 Fala, dev! 👋
-Esse projeto é um **sistema inteligente para análise de fraudes em cartões de crédito**.
+Esse projeto é um **sistema inteligente para realziar análise de dados a partir de um dataset disponibilizado**.
 A ideia é simples: você faz o upload dos seus dados (CSV), escolhe perguntas já pré-configuradas ou faz novas análises, e a IA devolve gráficos, tabelas e até uma conclusão geral sobre os padrões encontrados nos dados.
 
 ---
@@ -10,8 +10,8 @@ A ideia é simples: você faz o upload dos seus dados (CSV), escolhe perguntas j
 
 O sistema ajuda a:
 
-- Entender melhor os dados de transações financeiras 🏦
-- Descobrir padrões suspeitos 🔎
+- Entender melhor os dados fornecidos 🏦
+- Descobrir padrões 🔎
 - Identificar outliers e anomalias 🚨
 - Visualizar relações entre variáveis com gráficos maneiros 📊
 - Ter uma conclusão geral da análise sem dor de cabeça 😎
@@ -75,15 +75,8 @@ Rode a aplicação:
 streamlit run agente_fraudecredito.py
 ```
 
-Arquivo com os dados para a análise -> [creditcard.zip](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip)
+Arquivo exemplo com os dados para a análise -> [creditcard.zip](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip)
 
-1 - As colunas que começam com V são as variáveis. Essas colunas foram anonimizadas
-
-2 - A coluna Time -> Número de segundos passados desde a primeira transação.
-
-3 - A coluna Amount -> Valor da transação
-
-4 - A coluna Class -> Indicação de fraude ou não. 1 = fraudulenta, 0 = normal
 
 ---
 
