@@ -586,7 +586,7 @@ if __name__ == "__main__":
         #model="tngtech/deepseek-r1t2-chimera:free",
         model="x-ai/grok-4-fast",
         base_url="https://openrouter.ai/api/v1",
-        temperature=0.4,
+        temperature=0.3,
         cache=True,        
         reasoning_effort="high",                
         api_key=getenv("API_KEY")        
