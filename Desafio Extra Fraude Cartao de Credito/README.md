@@ -47,7 +47,7 @@ Faça o download do código, do arquivo requirements.txt e do script plotly.js p
 
 [Arquivo requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/requirements.txt)
 
-[plotly.js](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/js/plotly.js) (Deve ser salvo dentro da pasta "Scripts")
+[plotly.js](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/js/plotly.js)
 
 Crie um ambiente virtual e ative:
 
