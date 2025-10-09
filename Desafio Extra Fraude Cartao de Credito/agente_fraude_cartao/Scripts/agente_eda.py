@@ -567,6 +567,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
 # [markdown]
 # ### <b>TESTANDO</b>
 
+
 if __name__ == "__main__":    
     
     # INICIALIZAÇÃO DO BANCO DE DADOS
@@ -587,8 +588,8 @@ if __name__ == "__main__":
         model="x-ai/grok-4-fast",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
-        cache=True,        
-        reasoning_effort="high",                
+        reasoning_effort="high",
+        cache=True,              
         api_key=getenv("API_KEY")        
     )
     
