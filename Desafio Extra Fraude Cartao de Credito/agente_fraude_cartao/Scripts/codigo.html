@@ -2,207 +2,150 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise de Tipos de Dados</title>
+    <title>Análise de Tipos de Dados - Fraudes de Cartão de Crédito</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .numerico { background-color: #d4edda; }
-        .categorico { background-color: #f8d7da; }
-        h1, h2 { color: #333; }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #0056b3;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .conclusion {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+        }
     </style>
 </head>
 <body>
-    <h1>Análise de Tipos de Dados do Dataset</h1>
-    <p><strong>Dados utilizados:</strong> O dataset consiste em colunas com tipos fornecidos no contexto: Time (FLOAT), V1 a V28 (FLOAT), Amount (FLOAT) e Class (BIGINT). Total de 30 colunas, todas numéricas.</p>
-    
-    <h2>Tabela de Colunas e Tipos</h2>
+
+<div class="container">
+    <h1>Análise de Tipos de Dados - Fraudes de Cartão de Crédito</h1>
+
+    <h2>Dados Utilizados</h2>
+    <p>A análise foi realizada com base em um extrato de 90 transações do conjunto de dados de fraudes de cartão de crédito, conforme fornecido no contexto.</p>
+
+    <h2>Tipos de Dados por Coluna</h2>
+    <p>A seguir, a classificação de cada coluna do conjunto de dados como numérica ou categórica.</p>
     <table>
-        <tr>
-            <th>Nome da Coluna</th>
-            <th>Tipo</th>
-            <th>Categoria</th>
-        </tr>
-        <tr>
-            <td>Time</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V1</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V2</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V3</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V4</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V5</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V6</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V7</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V8</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V9</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V10</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V11</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V12</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V13</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V14</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V15</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V16</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V17</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V18</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V19</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V20</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V21</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V22</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V23</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V24</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V25</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V26</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V27</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>V28</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>Amount</td>
-            <td>FLOAT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
-        <tr>
-            <td>Class</td>
-            <td>BIGINT</td>
-            <td class="numerico">Numérico</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Nome da Coluna</th>
+                <th>Tipo de Dado</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Time</td>
+                <td>Numérico (Contínuo)</td>
+                <td>Segundos decorridos desde a primeira transação.</td>
+            </tr>
+            <tr>
+                <td>V1 - V28</td>
+                <td>Numérico (Contínuo)</td>
+                <td>Variáveis anônimas (resultantes de PCA).</td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td>Numérico (Contínuo)</td>
+                <td>Valor da transação.</td>
+            </tr>
+            <tr>
+                <td>Class</td>
+                <td>Categórico (Binário)</td>
+                <td>Indica se a transação é fraudulenta (1) ou não (0).</td>
+            </tr>
+        </tbody>
     </table>
-    
-    <h2>Gráfico de Distribuição de Tipos de Dados</h2>
-    <p>Legenda: Gráfico de barras mostrando a contagem de colunas por tipo (numérico vs categórico). Eixo X: Tipos; Eixo Y: Contagem de colunas.</p>
-    <div id="grafico" style="width:600px;height:400px;"></div>
-    
-    <script>
-        var trace1 = {
-            x: ['Numérico', 'Categórico'],
-            y: [30, 0],
-            type: 'bar',
-            marker: {color: ['green', 'red']}
-        };
-        var data = [trace1];
-        var layout = {
-            title: 'Distribuição de Tipos de Dados',
-            xaxis: {title: 'Tipo de Dado'},
-            yaxis: {title: 'Contagem de Colunas'}
-        };
-        Plotly.newPlot('grafico', data, layout);
-    </script>
-    
-    <h2>Conclusões</h2>
-    <p>Todas as colunas do dataset são de tipos numéricos: Time, V1 a V28, Amount (FLOAT - numérico contínuo) e Class (BIGINT - numérico discreto). Não há colunas categóricas. Resposta à pergunta: Os tipos de dados são predominantemente numéricos, sem presença de dados categóricos.</p>
+
+    <h2>Visualização dos Dados</h2>
+    <p>Os gráficos abaixo ilustram a distribuição de algumas variáveis chave com base nos dados fornecidos.</p>
+    <div id="class-distribution-chart"></div>
+    <div id="amount-histogram-chart"></div>
+
+    <div class="conclusion">
+        <h2>Conclusões</h2>
+        <p>A análise do conjunto de dados de fraudes de cartão de crédito revela a seguinte classificação dos tipos de dados:</p>
+        <ul>
+            <li><strong>Colunas Numéricas:</strong> A grande maioria das colunas, incluindo <strong>Time</strong>, <strong>Amount</strong>, e todas as variáveis de <strong>V1 a V28</strong>, são numéricas. Elas representam quantidades mensuráveis, como tempo e valor monetário, ou componentes principais que são contínuos por natureza.</li>
+            <li><strong>Coluna Categórica:</strong> A coluna <strong>Class</strong> é a única variável categórica. Ela é binária, representando duas categorias distintas: '0' para transações normais e '1' para transações fraudulentas.</li>
+        </ul>
+        <p>Essa distinção é fundamental para a modelagem de detecção de fraudes, onde a variável `Class` serve como o alvo (target) a ser previsto, e as variáveis numéricas atuam como preditores (features).</p>
+    </div>
+
+</div>
+
+<script>
+    // Dados extraídos do contexto para os gráficos
+    const amountData = [149.62, 2.69, 378.66, 123.50, 69.99, 3.67, 4.99, 40.80, 93.20, 3.68, 7.80, 9.99, 121.50, 27.50, 58.80, 15.99, 12.99, 0.89, 46.80, 5.00, 231.71, 34.09, 2.28, 22.75, 0.89, 26.43, 41.88, 16.00, 33.00, 12.99, 17.28, 4.45, 6.14, 6.14, 1.77, 1.77, 30.49, 1.80, 20.53, 6.54, 29.89, 2.35, 14.80, 9.10, 15.99, 21.34, 18.95, 9.99, 30.90, 20.22, 0.99, 1402.95, 7.99, 2.09, 0.99, 21.76, 120.96, 13.84, 13.84, 2.67, 169.05, 96.94, 34.13, 32.51, 243.66, 21.55, 59.90, 0.75, 45.71, 35.00, 67.97, 11.45, 3.63, 21.66, 26.72, 13.18, 59.99, 135.51, 9.79, 14.80, 1.98, 6.67, 1.46, 89.17, 7.53, 200.01, 0.76, 20.22, 10.84, 1142.02, 149.90, 89.40, 26.72, 5.99, 34.70, 54.99, 7.55, 19.85, 28.28, 15.99];
+    // No contexto fornecido, todas as 90 transações são da classe 0 (Normal).
+    const classData = {normal: 90, fraud: 0};
+
+    // Gráfico de Barras para a Distribuição da Classe
+    const trace1 = {
+        x: ['Normal (0)', 'Fraude (1)'],
+        y: [classData.normal, classData.fraud],
+        type: 'bar',
+        marker: {
+            color: ['#1f77b4', '#d62728']
+        }
+    };
+    const layout1 = {
+        title: 'Distribuição da Classe de Transação (Amostra)',
+        xaxis: { title: 'Classe' },
+        yaxis: { title: 'Contagem' }
+    };
+    Plotly.newPlot('class-distribution-chart', [trace1], layout1);
+
+    // Histograma para a Distribuição do Valor da Transação
+    const trace2 = {
+        x: amountData,
+        type: 'histogram',
+        marker: {
+            color: 'green',
+        },
+        xbins: {
+            size: 50
+        }
+    };
+    const layout2 = {
+        title: 'Distribuição do Valor da Transação (Amount)',
+        xaxis: { title: 'Valor (Amount)' },
+        yaxis: { title: 'Frequência' }
+    };
+    Plotly.newPlot('amount-histogram-chart', [trace2], layout2);
+
+</script>
+
 </body>
 </html>
