@@ -16,7 +16,7 @@ from sqlalchemy import create_engine, text, Engine
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.cache import InMemoryCache
 from langchain.globals import set_debug, set_llm_cache
 import streamlit as st
@@ -33,7 +33,7 @@ class ErroProcessamento(Exception):
 # [markdown]
 # ### <b>AGENTE 3: Conclusão Geral</b>
 
-def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
+def agente3(llm:ChatGoogleGenerativeAI, conclusoes:List[Dict[str,str]]) -> Dict:
 
     print('\nExecutando agente 3...')
     
@@ -250,7 +250,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                             
         return query
 
-def rag(arquivo:UploadedFile, pergunta:str, llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]], qtd_tokens:int, taxa_reducao:float) -> str:
+def rag(arquivo:UploadedFile, pergunta:str, llm:ChatGoogleGenerativeAI, engine:Engine, conclusoes:List[Dict[str,str]], qtd_tokens:int, taxa_reducao:float) -> str:
     
     df = read_csv(arquivo)
     
@@ -261,7 +261,7 @@ def rag(arquivo:UploadedFile, pergunta:str, llm:ChatOpenAI, engine:Engine, concl
             
     return query
 
-def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, conclusoes, qtd_tokens:int, taxa_reducao:float) -> Any:
+def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatGoogleGenerativeAI, engine:Engine, conclusoes, qtd_tokens:int, taxa_reducao:float) -> Any:
 
     print('\nExecutando agente 2...')
     
@@ -512,7 +512,7 @@ def css():
 # <ul><li>Interface para upload manual do arquivo</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens,taxa_reducao:float): # FRONTEND
+def agente1(llm:ChatGoogleGenerativeAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens,taxa_reducao:float): # FRONTEND
 
     print("Executando o agente 1...")
     
@@ -737,11 +737,11 @@ if __name__ == "__main__":
     #qtd_tokens = 2000000
     #qtd_tokens = 66000
     
-    llm = ChatOpenAI(
+    llm = ChatGoogleGenerativeAI(
         #model="microsoft/mai-ds-r1:free",
-        model="tngtech/deepseek-r1t2-chimera:free",
+        model="google/gemini-2.5-pro",
         #model="x-ai/grok-4-fast",
-        base_url="https://openrouter.ai/api/v1",
+        #base_url="https://openrouter.ai/api/v1",
         temperature=0.4,
         cache=True,        
         reasoning_effort="high",                
