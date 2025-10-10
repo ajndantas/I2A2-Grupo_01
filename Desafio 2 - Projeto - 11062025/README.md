@@ -1,147 +1,136 @@
-# 📄 Agente Inteligente para Análise de Documentos Fiscais
+# 🤖 Agente Inteligente de Documentos Fiscais
 
-Este projeto utiliza **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract, OpenCV, Streamlit **e** **SQLAlchemy** para analisar, extrair e responder perguntas sobre **Documentos Fiscais, tais como NF-e** a partir de arquivos PDF, PNG e CSV.**
-
----
-
-## 🚀 Funcionalidades Principais
-
-### 🧠 Agente 1: Aquisição e Validação de Documentos
-
-- Responsável por obter documentos fiscais (NF-e) em formatos de imagem e PDF, provenientes de upload manual realizados pelo usuário ou download de órgãos governamentais.
+Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract**, **OpenCV**, **Streamlit** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Notas Fiscais (NF-e)** — direto de **PDFs, imagens (PNG)** ou **arquivos CSV**.
 
 ---
 
-### 🧪 Agente 2: Extração e Geração de Queries com IA
+## 🚀 O que esse projeto faz
 
-- Processa os documentos adquiridos, utilizando OCR para extrair dados e aprender novos layouts com apoio de LLM, garantindo a extração precisa de informações fiscais relevantes.
-
----
-
-### 💬 Agente 3: Resposta Inteligente
-
-- Acessa um Large Language Model (LLM) e, utilizando os  dados  da  Base  de  Conhecimento,  responde  às  perguntas  dos  usuários  sobre  as informações fiscais.
+### 🧠 Agente 1 — Caçador de Documentos  
+Pega as notas fiscais (NF-e) enviadas pelo usuário ou baixadas de órgãos oficiais. Aceita PDF e imagem, sem frescura.
 
 ---
 
-## 🖥️ Frontend: Interface com Streamlit
-
-- Upload de arquivos PDF, PNG e CSV via interface web.
-- Campo para perguntas em Linguagem Natural
-- Exibição de resultados em formato de tabela interativa.
-- Feedback amigável em caso de erro ou ausência de resposta.
+### 🧪 Agente 2 — O “Decifrador”  
+Usa OCR pra extrair dados e o poder das LLMs pra entender diferentes formatos de nota. Ou seja: quanto mais usa, melhor ele fica!
 
 ---
 
-## 🛠️ Requisitos
-
-- Python **3.10** ou superior
-- **API Key do provedor OpenRouter. (Informar uma chave do [OpenRouter ](https://openrouter.ai/)no arquivo .env, para o caso de instalação utilizando o fonte).**
-
-## 🖥️ Demo Online
-
-Não quer instalar nada? A gente tem uma versão de testes hospedada aqui 👉
-[🔗 Acesse a demo](https://agentenfe.streamlit.app/)
-
-## 📦 Instalação
-
-### 1 - Utilizando Docker (Mais fácil)
-
-1. Baixe e instale o docker desktop para o seu sistema em https://www.docker.com/products/docker-desktop/
-2. Abra o Docker Desktop
-3. Como administrador, abra um terminal e execute os comandos:
-   1. docker pull ghcr.io/ajndantas/agente_nfs
-   2. docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
-4. Abra o link http://localhost:8000
-
-Arquivos para teste:
-
-* [PDF](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)
-* [PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
+### 💬 Agente 3 — O Sabe-Tudo  
+Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraídos — tudo baseado na base de conhecimento criada pelos outros agentes.
 
 ---
 
-### 2 - Utilizando o código fonte
+## 🖥️ Interface Web (Streamlit)
 
-### Instalando o Tesseract e o Poppler
+- Suba seus arquivos (PDF, PNG ou CSV) direto pelo navegador.  
+- Faça perguntas em **linguagem natural** (“Qual o valor total da nota?”, por exemplo).  
+- Veja os resultados em uma **tabela interativa**.  
+- E, se algo der errado, receba um feedback simpático em vez de um erro indecifrável.
 
-**A) Linux**
+---
 
+## 🧩 Requisitos
+
+- **Python 3.10+**  
+- **Chave de API** do [OpenRouter](https://openrouter.ai/) (coloque no arquivo `.env` se for rodar localmente).
+
+---
+
+## 🖥️ Quer só testar?
+
+Sem instalar nada:  
+👉 [Acesse a versão online](https://agentenfe.streamlit.app/)
+
+---
+
+## 🐳 Instalação com Docker (modo fácil)
+
+1. Instale o [Docker Desktop](https://www.docker.com/products/docker-desktop/)  
+2. Abra o Docker  
+3. No terminal (como admin), rode:
+   ```bash
+   docker pull ghcr.io/ajndantas/agente_nfs
+   docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
+   ```
+4. Pronto! Acesse [http://localhost:8000](http://localhost:8000)
+
+🧾 Arquivos de teste:  
+- [PDFs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)  
+- [Imagens PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
+
+---
+
+## 💻 Instalação Manual (modo raiz)
+
+### 1️⃣ Instalar Tesseract e Poppler
+
+**Linux:**
+```bash
 apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-por poppler-utils file libmagic1 curl build-essential libgl1-mesa-glx
-
-**B) Windows**
-
-1. Instalar o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki). Marcar "Additional language data (download)"
-2. Instalar o Poppler
-   1. Baixar o arquivo [poppler.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/poppler.zip). (Caso perguntado pelo Google, insista em fazer o download)
-   2. Descompactar o arquivo e colocar a pasta poppler dentro da pasta Script do ambiente virtual que será criado. Seção abaixo
-
-### Instalando o Python
-
-**Recomendado criar um ambiente virtual. Execute os comandos**
-
 ```
+
+**Windows:**
+1. Instale o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki) (marque “Additional language data”).  
+2. Baixe o [Poppler.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/poppler.zip), descompacte e coloque a pasta `poppler` dentro do ambiente virtual.
+
+---
+
+### 2️⃣ Criar o ambiente Python
+
+```bash
 python -m venv venv
-venv\Scripts\activate # Windows
+venv\Scripts\activate   # Windows
 ```
 
-**Faça o download dos arquivos a seguir para dentro da pasta Scripts. (Caso perguntado pelo Google, insista em fazer o download)**
+Baixe os arquivos necessários (links no repositório) e jogue tudo na pasta `Scripts`.
 
-- [requirements.txt (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/requirements.txt)
-- [requirements_linux.txt (Linux)](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt)
-- [agente_nfs.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfs.py)
-- [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
-- [libmagic.ddl (Windows) ](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/libmagic.dll)
-- [magic.mgc (Windows)](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Lib/site-packages/magic/libmagic/magic.mgc)
-- [.env](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/.env) (Salvar com esse nome mesmo. Sem extensão. Informe sua chave para a Google API)
+Depois, instale as dependências:
 
-**Dentro da pasta Script, execute:**
-
-```
-1 - Instalação das dependências:
-- Se for Windows -> pip install -r requirements.txt
-- Se for Linux -> pip install -r requirements_linux.txt
-
-2 - Execute no terminal o comando -> streamlit run agente_nfs.py --server.port 8000
-3 - Abra o link http://localhost:8000
+```bash
+pip install -r requirements.txt     # Windows
+pip install -r requirements_linux.txt  # Linux
 ```
 
-Arquivos para teste:
+E rode o app:
 
-* [PDF](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)
-* [PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
+```bash
+streamlit run agente_nfs.py --server.port 8000
+```
+
+Acesse: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 📈 Exemplo de Perguntas Suportadas
+## 🧠 Exemplos de perguntas
 
-- Quem são os destinatários ou tomadores de serviço ?
-- Qual é o valor total da nota ?
-- Qual é a descrição dos serviços ou itens ?
-- Quem descobriu o Brasil? *(Teste para detectar perguntas não relacionadas)*
-
----
-
-## ⚙️ Tecnologias Utilizadas
-
-- **Streamlit** – Frontend Web
-- **LangChain** – Orquestração de LLMs
-- **Microsoft: MAI-DS R1**  – LLM
-- **Tesseract**
-- **OpenCV**
-- **SQLAlchemy + SQLite** – Persistência de Dados
-- **Pandas** – Manipulação de DataFrames
-- **Python-dotenv** – Gestão de variáveis de ambiente
+- “Quem é o destinatário da nota?”  
+- “Qual o valor total?”  
+- “Quais os produtos ou serviços listados?”  
+- “Quem descobriu o Brasil?” (Sim, ele vai saber que isso não tem nada a ver 😅)
 
 ---
 
-## 📌 Observações Importantes
+## ⚙️ Tecnologias que dão vida a tudo isso
 
-- Este projeto está focado em **experimentação com IA aplicada a documentos fiscais**.
-- O sistema foi estruturado com **agentes independentes** para facilitar futura expansão (OCR, aprendizado de layouts, etc).
+- 🧱 **Streamlit** – Interface web  
+- 🧩 **LangChain** – Orquestração de LLMs  
+- 🤖 **Microsoft MAI-DS R1** – O cérebro por trás das respostas  
+- 🔍 **Tesseract** – OCR pra ler notas  
+- 🎥 **OpenCV** – Processamento de imagem  
+- 🗄️ **SQLAlchemy + SQLite** – Banco de dados  
+- 📊 **Pandas** – Manipulação de dados  
+- 🔐 **Python-dotenv** – Variáveis de ambiente
+
+---
+
+## 💡 Observações
+
+- Projeto voltado pra **experimentar IA em documentos fiscais**.  
+- Sistema modular: cada agente faz sua parte, e fica fácil adicionar novos depois (como outros modelos OCR ou novas fontes de dados).
 
 ---
 
 ## 📃 Licença
 
-Este projeto é de código aberto e está sob a licença **MIT**.
+Código aberto sob **licença MIT**
