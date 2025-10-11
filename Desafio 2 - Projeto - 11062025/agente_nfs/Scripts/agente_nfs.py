@@ -323,12 +323,93 @@ def agente2(pergunta,arquivo,engine):
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
+def css():
+    st.markdown("""
+        <style>
+        /* Fundo geral */
+        .stApp {
+            background-color: #013440;
+            background-image: linear-gradient(135deg, #013440 40%, #02545C 100%);
+            color: #F2F2F2;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        /* Título */
+        h1 {
+            color: #00C2CB;
+            text-align: center;
+            font-size: 2.3em;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Textos e inputs */
+        .stTextInput label, .stFileUploader label, .stTextArea label {
+            color: #CDE7E8 !important;
+            font-weight: bold;
+        }
+
+        /* Centralizar o botão */
+        div.stButton {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Botão principal */
+        div.stButton > button:first-child {
+            background: linear-gradient(90deg, #028090, #00C2CB);
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            padding: 0.6em 1.4em;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Hover do botão */
+        div.stButton > button:hover {
+            background: linear-gradient(90deg, #00C2CB, #028090);
+            transform: scale(1.05);
+        }
+
+        /* Caixas de resultado */
+        .stDataFrame, .stTable {
+            background-color: #012E36;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        }
+
+        /* Mensagens */
+        .stSuccess, .stWarning, .stError {
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Links */
+        a {
+            color: #00C2CB;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #F2F2F2;
+            text-decoration: underline;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+
 def agente1(engine): # FRONTEND
 
     print("Executando o agente 1...")
     
     st.set_page_config(page_title="Agente NFe", layout="centered")
     st.title("🤖 Agente NFe")
+    
+    css()
     
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip" target="_blank">Ex: Arquivo PDF, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip" target="_blank">Arquivo PNG, </a>', unsafe_allow_html=True)

@@ -27,6 +27,7 @@ from re import findall,sub
 
 set_debug(True)
 
+
 class ErroProcessamento(Exception):
     pass
 
@@ -364,7 +365,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
     
     st.set_page_config(page_title="Agente EDA AI", layout="centered")
     st.title("🤖 Agente EDA AI")
-    
+        
     # Inicializa session_state para os combos
     # SE NÃO FIZER ESSE TRATAMENTO DE SESSÃO, O STREAMLIT VAI COLAPSAR TODOS OS WIDGETS,  A CADA INTERAÇÃO COM A INTERFACE
     if 'distribuicao_done' not in st.session_state: # if chave not in session_state. A chave não pode se chamar base_dias, porque esse já é nome escolhido pelo streamlit
