@@ -78,7 +78,7 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 **Windows:**
 
 1. Instale o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki) (marque “Additional language data”).
-2. Baixe o [Poppler.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/poppler.zip), descompacte e coloque a pasta `poppler` dentro da pasta Scripts 
+2. Baixe o [Poppler.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/poppler.zip), descompacte e coloque a pasta `poppler` dentro da pasta Scripts
 
 ### 2️⃣ Criar o ambiente Python
 
@@ -87,7 +87,7 @@ python -m venv venv
 venv\Scripts\activate   # Windows
 ```
 
-Baixe os arquivos necessários (links no repositório) e jogue tudo na pasta `Scripts`.
+Baixe os arquivos necessários e jogue tudo na pasta `Scripts`.
 
 1 - Dependências: [requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/requirements.txt) (Para Windows), [requirements_linux.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt) (Para Linux)
 
