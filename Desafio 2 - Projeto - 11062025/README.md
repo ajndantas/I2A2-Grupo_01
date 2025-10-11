@@ -43,7 +43,7 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 ## 🖥️ Quer só testar?
 
 Sem instalar nada:
-👉 [Acesse a versão online](https://agentenfe.streamlit.app/)
+👉 [Acesse a versão online](https://agente-nfs.streamlit.app/)
 
 ---
 
