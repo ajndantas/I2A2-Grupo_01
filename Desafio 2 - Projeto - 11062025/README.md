@@ -43,7 +43,7 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 ## 🖥️ Quer só testar?
 
 Sem instalar nada:
-👉 [Acesse a versão online](https://agente-nfs.streamlit.app/)
+👉 [Acesse a versão online](https://agente-nfe.streamlit.app/)
 
 ---
 
@@ -91,6 +91,12 @@ venv\Scripts\activate   # Windows
 
 Baixe os arquivos necessários (links no repositório) e jogue tudo na pasta `Scripts`.
 
+1 - Dependências: [requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/requirements.txt) (Para Windows), [requirements_linux.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt) (Para Linux)
+
+2 - Script Python: [agente_nfe.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfe.py)
+
+3 - Script OCR: [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
+
 Depois, instale as dependências:
 
 ```bash
@@ -101,7 +107,7 @@ pip install -r requirements_linux.txt  # Linux
 E rode o app:
 
 ```bash
-streamlit run agente_nfs.py --server.port 8000
+streamlit run agente_nfe.py --server.port 8000
 ```
 
 Acesse: [http://localhost:8000](http://localhost:8000)
