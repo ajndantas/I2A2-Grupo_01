@@ -1,7 +1,7 @@
 # 🤖 Agente EDA AI
 
 Fala, dev! 👋
-Esse projeto é um **sistema inteligente para realziar análise de dados a partir de um dataset disponibilizado**.
+Esse projeto é um **sistema inteligente para realizar análise exploratória de dados, a partir de um dataset disponibilizado**.
 A ideia é simples: você faz o upload dos seus dados (CSV), escolhe perguntas já pré-configuradas ou faz novas análises, e a IA devolve gráficos, tabelas e até uma conclusão geral sobre os padrões encontrados nos dados.
 
 ---
@@ -34,7 +34,7 @@ Ele é dividido em **3 agentes** principais:
 
 - Python 🐍
 - Streamlit 💻
-- LangChain + [TNG: DeepSeek R1T2 Chimera (free)](https://openrouter.ai/tngtech/deepseek-r1t2-chimera:free) LLM 🤯
+- LangChain + [TNG: DeepSeek R1T2 Chimera (free)](https://huggingface.co/tngtech/DeepSeek-TNG-R1T2-Chimera) LLM 🤯
 - Pandas, SQLAlchemy e [Plotly](https://plotly.com/javascript/)📊
 
 ---
