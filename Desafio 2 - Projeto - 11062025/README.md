@@ -53,8 +53,8 @@ Sem instalar nada:
 2. Abra o Docker
 3. No terminal (como admin), rode:
    ```bash
-   docker pull ghcr.io/ajndantas/agente_nfs
-   docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
+   docker pull ghcr.io/ajndantas/agente_nfe
+   docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfe
    ```
 4. Pronto! Acesse [http://localhost:8000](http://localhost:8000)
 

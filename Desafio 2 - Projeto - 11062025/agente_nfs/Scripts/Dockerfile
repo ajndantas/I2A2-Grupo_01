@@ -34,9 +34,9 @@ RUN pip install --no-cache-dir jupyter
 
 # Copie o restante do código da sua aplicação para o diretório de trabalho
 
-COPY agente_nfs.ipynb .
+COPY agente_nfe.ipynb .
 # Converte o notebook para script Python
-RUN jupyter nbconvert --to script agente_nfs.ipynb
+RUN jupyter nbconvert --to script agente_nfe.ipynb
 
 COPY motor_ocr_otimizado.py .
 
@@ -48,7 +48,7 @@ EXPOSE 8000
 
 # Defina o comando para executar a aplicação
 # Adicionadas flags para lidar com CORS e XSRF, comuns ao rodar em contêineres
-CMD ["streamlit", "run", "agente_nfs.py", "--server.port", "8000", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
+CMD ["streamlit", "run", "agente_nfe.py", "--server.port", "8000", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
 # Para baixar -> docker pull ghcr.io/ajndantas/agente_nfs:latest
