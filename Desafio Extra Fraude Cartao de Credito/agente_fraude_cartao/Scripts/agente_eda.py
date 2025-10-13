@@ -364,7 +364,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
     print("Executando o agente 1...")
     
     st.set_page_config(page_title="Agente EDA AI", layout="centered")
-    st.title("🤖 Agente EDA AI")
+    st.title("Agente EDA AI")
         
     # Inicializa session_state para os combos
     # SE NÃO FIZER ESSE TRATAMENTO DE SESSÃO, O STREAMLIT VAI COLAPSAR TODOS OS WIDGETS,  A CADA INTERAÇÃO COM A INTERFACE
