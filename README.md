@@ -11,8 +11,11 @@ Sistema de IA que realiza **análise exploratória automatizada (EDA)** a partir
 Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights inteligentes**.
 
 **🎯 Objetivo:** Identificar padrões, outliers e relações entre variáveis usando LLMs.
+
 **🧠 Tecnologias:** Python, Streamlit, LangChain, DeepSeek Chimera, Plotly, Pandas, SQLAlchemy.
+
 **🌐 Demonstração:** [agente-eda-ai.streamlit.app](https://agente-eda-ai.streamlit.app)
+
 **📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/README.md)
 
 ---
@@ -23,8 +26,11 @@ Aplicação que combina **OCR e LLMs** para interpretar **notas fiscais** em PDF
 Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas sobre os dados extraídos.
 
 **🎯 Objetivo:** Automatizar a leitura e análise de notas fiscais com IA.
+
 **🧠 Tecnologias:** Python, Streamlit, LangChain, MAI-DS R1, Tesseract, OpenCV, SQLAlchemy, Pandas.
+
 **🌐 Demonstração:** [agente-nfe.streamlit.app](https://agente-nfe.streamlit.app)
+
 **📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)
 
 ---
