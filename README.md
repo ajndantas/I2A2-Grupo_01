@@ -25,7 +25,7 @@ Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas so
 **🎯 Objetivo:** Automatizar a leitura e análise de notas fiscais com IA.  
 **🧠 Tecnologias:** Python, Streamlit, LangChain, MAI-DS R1, Tesseract, OpenCV, SQLAlchemy, Pandas.  
 **🌐 Demonstração:** [agente-nfe.streamlit.app](https://agente-nfe.streamlit.app)  
-**📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01)
+**📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)
 
 ---
 
