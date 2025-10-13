@@ -1,6 +1,6 @@
 # 🚀 Portfólio de Projetos com Inteligência Artificial
 
-Bem-vindo(a)! Sou desenvolvedor com foco em **aplicações práticas de IA e análise de dados**.  
+Bem-vindo(a)! Sou analista de sistemas e desenvolvedor com foco em **aplicações práticas de IA e análise de dados**.  
 Aqui você encontra alguns dos meus projetos que unem **Machine Learning, LLMs, OCR e automação** — com foco em resolver problemas reais.
 
 ---
