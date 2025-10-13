@@ -237,7 +237,7 @@ def agente2(pergunta,arquivo,engine):
         model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
-        temperature=0.6,        
+        temperature=0.4,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
