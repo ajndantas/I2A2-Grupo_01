@@ -12,7 +12,7 @@ Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights int
 
 **🎯 Objetivo:** Identificar padrões, outliers e relações entre variáveis usando LLMs.
 
-**🧠 Tecnologias:** Python, Streamlit, LangChain, DeepSeek Chimera, Plotly, Pandas, SQLAlchemy.
+**🧠 Tecnologias:** Python, Streamlit, LangChain, DeepSeek Chimera (LLM), Plotly, Pandas, SQLAlchemy.
 
 **🌐 Demonstração:** [agente-eda-ai.streamlit.app](https://agente-eda-ai.streamlit.app)
 
@@ -27,7 +27,7 @@ Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas so
 
 **🎯 Objetivo:** Automatizar a leitura e análise de notas fiscais com IA.
 
-**🧠 Tecnologias:** Python, Streamlit, LangChain, MAI-DS R1, Tesseract, OpenCV, SQLAlchemy, Pandas.
+**🧠 Tecnologias:** Python, Streamlit, LangChain, MAI-DS R1 (LLM), Tesseract, OpenCV, SQLAlchemy, Pandas.
 
 **🌐 Demonstração:** [agente-nfe.streamlit.app](https://agente-nfe.streamlit.app)
 
