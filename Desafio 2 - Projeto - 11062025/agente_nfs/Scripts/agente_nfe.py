@@ -18,7 +18,8 @@
 from os import getenv
 from os.path import exists
 from pandas import read_csv, read_sql, read_xml, DataFrame
-import lxml
+from xml.dom import minidom
+from io import StringIO
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
@@ -226,6 +227,16 @@ def agente3(pergunta,arquivo,engine):
 # <ul><li>IA para adaptação a novos layouts</li></ul>
 # <ul><li>Validação cruzada de dados extraídos</li></ul>
 
+# [markdown]
+# <b>If you’re unsure about the structure</b>
+
+def read_xml_file(arquivo):
+    
+    xml = minidom.parse(arquivo)
+    xml = xml.toprettyxml(indent="  ")
+    
+    return xml
+
 def agente2(pergunta,arquivo,engine):
 
     print('\nExecutando agente 2...')
@@ -235,7 +246,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="microsoft/mai-ds-r1:free",
+        model="tngtech/deepseek-r1t2-chimera:free",
+        #model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
         temperature=0.4,        
@@ -279,7 +291,13 @@ def agente2(pergunta,arquivo,engine):
         
     elif arquivo.name.endswith('.xml'):
         
-        df = read_xml(arquivo)
+        xml = read_xml_file(arquivo)
+        #print("XML lido\n",xml)
+        
+        df = read_xml(StringIO(xml),xpath=".//InfCte")
+        print("\nDataframe\n")
+        print(df)
+        
         campos = list(df.columns.values)
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
@@ -427,9 +445,10 @@ def agente1(engine): # FRONTEND
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip" target="_blank">Ex: Arquivo PDF, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip" target="_blank">Arquivo PNG, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip" target="_blank">Arquivo CSV, </a>', unsafe_allow_html=True)
-    st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Docs%20Fiscais%20XML.zip" target="_blank">Arquivo XML, </a>', unsafe_allow_html=True)
+    #st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Docs%20Fiscais%20XML.zip" target="_blank">Arquivo XML, </a>', unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])        
+    #uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])  
+    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])      
         
     pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
     
@@ -442,7 +461,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                try:
+                #try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -455,8 +474,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                except Exception as e:
-                    st.error(f"Erro ao processar: {e}")
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
