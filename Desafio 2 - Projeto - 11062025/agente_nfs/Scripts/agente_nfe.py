@@ -17,7 +17,7 @@
 
 from os import getenv
 from os.path import exists
-from pandas import read_csv, read_sql, DataFrame
+from pandas import read_csv, read_sql, read_xml, DataFrame
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
@@ -264,7 +264,7 @@ def agente2(pergunta,arquivo,engine):
         df = DataFrame([resposta['valores']], columns=listacampos)                                       
                     
               
-    elif tipo in ['text/plain','text/csv']: 
+    elif tipo in ['text/plain','text/csv'] and not arquivo.name.endswith('.xml'): 
         
         df = read_csv(arquivo)
         campos = list(df.columns.values)
@@ -273,8 +273,20 @@ def agente2(pergunta,arquivo,engine):
     
         listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
-        df = DataFrame(df.values, columns=listacampos)    
+        df = DataFrame(df.values, columns=listacampos)  
+         
+        
+    elif arquivo.name.endswith('.xml'):
+        
+        df = read_xml(arquivo)
+        campos = list(df.columns.values)
+        
+        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
     
+        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
+        
+        df = DataFrame(df.values, columns=listacampos)
+            
             
     df['TIPO'] = resposta['tipo']
     df['MODELO_DOC'] = resposta['modelo']        
