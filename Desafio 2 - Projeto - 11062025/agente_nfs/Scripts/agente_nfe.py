@@ -414,6 +414,7 @@ def agente1(engine): # FRONTEND
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip" target="_blank">Ex: Arquivo PDF, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip" target="_blank">Arquivo PNG, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip" target="_blank">Arquivo CSV, </a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip" target="_blank">Arquivo XML, </a>', unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])        
         
@@ -421,7 +422,7 @@ def agente1(engine): # FRONTEND
     
     if st.button("🔍 Consultar"):
         if not uploaded_file:
-            st.error("Você precisa fazer o upload de um arquivo CSV, PDF ou de uma imagem PNG.")
+            st.error("Você precisa fazer o upload de um arquivo CSV, PDF, imagem PNG ou XML.")
             
         elif not pergunta.strip():
             st.error("Digite uma pergunta válida.")
