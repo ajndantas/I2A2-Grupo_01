@@ -18,6 +18,7 @@
 from os import getenv
 from os.path import exists
 from pandas import read_csv, read_sql, read_xml, DataFrame
+import lxml
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
