@@ -18,7 +18,6 @@
 from os import getenv
 from os.path import exists
 from pandas import read_csv, read_sql, read_xml, DataFrame
-from xml.dom import minidom
 from io import StringIO
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
@@ -31,6 +30,7 @@ from langchain_community.cache import InMemoryCache
 from motor_ocr_otimizado import NotaFiscalOCR
 import streamlit as st
 from magic import from_buffer
+import xml.etree.ElementTree as ET
 
 set_debug(True)
 
@@ -230,12 +230,32 @@ def agente3(pergunta,arquivo,engine):
 # [markdown]
 # <b>If you’re unsure about the structure</b>
 
-def read_xml_file(arquivo):
+def read_tags_values_xml_file(arquivo):
     
-    xml = minidom.parse(arquivo)
-    xml = xml.toprettyxml(indent="  ")
+    # Carrega o XML
+    tree = ET.parse(arquivo)
+    print('Tree: ',tree)
+    root = tree.getroot()
+    print('root: ',root)
+
+    dict_xml = {} # DICIONÁRIO TAG-VALOR
     
-    return xml
+    for elem in root.iter():
+        #print('elem.tag: ',elem.tag)
+        tag_name = elem.tag.split('}')[-1]  # TAGS. Remove o namespace do nome pegando o último elemento [-1]
+        tag_value = elem.text.strip() if elem.text else '' # VALUES
+        
+        dict_xml[tag_name] = tag_value
+
+    colunas = list(dict_xml.keys())
+    valores = list(dict_xml.values())
+    print('dict_xml: ',dict_xml)
+    
+    df = DataFrame(data=[valores],columns=colunas)
+    print('\nDataframe\n',df)
+       
+    return df    
+
 
 def agente2(pergunta,arquivo,engine):
 
@@ -246,11 +266,11 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="tngtech/deepseek-r1t2-chimera:free",
-        #model="microsoft/mai-ds-r1:free",
+        #model="tngtech/deepseek-r1t2-chimera:free",
+        model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
-        temperature=0.4,        
+        temperature=0.3,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
@@ -291,21 +311,16 @@ def agente2(pergunta,arquivo,engine):
         
     elif arquivo.name.endswith('.xml'):
         
-        xml = read_xml_file(arquivo)
-        #print("XML lido\n",xml)
-        
-        df = read_xml(StringIO(xml),xpath=".//InfCte")
-        print("\nDataframe\n")
-        print(df)
+        df = read_tags_values_xml_file(arquivo)
         
         campos = list(df.columns.values)
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
     
-        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
+        listacampos = [x.split(':')[-1].strip() for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL       
         
         df = DataFrame(df.values, columns=listacampos)
-            
+                   
             
     df['TIPO'] = resposta['tipo']
     df['MODELO_DOC'] = resposta['modelo']        
@@ -330,8 +345,8 @@ def agente2(pergunta,arquivo,engine):
         # OBTENÇÃO DO RESULTADO DA QUERY
         with engine.connect() as con:
             dfsql = read_sql(query, con)                        
-            dfresposta = dfsql      
-                
+            dfresposta = dfsql  
+        
         lista_df = []
         lista_df.append(dfdocfiscal)
         lista_df.append(dfresposta)
@@ -445,11 +460,10 @@ def agente1(engine): # FRONTEND
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip" target="_blank">Ex: Arquivo PDF, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip" target="_blank">Arquivo PNG, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip" target="_blank">Arquivo CSV, </a>', unsafe_allow_html=True)
-    #st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Docs%20Fiscais%20XML.zip" target="_blank">Arquivo XML, </a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Docs%20Fiscais%20XML.zip" target="_blank">Arquivo XML, </a>', unsafe_allow_html=True)
 
-    #uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])  
-    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])      
-        
+    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])  
+           
     pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
     
     if st.button("🔍 Consultar"):
