@@ -25,5 +25,5 @@ jobs:
           #IMAGE_ID=agente_nfe
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
-          docker build --build-arg API_KEY="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" -t $IMAGE_ID:$TAG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/"
+          docker build --build-arg API_KEY="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" -t $IMAGE_ID:$TAG "Desafio 2 - Projeto - 11062025/agente_nfs/Scripts/"
           docker push $IMAGE_ID:$TAG       
