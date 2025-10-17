@@ -303,24 +303,13 @@ def agente2(pergunta,arquivo,engine):
         campos = list(df.columns.values)
         
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
-    
-        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
+
+        listacampos = [x.split(':')[-1].strip() for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL
         
-        df = DataFrame(df.values, columns=listacampos)  
-         
-        
-    elif arquivo.name.endswith('.xml'):
-        
-        df = read_tags_values_xml_file(arquivo)
-        
-        campos = list(df.columns.values)
-        
-        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
-    
-        listacampos = [x.split(':')[-1].strip() for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL       
+        #listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
         df = DataFrame(df.values, columns=listacampos)
-                   
+                    
             
     df['TIPO'] = resposta['tipo']
     df['MODELO_DOC'] = resposta['modelo']        
@@ -475,7 +464,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                #try:
+                try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -488,8 +477,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                #except Exception as e:
-                #    st.error(f"Erro ao processar: {e}")
+                except Exception as e:
+                    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
