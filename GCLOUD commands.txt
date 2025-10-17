@@ -1,0 +1,9 @@
+# RODAR DENTRO DO DIRETÓRIO DO Dockerfile
+gcloud auth login
+gcloud config set project streamlit-project-ajndantas
+gcloud services enable run.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable artifactregistry.googleapis.com
+gcloud config set run/region southamerica-east1
+
+gcloud run deploy <nome da aplicação> --port 8000 --source . --platform managed --allow-unauthenticated # RODAR DENTRO DO DIRETÓRIO SCRIPTS
