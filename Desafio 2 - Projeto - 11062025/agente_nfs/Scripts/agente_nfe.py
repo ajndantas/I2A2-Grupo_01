@@ -354,7 +354,6 @@ def agente2(pergunta,arquivo,engine):
 # <b>Responsabilidade:</b> Obter e pré-processar documentos fiscais<br/><br/>
 # <b>Funcionalidades:</b>
 # <ul><li>Interface para upload manual de arquivos (PDF, imagens)</li></ul>
-# <ul><li>Integração com APIs de órgãos governamentais (SEFAZ)</li></ul>
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
