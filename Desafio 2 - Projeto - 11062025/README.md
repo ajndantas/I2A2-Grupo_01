@@ -26,7 +26,7 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 
 ## 🖥️ Interface Web (Streamlit)
 
-- Suba seus arquivos (PDF, PNG ou CSV) direto pelo navegador.
+- Suba seus arquivos (PDF, PNG, CSV ou XML) direto pelo navegador.
 - Faça perguntas em **linguagem natural** (“Qual o valor total da nota?”, por exemplo).
 - Veja os resultados em uma **tabela interativa**.
 - E, se algo der errado, receba um feedback simpático em vez de um erro indecifrável.
