@@ -266,8 +266,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        #model="tngtech/deepseek-r1t2-chimera:free",
-        model="microsoft/mai-ds-r1:free",
+        model="tngtech/deepseek-r1t2-chimera:free",
+        #model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
         temperature=0.3,        
