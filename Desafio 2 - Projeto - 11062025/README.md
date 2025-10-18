@@ -63,6 +63,7 @@ Sem instalar nada:
 - [PDFs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)
 - [Imagens PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
 - [CSVs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip)
+- [XMLs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Docs%20Fiscais%20XML.zip)
 
 ---
 
@@ -90,11 +91,11 @@ venv\Scripts\activate   # Windows
 
 Baixe os arquivos necessários e jogue tudo na pasta `Scripts`.
 
-1 - Dependências: [requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/requirements.txt) (Para Windows), [requirements_linux.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt) (Para Linux)
+**1 - Dependências**: [requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/requirements.txt) (Para Windows), [requirements_linux.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt) (Para Linux)
 
-2 - Script Python: [agente_nfe.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfe.py)
+**2 - Script Python**: [agente_nfe.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfe.py)
 
-3 - Script OCR: [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
+**3 - Script OCR**: [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
 
 Depois, instale as dependências:
 
