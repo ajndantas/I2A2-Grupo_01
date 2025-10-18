@@ -36,7 +36,7 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 ## 🧩 Requisitos
 
 - **Python 3.10+**
-- **Chave de API** do [OpenRouter](https://openrouter.ai/) (coloque no arquivo `.env` se for rodar localmente).
+- **Chave de API** do [OpenRouter](https://openrouter.ai/) (coloque no arquivo `.env`, dentro da pasta Scripts, se for rodar localmente).
 
 ---
 
