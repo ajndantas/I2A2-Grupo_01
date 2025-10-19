@@ -53,7 +53,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
+        template = """Aja como um analista de contabilidade, especialista na legislação contábil brasileira, e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
         ##########################################
         1 - Sigla do tipo do documento fiscal.
         2 - Significado para os nomes dos campos, de acordo com a sigla do item 1 e com as referências abaixo:
@@ -92,7 +92,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
-        template = """Aja como um analista de contabilidade e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4:
+        template = """Aja como um analista de contabilidade, especialista na legislação contábil brasileira, e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
@@ -154,7 +154,7 @@ def obtem_sim_nao(pergunta,df,llm):
 
 def llm_gera_query(llm,engine,pergunta):
 
-        template_query = """Qual query deve ser executada para responder
+        template_query = """Considerando o contexto da legislação contábil brasileira, qual query deve ser executada para responder
         a pergunta "{pergunta}"? Considere os seguintes passos:
         ##############################################################
         1 - As colunas "{colunas}" 
