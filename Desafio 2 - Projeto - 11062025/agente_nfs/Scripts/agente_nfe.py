@@ -41,7 +41,7 @@ def consultallmdocfiscal(texto,llm,tipo):
     
     if tipo not in ['text/plain','text/csv']:
         
-        # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA     
+        # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA   
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
