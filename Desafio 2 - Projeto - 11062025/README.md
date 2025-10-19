@@ -127,7 +127,7 @@ Acesse: [http://localhost:8000](http://localhost:8000)
 
 - 🧱 **Streamlit** – Interface web
 - 🧩 **LangChain** – Orquestração de LLMs
-- 🤖 **[Microsoft MAI-DS R1](https://huggingface.co/microsoft/MAI-DS-R1)** – O cérebro por trás das respostas
+- 🤖 **[DeepSeek-TNG-R1T2-Chimera](https://huggingface.co/tngtech/DeepSeek-TNG-R1T2-Chimera) **– O cérebro por trás das respostas
 - 🔍 **Tesseract** – OCR pra ler notas
 - 🎥 **OpenCV** – Processamento de imagem
 - 🗄️ **SQLAlchemy + SQLite** – Banco de dados
