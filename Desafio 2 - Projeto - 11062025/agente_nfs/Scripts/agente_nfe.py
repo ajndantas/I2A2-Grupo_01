@@ -53,7 +53,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade, especialista na legislação contábil brasileira, e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
+        template = """Aja como um analista de contabilidade do Brasil, e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
         ##########################################
         1 - Sigla do tipo do documento fiscal.
         2 - Significado para os nomes dos campos, de acordo com a sigla do item 1 e com as referências abaixo:
@@ -92,7 +92,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
-        template = """Aja como um analista de contabilidade, especialista na legislação contábil brasileira, e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4:
+        template = """Aja como um analista de contabilidade do Brasil, e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
@@ -127,9 +127,17 @@ def consultallmdocfiscal(texto,llm,tipo):
 def obtem_sim_nao(pergunta,df,llm):
     
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os itens a seguir ? 
+    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os itens os PASSOS e o CONTEXTO da legislação tributária brasileira abaixo ?
+    
+    PASSOS: 
     1 - As colunas {colunas_df} do dataframe.
-    2 - Os dados {df} 
+    2 - Os dados {df}
+    
+    CONTEXTO:
+    a) Nota Técnica  
+    b) Manual de Orientação do Contribuinte (MOC) 
+    c) Schemas XSD
+     
     {resposta}"""
     
     # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
@@ -154,13 +162,20 @@ def obtem_sim_nao(pergunta,df,llm):
 
 def llm_gera_query(llm,engine,pergunta):
 
-        template_query = """Considerando o contexto da legislação contábil brasileira, qual query deve ser executada para responder
-        a pergunta "{pergunta}"? Considere os seguintes passos:
+        template_query = """Considerando o CONTEXTO da legislação contábil brasileira e os PASSOS abaixo, qual query deve ser executada para responder
+        a pergunta "{pergunta}"?
+        
+        PASSOS:
         ##############################################################
         1 - As colunas "{colunas}" 
         2 - O nome da tabela é "arquivo".
         ##############################################################
-                    
+        
+        CONTEXTO:
+        a) Nota Técnica  
+        b) Manual de Orientação do Contribuinte (MOC) 
+        c) Schemas XSD
+        
         {formatacao_saida}"""
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
