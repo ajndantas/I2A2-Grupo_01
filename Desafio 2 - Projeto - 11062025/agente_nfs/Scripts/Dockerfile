@@ -36,6 +36,9 @@ RUN pip install --no-cache-dir jupyter
 
 COPY agente_nfe.ipynb .
 
+# Converte o notebook para script Python
+RUN jupyter nbconvert --to script agente_nfe.ipynb
+
 COPY motor_ocr_otimizado.py .
 
 # Instale os pacotes Python
