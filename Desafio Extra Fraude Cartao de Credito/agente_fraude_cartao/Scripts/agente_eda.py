@@ -283,7 +283,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         PASSOS:
                         1 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
                         2 - Inclua títulos e legendas para clareza.
-                        3 - Informe os dados utilizados.
+                        3 - Informe os dados utilizados e a quantidade de registros analisados
                         4 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4 e 4.4.1
                         4.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
