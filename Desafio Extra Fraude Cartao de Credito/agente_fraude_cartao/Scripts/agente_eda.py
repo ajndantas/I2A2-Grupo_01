@@ -61,7 +61,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         dos gráficos, siga os passos 3.1, 3.2, 3.3, 3.4 e 3.4.1
                         3.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
                         3.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
-                        3.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
+                        3.3 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
                         3.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
                         3.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
                         LEGENDAS, RETORNE PARA O PASSO 3
@@ -288,7 +288,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4 e 4.4.1
                         4.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
                         4.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
-                        4.3 - Os eixos dos gráficos ** SEMPRE ** deverão ser informados.
+                        4.3 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
                         4.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
                         4.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
                         LEGENDAS, RETORNE PARA O PASSO 4 **
