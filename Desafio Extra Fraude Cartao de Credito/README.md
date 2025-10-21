@@ -41,13 +41,17 @@ Ele é dividido em **3 agentes** principais:
 
 ## 🚀 Como rodar o projeto
 
-Faça o download do código, do arquivo requirements.txt e do script plotly.js para geração de gráficos:
+Faça o download do código, do arquivo requirements.txt, do script plotly.js para geração de gráficos e dos arquivos do tokenizers para contagem de tokens:
 
 [Script agente_eda.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/agente_eda.py)
 
 [Arquivo requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/requirements.txt)
 
 [plotly.js](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/plotly.js)
+
+[tokenizer.json](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer.json)
+
+[tokenizer_config.json](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer_config.json)
 
 Crie um ambiente virtual e ative:
 
