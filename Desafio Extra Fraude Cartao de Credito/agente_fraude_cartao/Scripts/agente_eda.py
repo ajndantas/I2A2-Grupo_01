@@ -210,7 +210,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
         tokens = num_tokens_from_string(dfcontext)
         t = 0
         
-        while tokens > qtd_tokens*0.4 and limit > 0:
+        while tokens > qtd_tokens*0.5 and limit > 0:
                 
                 t+=1
                 print('t: ',t)
