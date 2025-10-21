@@ -232,7 +232,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
             if limit <= 0:
                 print("Valor negativo ou 0 para LIMIT...")
                 
-                result = sub(r'LIMIT \d+$',f'LIMIT 30',query)
+                result = sub(r'LIMIT \d+$',f'LIMIT 40',query)
                 stmt = text(result)
                 dfcontext = read_sql(stmt,con=engine)
                 
