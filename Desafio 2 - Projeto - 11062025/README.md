@@ -1,6 +1,6 @@
 # 🤖 Agente Inteligente de Documentos Fiscais
 
-Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract**, **OpenCV**, **Streamlit** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Notas Fiscais (NF-e)** — direto de **PDFs, imagens (PNG)** ou **arquivos CSV**.
+Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract**, **OpenCV**, **Streamlit** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Notas Fiscais (NF-e)** — direto de **PDFs, imagens (PNG), arquivos CSV ou XMLs**.
 
 ---
 
