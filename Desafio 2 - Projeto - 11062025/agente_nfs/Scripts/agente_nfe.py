@@ -162,8 +162,8 @@ def obtem_sim_nao(pergunta,df,llm):
 
 def llm_gera_query(llm,engine,pergunta):
 
-        template_query = """Considerando o CONTEXTO da legislação contábil brasileira e os PASSOS abaixo, qual query deve ser executada para responder
-        a pergunta "{pergunta}"?
+        template_query = """Você é um assistente especialista em documentos fiscais e tributários brasileiros, considerando também o CONTEXTO da legislação contábil brasileira e 
+        os PASSOS abaixo, qual query deve ser executada para responder a pergunta "{pergunta}"?
         
         PASSOS:
         ##############################################################
@@ -285,7 +285,7 @@ def agente2(pergunta,arquivo,engine):
         #model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
-        temperature=0.3,        
+        temperature=0.4,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
