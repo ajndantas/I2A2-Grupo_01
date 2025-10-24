@@ -53,7 +53,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade do Brasil, e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
+        template = """Aja como um analista de contabilidade, e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
         ##########################################
         1 - Sigla do tipo do documento fiscal.
         2 - Significado para os nomes dos campos, de acordo com a sigla do item 1 e com as referências abaixo:
@@ -92,7 +92,8 @@ def consultallmdocfiscal(texto,llm,tipo):
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
-        template = """Aja como um analista de contabilidade do Brasil, e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4:
+        template = """Aja como um analista de contabilidade, e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4 no contexto dos documentos fiscais
+        brasileiros 
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
@@ -127,7 +128,8 @@ def consultallmdocfiscal(texto,llm,tipo):
 def obtem_sim_nao(pergunta,df,llm):
     
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os itens os PASSOS e o CONTEXTO da legislação tributária brasileira abaixo ?
+    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os PASSOS e as informações abaixo, considerando o CONTEXTO dos documentos fiscais 
+    brasileiros ?
     
     PASSOS: 
     1 - As colunas {colunas_df} do dataframe.
@@ -162,8 +164,8 @@ def obtem_sim_nao(pergunta,df,llm):
 
 def llm_gera_query(llm,engine,pergunta):
 
-        template_query = """Você é um assistente especialista em documentos fiscais e tributários brasileiros, considerando também o CONTEXTO da legislação contábil brasileira e 
-        os PASSOS abaixo, qual query deve ser executada para responder a pergunta "{pergunta}"?
+        template_query = """Como agente especialista em documentos fiscais brasileiros, considerando o CONTEXTO e os PASSOS abaixo, 
+        Qual query deve ser executada para responder a pergunta "{pergunta}"?
         
         PASSOS:
         ##############################################################
@@ -281,8 +283,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="tngtech/deepseek-r1t2-chimera:free",
-        #model="microsoft/mai-ds-r1:free",
+        #model="tngtech/deepseek-r1t2-chimera:free",
+        model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
         temperature=0.4,        
