@@ -128,7 +128,7 @@ def consultallmdocfiscal(texto,llm,tipo):
 def obtem_sim_nao(pergunta,df,llm):
     
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os PASSOS e as informações abaixo, considerando o CONTEXTO dos documentos fiscais 
+    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os PASSOS e as informações abaixo, no CONTEXTO dos documentos fiscais 
     brasileiros ?
     
     PASSOS: 
@@ -481,7 +481,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                try:
+                #try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -494,8 +494,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                except Exception as e:
-                    st.error(f"Erro ao processar: {e}")
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
