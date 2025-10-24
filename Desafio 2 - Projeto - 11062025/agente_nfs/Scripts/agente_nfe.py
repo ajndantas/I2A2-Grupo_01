@@ -315,7 +315,7 @@ def agente2(pergunta,arquivo,engine):
         df = DataFrame([resposta['valores']], columns=listacampos)                                       
                     
               
-    elif tipo in ['text/plain','text/csv'] and not arquivo.name.endswith('.xml'): 
+    elif tipo in ['text/plain','text/csv']: 
         
         df = read_csv(arquivo)
         campos = list(df.columns.values)
@@ -481,7 +481,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                #try:
+                try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -494,8 +494,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                #except Exception as e:
-                #    st.error(f"Erro ao processar: {e}")
+                except Exception as e:
+                    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
