@@ -328,7 +328,7 @@ def agente2(pergunta,arquivo,engine):
                     
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
 
-        listacampos = [list(x.values())[0].strip() for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL
+        listacampos = [x for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL
         
         #listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
