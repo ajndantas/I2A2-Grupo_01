@@ -88,7 +88,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
-            sigcampos: list = Field(description="significado")           
+            sigcampos: list = Field(description="[{{campo:<campo>,significado:<significado>}}]")           
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
@@ -322,20 +322,19 @@ def agente2(pergunta,arquivo,engine):
         else:
             df = read_csv(arquivo)
         
-        print('\nDataframe original\n',df)
-        
+                
         campos = list(df.columns.values)
                     
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
 
-        listacampos = [x.values() for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL
-        
-        #listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
+        #listacampos = resposta['sigcampos'] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL
+                        
+        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
         df = DataFrame(df.values, columns=listacampos)
         
         print('\nDataframe tratado\n',df)
-                            
+        
         
     df['TIPO'] = resposta['tipo']
     df['MODELO_DOC'] = resposta['modelo']        
