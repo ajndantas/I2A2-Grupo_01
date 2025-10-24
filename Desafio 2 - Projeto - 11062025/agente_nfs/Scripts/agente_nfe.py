@@ -140,7 +140,7 @@ def obtem_sim_nao(pergunta,df,llm):
     a) Nota Técnica  
     b) Manual de Orientação do Contribuinte (MOC) 
     c) Schemas XSD
-    d) legislação tributária brasileira aplicada à emissão de documentos fiscais eletrônicos
+    d) Sobre impostos, consultar o item b)
      
     {resposta}"""
     
@@ -179,7 +179,7 @@ def llm_gera_query(llm,engine,pergunta):
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
-        d) legislação tributária brasileira aplicada à emissão de documentos fiscais eletrônicos
+        d) Sobre impostos, consultar o item b) 
         
         {formatacao_saida}"""
 
