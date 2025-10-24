@@ -269,8 +269,7 @@ def read_tags_values_xml_file(arquivo):
     print('dict_xml: ',dict_xml)
     
     df = DataFrame(data=[valores],columns=colunas)
-    print('\nDataframe\n',df)
-       
+           
     return df    
 
 
@@ -322,7 +321,9 @@ def agente2(pergunta,arquivo,engine):
         
         else:
             df = read_csv(arquivo)
-            
+        
+        print('\nDataframe original\n',df)
+        
         campos = list(df.columns.values)
                     
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
@@ -332,6 +333,8 @@ def agente2(pergunta,arquivo,engine):
         #listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
         df = DataFrame(df.values, columns=listacampos)
+        
+        print('\nDataframe tratado\n',df)
                             
         
     df['TIPO'] = resposta['tipo']
