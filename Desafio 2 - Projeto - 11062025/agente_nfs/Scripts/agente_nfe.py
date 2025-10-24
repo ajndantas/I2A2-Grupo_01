@@ -164,14 +164,14 @@ def obtem_sim_nao(pergunta,df,llm):
 
 def llm_gera_query(llm,engine,pergunta):
 
-        template_query = """Como agente especialista em documentos fiscais brasileiros, considerando o CONTEXTO e os PASSOS abaixo, 
-        Qual query deve ser executada para responder a pergunta "{pergunta}"?
+        template_query = """Como agente especialista em documentos fiscais brasileiros e banco de dados, seu objetivo é gerar a query SQL para responder a pergunta {pergunta}.
+        Para isso, você deve considerar os PASSOS e o CONTEXTO abaixo.
         
         PASSOS:
-        ##############################################################
-        1 - As colunas "{colunas}" 
+        ########################################################################################
+        1 - Entender o significado das colunas "{colunas}" por meio do CONTEXTO informado abaixo 
         2 - O nome da tabela é "arquivo".
-        ##############################################################
+        ########################################################################################
         
         CONTEXTO:
         a) Nota Técnica  
@@ -287,7 +287,7 @@ def agente2(pergunta,arquivo,engine):
         #model="microsoft/mai-ds-r1:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
-        temperature=0,        
+        temperature=0.4,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
