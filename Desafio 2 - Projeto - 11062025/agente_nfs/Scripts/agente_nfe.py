@@ -60,7 +60,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
-        d) legislação tributária brasileira aplicada à emissão de documentos fiscais eletrônicos
+        d) Sobre impostos, consultar o item b)
         3 - Campos para cada um dos valores 
         4 - Os valores para cada um dos campos do item 2.
         5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
@@ -98,6 +98,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
+        d) Sobre impostos, consultar o item b)
         
         ##########################################
         PERGUNTAS:
