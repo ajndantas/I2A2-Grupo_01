@@ -64,7 +64,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
         3 - Campos para cada um dos valores 
-        4 - Os valores para cada um dos campos do item 2. Se nulo, responder com N/A
+        4 - **SEMPRE** deve haver um valor para cada um dos campos do item 2. Se algum campo não tiver valor, responder com N/A
         5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
         6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
