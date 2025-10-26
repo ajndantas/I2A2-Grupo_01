@@ -16,6 +16,7 @@
 # ### IMPORTS
 
 from os import getenv
+from time import sleep
 from os.path import exists
 from pandas import read_csv, read_sql, read_xml, DataFrame
 from io import StringIO
@@ -288,7 +289,6 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        #model="tngtech/deepseek-r1t2-chimera:free",
         model="mistralai/mistral-small-3.2-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
@@ -339,7 +339,8 @@ def agente2(pergunta,arquivo,engine):
         
         df = DataFrame(df.values, columns=listacampos)
         
-        print('\nDataframe tratado\n',df)
+        #print('\nDataframe tratado\n',df)
+        #sleep(20)
         
         
     df['TIPO'] = resposta['tipo']
