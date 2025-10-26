@@ -54,9 +54,10 @@ def consultallmdocfiscal(texto,llm,tipo):
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
         template = """Aja como um analista de contabilidade, e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
+                        
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado para os nomes dos campos, de acordo com a sigla do item 1 e com as referências abaixo:
+        2 - Significado para os nomes dos campos, sem repetição, de acordo com a sigla do item 1 e com as referências abaixo:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD
@@ -100,12 +101,13 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD
         d) Sobre impostos, consultar o item b)
         
+                      
         ##########################################
         PERGUNTAS:
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
         2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão.
         3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
-        4 - Significado para cada um dos nomes dos campos {colunas_df} em poucas palavras e, quando possível, 
+        4 - Significado para cada um dos nomes dos campos {colunas_df} em poucas palavras, sem repetição e, quando possível, 
         com a utilização de siglas (Ex: CNPJ, UF, CPF)              
         ###########################################
         
@@ -287,7 +289,7 @@ def agente2(pergunta,arquivo,engine):
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
         #model="tngtech/deepseek-r1t2-chimera:free",
-        model="microsoft/mai-ds-r1:free",
+        model="mistralai/mistral-small-3.2-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
         temperature=0.4,        
@@ -492,7 +494,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                try:
+                #try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -505,8 +507,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                except Exception as e:
-                    st.error(f"Erro ao processar: {e}")
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
