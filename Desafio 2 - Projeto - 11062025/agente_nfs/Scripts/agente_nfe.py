@@ -46,9 +46,9 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            campos: list = Field(description="campos extraídos do documento fiscal")
+            campos: list = Field(description="campos extraídos do documento fiscal. Itens da coluna CAMPO da TABELA")
             sigcampos: list = Field(description="significado. Em poucas palavras e com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF)")
-            valores: list = Field(description="Somente os Valores")
+            valores: list = Field(description="Somente os Valores. Itens da coluna VALOR da TABELA")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
@@ -63,8 +63,9 @@ def consultallmdocfiscal(texto,llm,tipo):
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
-        3 - Campos para cada um dos valores 
-        4 - **SEMPRE** deve haver um valor para cada um dos campos do item 2. Se algum campo não tiver valor, responder com N/A
+        3 - Monte a tabela TABELA com as colunas CAMPO e VALOR, aonde a coluna CAMPO, contém os significados dos campos obtidos no item 2) e a coluna VALOR, os valores 
+        para cada campo.
+        4 - ** TODO CAMPO DEVE TER UM VALOR ** Se algum CAMPO estiver vazio ou nulo, incluir o valor N/A.
         5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
         6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
@@ -291,7 +292,7 @@ def agente2(pergunta,arquivo,engine):
         model="mistralai/mistral-small-3.2-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
-        temperature=0.4,        
+        temperature=0,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
