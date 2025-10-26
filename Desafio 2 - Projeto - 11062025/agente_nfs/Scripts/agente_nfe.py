@@ -46,9 +46,9 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            campos: list = Field(description="campos extraídos do documento fiscal. Itens da coluna CAMPO da TABELA")
+            campos: list = Field(description='campos entre ", extraídos do documento fiscal.')
             sigcampos: list = Field(description="significado. Em poucas palavras e com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF)")
-            valores: list = Field(description="Somente os Valores. Itens da coluna VALOR da TABELA")
+            valores: list = Field(description="Somente os Valores.")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
@@ -58,16 +58,14 @@ def consultallmdocfiscal(texto,llm,tipo):
                         
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado para os nomes dos campos, sem repetição, de acordo com a sigla do item 1 e com as referências abaixo:
+        2 - Significado para os nomes dos campos, de acordo com a sigla do item 1 e com as referências abaixo. **NUNCA REPETIR OS SIGNIFICADOS** :
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
-        3 - Monte a tabela TABELA com as colunas CAMPO e VALOR, aonde a coluna CAMPO, contém os significados dos campos obtidos no item 2) e a coluna VALOR, os valores 
-        para cada campo.
-        4 - ** TODO CAMPO DEVE TER UM VALOR ** Se algum CAMPO estiver vazio ou nulo, incluir o valor N/A.
-        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
-        6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
+        3 - Para cada campo deve-se ter o respectivo valor
+        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
             
         {formatador_saida_ia}
@@ -83,6 +81,24 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         # INVOCANDO A LLM
         resposta = chain.invoke(input={"texto":texto})
+        
+        resposta_valores = []
+                        
+        for i in range(len(resposta['sigcampos'])):             
+            
+            try:
+                resposta_valores.append(resposta['valores'][i])
+            
+            except IndexError as e:
+                resposta_valores.append('N/A')
+                continue
+        
+        resposta['valores'] = []
+        resposta['valores'] = resposta_valores
+        
+        print('\nSigcampos: ',resposta['sigcampos'],'\n')
+        print('\nValores: ',resposta['valores'],'\n')
+        
     
     elif tipo in ['text/plain','text/csv']: # DEVIDO A LLM NÃO ENTENDER BEM O CSV, TEVE QUE SE CRIAR UM PROMPT ESPECÍFICO
                 
@@ -125,7 +141,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         chain = prompt_template | llm | parseador
     
         # INVOCANDO A LLM
-        resposta = chain.invoke(input={"colunas_df":list(df.columns.values)})
+        resposta = chain.invoke(input={"colunas_df":list(df.columns.values)}) 
           
         
     return resposta
@@ -189,7 +205,7 @@ def llm_gera_query(llm,engine,pergunta):
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
         class Query(BaseModel):
-            query: str = Field(description='Esta é a query com DISTINCT, sem UNION, com todas as colunas necessárias, aonde o nome de cada coluna e o da tabela {nome_arquivo} devem ficar entre "')
+            query: str = Field(description='Esta é a query com DISTINCT, sem UNION, com todas as colunas necessárias, aonde o da tabela {nome_arquivo} deve ficar entre "')
 
         parseador = JsonOutputParser(pydantic_object=Query)
         
@@ -292,7 +308,7 @@ def agente2(pergunta,arquivo,engine):
         model="mistralai/mistral-small-3.2-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
-        temperature=0.4,        
+        temperature=0,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
@@ -311,11 +327,14 @@ def agente2(pergunta,arquivo,engine):
         texto = ocr.extrair_texto(imagem_proc)
         
         print("\nTexto\n",texto)
+        sleep(20)
+        
         resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
         
         campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
         
-        listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS DO ARQUIVO
+        listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+                       
                
         df = DataFrame([resposta['valores']], columns=listacampos)                                       
                     
@@ -333,16 +352,11 @@ def agente2(pergunta,arquivo,engine):
                     
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
 
-        #listacampos = resposta['sigcampos'] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL
-                        
         listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
         df = DataFrame(df.values, columns=listacampos)
         
-        #print('\nDataframe tratado\n',df)
-        #sleep(20)
-        
-        
+               
     df['TIPO'] = resposta['tipo']
     df['MODELO_DOC'] = resposta['modelo']        
     df['VERSÃO_DOC'] = resposta['versao']    
