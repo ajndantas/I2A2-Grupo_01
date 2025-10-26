@@ -61,7 +61,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         2 - Significado para os nomes dos campos, sem repetição, de acordo com a sigla do item 1 e com as referências abaixo:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
-        c) Schemas XSD referente ao documento fiscal
+        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
         3 - Campos para cada um dos valores 
         4 - Os valores para cada um dos campos do item 2. Se nulo, responder com N/A
@@ -142,7 +142,7 @@ def obtem_sim_nao(pergunta,df,llm):
     CONTEXTO:
     a) Nota Técnica  
     b) Manual de Orientação do Contribuinte (MOC) 
-    c) Schemas XSD referentes ao documento fiscal
+    c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags. 
     d) Sobre impostos, consultar o item b) e c)
      
     {resposta}"""
@@ -181,8 +181,8 @@ def llm_gera_query(llm,engine,pergunta):
         CONTEXTO:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
-        c) Schemas XSD referente ao docimento fiscal
-        d) Sobre impostos, consultar os itens b) e c). Se os impostos tiverem valor nulo ou zero, exibir como zero
+        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
+        d) Para saber as colunas referentes aos impostos a serem considerados para o documento fiscal, consultar os itens b) e c). Se os impostos tiverem valor nulo ou zero, exibir como zero
         
         {formatacao_saida}"""
 
