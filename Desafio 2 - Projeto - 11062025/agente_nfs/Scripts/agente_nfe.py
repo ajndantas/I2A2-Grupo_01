@@ -292,7 +292,7 @@ def agente2(pergunta,arquivo,engine):
         model="mistralai/mistral-small-3.2-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         cache=True,
-        temperature=0,        
+        temperature=0.4,        
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
