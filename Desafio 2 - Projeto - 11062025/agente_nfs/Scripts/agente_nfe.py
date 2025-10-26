@@ -347,7 +347,7 @@ def agente2(pergunta,arquivo,engine):
             
     dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
     
-    dfcampos = DataFrame({'CAMPOS':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
+    dfcampos = DataFrame({'CAMPOS DO DOC FISCAL':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
     
     resposta = obtem_sim_nao(pergunta,df,llm)                 
     
