@@ -58,14 +58,16 @@ def consultallmdocfiscal(texto,llm,tipo):
                         
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado para os nomes dos campos, de acordo com a sigla do item 1 e com as referências abaixo. **NUNCA REPETIR OS SIGNIFICADOS** :
+        2 - Significado para cada um dos campos, de acordo com a sigla do item 1 e com os PASSOS a), b), c), d), e) abaixo. **NUNCA REPETIR OS SIGNIFICADOS**:
+        PASSOS:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
-        3 - Para cada campo deve-se ter o respectivo valor
-        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
-        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
+        3 - Verificar os significados encontrados no item 2, ** SE HOUVER ALGUM REPETIDO, RETORNAR PARA O ITEM 2 **
+        4 - Para cada campo deve-se ter o respectivo valor
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
+        6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
             
         {formatador_saida_ia}
