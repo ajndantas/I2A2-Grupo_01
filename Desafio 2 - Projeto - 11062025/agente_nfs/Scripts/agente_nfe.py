@@ -54,11 +54,14 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade, e forneça as seguintes informações sobre o documento fiscal referente a esse conteúdo "{texto}":
+        template = """Aja como um analista de contabilidade, e forneça as seguintes informações sobre o documento fiscal referente ao CONTEÚDO:
+        
+        CONTEÚDO: {texto}
                         
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado para cada um dos campos, de acordo com a sigla do item 1 e com os PASSOS a), b), c), d), e) abaixo. **NUNCA REPETIR OS SIGNIFICADOS**:
+        2 - Significado para cada um dos campos, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as informações extraídas dos PASSOS a), b), c), d), ou e) abaixo 
+        para o documento fiscal. **NUNCA** repetir os significados e **NUNCA** utilizar os campos do CONTEÚDO.
         PASSOS:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
