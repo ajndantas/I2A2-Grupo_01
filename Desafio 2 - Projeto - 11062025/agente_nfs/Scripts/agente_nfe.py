@@ -75,7 +75,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         3 - Liste todos os significados gerados do item 2, ** SEMPRE ** que houver algum ** REPETIDO **, adicionar a palavra PRESTADOR OU TOMADOR, dependendo do significado.
         4 - Para cada significado do item 2, **SEMPRE** identificar o valor **CORRETO** em CONTEUDO.
         4.1 - O valor **NUNCA** deve ser igual campo.
-        4.2 - Fazendo uso de PASSOS2 item c), verificar se o tipo e o formato do dado associado ao significado faz sentido, senão, retornar para o passo 4        
+        4.2 - **SEMPRE** verificar se o valor associado ao significado faz sentido, senão, retornar para o passo 4.       
         5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
         6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
