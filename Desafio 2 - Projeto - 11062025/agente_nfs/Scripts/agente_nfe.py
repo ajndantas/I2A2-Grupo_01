@@ -161,19 +161,13 @@ def consultallmdocfiscal(texto,llm,tipo):
 def obtem_sim_nao(pergunta,df,llm):
     
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """É possível responder a pergunta "{pergunta}" do usuário considerando os PASSOS e as informações abaixo, no CONTEXTO dos documentos fiscais 
-    brasileiros ?
+    template = """Aja como um analista de contabilidade do Brasil, aonde seu objetivo é saber se é possível responder a pergunta "{pergunta}" do usuário considerando 
+    os PASSOS abaixo ?
     
     PASSOS: 
     1 - As colunas {colunas_df} do dataframe.
     2 - Os dados {df}
-    
-    CONTEXTO:
-    a) Nota Técnica  
-    b) Manual de Orientação do Contribuinte (MOC) 
-    c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags. 
-    d) Sobre impostos, consultar o item b) e c)
-     
+            
     {resposta}"""
     
     # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
@@ -319,8 +313,8 @@ def agente2(pergunta,arquivo,engine):
     llm = ChatOpenAI( 
         model="mistralai/mistral-small-3.2-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
-        cache=True,
-        temperature=0.15,        
+        temperature=0.15,
+        cache=True,      
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
     )
