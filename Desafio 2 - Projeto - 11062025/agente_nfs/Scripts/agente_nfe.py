@@ -62,7 +62,9 @@ def consultallmdocfiscal(texto,llm,tipo):
         ##########################################
         1 - Sigla do tipo do documento fiscal.
         2 - Significado para cada um dos campos, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as informações extraídas de PASSOS2 a), b), c), d), ou e) abaixo 
-        para o documento fiscal. **NUNCA** repetir os significados e **NUNCA** utilizar os campos do CONTEUDO.
+        para o documento fiscal. 
+        2.1 - **NUNCA** repetir os significados
+        2.2 - **NUNCA** utilizar os campos do CONTEUDO.
         
         PASSOS2:
         a) Nota Técnica  
