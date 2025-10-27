@@ -68,7 +68,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
         3 - Liste todos os significados gerados do item 2, ** SEMPRE ** que houver algum ** REPETIDO **, adicionar a palavra PRESTADOR OU TOMADOR, dependendo do significado.
-        4 - Para cada significado do item 2, identificar o valor em CONTEÚDO. Utilize como referência os PASSOS.
+        4 - Para cada significado do item 2, utilize como referência os PASSOS, identificar o valor em CONTEÚDO. 
         5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
         6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
