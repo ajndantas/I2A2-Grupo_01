@@ -162,7 +162,7 @@ def obtem_sim_nao(pergunta,df,llm):
     
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
     template = """Aja como um analista de contabilidade do Brasil, aonde seu objetivo é saber se é possível responder a pergunta "{pergunta}" do usuário considerando 
-    os PASSOS abaixo ?
+    os PASSOS abaixo.
     
     PASSOS: 
     1 - As colunas {colunas_df} do dataframe.
