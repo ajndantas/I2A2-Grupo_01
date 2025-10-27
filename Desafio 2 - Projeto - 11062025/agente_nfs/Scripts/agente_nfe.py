@@ -54,19 +54,22 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade, e forneça as seguintes informações sobre o documento fiscal referente ao CONTEÚDO:
+        template = """Aja como um analista de contabilidade, e obtenha as informações de acordo com PASSOS1, sobre o documento fiscal referente ao CONTEÚDO:
         
         CONTEÚDO: {texto}
-                        
+        
+        PASSOS1: 
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado para cada um dos campos, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as informações extraídas dos PASSOS a), b), c), d), ou e) abaixo 
+        2 - Significado para cada um dos campos, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as informações extraídas de PASSOS2 a), b), c), d), ou e) abaixo 
         para o documento fiscal. **NUNCA** repetir os significados e **NUNCA** utilizar os campos do CONTEÚDO.
-        PASSOS:
+        
+        PASSOS2:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
+        
         3 - Liste todos os significados gerados do item 2, ** SEMPRE ** que houver algum ** REPETIDO **, adicionar a palavra PRESTADOR OU TOMADOR, dependendo do significado.
         4 - Para cada significado do item 2, identificar o valor em CONTEÚDO. 
         5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
