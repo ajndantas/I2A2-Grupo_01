@@ -46,7 +46,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            campos: list = Field(description='campos entre ", extraídos do documento fiscal.')
+            campos: list = Field(description='campos entre ", extraídos do documento fiscal e corrigidos ortograficamente.')
             sigcampos: list = Field(description="significado. Em poucas palavras e com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF)")
             valores: list = Field(description="Somente os Valores.")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
@@ -56,15 +56,16 @@ def consultallmdocfiscal(texto,llm,tipo):
             
         template = """Aja como um analista de contabilidade, aonde o seu objetivo e obter as informações de acordo com PASSOS1, sobre o documento fiscal referente ao CONTEUDO.
         
-        CONTEUDO: {texto}
+        CONTEUDO:
+        É o texto {texto} com correção ortográfica para as palavras.
         
         PASSOS1: 
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado para cada um dos campos, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as informações extraídas de PASSOS2 a), b), c), d), ou e) abaixo 
+        2 - Significado para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as informações extraídas de PASSOS2 a), b), c), d), ou e) abaixo 
         para o documento fiscal. 
         2.1 - **NUNCA** repetir os significados
-        2.2 - **NUNCA** utilizar os campos do CONTEUDO.
+        2.2 - **NUNCA** utilizar os campos do CONTEUDO, e sim, os seus significados.
         
         PASSOS2:
         a) Nota Técnica  
@@ -329,7 +330,7 @@ def agente2(pergunta,arquivo,engine):
     
     if tipo not in ['text/plain','text/csv']:        
         
-        imagem_proc = ocr.preprocessar_imagem(ocr.carregar_arquivo(arquivo))
+        imagem_proc = ocr.preprocessar_imagem(ocr.carregar_arquivo(arquivo)) # PREPROCESSANDO A IMAGEM, PARA MELHORAR A SUA QUALIDADE.
         texto = ocr.extrair_texto(imagem_proc)
         
         print("\nTexto\n",texto)

@@ -132,8 +132,9 @@ class NotaFiscalOCR:
         Returns:
             numpy.ndarray: Imagem binarizada.
         """
-        cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
-        _, binarizada = cv2.threshold(cinza, 150, 255, cv2.THRESH_BINARY)
+        cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)        
+        _, binarizada = cv2.threshold(cinza, 150, 255, cv2.THRESH_BINARY)         
+        
         return binarizada
 
     def extrair_texto(self, imagem_processada):
@@ -146,8 +147,11 @@ class NotaFiscalOCR:
         Returns:
             str: Texto extraído.
         """
-        config = r'--oem 3 --psm 6 -l {}'.format(self.lang)
+        #config = r'--oem 3 --psm 6 -l {}'.format(self.lang)
+        config = r'--oem 1 --psm 6 -l {}'.format(self.lang)
+        
         texto = image_to_string(imagem_processada, config=config)
+        
         return texto
 
     def extrair_campos(self, texto):
