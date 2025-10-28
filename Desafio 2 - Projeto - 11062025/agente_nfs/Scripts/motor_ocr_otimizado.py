@@ -149,7 +149,6 @@ class NotaFiscalOCR:
         """
         #config = r'--oem 3 --psm 6 -l {}'.format(self.lang)
         config = r'--oem 1 --psm 6 -l {}'.format(self.lang)
-        
         texto = image_to_string(imagem_processada, config=config)
         
         return texto

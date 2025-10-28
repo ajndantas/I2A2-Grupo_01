@@ -46,8 +46,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            campos: list = Field(description='campos entre ", extraídos do documento fiscal e corrigidos ortograficamente.')
-            sigcampos: list = Field(description="significado. Em poucas palavras e com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF)")
+            campos: list = Field(description='campos. **SOMENTE** os campos com correção ortográfica. **NUNCA** os valores.')
+            sigcampos: list = Field(description="significado. Em poucas palavras, com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF) e **NUNCA** repetir")
             valores: list = Field(description="**SOMENTE** os Valores. **NUNCA** os campos")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
@@ -62,21 +62,20 @@ def consultallmdocfiscal(texto,llm,tipo):
         PASSOS1: 
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as informações extraídas de PASSOS2 a), b), c), d), ou e) abaixo 
-        para o documento fiscal. 
-        2.1 - **NUNCA** repetir os significados
-        2.2 - **NUNCA** utilizar os campos do CONTEUDO, e sim, os seus significados.
+        2 - Significado, para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as orientações informadas em 
+        PASSOS2 a), b), c) ou d) abaixo para o documento fiscal. Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO, e sim, os 
+        seus significados. **NUNCA** repetir os significados     
         
         PASSOS2:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
-        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
+        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documento fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
         
-        3 - Liste todos os significados gerados do item 2, ** SEMPRE ** que houver algum ** REPETIDO **, adicionar a palavra PRESTADOR OU TOMADOR, dependendo do significado.
-        4 - Para cada significado do item 2, **SEMPRE** identificar o valor **CORRETO** em CONTEUDO.
-        4.1 - O valor **NUNCA** deve ser igual campo.
-        4.2 - **SEMPRE** verificar se o valor associado ao significado faz sentido, senão, retornar para o passo 4.       
+        3 - Para cada significado do item 2, **SEMPRE** identificar o valor correto em CONTEUDO.
+        3.1 - O valor **NUNCA** deve ser igual ao campo.
+        3.2 - **SEMPRE** verificar se o valor associado ao significado faz sentido, senão, retornar para o passo 3.   
+               
         5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
         6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
@@ -205,7 +204,7 @@ def llm_gera_query(llm,engine,pergunta):
         CONTEXTO:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
-        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifiquem quais estão no documentos fiscal por meio das tags.
+        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documentos fiscal por meio das tags.
         d) Para saber as colunas referentes aos impostos a serem considerados para o documento fiscal, consultar os itens b) e c). Se os impostos tiverem valor nulo ou zero, exibir como zero
         
         {formatacao_saida}"""
@@ -313,6 +312,7 @@ def agente2(pergunta,arquivo,engine):
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
         model="mistralai/mistral-small-3.2-24b-instruct:free",
+        #model="mistralai/mistral-small-3.2-24b-instruct",
         base_url="https://openrouter.ai/api/v1",
         temperature=0.15,
         cache=True,      
