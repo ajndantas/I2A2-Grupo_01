@@ -112,7 +112,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         print('\nValores: ',resposta['valores'],'\n')
         
     
-    elif tipo in ['text/plain','text/csv']: # DEVIDO A LLM NÃO ENTENDER BEM O CSV, TEVE QUE SE CRIAR UM PROMPT ESPECÍFICO
+    elif tipo in ['text/plain','text/csv']: # DEVIDO A LLM NÃO ENTENDER BEM O CSV, TEVE QUE SE CRIAR UM PROMPT ESPECÍFICO.
+                                            # CENÁRIO DE ESTOURO DE CONTEXTO
                 
         df = texto
         
@@ -158,17 +159,19 @@ def consultallmdocfiscal(texto,llm,tipo):
         
     return resposta
 
-def obtem_sim_nao(pergunta,df,llm):
+def obtem_sim_nao(pergunta,df,llm): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO
     
+        
     # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
     template = """Aja como um analista de contabilidade do Brasil, aonde seu objetivo é saber se é possível responder a pergunta "{pergunta}" do usuário considerando 
-    os PASSOS abaixo.
+    os PASSOS.
     
     PASSOS: 
     1 - As colunas {colunas_df} do dataframe.
     2 - Os dados {df}
             
-    {resposta}"""
+    {resposta}
+    """
     
     # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
     class Resposta(BaseModel):
@@ -357,7 +360,7 @@ def agente2(pergunta,arquivo,engine):
                 
         campos = list(df.columns.values)
                     
-        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI
+        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI.
 
         listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
         
@@ -373,7 +376,7 @@ def agente2(pergunta,arquivo,engine):
     
     dfcampos = DataFrame({'CAMPOS DO DOC FISCAL':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
     
-    resposta = obtem_sim_nao(pergunta,df,llm)                 
+    resposta = obtem_sim_nao(pergunta,df,llm) # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO                 
     
     if resposta == "Sim":  # PERSISTINDO OS DADOS NO BANCO DE DADOS        
        
