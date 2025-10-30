@@ -146,40 +146,6 @@ def consultallmdocfiscal(texto,llm,tipo):
         
     return resposta
 
-def obtem_sim_nao(pergunta,df,llm): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO
-    
-        
-    # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA
-    template = """Aja como um analista de contabilidade do Brasil, aonde seu objetivo é saber se é possível responder a pergunta "{pergunta}" do usuário considerando 
-    os PASSOS.
-    
-    PASSOS: 
-    1 - As colunas {colunas_df} do dataframe.
-    2 - Os dados {df}
-            
-    {resposta}
-    """
-    
-    # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
-    class Resposta(BaseModel):
-        resposta: str = Field(description="Responda Sim ou Não")
-
-    parseador = JsonOutputParser(pydantic_object=Resposta)
-   
-    prompt_template = PromptTemplate(
-                                        template=template,
-                                        input_variables=["pergunta","df","colunas_df"],
-                                        partial_variables={"resposta" : parseador.get_format_instructions()}
-                                    )
-
-    # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
-    chain = prompt_template | llm | parseador
-    
-    # INVOCANDO A LLM
-    resposta = chain.invoke(input={"pergunta":pergunta, "df": df.to_string(index=False), "colunas_df": list(df.columns.values)})['resposta']
-        
-    return resposta
-
 def llm_gera_query(llm,engine,pergunta):
 
         template_query = """Como agente especialista em documentos fiscais brasileiros e banco de dados, seu objetivo é gerar a query SQL para responder a pergunta {pergunta}.
@@ -226,6 +192,20 @@ def llm_gera_query(llm,engine,pergunta):
         
         return query
 
+
+def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO    
+    
+    # INSERE O DATAFRAME NO BD, PARA SELECIONAR SABER SE É POSSÍVEL RESPONDER A PERGUNTA POR MEIO DE UMA CONSULTA, MESMO QUE COM VAZIO.
+    df.to_sql("arquivo", con=engine, if_exists="replace", index=False)
+    
+    query = llm_gera_query(llm, engine, pergunta)
+    
+    if query:
+        resposta = "Sim"
+    else:
+        resposta = "Não"   
+    
+    return resposta
 
 # [markdown]
 # ### <b>AGENTE 3: Resposta e Interação</b>
@@ -366,7 +346,7 @@ def agente2(pergunta,arquivo,engine):
     
     dfcampos = DataFrame({'CAMPOS DO DOC FISCAL':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
     
-    resposta = obtem_sim_nao(pergunta,df,llm) # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO                 
+    resposta = obtem_sim_nao(pergunta,df,llm,engine) # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO                 
     
     if resposta == "Sim":  # PERSISTINDO OS DADOS NO BANCO DE DADOS        
        
