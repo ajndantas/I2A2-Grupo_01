@@ -53,7 +53,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             campos: list = Field(description='campos. **SOMENTE** os campos de CONTEUDO, com correção ortográfica, tendo como referência PASSOS2, **NUNCA** os valores.')
             #sigcampos: list = Field(description="significado. Em poucas palavras, com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF) e **NUNCA REPETIR** os significados")
             #valores: list = Field(description="**SOMENTE** os valores associados a elemento de sigcampos. **NUNCA** os campos")
-            registros : List[DictFiscal] = Field(description="Lista de significados, com correção ortográfica, associado a cada um dos valores. Se algum dos significados já existir na lista, eliminar o significado e seu valor associado da lista. Se algum dos valores for nulo ou vazio, inserir N/A")
+            registros : List[DictFiscal] = Field(description="Lista de significados, com correção ortográfica, associado a cada um dos valores. Se algum dos significados já existir na lista, eliminar o último significado e seu valor associado da lista. Se algum dos valores for nulo ou vazio, inserir N/A")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
@@ -301,8 +301,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="mistralai/mistral-small-3.2-24b-instruct:free",
-        #model="mistralai/mistral-small-3.2-24b-instruct",
+        #model="mistralai/mistral-small-3.2-24b-instruct:free",
+        model="mistralai/mistral-small-3.2-24b-instruct",
         base_url="https://openrouter.ai/api/v1",
         temperature=0.15,
         cache=True,      
