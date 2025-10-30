@@ -132,11 +132,12 @@ class NotaFiscalOCR:
         Returns:
             numpy.ndarray: Imagem binarizada.
         """
-        cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)        
-        _, binarizada = cv2.threshold(cinza, 150, 255, cv2.THRESH_BINARY)         
+        cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)       
+             
+        _, binarizada = cv2.threshold(cinza, 150, 255, cv2.THRESH_BINARY)
         
         return binarizada
-
+        
     def extrair_texto(self, imagem_processada):
         """
         Executa o OCR utilizando Tesseract na imagem processada.
@@ -148,7 +149,10 @@ class NotaFiscalOCR:
             str: Texto extraído.
         """
         #config = r'--oem 3 --psm 6 -l {}'.format(self.lang)
-        config = r'--oem 1 --psm 6 -l {}'.format(self.lang)
+        config = r'--oem 3 --psm 11 -l {}'.format(self.lang)
+        
+        #config += ' -c tessedit_char_whitelist=0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-/()$%:' #INSERIDO
+    
         texto = image_to_string(imagem_processada, config=config)
         
         return texto

@@ -18,13 +18,13 @@
 from os import getenv
 from time import sleep
 from os.path import exists
-from pandas import read_csv, read_sql, read_xml, DataFrame
-from io import StringIO
+from pandas import read_csv, read_sql, DataFrame
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
+from typing import List, TypedDict
 from langchain_openai import ChatOpenAI
 from langchain.globals import set_debug, set_llm_cache
 from langchain_community.cache import InMemoryCache
@@ -44,11 +44,16 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         # CRIANDO O PROMPT PARA A LLM COM A SAIDA FORMATADA   
         
+        class DictFiscal(TypedDict):
+            significado: str
+            valor : str            
+            
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            campos: list = Field(description='campos. **SOMENTE** os campos com correção ortográfica. **NUNCA** os valores.')
-            sigcampos: list = Field(description="significado. Em poucas palavras, com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF) e **NUNCA** repetir")
-            valores: list = Field(description="**SOMENTE** os Valores. **NUNCA** os campos")
+            campos: list = Field(description='campos. **SOMENTE** os campos de CONTEUDO, com correção ortográfica, tendo como referência PASSOS2, **NUNCA** os valores.')
+            #sigcampos: list = Field(description="significado. Em poucas palavras, com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF) e **NUNCA REPETIR** os significados")
+            #valores: list = Field(description="**SOMENTE** os valores associados a elemento de sigcampos. **NUNCA** os campos")
+            registros : List[DictFiscal] = Field(description="Lista de significados, com correção ortográfica, associado a cada um dos valores. Se algum dos significados já existir na lista, eliminar o significado e seu valor associado da lista. Se algum dos valores for nulo ou vazio, inserir N/A")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
@@ -62,9 +67,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         PASSOS1: 
         ##########################################
         1 - Sigla do tipo do documento fiscal.
-        2 - Significado, para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as orientações informadas em 
-        PASSOS2 a), b), c) ou d) abaixo para o documento fiscal. Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO, e sim, os 
-        seus significados. **NUNCA** repetir os significados     
+        2 - Significado para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as orientações informadas em 
+        PASSOS2 a), b), c) ou d) abaixo para o documento fiscal. Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO.      
         
         PASSOS2:
         a) Nota Técnica  
@@ -72,12 +76,12 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documento fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
         
-        3 - Para cada significado do item 2, **SEMPRE** identificar o valor correto em CONTEUDO.
-        3.1 - O valor **NUNCA** deve ser igual ao campo.
-        3.2 - **SEMPRE** verificar se o valor associado ao significado faz sentido, senão, retornar para o passo 3.   
-               
-        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
-        6 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
+        3 - Para cada significado do item 2, **SEMPRE** identificar o valor associado em CONTEUDO,e executar os passos 3.1 e 3.2
+        3.1 - O valor **NUNCA** deve ser igual ao nome do campo, se for, retornar para o passo 3.
+        3.2 - Utilzando como referência PASSOS2. O valor é adequado para o significado ? Caso não, retornar para o item 3. 
+                              
+        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
         ###########################################
             
         {formatador_saida_ia}
@@ -93,23 +97,6 @@ def consultallmdocfiscal(texto,llm,tipo):
         
         # INVOCANDO A LLM
         resposta = chain.invoke(input={"texto":texto})
-        
-        resposta_valores = []
-                        
-        for i in range(len(resposta['sigcampos'])):             
-            
-            try:
-                resposta_valores.append(resposta['valores'][i])
-            
-            except IndexError as e:
-                resposta_valores.append('N/A')
-                continue
-        
-        resposta['valores'] = []
-        resposta['valores'] = resposta_valores
-        
-        print('\nSigcampos: ',resposta['sigcampos'],'\n')
-        print('\nValores: ',resposta['valores'],'\n')
         
     
     elif tipo in ['text/plain','text/csv']: # DEVIDO A LLM NÃO ENTENDER BEM O CSV, TEVE QUE SE CRIAR UM PROMPT ESPECÍFICO.
@@ -343,10 +330,13 @@ def agente2(pergunta,arquivo,engine):
         
         campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
         
-        listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+        lista_dictregistros = resposta['registros']        
+        listacampos = [dict['significado'] for dict in lista_dictregistros] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+        
+        #listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+        listavalores = [dict['valor'] for dict in lista_dictregistros]
                        
-               
-        df = DataFrame([resposta['valores']], columns=listacampos)                                       
+        df = DataFrame([listavalores], columns=listacampos)                                       
                     
               
     elif tipo in ['text/plain','text/csv']: 
