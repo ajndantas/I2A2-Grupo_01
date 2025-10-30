@@ -77,7 +77,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         d) Sobre impostos, consultar os itens b) e c). 
         
         2.1 - Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO
-        2.2 - Para cada significado perguntar. Esse significado já existe ? Caso sim, eliminar esse significado.
+        2.2 - Para cada significado perguntar. Esse significado já existe ? **CASO SIM, ELIMINAR ESSE SIGNIFICADO**.
         
         3 - Para cada significado do item 2, **SEMPRE** identificar o valor associado em CONTEUDO, e executar os passos 3.1 e 3.2
         3.1 - O valor **NUNCA** deve ser igual ao nome do campo, se for, retornar para o passo 3.
@@ -212,7 +212,7 @@ def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JA
     
     sleep(20)
     
-    if dft.empty:
+    if dft.empty: # FUNCIONA PARA A PERGUNTA. QUEM DESCOBRIU O BRASIL ?
         resposta = "Não"
     else:
         resposta = "Sim"   
