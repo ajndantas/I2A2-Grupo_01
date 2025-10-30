@@ -77,14 +77,16 @@ def consultallmdocfiscal(texto,llm,tipo):
         d) Sobre impostos, consultar os itens b) e c). 
         
         2.1 - Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO
-        2.2 - Para cada significado perguntar. Esse significado já existe ? **CASO SIM, ELIMINAR ESSE SIGNIFICADO**.
+        2.2 - Para cada significado **SEMPRE** perguntar. Esse significado já existe ? **CASO SIM, ELIMINAR ESSE SIGNIFICADO**.
         
         3 - Para cada significado do item 2, **SEMPRE** identificar o valor associado em CONTEUDO, e executar os passos 3.1 e 3.2
         3.1 - O valor **NUNCA** deve ser igual ao nome do campo, se for, retornar para o passo 3.
         3.2 - Utilzando como referência PASSOS2. O valor é adequado para o significado ? Caso não, retornar para o item 3. 
                               
-        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão. 
-        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
+        4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. 
+        Responda somente com o número da versão. 
+        5 - Baseados nos campos do item 2 e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. 
+        Responda somente com o número do modelo.
         ###########################################
             
         {formatador_saida_ia}
@@ -196,9 +198,12 @@ def llm_gera_query(llm,engine,pergunta):
         return query
 
 
-def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO    
+# [markdown]
+# ESTOU AQUI
+
+def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXT. VAI RESPONDER A PERGUNTA POR MEIO 
+                                           # DO PROCEDIMENTO LLM_GERA_QUERY    
     
-    # INSERE O DATAFRAME NO BD, PARA SELECIONAR SABER SE É POSSÍVEL RESPONDER A PERGUNTA POR MEIO DE UMA CONSULTA, MESMO QUE COM VAZIO.
     df.to_sql("arquivo", con=engine, if_exists="replace", index=False)
     
     query = llm_gera_query(llm, engine, pergunta)
@@ -293,8 +298,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        #model="mistralai/mistral-small-3.2-24b-instruct:free",
-        model="mistralai/mistral-small-3.2-24b-instruct",
+        model="mistralai/mistral-small-3.2-24b-instruct:free",
+        #model="mistralai/mistral-small-3.2-24b-instruct",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
@@ -356,10 +361,10 @@ def agente2(pergunta,arquivo,engine):
             
     dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
     
-    dfcampos = DataFrame({'CAMPOS DO DOC FISCAL':[campos]}) # LISTA COM UMA LISTA DE CAMPOS
+    dfcampos = DataFrame({'CAMPOS DO DOC FISCAL':[campos]}) # LISTA COM UMA LISTA DE CAMPOS    
     
     resposta = obtem_sim_nao(pergunta,df,llm,engine) # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO                 
-    
+        
     if resposta == "Sim":  # PERSISTINDO OS DADOS NO BANCO DE DADOS        
        
         print('Sim para o arquivo: ',arquivo.name)
