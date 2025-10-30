@@ -53,7 +53,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             campos: list = Field(description='campos. **SOMENTE** os campos de CONTEUDO, com correção ortográfica, tendo como referência PASSOS2, **NUNCA** os valores.')
             #sigcampos: list = Field(description="significado. Em poucas palavras, com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF) e **NUNCA REPETIR** os significados")
             #valores: list = Field(description="**SOMENTE** os valores associados a elemento de sigcampos. **NUNCA** os campos")
-            registros : List[DictFiscal] = Field(description="Lista de significados, com correção ortográfica, associado a cada um dos valores. Se algum dos significados já existir na lista, eliminar o último significado e seu valor associado da lista. Se algum dos valores for nulo ou vazio, inserir N/A")
+            registros : List[DictFiscal] = Field(description="Lista de significados. Correção ortográfica para significado. Se algum valor for nulo ou vazio, inserir N/A")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
@@ -68,7 +68,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         ##########################################
         1 - Sigla do tipo do documento fiscal.
         2 - Significado para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as orientações informadas em 
-        PASSOS2 a), b), c) ou d) abaixo para o documento fiscal. Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO.      
+        PASSOS2 a), b), c) ou d) abaixo para o documento fiscal.       
         
         PASSOS2:
         a) Nota Técnica  
@@ -76,7 +76,10 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documento fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c). 
         
-        3 - Para cada significado do item 2, **SEMPRE** identificar o valor associado em CONTEUDO,e executar os passos 3.1 e 3.2
+        2.1 - Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO
+        2.2 - Para cada significado perguntar. Esse significado já existe ? Caso sim, eliminar esse significado.
+        
+        3 - Para cada significado do item 2, **SEMPRE** identificar o valor associado em CONTEUDO, e executar os passos 3.1 e 3.2
         3.1 - O valor **NUNCA** deve ser igual ao nome do campo, se for, retornar para o passo 3.
         3.2 - Utilzando como referência PASSOS2. O valor é adequado para o significado ? Caso não, retornar para o item 3. 
                               
@@ -200,10 +203,19 @@ def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JA
     
     query = llm_gera_query(llm, engine, pergunta)
     
-    if query:
-        resposta = "Sim"
+    dft = read_sql(query,con=engine)
+    
+    # TESTAR O CENÁRIO 4.1
+    print('\nDataFrame dft\n',dft)
+    print('values: ',df.values)
+    print('columns: ',df.columns)
+    
+    sleep(20)
+    
+    if dft.empty:
+        resposta = "Não"
     else:
-        resposta = "Não"   
+        resposta = "Sim"   
     
     return resposta
 
@@ -284,7 +296,7 @@ def agente2(pergunta,arquivo,engine):
         #model="mistralai/mistral-small-3.2-24b-instruct:free",
         model="mistralai/mistral-small-3.2-24b-instruct",
         base_url="https://openrouter.ai/api/v1",
-        temperature=0.15,
+        temperature=0,
         cache=True,      
         reasoning_effort="high",        
         api_key=getenv("API_KEY")        
