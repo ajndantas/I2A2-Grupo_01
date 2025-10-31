@@ -62,7 +62,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         template = """Aja como um analista de contabilidade, aonde o seu objetivo e obter as informações de acordo com PASSOS1, sobre o documento fiscal referente ao CONTEUDO.
         
         CONTEUDO:
-        É o texto {texto} com correção ortográfica para as palavras.
+        É o texto {texto} com correção ortográfica para as palavras.        
+
         
         PASSOS1: 
         ##########################################
@@ -122,8 +123,9 @@ def consultallmdocfiscal(texto,llm,tipo):
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD referente ao documento fiscal
-        d) Sobre impostos, consultar o item b) e c)        
-                      
+        d) Sobre impostos, consultar o item b) e c)
+        
+                            
         ##########################################
         PERGUNTAS:
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
@@ -309,9 +311,9 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        #model="mistralai/mistral-small-3.2-24b-instruct:free",
+        model="mistralai/mistral-small-3.2-24b-instruct:free",
         #model="mistralai/mistral-small-3.2-24b-instruct",
-        model="mistralai/mistral-small-3.1-24b-instruct:free",
+        #model="mistralai/mistral-small-3.1-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
@@ -335,18 +337,24 @@ def agente2(pergunta,arquivo,engine):
         print("\nTexto\n",texto)
         sleep(20)
         
-        resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
+        if texto:
+            
+            print('Existe texto')
+            
+            resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
+            
+            campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
+            
+            lista_dictregistros = resposta['registros']        
+            listacampos = [dict['significado'] for dict in lista_dictregistros] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+            
+            #listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+            listavalores = [dict['valor'] for dict in lista_dictregistros]
+                        
+            df = DataFrame([listavalores], columns=listacampos)                                       
         
-        campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
-        
-        lista_dictregistros = resposta['registros']        
-        listacampos = [dict['significado'] for dict in lista_dictregistros] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
-        
-        #listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
-        listavalores = [dict['valor'] for dict in lista_dictregistros]
-                       
-        df = DataFrame([listavalores], columns=listacampos)                                       
-                    
+        else: # CRIA UM DATAFRAME VAZIO
+            df = DataFrame()            
               
     elif tipo in ['text/plain','text/csv']: 
                 
@@ -356,9 +364,12 @@ def agente2(pergunta,arquivo,engine):
         else:
             df = read_csv(arquivo)
         
-                
-        campos = list(df.columns.values)
+    
+    if not df.empty:
                     
+        campos = list(df.columns.values)
+        
+                   
         resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI.
 
         listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
@@ -366,16 +377,20 @@ def agente2(pergunta,arquivo,engine):
         df = DataFrame(df.values, columns=listacampos)
         
                
-    df['TIPO'] = resposta['tipo']
-    df['MODELO_DOC'] = resposta['modelo']        
-    df['VERSÃO_DOC'] = resposta['versao']    
-    df['ARQUIVO'] = arquivo.name        
-            
-    dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
-    
-    dfcampos = DataFrame({'CAMPOS DO DOC FISCAL':[campos]}) # LISTA COM UMA LISTA DE CAMPOS    
-    
-    resposta = obtem_sim_nao(pergunta,df,llm,engine) # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO                 
+        df['TIPO'] = resposta['tipo']
+        df['MODELO_DOC'] = resposta['modelo']        
+        df['VERSÃO_DOC'] = resposta['versao']    
+        df['ARQUIVO'] = arquivo.name        
+                
+        dfdocfiscal = DataFrame({'TIPO':[df['TIPO'].loc[0]],'MODELO':[df['MODELO_DOC'].loc[0]],'VERSÃO':[df['VERSÃO_DOC'].loc[0]]})
+        
+        dfcampos = DataFrame({'CAMPOS DO DOC FISCAL':[campos]}) # LISTA COM UMA LISTA DE CAMPOS    
+        
+        resposta = obtem_sim_nao(pergunta,df,llm,engine) # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXTO   
+        
+    else:        
+        resposta = "Não"
+                            
         
     if resposta == "Sim":  # PERSISTINDO OS DADOS NO BANCO DE DADOS        
        
