@@ -205,9 +205,6 @@ def llm_gera_query(llm,engine,pergunta):
         return query
 
 
-# [markdown]
-# ESTOU AQUI
-
 def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXT. VAI RESPONDER A PERGUNTA POR MEIO 
                                            # DO PROCEDIMENTO LLM_GERA_QUERY    
     
@@ -219,7 +216,6 @@ def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JA
     
     dft = read_sql(query,con=engine)
     
-    # TESTAR O CENÁRIO 4.1
     print('\nDataFrame dft\n',dft)
        
     listavalues = dft.values.tolist()[0]
@@ -301,6 +297,9 @@ def read_tags_values_xml_file(arquivo):
            
     return df    
 
+
+# [markdown]
+# ESTOU AQUI
 
 def agente2(pergunta,arquivo,engine):
 
