@@ -62,9 +62,9 @@ def consultallmdocfiscal(texto,llm,tipo):
         template = """Aja como um analista de contabilidade, aonde o seu objetivo e obter as informações de acordo com PASSOS1, sobre o documento fiscal referente ao CONTEUDO.
         
         CONTEUDO:
-        É o texto {texto} com correção ortográfica para as palavras.        
-
+        É o texto {texto} com correção ortográfica para as palavras.
         
+                
         PASSOS1: 
         ##########################################
         1 - Sigla do tipo do documento fiscal.
@@ -343,18 +343,18 @@ def agente2(pergunta,arquivo,engine):
             
             resposta = consultallmdocfiscal(texto,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
             
-            campos = resposta['campos'] # CAMPOS DO PRÓPRIO DOCUMENTO
+            campos = resposta['campos'] 
             
             lista_dictregistros = resposta['registros']        
             listacampos = [dict['significado'] for dict in lista_dictregistros] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
             
-            #listacampos = resposta['sigcampos'] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
             listavalores = [dict['valor'] for dict in lista_dictregistros]
                         
             df = DataFrame([listavalores], columns=listacampos)                                       
         
         else: # CRIA UM DATAFRAME VAZIO
-            df = DataFrame()            
+            df = DataFrame()
+                        
               
     elif tipo in ['text/plain','text/csv']: 
                 
@@ -364,18 +364,22 @@ def agente2(pergunta,arquivo,engine):
         else:
             df = read_csv(arquivo)
         
-    
+        if not df.empty:
+            
+            campos = df.columns.tolist() # CAMPOS DO PRÓPRIO DOCUMENTO FISCAL 
+            
+            resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
+            
+            lista_dictregistros = resposta['registros']        
+            listacampos = [dict['significado'] for dict in lista_dictregistros] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+                
+            listavalores = [dict['valor'] for dict in lista_dictregistros]
+                            
+            df = DataFrame(listavalores, columns=listacampos) 
+            
+                            
     if not df.empty:
-                    
-        campos = list(df.columns.values)
-        
-                   
-        resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI.
-
-        listacampos = [x['significado'] for x in resposta['sigcampos']] # LISTA COM OS NOMES DOS CAMPOS DO DOCUMENTO FISCAL]        
-        
-        df = DataFrame(df.values, columns=listacampos)
-        
+               
                
         df['TIPO'] = resposta['tipo']
         df['MODELO_DOC'] = resposta['modelo']        
