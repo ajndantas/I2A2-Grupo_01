@@ -370,12 +370,12 @@ def agente2(pergunta,arquivo,engine):
             
             resposta = consultallmdocfiscal(df,llm,tipo) # O NOME DAS COLUNAS ESTÁ AQUI 
             
-            lista_dictregistros = resposta['registros']        
-            listacampos = [dict['significado'] for dict in lista_dictregistros] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
+            lista_dictsigcampos = resposta['sigcampos']        
+            listacampos = [dict['significado'] for dict in lista_dictsigcampos] # AQUI ESTÁ A LISTA DE CAMPOS APÓS ANÁLISE
                 
-            listavalores = [dict['valor'] for dict in lista_dictregistros]
-                            
-            df = DataFrame(listavalores, columns=listacampos) 
+            listavalores = df.values.tolist()
+                                        
+            df = DataFrame(listavalores, columns=listacampos) # NOVO DATAFRAME COM OS SIGNIFICADOS DAS COLUNAS
             
                             
     if not df.empty:               
