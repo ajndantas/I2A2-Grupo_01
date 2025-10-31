@@ -311,8 +311,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="mistralai/mistral-small-3.2-24b-instruct:free",
-        #model="mistralai/mistral-small-3.2-24b-instruct",
+        #model="mistralai/mistral-small-3.2-24b-instruct:free",
+        model="mistralai/mistral-small-3.2-24b-instruct",
         #model="mistralai/mistral-small-3.1-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
@@ -535,7 +535,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                #try:
+                try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -548,8 +548,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                #except Exception as e:
-                #    st.error(f"Erro ao processar: {e}")
+                except Exception as e:
+                    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
