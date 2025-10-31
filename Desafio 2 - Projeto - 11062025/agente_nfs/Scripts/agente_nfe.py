@@ -156,6 +156,9 @@ def llm_gera_query(llm,engine,pergunta):
         template_query = """Como agente especialista em documentos fiscais brasileiros e banco de dados, seu objetivo é gerar a query SQL para responder a pergunta {pergunta}.
         Para isso, você deve considerar os PASSOS e o CONTEXTO abaixo.
         
+        - **NUNCA** fazer comentários
+        - **NUNCA** fazer questionamentos 
+        
         PASSOS:
         ########################################################################################
         1 - Entender o significado das colunas "{colunas}" por meio do CONTEXTO informado abaixo 
@@ -166,7 +169,9 @@ def llm_gera_query(llm,engine,pergunta):
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documentos fiscal por meio das tags.
-        d) Para saber as colunas referentes aos impostos a serem considerados para o documento fiscal, consultar os itens b) e c). Se os impostos tiverem valor nulo ou zero, exibir como zero
+        d) Para saber as colunas referentes aos impostos a serem considerados para o documento fiscal, consultar os itens b) e c). Se os impostos tiverem 
+        valor nulo ou zero, exibir como zero.
+        
         
         {formatacao_saida}"""
 
@@ -204,6 +209,8 @@ def llm_gera_query(llm,engine,pergunta):
 def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXT. VAI RESPONDER A PERGUNTA POR MEIO 
                                            # DO PROCEDIMENTO LLM_GERA_QUERY    
     
+    print("MÉTODO OBTÉM SIM NÃO")
+    
     df.to_sql("arquivo", con=engine, if_exists="replace", index=False)
     
     query = llm_gera_query(llm, engine, pergunta)
@@ -212,12 +219,16 @@ def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JA
     
     # TESTAR O CENÁRIO 4.1
     print('\nDataFrame dft\n',dft)
-    print('values: ',df.values)
-    print('columns: ',df.columns)
+       
+    listavalues = dft.values.tolist()[0]
+    listacolumns = [str(c).replace('"','') for c in dft.columns.tolist()]
     
-    sleep(20)
+    print('listavalues: ',listavalues)
+    print('listacolumns: ',listacolumns)
     
-    if dft.empty: # FUNCIONA PARA A PERGUNTA. QUEM DESCOBRIU O BRASIL ?
+    print(any(c in listavalues for c in listacolumns))
+    
+    if dft.empty or any(c in listavalues for c in listacolumns): # FUNCIONA PARA A PERGUNTA. QUEM DESCOBRIU O BRASIL ?
         resposta = "Não"
     else:
         resposta = "Sim"   
@@ -298,8 +309,9 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="mistralai/mistral-small-3.2-24b-instruct:free",
+        #model="mistralai/mistral-small-3.2-24b-instruct:free",
         #model="mistralai/mistral-small-3.2-24b-instruct",
+        model="mistralai/mistral-small-3.1-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
