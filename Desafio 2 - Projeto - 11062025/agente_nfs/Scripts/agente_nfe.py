@@ -106,7 +106,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         
     
     elif tipo in ['text/plain','text/csv']: # DEVIDO A LLM NÃO ENTENDER BEM O CSV, TEVE QUE SE CRIAR UM PROMPT ESPECÍFICO.
-                                            # CENÁRIO DE ESTOURO DE CONTEXTO
+                                            # NÃO HAVERÁ ESTOURO DE CONTEXTO, PELO FATO DE TRABALHAR SOMENTE COM AS COLUNAS
+                                            # E NÃO COM OS DADOS.
                 
         df = texto
         
@@ -226,7 +227,7 @@ def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JA
     
     print(any(c in listavalues for c in listacolumns))
     
-    if dft.empty or any(c in listavalues for c in listacolumns): # FUNCIONA PARA A PERGUNTA. QUEM DESCOBRIU O BRASIL ?
+    if dft.empty or any(c in listavalues for c in listacolumns): # dft.mpty FUNCIONA PARA A PERGUNTA. QUEM DESCOBRIU O BRASIL ?
         resposta = "Não"
     else:
         resposta = "Sim"   
@@ -377,8 +378,7 @@ def agente2(pergunta,arquivo,engine):
             df = DataFrame(listavalores, columns=listacampos) 
             
                             
-    if not df.empty:
-               
+    if not df.empty:               
                
         df['TIPO'] = resposta['tipo']
         df['MODELO_DOC'] = resposta['modelo']        
