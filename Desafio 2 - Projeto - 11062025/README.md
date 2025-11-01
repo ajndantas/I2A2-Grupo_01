@@ -2,7 +2,7 @@
 
 Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract**, **OpenCV**, **Streamlit** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), arquivos CSV ou XMLs**.
 
-**[ARTEFATOS PROJETO FINAL](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025/Projeto%20Final)**
+**[PROJETO FINAL ARTEFATOS](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025/Projeto%20Final)**
 
 ---
 
