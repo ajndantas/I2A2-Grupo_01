@@ -166,7 +166,7 @@ def llm_gera_query(llm,engine,pergunta):
         ########################################################################################################
         1 - Entender o significado das colunas "{colunas}" do documento, por meio do CONTEXTO informado abaixo 
         2 - O nome da tabela é "arquivo".
-        3 - Se a coluna referente a resposta da pergunta não estiver no documento, responder com None 
+        3 - Se a coluna referente a resposta da pergunta não estiver no documento, responder com null 
         ########################################################################################################
         
         CONTEXTO:
@@ -218,20 +218,26 @@ def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JA
     
     dft = read_sql(query,con=engine)
     
-    print('\nDataFrame dft\n',dft)
-       
-    listavalues = dft.values.tolist()[0]
-    listacolumns = [str(c).replace('"','') for c in dft.columns.tolist()]
+    print('\nDataFrame dft\n',dft)       
     
-    print('listavalues: ',listavalues)
-    print('listacolumns: ',listacolumns)
-    
-    print(any(c in listavalues for c in listacolumns))
-    
-    if dft.empty or any(c in listavalues for c in listacolumns): # dft.mpty FUNCIONA PARA A PERGUNTA. QUEM DESCOBRIU O BRASIL ?
+    if dft.empty or dft.values.tolist()[0][0] == '' or dft.values.tolist()[0][0] is None:
         resposta = "Não"
+    
     else:
-        resposta = "Sim"   
+        
+        listavalues = dft.values.tolist()[0]
+        listacolumns = [str(c).replace('"','') for c in dft.columns.tolist()]
+        
+        print('listavalues: ',listavalues)
+        print('listacolumns: ',listacolumns)
+        
+        print(any(c in listavalues for c in listacolumns))
+        
+        if any(c in listavalues for c in listacolumns): 
+            resposta = "Não"
+    
+        else:
+            resposta = "Sim"   
     
     return resposta
 
@@ -533,7 +539,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                try:
+                #try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -546,8 +552,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                except Exception as e:
-                    st.error(f"Erro ao processar: {e}")
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
