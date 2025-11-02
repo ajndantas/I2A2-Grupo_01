@@ -299,9 +299,6 @@ def read_tags_values_xml_file(arquivo):
     return df    
 
 
-# [markdown]
-# ESTOU AQUI
-
 def agente2(pergunta,arquivo,engine):
 
     print('\nExecutando agente 2...')
@@ -311,8 +308,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        #model="mistralai/mistral-small-3.2-24b-instruct:free",
-        model="mistralai/mistral-small-3.2-24b-instruct",
+        model="mistralai/mistral-small-3.2-24b-instruct:free",
+        #model="mistralai/mistral-small-3.2-24b-instruct",
         #model="mistralai/mistral-small-3.1-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
