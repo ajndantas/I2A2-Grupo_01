@@ -163,10 +163,11 @@ def llm_gera_query(llm,engine,pergunta):
         - **NUNCA** fazer questionamentos 
         
         PASSOS:
-        ########################################################################################
-        1 - Entender o significado das colunas "{colunas}" por meio do CONTEXTO informado abaixo 
+        ########################################################################################################
+        1 - Entender o significado das colunas "{colunas}" do documento, por meio do CONTEXTO informado abaixo 
         2 - O nome da tabela é "arquivo".
-        ########################################################################################
+        3 - Se a coluna referente a resposta da pergunta não estiver no documento, responder com None 
+        ########################################################################################################
         
         CONTEXTO:
         a) Nota Técnica  
@@ -308,8 +309,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="mistralai/mistral-small-3.2-24b-instruct:free",
-        #model="mistralai/mistral-small-3.2-24b-instruct",
+        #model="mistralai/mistral-small-3.2-24b-instruct:free",
+        model="mistralai/mistral-small-3.2-24b-instruct",
         #model="mistralai/mistral-small-3.1-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
@@ -334,7 +335,7 @@ def agente2(pergunta,arquivo,engine):
         print("\nTexto\n",texto)
         sleep(20)
         
-        if texto:
+        if texto: # SE NÃO FOR DOCUMENTO FISCAL VAZIO
             
             print('Existe texto')
             
@@ -361,7 +362,7 @@ def agente2(pergunta,arquivo,engine):
         else:
             df = read_csv(arquivo)
         
-        if not df.empty:
+        if not df.empty: # SE NÃO FOR DOCUMENTO FISCAL VAZIO
             
             campos = df.columns.tolist() # CAMPOS DO PRÓPRIO DOCUMENTO FISCAL 
             
