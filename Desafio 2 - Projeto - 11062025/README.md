@@ -4,6 +4,11 @@ Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Tesser
 
 **[PROJETO FINAL ARTEFATOS](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025/Projeto%20Final%20-%20Artefatos)**
 
+## 🖥️ Quer só testar?
+
+Sem instalar nada:
+👉 [Acesse a versão online](https://agente-nfe.streamlit.app/)
+
 ---
 
 ## 🚀 O que esse projeto faz
@@ -42,12 +47,6 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 
 ---
 
-## 🖥️ Quer só testar?
-
-Sem instalar nada:
-👉 [Acesse a versão online](https://agente-nfe.streamlit.app/)
-
----
 
 ## 🐳 Instalação com Docker (modo fácil)
 
