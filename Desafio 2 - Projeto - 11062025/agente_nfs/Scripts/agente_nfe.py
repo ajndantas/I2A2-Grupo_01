@@ -59,7 +59,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade, aonde o seu objetivo e obter as informações de acordo com PASSOS1, sobre o documento fiscal referente ao CONTEUDO.
+        template = """Aja como um analista de contabilidade, aonde o seu objetivo é obter as informações de acordo com PASSOS1, sobre o documento fiscal referente ao CONTEUDO.
         
         CONTEUDO:
         É o texto {texto} com correção ortográfica para as palavras.
@@ -166,7 +166,7 @@ def llm_gera_query(llm,engine,pergunta):
         ########################################################################################################
         1 - Entender o significado das colunas "{colunas}" do documento, por meio do CONTEXTO informado abaixo 
         2 - O nome da tabela é "arquivo".
-        3 - Se a coluna referente a resposta da pergunta não estiver no documento, responder com null 
+        3 - Se o documento não possuir uma coluna, aonde o significado seja capaz de responder a pergunta, responder com null 
         ########################################################################################################
         
         CONTEXTO:
