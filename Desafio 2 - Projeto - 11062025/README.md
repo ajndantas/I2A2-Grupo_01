@@ -80,7 +80,7 @@ apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesse
 **Windows:**
 
 1. Instale o [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki) (marque “Additional language data”).
-2. Baixe o [Poppler.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/poppler.zip), descompacte e coloque a pasta `poppler` dentro da pasta Scripts
+2. Baixe o [Poppler.zip](https://drive.google.com/open?id=1wwuRo9LBfAcSmX-gcUmBkphttMl_p-w3&usp=drive_fs), descompacte e coloque a pasta `poppler` dentro da pasta Scripts
 
 ### 2️⃣ Criar o ambiente Python
 
