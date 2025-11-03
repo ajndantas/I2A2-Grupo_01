@@ -47,7 +47,6 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 
 ---
 
-
 ## 🐳 Instalação com Docker (modo fácil)
 
 1. Instale o [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -117,7 +116,6 @@ Acesse: [http://localhost:8000](http://localhost:8000)
 
 ## 🧠 Exemplos de perguntas
 
-- “Quem é o destinatário da nota?”
 - “Qual o valor total?”
 - “Quais os produtos ou serviços listados?”
 - “Quem descobriu o Brasil?” (Sim, ele vai saber que isso não tem nada a ver 😅)
