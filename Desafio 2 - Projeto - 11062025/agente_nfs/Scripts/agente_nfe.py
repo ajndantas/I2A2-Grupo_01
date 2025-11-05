@@ -109,8 +109,6 @@ def consultallmdocfiscal(texto,llm,tipo):
                                             # NÃO HAVERÁ ESTOURO DE CONTEXTO, PELO FATO DE TRABALHAR SOMENTE COM AS COLUNAS
                                             # E NÃO COM OS DADOS.
                 
-        df = texto
-        
         class DocFiscal2(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             versao: str = Field(description="versão. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")
@@ -151,6 +149,8 @@ def consultallmdocfiscal(texto,llm,tipo):
         chain = prompt_template | llm | parseador
     
         # INVOCANDO A LLM
+        df = texto
+        
         resposta = chain.invoke(input={"colunas_df":list(df.columns.values)}) 
           
         
@@ -296,6 +296,9 @@ def read_tags_values_xml_file(arquivo):
         #print('elem.tag: ',elem.tag)
         tag_name = elem.tag.split('}')[-1]  # TAGS. Remove o namespace do nome pegando o último elemento [-1]
         tag_value = elem.text.strip() if elem.text else '' # VALUES
+        
+        print('Tag name: ',tag_name, ' Tag value: ', tag_value)
+        sleep(10)
         
         dict_xml[tag_name] = tag_value
 
