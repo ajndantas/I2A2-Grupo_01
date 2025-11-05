@@ -59,7 +59,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade, aonde o seu objetivo é obter as informações de PASSOS1, utlizando como referência de consulta
+        template = """Aja como um analista de contabilidade, aonde o seu objetivo é obter as informações de PASSOS, utlizando como referência de consulta
         REFERENCIA, a respeito do CONTEUDO do documento fiscal.
         
         CONTEUDO:
@@ -71,7 +71,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documento fiscal por meio das tags.
         d) Sobre impostos, consultar os itens b) e c).         
                 
-        PASSOS1: 
+        PASSOS: 
         ##########################################
         1 - Sigla do tipo do documento fiscal.
         2 - Significado para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as orientações informadas em 
@@ -119,7 +119,7 @@ def consultallmdocfiscal(texto,llm,tipo):
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
-        template = """Aja como um analista de contabilidade, e utilize REFERENCIA para responder as PERGUNTAS 1, 2, 3 e 4 no contexto dos documentos 
+        template = """Aja como um analista de contabilidade, e utilize REFERENCIA para executar os ITENS 1, 2, 3 e 4 no contexto dos documentos 
         fiscais brasileiros 
         
         REFERENCIA:
@@ -130,7 +130,7 @@ def consultallmdocfiscal(texto,llm,tipo):
         
                             
         ##########################################
-        PERGUNTAS:
+        ITENS:
         1 - Baseado no significado para cada um dos campos {colunas_df}. Qual é a sigla do tipo do documento fiscal.
         2 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número da versão.
         3 - Baseado no significado para cada um dos campos {colunas_df} e na sigla do item 1. Qual é o número do modelo desse documento fiscal ? Caso não encontre, procurar na legislação. Responda somente com o número do modelo.
@@ -302,6 +302,7 @@ def read_tags_values_xml_file(arquivo):
     colunas = list(dict_xml.keys())
     valores = list(dict_xml.values())
     print('dict_xml: ',dict_xml)
+    sleep(20)
     
     df = DataFrame(data=[valores],columns=colunas)
            
