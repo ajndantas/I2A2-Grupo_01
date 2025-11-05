@@ -50,7 +50,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
-            campos: list = Field(description='campos. **SOMENTE** os campos de CONTEUDO, com correção ortográfica, tendo como referência PASSOS2, **NUNCA** os valores.')
+            campos: list = Field(description='campos. **SOMENTE** os campos de CONTEUDO, com correção ortográfica, tendo como referência REFERENCIA, **NUNCA** os valores.')
             #sigcampos: list = Field(description="significado. Em poucas palavras, com a utilzação de siglas se existirem (Ex: CNPJ, UF, CPF) e **NUNCA REPETIR** os significados")
             #valores: list = Field(description="**SOMENTE** os valores associados a elemento de sigcampos. **NUNCA** os campos")
             registros : List[DictFiscal] = Field(description="Lista de significados. Correção ortográfica para significado. Se algum valor for nulo ou vazio, inserir N/A")
@@ -59,11 +59,17 @@ def consultallmdocfiscal(texto,llm,tipo):
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
             
-        template = """Aja como um analista de contabilidade, aonde o seu objetivo é obter as informações de acordo com PASSOS1, sobre o documento fiscal referente ao CONTEUDO.
+        template = """Aja como um analista de contabilidade, aonde o seu objetivo é obter as informações de PASSOS1, utlizando como referência de consulta
+        REFERENCIA, a respeito do CONTEUDO do documento fiscal.
         
         CONTEUDO:
         É o texto {texto} com correção ortográfica para as palavras.
         
+        REFERENCIA:
+        a) Nota Técnica  
+        b) Manual de Orientação do Contribuinte (MOC) 
+        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documento fiscal por meio das tags.
+        d) Sobre impostos, consultar os itens b) e c).         
                 
         PASSOS1: 
         ##########################################
@@ -71,18 +77,12 @@ def consultallmdocfiscal(texto,llm,tipo):
         2 - Significado para cada um dos campos de CONTEUDO, **SEMPRE** de acordo com a sigla do item 1 e de acordo com as orientações informadas em 
         PASSOS2 a), b), c) ou d) abaixo para o documento fiscal.       
         
-        PASSOS2:
-        a) Nota Técnica  
-        b) Manual de Orientação do Contribuinte (MOC) 
-        c) Schemas XSD referentes ao documento fiscal. Para impostos, identifique quais estão no documento fiscal por meio das tags.
-        d) Sobre impostos, consultar os itens b) e c). 
-        
         2.1 - Para esses significados, considerar que **NUNCA** deverão ser utilizados os campos do CONTEUDO
         2.2 - Para cada significado **SEMPRE** perguntar. Esse significado já existe ? **CASO SIM, ELIMINAR ESSE SIGNIFICADO**.
         
         3 - Para cada significado do item 2, **SEMPRE** identificar o valor associado em CONTEUDO, e executar os passos 3.1 e 3.2
         3.1 - O valor **NUNCA** deve ser igual ao nome do campo, se for, retornar para o passo 3.
-        3.2 - Utilzando como referência PASSOS2. O valor é adequado para o significado ? Caso não, retornar para o item 3. 
+        3.2 - Utilzando como referência REFERENCIA. O valor é adequado para o significado ? Caso não, retornar para o item 3. 
                               
         4 - Baseados nos campos do item 2 e na sigla do item 1. Qual é a versão desse documento fiscal ? Caso não encontre, procurar na legislação. 
         Responda somente com o número da versão. 
@@ -119,8 +119,10 @@ def consultallmdocfiscal(texto,llm,tipo):
                 
         parseador = JsonOutputParser(pydantic_object=DocFiscal2) 
         
-        template = """Aja como um analista de contabilidade, e utilize como referência os itens abaixo para responder as perguntas 1, 2, 3 e 4 no contexto dos documentos fiscais
-        brasileiros 
+        template = """Aja como um analista de contabilidade, e utilize REFERENCIA para responder as PERGUNTAS 1, 2, 3 e 4 no contexto dos documentos 
+        fiscais brasileiros 
+        
+        REFERENCIA:
         a) Nota Técnica  
         b) Manual de Orientação do Contribuinte (MOC) 
         c) Schemas XSD referente ao documento fiscal
@@ -315,8 +317,8 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        #model="mistralai/mistral-small-3.2-24b-instruct:free",
-        model="mistralai/mistral-small-3.2-24b-instruct",
+        model="mistralai/mistral-small-3.2-24b-instruct:free",
+        #model="mistralai/mistral-small-3.2-24b-instruct",
         #model="mistralai/mistral-small-3.1-24b-instruct:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
