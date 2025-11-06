@@ -282,10 +282,57 @@ def agente3(pergunta,arquivo,engine):
 # [markdown]
 # <b>If you’re unsure about the structure</b>
 
-def read_tags_values_xml_file(arquivo):
+def read_tags_values_xml_file(arquivo, llm):
+    
+    print("READ TAGS XML...")
+    
+    conteudo_bytes = arquivo.read()  # ARQUIVO É UM UPLOADEDFILE DO STREAMLIT  
+    conteudo = conteudo_bytes.decode('utf-8')
+        
+    template = """Aja como um analista de contabilidade, e para CONTEUDO, utilize REFERENCIA para executar ITENS no contexto dos documentos 
+    fiscais brasileiros   
+    
+    CONTEUDO:
+    {conteudo}
+    
+    REFERENCIA:
+    a) Nota Técnica  
+    b) Manual de Orientação do Contribuinte (MOC) 
+    c) Schemas XSD referente ao documento fiscal
+    d) Sobre impostos, consultar o item b) e c)    
+                            
+    ##########################################
+    ITENS:
+    
+    Os valores das tags **NUNCA** devem ser alterados, **APENAS** os nomes das tags.
+    
+    1 - Crie NOVOCONTEUDO, **SEMPRE** substituindo cada nome de tag em CONTEUDO pelo seu significado, utilizando poucas palavras, sem repetição, e quando possível, com a utilização 
+    de siglas (Ex: CNPJ, UF, CPF).
+    2 - Em NOVOCONTEUDO, **SEMPRE** acrescente ao final de cada nome de tag, o nome de tag da hierarquia superior separado por "_", e assim por diante, para cada nível hierárquico.    
+    ###########################################    
+        
+    """       
+    prompt_template = PromptTemplate(
+                                        template=template,
+                                        input_variables=["conteudo"]#,
+                                        #partial_variables={"formatador_saida_ia" : parseador.get_format_instructions()}
+                                    )
+    
+    # CRIANDO A CADEIA DE EXECUÇÃO PARA A LLM
+    chain = prompt_template | llm
+    
+    # INVOCANDO A LLM
+        
+    resposta1 = chain.invoke(input={"conteudo":conteudo}) 
+    resposta = resposta1.content.split('```xml')[1].split('```')[0].strip()
+    
+    print('\nSaída\n',resposta)
+    
+    # TRANSFORMANDO O XML EM DATAFRAME
     
     # Carrega o XML
-    tree = ET.parse(arquivo)
+    #tree = ET.parse(arquivo)
+    tree = ET.ElementTree(ET.fromstring(resposta))
     print('Tree: ',tree)
     root = tree.getroot()
     print('root: ',root)
@@ -295,12 +342,12 @@ def read_tags_values_xml_file(arquivo):
     for elem in root.iter():
         #print('elem.tag: ',elem.tag)
         tag_name = elem.tag.split('}')[-1]  # TAGS. Remove o namespace do nome pegando o último elemento [-1]
-        tag_value = elem.text.strip() if elem.text else '' # VALUES
+        tag_value = elem.text.strip() if elem.text else None # VALUES #if elem.text else '' # VALUES
         
-        print('Tag name: ',tag_name, ' Tag value: ', tag_value)
-        sleep(10)
-        
-        dict_xml[tag_name] = tag_value
+        #print('Tag name: ',tag_name, ' Tag value: ', tag_value)
+                
+        if tag_value: # SE O VALOR NÃO FOR NULO    
+            dict_xml[tag_name] = tag_value
 
     colunas = list(dict_xml.keys())
     valores = list(dict_xml.values())
@@ -369,7 +416,7 @@ def agente2(pergunta,arquivo,engine):
     elif tipo in ['text/plain','text/csv']: 
                 
         if arquivo.name.endswith('.xml'):
-            df = read_tags_values_xml_file(arquivo)
+            df = read_tags_values_xml_file(arquivo,llm)
         
         else:
             df = read_csv(arquivo)
@@ -545,7 +592,7 @@ def agente1(engine): # FRONTEND
             
         else:
             with st.spinner("Analisando os dados com IA..."):
-                try:
+                #try:
                     resultado_df = agente3(pergunta, uploaded_file,engine) # RESPOSTA E INTERAÇÃO COM O USUÁRIO
 
                     if (isinstance(resultado_df,str) and resultado_df == "SemResposta") or (resultado_df is None):
@@ -558,8 +605,8 @@ def agente1(engine): # FRONTEND
                         st.success("✅ Resultado encontrado:")                        
                         st.dataframe(resultado_df[1])                                       
                                                 
-                except Exception as e:
-                    st.error(f"Erro ao processar: {e}")
+                #except Exception as e:
+                #    st.error(f"Erro ao processar: {e}")
 
 # [markdown]
 # ### <b>TESTANDO</b>
