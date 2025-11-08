@@ -131,7 +131,7 @@ def num_tokens_from_string(df:DataFrame) -> int:
             )   
     
     result = len(tokenizer.encode(df.to_string(index=False)))
-    #print("Tokenizer encode: ",tokenizer.encode(df.to_string(index=False)))
+    
     print("Quantidade de tokens: ", result,"\n")
      
     return result
@@ -203,28 +203,42 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
         amostra = df.head().to_string(index=False)        
         query = chain.invoke(input={"pergunta":pergunta, "colunas":colunas_query, "linhas" : linhas, "arquivo" : nome_arquivo, "conclusoes":conclusoes, "describe":describe, "qtd_tokens":qtd_tokens, "amostra":amostra})['query']
         
+        print('Query inicial: ', query)
+        
         stmt = text(query)
         dfcontext = read_sql(stmt, con=engine)
         
-        limit = int(findall(r'LIMIT (\d+)', query)[0])
-        tokens = num_tokens_from_string(dfcontext)
+        print('Quantidade inicial de tokens')
+        tokens = num_tokens_from_string(dfcontext) # OBTÉM A QTD DE TOKENS EQUIVALENTE AO DATAFRAME
+                
+        limit = int(findall(r'LIMIT (\d+)', query)[0]) # EXTRAI A PARTE NUMÉRICA DE LIMIT XYZ DA QUERY
+        
         t = 0
         
-        while tokens > qtd_tokens*0.5 and limit > 0:
+        print()
+        
+        qtd_max_tokens = qtd_tokens*0.5
+        
+                
+        while tokens > qtd_max_tokens and limit > 0:
+                
+                print('Quantidade máxima de tokens de entrada deve ser: ', qtd_max_tokens)
+                
+                print('DIMINUÍNDO O NÚMERO DE LINHAS...')
                 
                 t+=1
                 print('t: ',t)
                 limit = int(limit*(1 - taxa_reducao*t))                        
-                print(f'LIMIT {limit}')                                  
+                print(f'NOVO VALOR DE LIMIT: {limit}') # NOVO LIMIT                                  
                 
-                result = sub(r'LIMIT \d+$',f'LIMIT {limit}', query)
-                print('Query: ', result)
+                result = sub(r'LIMIT (\d+)',f'LIMIT {limit}', query) # SUBSTITUI O "LIMIT XYZ" NA query E ATRIBUI a result
+                query = result # ATRIBUI result A query                
+                print('Nova Query: ', query)
                 
-                stmt = text(result)
-                dfcontext = read_sql(stmt, con=engine)
+                stmt = text(query)
+                dfcontext = read_sql(stmt, con=engine) # NOVO DATAFRAME COM OBTIDO COM O NOVO VALOR DE LIMIT
                 
-                tokens = num_tokens_from_string(dfcontext)
-                query = result
+                tokens = num_tokens_from_string(dfcontext) # OBTÉM A QTD DE TOKENS EQUIVALENTE AO NOVO DATAFRAME                
                 
                 sleep(10)
                 
@@ -232,14 +246,17 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
             if limit <= 0:
                 print("Valor negativo ou 0 para LIMIT...")
                 
-                result = sub(r'LIMIT \d+$',f'LIMIT 40',query)
-                stmt = text(result)
+                result = sub(r'LIMIT .*',f'LIMIT 40',query)
+                query = result
+                
+                stmt = text(query)
                 dfcontext = read_sql(stmt,con=engine)
                 
-                num_tokens_from_string(dfcontext)
-                            
-                query = result
-                            
+                num_tokens_from_string(dfcontext)                      
+                
+        print('Query final: ', query) 
+        sleep(15)
+                           
         return query
 
 def rag(arquivo:UploadedFile, pergunta:str, llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]], qtd_tokens:int, taxa_reducao:float) -> str:
@@ -276,8 +293,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         
                         **- Não faça perguntas nem adicione esclarecimentos.**
                         
-                        ** SEMPRE GERE UM JSON VÁLIDO **.
-                                         
+                                                                 
                         Deverão ser seguidos os seguintes passos:
                         
                         PASSOS:
@@ -285,15 +301,17 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         2 - Inclua títulos e legendas para clareza.
                         3 - Informe os dados utilizados e a quantidade de registros analisados
                         4 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4 e 4.4.1
+                        dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4, 4.5 e 4.5.1
                         4.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        4.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
-                        4.3 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
-                        4.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
-                        4.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
+                        4.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js
+                        4.3 - Crie um gráfico por linha.                         
+                        4.4 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
+                        4.5 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
+                        4.5.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
                         LEGENDAS, RETORNE PARA O PASSO 4 **
                         5 - Incorpore tabelas, se necessário, para melhor visualização.
-                        6 - ** SEMPRE ADICIONE UMA SEÇÃO DE CONCLUSÕES ** no final ** INCLUÍNDO A RESPOSTA à PERGUNTA **                       
+                        6 - ** SEMPRE ADICIONE UMA SEÇÃO DE CONCLUSÕES ** no final ** INCLUÍNDO A RESPOSTA à PERGUNTA ** 
+                        7 - **SEMPRE** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para o passo 1                      
                         
                         {formatacao_saida}                                      
                         
@@ -334,7 +352,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         
         print("\nTentando executar novamente...\n")
         
-        result = sub(r'LIMIT \d+$',f'LIMIT 30',query)
+        result = sub(r'LIMIT (\d+)',f'LIMIT 40',query)
         stmt = text(result)
         dfcontext = read_sql(stmt, con=engine)
         
@@ -578,15 +596,14 @@ if __name__ == "__main__":
     load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY
     
     set_llm_cache(InMemoryCache())
-    #qtd_tokens = 131000 # QUANTIDADE DE TOKENS DA JANELA DE CONTEXTO DA LLM
+    
     qtd_tokens = 163000
-    #qtd_tokens = 2000000
-    #qtd_tokens = 66000
+    #qtd_tokens = 196600
     
     llm = ChatOpenAI(
         #model="microsoft/mai-ds-r1:free",
         model="tngtech/deepseek-r1t2-chimera:free",
-        #model="x-ai/grok-4-fast",
+        #model="minimax/minimax-m2:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
