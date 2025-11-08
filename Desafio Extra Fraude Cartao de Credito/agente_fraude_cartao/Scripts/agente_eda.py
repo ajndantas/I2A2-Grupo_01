@@ -124,6 +124,8 @@ def num_tokens_from_string(df:DataFrame) -> int:
     # pip3 install transformers
     # python3 deepseek_tokenizer.py
     
+    print('Verificando a quantidade de tokens...')
+    
     chat_tokenizer_dir = "./"
 
     tokenizer = transformers.AutoTokenizer.from_pretrained( 
@@ -260,6 +262,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
         return query
 
 def rag(arquivo:UploadedFile, pergunta:str, llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]], qtd_tokens:int, taxa_reducao:float) -> str:
+    
+    # OBJETIVO DE OBTER A QUERY A PARTIR DO DATAFRAME
     
     df = read_csv(arquivo)
     
