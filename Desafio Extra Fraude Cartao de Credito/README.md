@@ -34,7 +34,7 @@ Ele é dividido em **3 agentes** principais:
 
 - Python 🐍
 - Streamlit 💻
-- LangChain + [TNG: DeepSeek R1T2 Chimera (free)](https://huggingface.co/tngtech/DeepSeek-TNG-R1T2-Chimera) LLM 🤯
+- LangChain + [Mistral-small-3.2-24b-instruct](mistralai/mistral-small-3.2-24b-instruct:free) LLM 🤯
 - Pandas, SQLAlchemy e [Plotly](https://plotly.com/javascript/)📊
 
 ---

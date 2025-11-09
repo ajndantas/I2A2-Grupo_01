@@ -248,7 +248,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
             if limit <= 0:
                 print("Valor negativo ou 0 para LIMIT...")
                 
-                result = sub(r'LIMIT .*',f'LIMIT 40',query)
+                result = sub(r'LIMIT .*',f'LIMIT 80',query)
                 query = result
                 
                 stmt = text(query)
@@ -257,7 +257,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                 num_tokens_from_string(dfcontext)                      
                 
         print('Query final: ', query) 
-        sleep(15)
+        sleep(20)
                            
         return query
 
@@ -308,13 +308,13 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4, 4.5 e 4.5.1
                         4.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
                         4.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js
-                        4.3 - Crie um gráfico por linha.                         
+                        4.3 - ** SEMPRE ** crie um gráfico por linha.                         
                         4.4 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
                         4.5 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
                         4.5.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
                         LEGENDAS, RETORNE PARA O PASSO 4 **
                         5 - Incorpore tabelas, se necessário, para melhor visualização.
-                        6 - ** SEMPRE ADICIONE UMA SEÇÃO DE CONCLUSÕES ** no final ** INCLUÍNDO A RESPOSTA à PERGUNTA ** 
+                        6 - ** SEMPRE ** adicione uma seção de conclusões no final **SEMPRE** incluíndo a resposta a PERGUNTA 
                         7 - **SEMPRE** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para o passo 1                      
                         
                         {formatacao_saida}                                      
@@ -342,7 +342,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     
     try:
         
-        print('Executando agente 2...')
+        print('Executando agente 2 para obtenção de HTML e texto de conclusão...')
         stmt = text(query)
                 
         dfcontext = read_sql(stmt, con=engine)
@@ -352,11 +352,12 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                 
         resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
         
-    except Exception as e:
+    except ValueError as e: # EXCEÇÃO DE ESTOURO DE JANELA DE CONTEXTO NA GERAÇÃO DO HTML
         
+        print('\nEstouro da Janela de Contexto...')
         print("\nTentando executar novamente...\n")
         
-        result = sub(r'LIMIT (\d+)',f'LIMIT 40',query)
+        result = sub(r'LIMIT (\d+)',f'LIMIT 80',query)
         stmt = text(result)
         dfcontext = read_sql(stmt, con=engine)
         
@@ -601,20 +602,18 @@ if __name__ == "__main__":
     
     set_llm_cache(InMemoryCache())
     
-    qtd_tokens = 163000
-    #qtd_tokens = 196600
-    
+    #qtd_tokens = 163000
+    qtd_tokens = 131000
+        
     llm = ChatOpenAI(
-        #model="microsoft/mai-ds-r1:free",
-        model="tngtech/deepseek-r1t2-chimera:free",
-        #model="minimax/minimax-m2:free",
+        model="mistralai/mistral-small-3.2-24b-instruct:free",
+        #model="tngtech/deepseek-r1t2-chimera:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
         cache=True,              
         api_key=getenv("API_KEY")        
-    )
-    
+    )    
     
     pergunta = ""
     resposta = ""
