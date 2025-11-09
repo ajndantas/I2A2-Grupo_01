@@ -605,12 +605,12 @@ if __name__ == "__main__":
     
     set_llm_cache(InMemoryCache())
     
-    #qtd_tokens = 163000
-    qtd_tokens = 131000
+    qtd_tokens = 163000
+    #qtd_tokens = 131000
         
     llm = ChatOpenAI(
-        model="mistralai/mistral-small-3.2-24b-instruct:free",
-        #model="tngtech/deepseek-r1t2-chimera:free",
+        #model="mistralai/mistral-small-3.2-24b-instruct:free",
+        model="tngtech/deepseek-r1t2-chimera:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
