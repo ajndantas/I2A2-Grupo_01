@@ -47,8 +47,6 @@ Faça o download do código, do arquivo requirements.txt, do script plotly.js pa
 
 [Arquivo requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/requirements.txt)
 
-[plotly.js](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/plotly.js)
-
 [tokenizer.json](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer.json)
 
 [tokenizer_config.json](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer_config.json)
