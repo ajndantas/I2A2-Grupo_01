@@ -62,8 +62,8 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         3.1 - ** SEMPRE ** utilize o script plotly.js para a geração dos gráficos interativos.
                         3.2 - ** SEMPRE ** use as informações de CONCLUSÕES ANTERIORES para criar os gráficos
                         3.3 - ** SEMPRE ** de nomes aos eixos dos gráficos.
-                        3.4 - Os gráficos **SEMPRE** devem possuir dados, não somente seus títulos ou legendas                     
-                        3.4.1 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
+                        3.4 - Os gráficos ** SEMPRE ** devem possuir dados, não somente seus títulos ou legendas                     
+                        3.4.1 - ** SEMPRE ** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
                         títulos ou legendas, retorne para o passo 3
                         4 - Incorpore tabelas (com a formatação condicional do passo 1), se necessário, para melhor visualização.
                         5 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as CONCLUSÕES ANTERIORES.                      
@@ -306,17 +306,16 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         2 - Inclua títulos e legendas para clareza.
                         3 - Informe os dados utilizados e a quantidade de registros analisados
                         4 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4, 4.5 e 4.5.1
+                        dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4 e 4.4.1
                         4.1 - ** SEMPRE ** utilize o script plotly.js para a geração dos gráficos interativos.
                         4.2 - ** SEMPRE ** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
-                        4.3 - ** SEMPRE ** crie um gráfico por linha.
-                        4.4 - ** SEMPRE ** dê nomes aos eixos dos gráficos.
-                        4.5 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
-                        4.5.1 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
+                        4.3 - ** SEMPRE ** dê nomes aos eixos dos gráficos.
+                        4.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
+                        4.4.1 - ** SEMPRE ** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
                         títulos ou legendas, retorne para o passo 4
                         5 - Incorpore tabelas (com a formatação condicional do passo 1), se necessário, para melhor visualização.
                         6 - ** SEMPRE ** adicione uma seção de conclusões no final incluíndo a resposta a PERGUNTA 
-                        7 - **SEMPRE** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para o passo 1                      
+                        7 - ** SEMPRE ** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para o passo 1                      
                         
                         {formatacao_saida}                                      
                         
