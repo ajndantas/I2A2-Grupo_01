@@ -43,6 +43,9 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         
                         Seja sucinto. deverá ser gerado um código HTML com a conclusão geral sobre os dados.
                         
+                        PLOTLY:
+                        {plotly}
+                        
                         CONCLUSÕES ANTERIORES:
                         {conclusoes}
                         
@@ -55,18 +58,18 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         Deverão ser seguidos os seguintes passos:
                         
                         PASSOS:
-                        1 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
+                        1 - Aplique formatação condicional (via CSS no <style>) para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
                         2 - Inclua títulos e legendas para clareza.
                         3 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 3.1, 3.2, 3.3, 3.4 e 3.4.1
-                        3.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        3.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js                         
-                        3.3 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
-                        3.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
-                        3.4.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
-                        LEGENDAS, RETORNE PARA O PASSO 3
-                        4 - Incorpore tabelas, se necessário, para melhor visualização.
-                        5 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as conclusões anteriores.                      
+                        3.1 - ** SEMPRE ** use as informações de CONCLUSÕES ANTERIORES para criar os gráficos
+                        3.2 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
+                        3.3 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
+                        3.4 - Utlize o PLOTLY para a geração dos gráficos interativos. **Gere o código HTML + JavaScript completo do Plotly**                      
+                        3.4.1 - **SEMPRE** Simule o que aconteceria com a carga código HTML + JavaScript completo do Plotly e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
+                        títulos ou legendas, retorno para o passo 4
+                        4 - Incorpore tabelas (com a formatação condicional do passo 1), se necessário, para melhor visualização.
+                        5 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as CONCLUSÕES ANTERIORES.                      
                         
                         {formatacao_saida}
                         
@@ -82,13 +85,16 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
     
     prompt_template_query = PromptTemplate(
                                             template=template_query,
-                                            input_variables=["conclusoes"],
+                                            input_variables=["conclusoes","plotly"],
                                             partial_variables={"formatacao_saida" : parseador.get_format_instructions()}
                                           )
     
     
     chain = prompt_template_query | llm | parseador
     
+    with open('plotly.js',"r",encoding='utf-8') as f:
+        plotly = f.read()
+        
     err = 0
     while err <= 4:
         if err == 3:
@@ -98,7 +104,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
             err += 1
             try:
                 print("\n Agente 3 - Invocando a LLM...\n")
-                resposta = chain.invoke({"conclusoes":conclusoes})   
+                resposta = chain.invoke({"conclusoes":conclusoes, "plotly":plotly})   
                 break
             
             except Exception as e:
@@ -281,11 +287,14 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     template_query = """
                         Aja como um analista de dados e responda a seguinte PERGUNTA {pergunta} a respeito de um dataset fornecido.
                         
-                        Use as informações de contexto e conclusões anteriores abaixo.
+                        Use as informações de PLOTLY, CONTEXTO e CONCLUSÕES ANTERIORES abaixo.
                         
                         Seja sucinto, informe os **NOMES DAS COLUNAS** na resposta. 
                         Informe os dados que foram utilizados.
                         Ao final, deverá ser gerado um código HTML com o resumo das análises.
+                        
+                        PLOTLY:
+                        {plotly}
                         
                         CONTEXTO:
                         {context}
@@ -301,20 +310,20 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         Deverão ser seguidos os seguintes passos:
                         
                         PASSOS:
-                        1 - Aplique formatação condicional para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
+                        1 - Aplique formatação condicional (via CSS ou <style>) para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
                         2 - Inclua títulos e legendas para clareza.
                         3 - Informe os dados utilizados e a quantidade de registros analisados
                         4 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4, 4.5 e 4.5.1
-                        4.1 - ** SEMPRE ** use as informações de CONTEXTO para criar os gráficos
-                        4.2 - Para a criação dos gráficos, ** SEMPRE ** utilize o aplcativo **PLOTLY**, por meio do script plotly.js
-                        4.3 - ** SEMPRE ** crie um gráfico por linha.                         
-                        4.4 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
-                        4.5 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
-                        4.5.1 - Simule o que aconteceria com a carga do HTML e produza a saida no console. ** SE OS GRÁFICOS ESTIVEREM SEM DADOS, OU SOMENTE COM SEUS TÍTULOS OU
-                        LEGENDAS, RETORNE PARA O PASSO 4 **
-                        5 - Incorpore tabelas, se necessário, para melhor visualização.
-                        6 - ** SEMPRE ** adicione uma seção de conclusões no final **SEMPRE** incluíndo a resposta a PERGUNTA 
+                        4.1 - ** SEMPRE ** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
+                        4.2 - ** SEMPRE ** crie um gráfico por linha.
+                        4.3 - Os eixos dos gráficos ** SEMPRE ** deverão estar nomeados.
+                        4.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **     
+                        4.5 - Utlize o PLOTLY para a geração dos gráficos interativos. **Gere o código HTML + JavaScript completo do Plotly**                                         
+                        4.5.1 - **SEMPRE** simule o que aconteceria com a carga do HTML + JavaScript completo do Plotly e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
+                        títulos ou legendas, retorno para o passo 4
+                        5 - Incorpore tabelas (com a formatação condicional do passo 1), se necessário, para melhor visualização.
+                        6 - ** SEMPRE ** adicione uma seção de conclusões no final incluíndo a resposta a PERGUNTA 
                         7 - **SEMPRE** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para o passo 1                      
                         
                         {formatacao_saida}                                      
@@ -330,16 +339,20 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     
     prompt_template_query = PromptTemplate(
                                             template=template_query,
-                                            input_variables=["pergunta","context","conclusoes"],
+                                            input_variables=["pergunta","context","conclusoes","plotly"],
                                             partial_variables={"formatacao_saida" : parseador.get_format_instructions()}
                                           )
     
     
     chain = prompt_template_query | llm | parseador
     
-    print('Executando o RAG...')
-    query = rag(arquivo, pergunta, llm, engine, conclusoes, qtd_tokens, taxa_reducao)
+    print('Executando o RAG...')    
     
+    with open('plotly.js',"r",encoding='utf-8') as f:
+        plotly = f.read()
+        
+    query = rag(arquivo, pergunta, llm, engine, conclusoes, qtd_tokens, taxa_reducao)
+
     try:
         
         print('Executando agente 2 para obtenção de HTML e texto de conclusão...')
@@ -350,7 +363,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         print('\nPrimeiras linhas do dataframe de contexto:\n',dfcontext.head())                    
         print("\nAgente 2. Invocando a LLM...\n")
                 
-        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
+        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes, "plotly":plotly})
         
     except ValueError as e: # EXCEÇÃO DE ESTOURO DE JANELA DE CONTEXTO NA GERAÇÃO DO HTML
         
@@ -602,12 +615,12 @@ if __name__ == "__main__":
     
     set_llm_cache(InMemoryCache())
     
-    #qtd_tokens = 163000
-    qtd_tokens = 131000
+    qtd_tokens = 163000
+    #qtd_tokens = 131000
         
     llm = ChatOpenAI(
-        model="mistralai/mistral-small-3.2-24b-instruct:free",
-        #model="tngtech/deepseek-r1t2-chimera:free",
+        #model="mistralai/mistral-small-3.2-24b-instruct:free",
+        model="tngtech/deepseek-r1t2-chimera:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",

@@ -27,7 +27,7 @@ Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights int
 
 **🎯 Objetivo:** Identificar padrões, outliers e relações entre variáveis usando LLMs.
 
-**🧠 Tecnologias:** Python, Streamlit, LangChain, Mistral-small-3.2-24b-instruct (LLM), Plotly, Pandas, SQLAlchemy.
+**🧠 Tecnologias:** Python, Streamlit, LangChain, Deepseek-R1t2-chimera (LLM), Plotly, Pandas, SQLAlchemy.
 
 **🌐 Demonstração:** [agente-eda-ai.streamlit.app](https://agente-eda-ai.streamlit.app)
 
