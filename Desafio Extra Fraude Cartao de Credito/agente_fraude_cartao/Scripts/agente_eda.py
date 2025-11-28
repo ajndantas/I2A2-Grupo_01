@@ -249,7 +249,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
             if limit <= 0:
                 print("Valor negativo ou 0 para LIMIT...")
                 
-                result = sub(r'LIMIT .*',f'LIMIT 80',query)
+                #result = sub(r'LIMIT .*',f'LIMIT 80',query)
+                result = sub(r'LIMIT .*',f'LIMIT 1000',query)
                 query = result
                 
                 stmt = text(query)
@@ -359,7 +360,8 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         print('\nEstouro da Janela de Contexto...')
         print("\nTentando executar novamente...\n")
         
-        result = sub(r'LIMIT (\d+)',f'LIMIT 80',query)
+        #result = sub(r'LIMIT (\d+)',f'LIMIT 80',query)
+        result = sub(r'LIMIT (\d+)',f'LIMIT 1000',query)
         stmt = text(result)
         dfcontext = read_sql(stmt, con=engine)
         
@@ -604,12 +606,14 @@ if __name__ == "__main__":
     
     set_llm_cache(InMemoryCache())
     
-    qtd_tokens = 163000
+    #qtd_tokens = 163000
     #qtd_tokens = 131000
+    qtd_tokens = 2000000
         
     llm = ChatOpenAI(
         #model="mistralai/mistral-small-3.2-24b-instruct:free",
-        model="tngtech/deepseek-r1t2-chimera:free",
+        #model="tngtech/deepseek-r1t2-chimera:free",
+        model="x-ai/grok-4.1-fast:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
