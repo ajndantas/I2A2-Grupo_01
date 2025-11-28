@@ -355,6 +355,9 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                 
         resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
         
+        print("\n Código HTML gerado:\n",resposta['codigo'])
+        print("\n Texto da análise de dados:\n",resposta['texto'])
+        
     except ValueError as e: # EXCEÇÃO DE ESTOURO DE JANELA DE CONTEXTO NA GERAÇÃO DO HTML
         
         print('\nEstouro da Janela de Contexto...')
@@ -370,9 +373,16 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
 
         sleep(10)
-                  
-    print("\n Código HTML gerado:\n",resposta['codigo'])
-    print("\n Texto da análise de dados:\n",resposta['texto'])
+    
+    except KeyError as e: # EXCEÇÃO DE JSON INVÁLIDO NA GERAÇÃO DO HTML
+        
+        print('\nJSON Inválido...')
+        print("\nTentando executar novamente...\n")
+        
+        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
+        
+        sleep(10)                  
+    
         
     with open('codigo.html', 'w', encoding='utf-8') as f:
         f.write(resposta['codigo'])
