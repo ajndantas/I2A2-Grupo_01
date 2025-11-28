@@ -343,45 +343,57 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
            
     query = rag(arquivo, pergunta, llm, engine, conclusoes, qtd_tokens, taxa_reducao)
 
-    try:
+    err=0    
+           
+    while err <= 4:
+        if err == 3:
+            raise ErroProcessamento()
         
-        print('Executando agente 2 para obtenção de HTML e texto de conclusão...')
-        stmt = text(query)
+        else:
+            err += 1            
+            try:
                 
-        dfcontext = read_sql(stmt, con=engine)
-                                                                       
-        print('\nPrimeiras linhas do dataframe de contexto:\n',dfcontext.head())                    
-        print("\nAgente 2. Invocando a LLM...\n")
+                print('Executando agente 2 para obtenção de HTML e texto de conclusão...')
+                stmt = text(query)
+                        
+                dfcontext = read_sql(stmt, con=engine)
+                                                                            
+                print('\nPrimeiras linhas do dataframe de contexto:\n',dfcontext.head())                    
+                print("\nAgente 2. Invocando a LLM...\n")
+                        
+                resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
                 
-        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
-        
-        print("\n Código HTML gerado:\n",resposta['codigo'])
-        print("\n Texto da análise de dados:\n",resposta['texto'])
-        
-    except ValueError as e: # EXCEÇÃO DE ESTOURO DE JANELA DE CONTEXTO NA GERAÇÃO DO HTML
-        
-        print('\nEstouro da Janela de Contexto...')
-        print("\nTentando executar novamente...\n")
-        
-        result = sub(r'LIMIT (\d+)',f'LIMIT 80',query)
-        #result = sub(r'LIMIT (\d+)',f'LIMIT 1000',query)
-        stmt = text(result)
-        dfcontext = read_sql(stmt, con=engine)
-        
-        num_tokens_from_string(dfcontext)
-        
-        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
+                print("\n Código HTML gerado:\n",resposta['codigo'])
+                print("\n Texto da análise de dados:\n",resposta['texto'])
+                
+                break
+                
+            except ValueError as e: # EXCEÇÃO DE ESTOURO DE JANELA DE CONTEXTO NA GERAÇÃO DO HTML
+                
+                print('\nEstouro da Janela de Contexto...')
+                print("\nTentando executar novamente...\n")
+                
+                result = sub(r'LIMIT (\d+)',f'LIMIT 80',query)
+                #result = sub(r'LIMIT (\d+)',f'LIMIT 1000',query)
+                stmt = text(result)
+                dfcontext = read_sql(stmt, con=engine)
+                
+                num_tokens_from_string(dfcontext)
+                
+                resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
 
-        sleep(10)
-    
-    except KeyError as e: # EXCEÇÃO DE JSON INVÁLIDO NA GERAÇÃO DO HTML
-        
-        print('\nJSON Inválido...')
-        print("\nTentando executar novamente...\n")
-        
-        resposta = chain.invoke({"pergunta" : pergunta, "context" : dfcontext.to_string(index=False), "conclusoes":conclusoes})
-        
-        sleep(10)                  
+                sleep(10)
+                
+                break
+            
+            except KeyError as e: # EXCEÇÃO DE JSON INVÁLIDO NA GERAÇÃO DO HTML
+                
+                print('\nJSON Inválido...')
+                print("\nAguardando 10 segundos para tentar novamente...\n")
+                
+                sleep(10)
+                
+                continue                  
     
         
     with open('codigo.html', 'w', encoding='utf-8') as f:
