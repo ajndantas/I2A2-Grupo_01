@@ -59,7 +59,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         2 - Inclua títulos e legendas para clareza.
                         3 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 3.1, 3.2, 3.3, 3.4 e 3.4.1
-                        3.1 - ** SEMPRE ** utilize o script plotly.js para a geração dos gráficos interativos.
+                        3.1 - ** SEMPRE ** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
                         3.2 - ** SEMPRE ** use as informações de CONCLUSÕES ANTERIORES para criar os gráficos
                         3.3 - ** SEMPRE ** de nomes aos eixos dos gráficos.
                         3.4 - Os gráficos ** SEMPRE ** devem possuir dados, não somente seus títulos ou legendas                     
@@ -249,8 +249,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
             if limit <= 0:
                 print("Valor negativo ou 0 para LIMIT...")
                 
-                #result = sub(r'LIMIT .*',f'LIMIT 80',query)
-                result = sub(r'LIMIT .*',f'LIMIT 1000',query)
+                result = sub(r'LIMIT .*',f'LIMIT 80',query)
+                #result = sub(r'LIMIT .*',f'LIMIT 1000',query)
                 query = result
                 
                 stmt = text(query)
@@ -308,7 +308,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         3 - Informe os dados utilizados e a quantidade de registros analisados
                         4 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4 e 4.4.1
-                        4.1 - ** SEMPRE ** utilize o script plotly.js para a geração dos gráficos interativos.
+                        4.1 - ** SEMPRE ** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
                         4.2 - ** SEMPRE ** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
                         4.3 - ** SEMPRE ** dê nomes aos eixos dos gráficos.
                         4.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
@@ -360,8 +360,8 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
         print('\nEstouro da Janela de Contexto...')
         print("\nTentando executar novamente...\n")
         
-        #result = sub(r'LIMIT (\d+)',f'LIMIT 80',query)
-        result = sub(r'LIMIT (\d+)',f'LIMIT 1000',query)
+        result = sub(r'LIMIT (\d+)',f'LIMIT 80',query)
+        #result = sub(r'LIMIT (\d+)',f'LIMIT 1000',query)
         stmt = text(result)
         dfcontext = read_sql(stmt, con=engine)
         
@@ -606,14 +606,12 @@ if __name__ == "__main__":
     
     set_llm_cache(InMemoryCache())
     
-    #qtd_tokens = 163000
-    #qtd_tokens = 131000
-    qtd_tokens = 2000000
+    qtd_tokens = 163000
+    #qtd_tokens = 2000000
         
     llm = ChatOpenAI(
-        #model="mistralai/mistral-small-3.2-24b-instruct:free",
-        #model="tngtech/deepseek-r1t2-chimera:free",
-        model="x-ai/grok-4.1-fast:free",
+        model="tngtech/deepseek-r1t2-chimera:free",
+        #model="x-ai/grok-4.1-fast:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
