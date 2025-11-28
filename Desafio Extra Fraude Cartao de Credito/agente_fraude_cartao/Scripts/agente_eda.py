@@ -389,9 +389,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
             except KeyError as e: # EXCEÇÃO DE JSON INVÁLIDO NA GERAÇÃO DO HTML
                 
                 print('\nJSON Inválido...')
-                print("\nAguardando 10 segundos para tentar novamente...\n")
-                
-                sleep(10)
+                print("\nAguardando 10 segundos para tentar novamente...\n")                
                 
                 continue                  
     
