@@ -12,7 +12,7 @@ Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas so
 
 **🎯 Objetivo:** Automatizar a leitura e análise de notas fiscais com IA.
 
-**🧠 Tecnologias:** Python, Pandas, Streamlit, LangChain, Docker, LLM [Mistral-Small-3.2-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506), Tesseract, OpenCV, SQLAlchemy.
+**🧠 Tecnologias:** Python, Pandas, Streamlit, LangChain, Docker, LLM [Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503), Tesseract, OpenCV, SQLAlchemy.
 
 **🌐 Demonstração:** [agente-nfe.streamlit.app](https://agente-nfe.streamlit.app)
 
