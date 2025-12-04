@@ -1,7 +1,6 @@
 # 🤖 Agente Inteligente de Documentos Fiscais
 
-Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Tesseract**, **OpenCV**, **Streamlit** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), arquivos CSV ou XMLs**.
-
+Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), arquivos CSV ou XMLs**.
 
 ## 🖥️ Quer só testar?
 
@@ -125,12 +124,13 @@ Acesse: [http://localhost:8000](http://localhost:8000)
 
 - 🧱 **Streamlit** – Interface web
 - 🧩 **LangChain** – Orquestração de LLMs
-- 🤖 **[Mistral-Small-3.2-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506) **– O cérebro por trás das respostas
+- 🤖 **[Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503) **– O cérebro por trás das respostas
 - 🔍 **Tesseract** – OCR pra ler notas
 - 🎥 **OpenCV** – Processamento de imagem
 - 🗄️ **SQLAlchemy + SQLite** – Banco de dados
 - 📊 **Pandas** – Manipulação de dados
-- 🔐 **Python-dotenv** – Variáveis de ambiente
+- 🔐 **Python-dotenv** – Variáveis de ambiente.
+- 🐳 **Docker** – Application Container
 
 ---
 
