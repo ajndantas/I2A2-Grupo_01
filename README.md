@@ -6,7 +6,7 @@ Aqui você encontra alguns dos meus projetos que unem **LLMs, OCR e automação*
 <a href="https://www.linkedin.com/in/antoniodantastitelecom/" target="_blank">
   <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
 </a>
----
+
 
 ## 🧾 Agente de Documentos Fiscais (NF-e)
 
