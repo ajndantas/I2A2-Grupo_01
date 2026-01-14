@@ -3,7 +3,7 @@
 Bem-vindo(a)! Sou analista de sistemas e desenvolvedor com foco em **aplicações práticas de IA e análise de dados**.
 Aqui você encontra alguns dos meus projetos que unem **LLMs, OCR e automação** — com foco em resolver problemas reais.
 
-<a class="libutton" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=antoniodantastitelecom" target="_blank">Follow on LinkedIn</a>
+Siga-me no LinkedIn: www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=antoniodantastitelecom
 ---
 
 ## 🧾 Agente de Documentos Fiscais (NF-e)
