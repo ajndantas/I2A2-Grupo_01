@@ -24,6 +24,7 @@ import streamlit.components.v1 as components
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 import transformers
 from re import findall,sub
+import io, zipfile
 
 set_debug(True)
 
@@ -267,12 +268,45 @@ def rag(arquivo:UploadedFile, pergunta:str, llm:ChatOpenAI, engine:Engine, concl
     
     # OBJETIVO DE OBTER A QUERY A PARTIR DO DATAFRAME
     
-    df = read_csv(arquivo)
-    
-    nome_tabela = splitext(arquivo.name)[0]
-    df.to_sql(nome_tabela, con=engine, if_exists="replace", index=False)
-    
-    query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df, qtd_tokens, taxa_reducao)   
+    if arquivo.type == "text/csv":
+        
+        df = read_csv(arquivo)
+        
+        nome_tabela = splitext(arquivo.name)[0]
+        df.to_sql(nome_tabela, con=engine, if_exists="replace", index=False)
+                        
+        query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df, qtd_tokens, taxa_reducao)   
+                        
+    else:
+        # Read the file data into a BytesIO buffer
+        
+        with io.BytesIO(arquivo.getvalue()) as buffer:
+            # Open the zip file from the buffer
+            with zipfile.ZipFile(buffer, "r") as z:
+                #st.write("Zip file uploaded and opened successfully!")
+                print("Zip file uploaded and opened successfully!")
+                
+                # Display contents (optional)
+                #st.write("Files in the zip:", z.namelist())
+                print("Files in the zip:", z.namelist())
+                
+                # Example: extract all files to a temporary directory for processing
+                # You would need to manage temporary directories if saving to disk
+                # z.extractall("path/to/temp/directory")
+                                
+                # You can process files in memory without extracting to disk
+                for filename in z.namelist():
+                    with z.open(filename) as arquivo:
+                        # Process the file data (e.g., read a CSV or JSON)
+                        #st.write(f"Processing {filename}...")
+                        print(f"Processing {filename}...")
+
+                        df = read_csv(arquivo)
+                        
+                        nome_tabela = splitext(arquivo.name)[0]
+                        df.to_sql(nome_tabela, con=engine, if_exists="replace", index=False)
+                        
+                        query = llm_gera_query(llm, engine, pergunta, nome_tabela, conclusoes, df, qtd_tokens, taxa_reducao)   
             
     return query
 
@@ -338,8 +372,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     
     chain = prompt_template_query | llm | parseador
     
-    print('Executando o RAG...')    
-    
+    print('Executando o RAG...')   
            
     query = rag(arquivo, pergunta, llm, engine, conclusoes, qtd_tokens, taxa_reducao)
 
@@ -431,7 +464,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
         st.session_state['conclusoes_done'] = conclusoes
                
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip" target="_blank">Ex: Arquivo de dados</a>', unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados", type=["csv"])        
+    uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados ou zip", type=["csv","zip"])        
     default_index = 0
     
     if uploaded_file: 
