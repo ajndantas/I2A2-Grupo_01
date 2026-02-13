@@ -663,8 +663,8 @@ if __name__ == "__main__":
     #qtd_tokens = 2000000
         
     llm = ChatOpenAI(
-        model="tngtech/deepseek-r1t2-chimera:free",
-        #model="x-ai/grok-4.1-fast:free",
+        #model="tngtech/deepseek-r1t2-chimera:free",
+        model="x-ai/grok-4.1-fast:free",
         base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
