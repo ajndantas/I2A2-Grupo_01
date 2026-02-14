@@ -22,7 +22,8 @@ from langchain.globals import set_debug, set_llm_cache
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit.runtime.uploaded_file_manager import UploadedFile
-import transformers
+from transformers import AutoTokenizer
+import requests
 from re import findall,sub
 import io, zipfile
 
@@ -130,7 +131,7 @@ def num_tokens_from_string(df:DataFrame) -> int:
     
     chat_tokenizer_dir = "./"
 
-    tokenizer = transformers.AutoTokenizer.from_pretrained( 
+    tokenizer = AutoTokenizer.from_pretrained( 
             chat_tokenizer_dir, trust_remote_code=True
             )   
     
@@ -139,6 +140,27 @@ def num_tokens_from_string(df:DataFrame) -> int:
     print("Quantidade de tokens: ", result,"\n")
      
     return result
+
+
+def obter_context_window_size(llm):
+    
+    headers = {
+        "Authorization": f"Bearer {getenv('API_KEY')}"
+    }
+
+    response = requests.get(
+        "https://openrouter.ai/api/v1/models",
+        headers=headers
+    )
+
+    models = response.json()
+
+    for model in models["data"]:
+        if model["id"] == llm.model_name:    
+            print(model["id"], model.get("context_length"))
+            return model.get("context_length")
+    
+    
 
 
 def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens, taxa_reducao):
@@ -659,18 +681,18 @@ if __name__ == "__main__":
     
     set_llm_cache(InMemoryCache())
     
-    qtd_tokens = 163000
-    #qtd_tokens = 2000000
-        
     llm = ChatOpenAI(
         #model="tngtech/deepseek-r1t2-chimera:free",
-        model="deepseek/deepseek-r1-0528:free",
-        base_url="https://openrouter.ai/api/v1",
+        model="gpt-5-mini",
+        #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
-        cache=True,              
+        cache=True, 
         api_key=getenv("API_KEY")        
-    )    
+    )   
+    
+    qtd_tokens = obter_context_window_size(llm)    
+    print("Quantidade de tokens da janela de contexto do modelo:", qtd_tokens)
     
     pergunta = ""
     resposta = ""
