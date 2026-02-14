@@ -362,7 +362,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         Para a criação dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4 e 8.5 abaixo
                         8.1 - **SEMPRE** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
                         8.2 - **SEMPRE** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
-                        8.3 - **SEMPRE DÊ NOMES AOS EIXOS DOS GRÁFICOS**.
+                        8.3 - **SEMPRE INFORME NOS EIXOS DOS GRÁFICOS SEUS NOMES**.
                         8.4 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
                         8.5 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
                         sem os dados, ou somente com seus títulos ou legendas, retorne para o passo 8
