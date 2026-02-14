@@ -156,7 +156,7 @@ def obter_context_window_size(llm):
     models = response.json()
 
     for model in models["data"]:
-        if model["id"] == f{"openai/"llm.model_name}:    
+        if model["id"] == f'"openai/"{llm.model_name}':    
             print(model["id"], model.get("context_length"))
             return model.get("context_length")
     
