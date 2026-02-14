@@ -369,8 +369,9 @@ def agente2(pergunta,arquivo,engine):
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
         #model="mistralai/mistral-small-3.2-24b-instruct:free",
-        model="mistralai/mistral-small-3.1-24b-instruct:free",
-        base_url="https://openrouter.ai/api/v1",
+        #model="mistralai/mistral-small-3.1-24b-instruct:free",
+        model="gpt-5-mini",
+        #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
         reasoning_effort="high",        
