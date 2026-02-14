@@ -156,7 +156,7 @@ def obter_context_window_size(llm):
     models = response.json()
 
     for model in models["data"]:
-        if model["id"] == llm.model_name:    
+        if model["id"] == f{"openai/"llm.model_name}:    
             print(model["id"], model.get("context_length"))
             return model.get("context_length")
     
@@ -683,7 +683,7 @@ if __name__ == "__main__":
     
     llm = ChatOpenAI(
         #model="tngtech/deepseek-r1t2-chimera:free",
-        model="openai/gpt-5-mini", # SEMPRE PASSAR NESSE FORMATO PROVEDOR/LLM
+        model="gpt-5-mini", # SEMPRE PASSAR NESSE FORMATO PROVEDOR/LLM
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
