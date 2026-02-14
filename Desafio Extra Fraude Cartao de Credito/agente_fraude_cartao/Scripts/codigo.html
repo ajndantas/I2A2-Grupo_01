@@ -1,61 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <title>Análise de Tipos de Dados</title>
-    <script src='https://cdn.plot.ly/plotly-3.3.0.min.js'></script>
-    <style>
-        .destaque-alto { color: red; }
-        .destaque-baixo { color: green; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    </style>
+  <meta charset='utf-8'>
+  <title>Resumo — Tendência Central (amostra)</title>
+  <style>
+    body{font-family: Arial, Helvetica, sans-serif; margin:20px; color:#222}
+    h1{margin-bottom:4px}
+    p{margin:4px 0}
+    table{border-collapse:collapse;width:100%;margin-top:10px}
+    th,td{border:1px solid #ddd;padding:6px}
+    th{background:#f4f4f4;text-align:left}
+    td{text-align:right}
+    .charge-high{background:#ffd6d6;color:#a00;font-weight:700}
+    .charge-low{background:#e6ffe6;color:#086;font-weight:600}
+    .info{background:#f0f8ff;padding:8px;border-radius:4px;margin:8px 0}
+    .small{font-size:0.9em;color:#555}
+    #charts{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px}
+    .chart{flex:1 1 48%;min-width:320px;height:380px}
+  </style>
 </head>
 <body>
-    <h2>Dados Analisados</h2>
-    <p>Foram utilizados <strong>5 registros</strong> do dataset com colunas: Time, V1-V28, Amount, Class.</p>
-    
-    <h3>Tabela com Destaques (Amount)</h3>
-    <table>
-        <tr>
-            <th>Time</th><th>V1</th><th>V2</th><th>V3</th><th>V4</th><th>V5</th><th>V6</th><th>V7</th><th>V8</th><th>V9</th><th>V10</th><th>V11</th><th>V12</th><th>V13</th><th>V14</th><th>V15</th><th>V16</th><th>V17</th><th>V18</th><th>V19</th><th>V20</th><th>V21</th><th>V22</th><th>V23</th><th>V24</th><th>V25</th><th>V26</th><th>V27</th><th>V28</th><th>Amount</th><th>Class</th>
-        </tr>
-        <tr>
-            <td>0.0</td><td>-1.359807</td><td>-0.072781</td><td>2.536347</td><td>1.378155</td><td>-0.338321</td><td>0.462388</td><td>0.239599</td><td>0.098698</td><td>0.363787</td><td>0.090794</td><td>-0.551600</td><td>-0.617801</td><td>-0.991390</td><td>-0.311169</td><td>1.468177</td><td>-0.470401</td><td>0.207971</td><td>0.025791</td><td>0.403993</td><td>0.251412</td><td>-0.018307</td><td>0.277838</td><td>-0.110474</td><td>0.066928</td><td>0.128539</td><td>-0.189115</td><td>0.133558</td><td>-0.021053</td><td class='destaque-alto'>149.62</td><td>0</td>
-        </tr>
-        <tr>
-            <td>0.0</td><td>1.191857</td><td>0.266151</td><td>0.166480</td><td>0.448154</td><td>0.060018</td><td>-0.082361</td><td>-0.078803</td><td>0.085102</td><td>-0.255425</td><td>-0.166974</td><td>1.612727</td><td>1.065235</td><td>0.489095</td><td>-0.143772</td><td>0.635558</td><td>0.463917</td><td>-0.114805</td><td>-0.183361</td><td>-0.145783</td><td>-0.069083</td><td>-0.225775</td><td>-0.638672</td><td>0.101288</td><td>-0.339846</td><td>0.167170</td><td>0.125895</td><td>-0.008983</td><td>0.014724</td><td class='destaque-baixo'>2.69</td><td>0</td>
-        </tr>
-        <tr>
-            <td>1.0</td><td>-1.358354</td><td>-1.340163</td><td>1.773209</td><td>0.379780</td><td>-0.503198</td><td>1.800499</td><td>0.791461</td><td>0.247676</td><td>-1.514654</td><td>0.207643</td><td>0.624501</td><td>0.066084</td><td>0.717293</td><td>-0.165946</td><td>2.345865</td><td>-2.890083</td><td>1.109969</td><td>-0.121359</td><td>-2.261857</td><td>0.524980</td><td>0.247998</td><td>0.771679</td><td>0.909412</td><td>-0.689281</td><td>-0.327642</td><td>-0.139097</td><td>-0.055353</td><td>-0.059752</td><td class='destaque-alto'>378.66</td><td>0</td>
-        </tr>
-        <tr>
-            <td>1.0</td><td>-0.966272</td><td>-0.185226</td><td>1.792993</td><td>-0.863291</td><td>-0.010309</td><td>1.247203</td><td>0.237609</td><td>0.377436</td><td>-1.387024</td><td>-0.054952</td><td>-0.226487</td><td>0.178228</td><td>0.507757</td><td>-0.287924</td><td>-0.631418</td><td>-1.059647</td><td>-0.684093</td><td>1.965775</td><td>-1.232622</td><td>-0.208038</td><td>-0.108300</td><td>0.005274</td><td>-0.190321</td><td>-1.175575</td><td>0.647376</td><td>-0.221929</td><td>0.062723</td><td>0.061458</td><td class='destaque-alto'>123.50</td><td>0</td>
-        </tr>
-        <tr>
-            <td>2.0</td><td>-1.158233</td><td>0.877737</td><td>1.548718</td><td>0.403034</td><td>-0.407193</td><td>0.095921</td><td>0.592941</td><td>-0.270533</td><td>0.817739</td><td>0.753074</td><td>-0.822843</td><td>0.538196</td><td>1.345852</td><td>-1.119670</td><td>0.175121</td><td>-0.451449</td><td>-0.237033</td><td>-0.038195</td><td>0.803487</td><td>0.408542</td><td>-0.009431</td><td>0.798278</td><td>-0.137458</td><td>0.141267</td><td>-0.206010</td><td>0.502292</td><td>0.219422</td><td>0.215153</td><td class='destaque-baixo'>69.99</td><td>0</td>
-        </tr>
-    </table>
-    
-    <div id='grafico'></div>
-    <script>
-        var data = [{
-            x: ['Numéricas', 'Categóricas'],
-            y: [30, 1],
-            type: 'bar',
-            marker: { color: ['blue', 'orange'] }
-        }];
-        var layout = {
-            title: 'Distribuição de Tipos de Dados',
-            xaxis: { title: 'Tipo de Dado' },
-            yaxis: { title: 'Quantidade de Colunas' }
-        };
-        Plotly.newPlot('grafico', data, layout);
-    </script>
-    
-    <h3>Conclusões</h3>
-    <ul>
-        <li><strong>Categóricas:</strong> Class (binária: 0/1)</li>
-        <li><strong>Numéricas:</strong> Time, V1-V28, Amount (contínuas)</li>
-    </ul>
+  <h1>Resumo — Medidas de Tendência Central (amostra)</h1>
+  <p><strong>Colunas utilizadas:</strong> Amount, Class, Time</p>
+  <div class='info'>
+    <p><strong>Dados utilizados:</strong> primeiros 30 registros do CONTEXTO fornecido (amostra extraída do texto).</p>
+    <p class='small'>Quantidade de registros analisados: <strong id='nreg'>30</strong>.</p>
+  </div>
+
+  <h2>Resultados (métricas)</h2>
+  <table>
+    <thead><tr><th>Métrica</th><th>Valor</th></tr></thead>
+    <tbody>
+      <tr><td>Média (Amount)</td><td id='meanAmount'></td></tr>
+      <tr><td>Mediana (Amount)</td><td id='medianAmount'></td></tr>
+      <tr><td>Média (Time)</td><td id='meanTime'></td></tr>
+      <tr><td>Mediana (Time)</td><td id='medianTime'></td></tr>
+      <tr><td>Média (Class)</td><td id='meanClass'></td></tr>
+      <tr><td>Mediana (Class)</td><td id='medianClass'></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Tabela — amostra (30 registros)</h2>
+  <table id='sampleTable'>
+    <thead>
+      <tr><th style='text-align:center'>#</th><th>Amount</th><th style='text-align:center'>Class</th><th style='text-align:center'>Time</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>Gráficos</h2>
+  <div id='charts'>
+    <div id='hist' class='chart'></div>
+    <div id='box' class='chart'></div>
+    <div id='classbar' class='chart' style='flex-basis:100%;height:300px'></div>
+  </div>
+
+  <!-- Plotly 3.3.0 conforme instrução -->
+  <script src='https://cdn.plot.ly/plotly-3.3.0.min.js'></script>
+  <script>
+  (function(){
+    // Amostra: primeiros 30 registros extraídos do CONTEXTO fornecido
+    var sample = [
+      {Amount:149.62,Class:0,Time:0.0},
+      {Amount:2.69,Class:0,Time:0.0},
+      {Amount:378.66,Class:0,Time:1.0},
+      {Amount:123.50,Class:0,Time:1.0},
+      {Amount:69.99,Class:0,Time:2.0},
+      {Amount:3.67,Class:0,Time:2.0},
+      {Amount:4.99,Class:0,Time:4.0},
+      {Amount:40.80,Class:0,Time:7.0},
+      {Amount:93.20,Class:0,Time:7.0},
+      {Amount:3.68,Class:0,Time:9.0},
+      {Amount:7.80,Class:0,Time:10.0},
+      {Amount:9.99,Class:0,Time:10.0},
+      {Amount:121.50,Class:0,Time:10.0},
+      {Amount:27.50,Class:0,Time:11.0},
+      {Amount:58.80,Class:0,Time:12.0},
+      {Amount:15.99,Class:0,Time:12.0},
+      {Amount:12.99,Class:0,Time:12.0},
+      {Amount:0.89,Class:0,Time:13.0},
+      {Amount:46.80,Class:0,Time:14.0},
+      {Amount:5.00,Class:0,Time:15.0},
+      {Amount:231.71,Class:0,Time:16.0},
+      {Amount:34.09,Class:0,Time:17.0},
+      {Amount:2.28,Class:0,Time:18.0},
+      {Amount:22.75,Class:0,Time:18.0},
+      {Amount:0.89,Class:0,Time:22.0},
+      {Amount:26.43,Class:0,Time:22.0},
+      {Amount:41.88,Class:0,Time:23.0},
+      {Amount:16.00,Class:0,Time:23.0},
+      {Amount:33.00,Class:0,Time:23.0},
+      {Amount:12.99,Class:0,Time:23.0}
+    ];
+
+    // Simulação de leitura JSON (passo 7)
+    try{
+      var jsonStr = JSON.stringify(sample);
+      var parsed = JSON.parse(jsonStr);
+      console.log('Simulação leitura JSON: JSON válido. Registros lidos:', parsed.length);
+    } catch(e){
+      console.error('Simulação leitura JSON: JSON inválido', e);
+    }
+
+    // Extrai arrays
+    var amounts = sample.map(function(r){return r.Amount;});
+    var times   = sample.map(function(r){return r.Time;});
+    var classes = sample.map(function(r){return r.Class;});
+
+    // Funções estatísticas
+    function mean(arr){return arr.reduce(function(a,b){return a+b;},0)/arr.length;}
+    function median(arr){
+      var s = arr.slice().sort(function(a,b){return a-b;});
+      var n = s.length;
+      if(n%2===1) return s[(n-1)/2];
+      return (s[n/2-1]+s[n/2])/2;
+    }
+
+    var meanA = +(mean(amounts)).toFixed(3); // 53.336
+    var medA  = +(median(amounts)).toFixed(3); // 24.590
+    var meanT = +(mean(times)).toFixed(3); // 11.900
+    var medT  = +(median(times)).toFixed(3); // 12.000
+    var meanC = +(mean(classes)).toFixed(3); // 0.000
+    var medC  = +(median(classes)).toFixed(3); // 0.000
+
+    // Preenche resultados na tabela
+    document.getElementById('meanAmount').textContent = meanA;
+    document.getElementById('medianAmount').textContent = medA;
+    document.getElementById('meanTime').textContent = meanT;
+    document.getElementById('medianTime').textContent = medT;
+    document.getElementById('meanClass').textContent = meanC;
+    document.getElementById('medianClass').textContent = medC;
+
+    // Preenche tabela amostra com formatação condicional (valores > média -> vermelho; <= média -> verde)
+    var tb = document.querySelector('#sampleTable tbody');
+    amounts.forEach(function(a,i){
+      var tr = document.createElement('tr');
+      var tdIdx = document.createElement('td'); tdIdx.style.textAlign='center'; tdIdx.textContent = i+1;
+      var tdA = document.createElement('td'); tdA.textContent = a.toFixed(2); tdA.style.textAlign='right';
+      tdA.className = (a>meanA)?'charge-high':'charge-low';
+      var tdC = document.createElement('td'); tdC.style.textAlign='center'; tdC.textContent = classes[i];
+      var tdT = document.createElement('td'); tdT.style.textAlign='center'; tdT.textContent = times[i];
+      tr.appendChild(tdIdx); tr.appendChild(tdA); tr.appendChild(tdC); tr.appendChild(tdT);
+      tb.appendChild(tr);
+    });
+
+    // Criação dos gráficos com Plotly (verificação de dados — passo 4.4.1)
+    if(!amounts.length || !times.length){
+      console.error('Gráficos sem dados: abortando plot. Retorne ao passo 4.');
+    } else {
+      // Histograma de Amount
+      var histTrace = { x: amounts, type: 'histogram', marker:{color:'#2b8cbe'} };
+      var histLayout = { title:'Histograma de Amount', xaxis:{title:'Amount (USD)'}, yaxis:{title:'Contagem'} };
+      Plotly.newPlot('hist',[histTrace],histLayout);
+
+      // Boxplot de Amount
+      var boxTrace = { y: amounts, type:'box', name:'Amount', marker:{color:'#fdae61'} };
+      var boxLayout = { title:'Boxplot de Amount', yaxis:{title:'Amount (USD)'} };
+      Plotly.newPlot('box',[boxTrace],boxLayout);
+
+      // Contagem por Class (barras)
+      var counts = {};
+      classes.forEach(function(c){ counts[c] = (counts[c]||0)+1; });
+      var keys = Object.keys(counts);
+      var vals = keys.map(function(k){return counts[k];});
+      var barTrace = { x: keys, y: vals, type:'bar', marker:{color:'#2ca25f'} };
+      var barLayout = { title:'Contagem por Class', xaxis:{title:'Class'}, yaxis:{title:'Contagem'} };
+      Plotly.newPlot('classbar',[barTrace],barLayout);
+
+      console.log('Simulação: gráficos carregados com dados.');
+    }
+
+  })();
+  </script>
 </body>
 </html>
