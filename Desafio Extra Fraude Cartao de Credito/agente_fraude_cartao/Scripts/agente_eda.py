@@ -40,42 +40,42 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
 
     print('\nExecutando agente 3...')
     
-    template_query = """
-                        Aja como um analista de dados que analisou dados relativos a um dataset e que obteve as conclusões abaixo de análises anteriores.
+    """
+                        Aja como um analista de dados que analisou dados relativos a um dataset e que obteve as CONCLUSÕES ANTERIORES de análises anteriores.
                         
-                        Seja sucinto. Deverá ser gerado um código HTML com a conclusão geral sobre os dados.                        
-                                        
                         CONCLUSÕES ANTERIORES:
                         {conclusoes}
                         
-                        A resposta deve ser no idioma português do Brasil.
-                        
-                        ** SEMPRE GERE UM JSON VÁLIDO **.
-                        
-                        **- Não faça perguntas nem adicione esclarecimentos.**
-                        
-                        Deverão ser seguidos os seguintes passos:
-                        
                         PASSOS:
-                        1 - Aplique formatação condicional (via CSS no <style>) para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
-                        2 - **SEMPRE** inclua títulos e legendas para clareza.
-                        3 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 3.1, 3.2, 3.3, 3.4 e 3.4.1
-                        3.1 - ** SEMPRE ** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
-                        3.2 - ** SEMPRE ** use as informações de CONCLUSÕES ANTERIORES para criar os gráficos
-                        3.3 - ** SEMPRE ** de nomes aos eixos dos gráficos.
-                        3.4 - Os gráficos ** SEMPRE ** devem possuir dados, não somente seus títulos ou legendas                     
-                        3.4.1 - ** SEMPRE ** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
-                        títulos ou legendas, retorne para o passo 3
-                        4 - Incorpore tabelas (com a formatação condicional do passo 1), se necessário, para melhor visualização.
-                        5 - Adicione uma seção de conclusões no final, destacando os principais insights e aprendizados com as CONCLUSÕES ANTERIORES.                      
+                        ###########################################################################################################################################
+                        1 - A resposta deve ser no idioma português do Brasil.
+                        2 - **- Não faça perguntas nem adicione esclarecimentos.**
+                        3 - Aplique formatação condicional (via CSS ou <style>) para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
+                        4 - **SEMPRE** inclua títulos e legendas para clareza.
+                        5 - Se necessário, incorpore gráficos para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). 
+                        Para a criação dos gráficos, siga os passos 5.1, 5.2, 5.3, 5.4, 5.5 e 5.6 abaixo
+                        5.1 - **SEMPRE** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
+                        5.2 - **SEMPRE** use as informações de CONCLUSÕES ANTERIORES para criar os gráficos
+                        5.3 - **SEMPRE INFORME NOS EIXOS DOS GRÁFICOS SEUS NOMES**.
+                        5.4 - **SEMPRE** acima do gráfico, não para tabelas, informe seu título no formato "NOME DO EIXO HORIZONTAL X NOME DO EIXO VERTICAL", 
+                        informados no item 5.3
+                        5.5 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
+                        5.6 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
+                        sem os dados, somente com seus títulos obtidos no passo 5.4 ou somente com suas legendas, retorne para o passo 5
+                        6 - Se necessário, incorpore tabelas (com a formatação condicional do passo 5) para melhor visualização.
+                        7 - **SEMPRE** simule o que aconteceria com a leitura do JSON em {formatacao_saida}, e produza a saída no console, se o JSON não for 
+                        válido, retorne para o passo 1            
+                        8 - Adicione uma seção chamada CONCLUSÕES no final, destacando os principais insights e aprendizados com as CONCLUSÕES ANTERIORES.      
+                        ###########################################################################################################################################                      
                         
                         {formatacao_saida}
                         
-                        {{codigo : "HTML com a resposta da análise de dados"}}                        
+                        **SEMPRE** simule o que aconteceria com a leitura do JSON em {formatacao_saida}, e produza a saída no console, se o JSON não for 
+                        válido, retorne para o passo 1  
                         
                      """
                      
+                                         
     # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
     class ConclusaoGeral(BaseModel):
         codigo: str = Field(description='Codigo HTML')
@@ -179,8 +179,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                             - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
                             - Usar apenas parte dos dados, usando WHERE ou outras cláusulas SQL.
                             - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas}
-                            - ** NÃO UTILIZE UNION **
-                            - ** SEMPRE ** forneça um ** JSON VÁLIDO **
+                            - ** NÃO UTILIZE UNION **                           
                             #######################################################################################
                                                         
                             CONTEXTO:
@@ -192,8 +191,7 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                             5 - O nome da tabela é {arquivo}.                                                                                       
                             ########################################################################################
                                                           
-                            {formatacao_saida}
-                            
+                            {formatacao_saida}                            
                          """
 
         # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
@@ -359,21 +357,24 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         6 - **SEMPRE** inclua títulos e legendas para clareza.
                         7 - Informe os dados utilizados e a quantidade de registros analisados
                         8 - Se necessário, incorpore gráficos para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). 
-                        Para a criação dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4 e 8.5 abaixo
+                        Para a criação dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4, 8.5 e 8.6 abaixo
                         8.1 - **SEMPRE** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
                         8.2 - **SEMPRE** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
                         8.3 - **SEMPRE INFORME NOS EIXOS DOS GRÁFICOS SEUS NOMES**.
-                        8.4 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
-                        8.5 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
-                        sem os dados, ou somente com seus títulos ou legendas, retorne para o passo 8
+                        8.4 - **SEMPRE** acima do gráfico, não para tabelas, informe seu título no formato "NOME DO EIXO HORIZONTAL X NOME DO EIXO VERTICAL", informados no item 8.3
+                        8.5 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
+                        8.6 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
+                        sem os dados, somente com seus títulos informados no passo 8.4 ou somente com suas legendas, retorne para o passo 8
                         9 - Se necessário, incorpore tabelas (com a formatação condicional do passo 5) para melhor visualização.
-                        10 - **SEMPRE** adicione uma seção de conclusões no final, incluíndo a resposta a PERGUNTA 
-                        11 - **SEMPRE** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para 
+                        10 - **SEMPRE** adicione uma seção chamada **CONCLUSÕES** no final, incluíndo a resposta a PERGUNTA 
+                        11 - **SEMPRE** simule o que aconteceria com a leitura do JSON {formatacao_saida}, e produza a saída no console, se o JSON não for válido, retorne para 
                         o passo 1                      
-                        
-                        {formatacao_saida}
                         ###########################################################################################################################################                      
                         
+                        {formatacao_saida}
+                        
+                        **SEMPRE** simule o que aconteceria com a leitura do JSON {formatacao_saida}, e produza a saída no console, se o JSON não for válido, retorne para 
+                        o passo 1                         
                      """
                      
     # FORMATANDO A SAÍDA DA LLM COM JsonOutputParser
