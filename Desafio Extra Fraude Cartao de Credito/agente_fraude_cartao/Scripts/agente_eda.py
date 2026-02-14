@@ -340,7 +340,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     
     template_query = """
                         Aja como um analista de dados e responda a seguinte PERGUNTA {pergunta} a respeito de um dataset fornecido.
-                        Ao final, deverá ser gerado um código HTML com o resumo das análises, baseando-se nas informações de CONTEXTO, CONCLUSÕES ANTERIORES 
+                        Ao final, deverá ser gerado um código HTML, baseando-se nas informações de CONTEXTO, CONCLUSÕES ANTERIORES 
                         e PASSOS abaixo.
                         
                         CONTEXTO:
@@ -362,7 +362,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         Para a criação dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4 e 8.5 abaixo
                         8.1 - **SEMPRE** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
                         8.2 - **SEMPRE** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
-                        8.3 - **SEMPRE** dê nomes aos eixos dos gráficos.
+                        8.3 - **SEMPRE DÊ NOMES AOS EIXOS DOS GRÁFICOS**.
                         8.4 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
                         8.5 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
                         sem os dados, ou somente com seus títulos ou legendas, retorne para o passo 8
