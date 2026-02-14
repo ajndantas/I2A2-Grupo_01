@@ -58,7 +58,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         
                         PASSOS:
                         1 - Aplique formatação condicional (via CSS no <style>) para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
-                        2 - Inclua títulos e legendas para clareza.
+                        2 - **SEMPRE** inclua títulos e legendas para clareza.
                         3 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
                         dos gráficos, siga os passos 3.1, 3.2, 3.3, 3.4 e 3.4.1
                         3.1 - ** SEMPRE ** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
@@ -167,29 +167,31 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
 
         template_query = """
                             Qual query deve ser executada, ** SOMENTE PARA COLETAR OS DADOS, SEM REALIZAR QUALQUER OPERAÇÃO SOBRE ELES **, a fim de que se possa responder
-                            a pergunta "{pergunta}"? Para isso, considere os passos a seguir
-                                                             
-                            IMPORTANTE: Use apenas SQL compatível com SQLite. Não utilize INFORMATION_SCHEMA nem outras tabelas/metadados que não existam no SQLite. 
-                            Para metadados use PRAGMA table_info("{arquivo}").
+                            a pergunta "{pergunta}" baseada nos PASSOS e CONTEXTO a seguir ?
                             
-                            **Não faça perguntas nem adicione esclarecimentos.**
-                            
+                            PASSOS:
+                            #######################################################################################                    
+                            - Use apenas SQL compatível com SQLite. Não utilize INFORMATION_SCHEMA, 
+                            PRAGMA table_info nem outras tabelas/metadados que não existam no SQLite. 
+                            - **Não faça perguntas nem adicione esclarecimentos.**
+                            - A query a ser gerada deve ser compatível com SQLite e deve ser **apenas uma query de 
+                            SELECT**.
+                            - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
+                            - Usar apenas parte dos dados, usando WHERE ou outras cláusulas SQL.
+                            - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas}
+                            - ** NÃO UTILIZE UNION **
+                            - ** SEMPRE ** forneça um ** JSON VÁLIDO **
                             #######################################################################################
-                            Considere os seguintes passos:
+                                                        
+                            CONTEXTO:
+                            #######################################################################################
                             1 - Informações sobre os dados {describe}
                             2 - Uma amostra dos dados {amostra}
                             3 - As conclusões de análise anteriores foram {conclusoes}
-                            4 - A tabela possui {linhas} linhas
-                            5 - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
-                            6 - Usar apenas parte dos dados, usando WHERE ou outras cláusulas SQL.
-                            7 - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas}                           
-                            8 - O nome da tabela é {arquivo}.   
-                            9 - ** NÃO UTILIZE UNION **    
-                                                        
+                            4 - A tabela possui {linhas} linhas                            
+                            5 - O nome da tabela é {arquivo}.                                                                                       
                             ########################################################################################
-                            
-                            ** SEMPRE ** forneça um ** JSON VÁLIDO **                    
-                                      
+                                                          
                             {formatacao_saida}
                             
                          """
@@ -262,13 +264,13 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                 print('Nova Query: ', query)
                 
                 stmt = text(query)
-                dfcontext = read_sql(stmt, con=engine) # NOVO DATAFRAME COM OBTIDO COM O NOVO VALOR DE LIMIT
+                dfcontext = read_sql(stmt, con=engine) # NOVO DATAFRAME OBTIDO COM O NOVO VALOR DE LIMIT
                 
                 tokens = num_tokens_from_string(dfcontext) # OBTÉM A QTD DE TOKENS EQUIVALENTE AO NOVO DATAFRAME                
                 
                 sleep(10)
                 
-        else: 
+        else: # SE O VALOR DE LIMIT FOR MENOR QUE 0, FORÇAR UM VALOR
             if limit <= 0:
                 print("Valor negativo ou 0 para LIMIT...")
                 
@@ -338,12 +340,8 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
     
     template_query = """
                         Aja como um analista de dados e responda a seguinte PERGUNTA {pergunta} a respeito de um dataset fornecido.
-                        
-                        Use as informações de CONTEXTO e CONCLUSÕES ANTERIORES abaixo.
-                        
-                        Seja sucinto, informe os **NOMES DAS COLUNAS** na resposta. 
-                        Informe os dados que foram utilizados.
-                        Ao final, deverá ser gerado um código HTML com o resumo das análises.
+                        Ao final, deverá ser gerado um código HTML com o resumo das análises, baseando-se nas informações de CONTEXTO, CONCLUSÕES ANTERIORES 
+                        e PASSOS abaixo.
                         
                         CONTEXTO:
                         {context}
@@ -351,30 +349,30 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         CONCLUSÕES ANTERIORES:
                         {conclusoes}
                         
-                        A resposta deve ser no idioma português do Brasil.
-                        
-                        **- Não faça perguntas nem adicione esclarecimentos.**
-                        
-                                                                 
-                        Deverão ser seguidos os seguintes passos:
-                        
                         PASSOS:
-                        1 - Aplique formatação condicional (via CSS ou <style>) para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
-                        2 - Inclua títulos e legendas para clareza.
-                        3 - Informe os dados utilizados e a quantidade de registros analisados
-                        4 - Incorpore gráficos, se necessário, para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). Para a criação
-                        dos gráficos, siga os passos 4.1, 4.2, 4.3, 4.4 e 4.4.1
-                        4.1 - ** SEMPRE ** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
-                        4.2 - ** SEMPRE ** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
-                        4.3 - ** SEMPRE ** dê nomes aos eixos dos gráficos.
-                        4.4 - Os gráficos ** SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS **
-                        4.4.1 - ** SEMPRE ** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem sem os dados, ou somente com seus 
-                        títulos ou legendas, retorne para o passo 4
-                        5 - Incorpore tabelas (com a formatação condicional do passo 1), se necessário, para melhor visualização.
-                        6 - ** SEMPRE ** adicione uma seção de conclusões no final incluíndo a resposta a PERGUNTA 
-                        7 - ** SEMPRE ** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para o passo 1                      
+                        ###########################################################################################################################################
+                        1 - A resposta deve ser no idioma português do Brasil.
+                        2 - **- Não faça perguntas nem adicione esclarecimentos.**
+                        3 - Seja sucinto, informe os **NOMES DAS COLUNAS** na resposta. 
+                        4 - Informe os dados que foram utilizados.
+                        5 - Aplique formatação condicional (via CSS ou <style>) para destacar valores relevantes (ex: valores altos em vermelho, baixos em verde).
+                        6 - **SEMPRE** inclua títulos e legendas para clareza.
+                        7 - Informe os dados utilizados e a quantidade de registros analisados
+                        8 - Se necessário, incorpore gráficos para melhor visualização. (Ex: Histogramas, gráficos de barras, linhas, boxplots, heatmaps, etc). 
+                        Para a criação dos gráficos, siga os passos 8.1, 8.2, 8.3, 8.4 e 8.5 abaixo
+                        8.1 - **SEMPRE** utilize o script plotly.js de https://cdn.plot.ly/plotly-3.3.0.min.js para a geração dos gráficos interativos.
+                        8.2 - **SEMPRE** use as informações de CONTEXTO e CONCLUSÕES ANTERIORES para criar os gráficos
+                        8.3 - **SEMPRE** dê nomes aos eixos dos gráficos.
+                        8.4 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
+                        8.5 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
+                        sem os dados, ou somente com seus títulos ou legendas, retorne para o passo 8
+                        9 - Se necessário, incorpore tabelas (com a formatação condicional do passo 5) para melhor visualização.
+                        10 - **SEMPRE** adicione uma seção de conclusões no final, incluíndo a resposta a PERGUNTA 
+                        11 - **SEMPRE** simule o que aconteceria com a leitura do JSON, e produza a saída no console, se o JSON não for válido, retorne para 
+                        o passo 1                      
                         
-                        {formatacao_saida}                                      
+                        {formatacao_saida}
+                        ###########################################################################################################################################                      
                         
                      """
                      
