@@ -40,7 +40,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
 
     print('\nExecutando agente 3...')
     
-    """
+    template_query =  """
                         Aja como um analista de dados que analisou dados relativos a um dataset e que obteve as CONCLUSÕES ANTERIORES de análises anteriores.
                         
                         CONCLUSÕES ANTERIORES:
@@ -89,8 +89,7 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                                           )
     
     
-    chain = prompt_template_query | llm | parseador
-    
+    chain = prompt_template_query | llm | parseador    
             
     err = 0
     while err <= 4:
@@ -366,7 +365,7 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         8.6 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
                         sem os dados, somente com seus títulos informados no passo 8.4 ou somente com suas legendas, retorne para o passo 8
                         9 - Se necessário, incorpore tabelas (com a formatação condicional do passo 5) para melhor visualização.
-                        10 - **SEMPRE** adicione uma seção chamada **CONCLUSÕES** no final, incluíndo a resposta a PERGUNTA 
+                        10 - **SEMPRE** adicione ao final do código HTML, uma seção chamada CONCLUSÕES, incluíndo a resposta a PERGUNTA 
                         11 - **SEMPRE** simule o que aconteceria com a leitura do JSON {formatacao_saida}, e produza a saída no console, se o JSON não for válido, retorne para 
                         o passo 1                      
                         ###########################################################################################################################################                      
@@ -682,7 +681,7 @@ if __name__ == "__main__":
     
     llm = ChatOpenAI(
         #model="tngtech/deepseek-r1t2-chimera:free",
-        model="gpt-5-mini", # SEMPRE PASSAR NESSE FORMATO PROVEDOR/LLM
+        model="gpt-5-mini", 
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
