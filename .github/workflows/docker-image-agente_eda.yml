@@ -24,5 +24,5 @@ jobs:
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_fraude_cartao
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
-          docker build --build-arg API_KEY="${{ secrets.API_KEY }}" --build-arg ="${{ secrets.API_KEY_OPENROUTER }} -t $IMAGE_ID:$TAG "Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/Scripts" # PEGA O DOCKERFILE AQUI
+          docker build --build-arg API_KEY="${{ secrets.API_KEY }}" --build-arg ="${{ secrets.API_KEY_OPENROUTER }}"" -t $IMAGE_ID:$TAG "Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/Scripts" # PEGA O DOCKERFILE AQUI
           docker push $IMAGE_ID:$TAG       
