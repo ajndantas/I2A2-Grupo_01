@@ -52,5 +52,27 @@ EXPOSE 8000
 CMD ["streamlit", "run", "agente_nfe.py", "--server.port", "8000", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
-# Para baixar -> docker pull ghcr.io/ajndantas/agente_nfs:latest
+# Para baixar do GITHUB -> docker pull ghcr.io/ajndantas/agente_nfs:latest
 # Executar como -> docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
+#
+# SE FOR FAZER O BUILD LOCAL, RODAR docker build --build-arg API_KEY=abc123 -t minha-imagem .
+# ❗ Importante:
+
+# Depois que o build termina, o ARG não existe mais dentro do container — a menos que você copie ele para um ENV.
+
+# 🔹 O que faz ENV?
+# ENV API_KEY=${API_KEY}
+# ✅ O que é:
+
+# ENV define uma variável de ambiente permanente dentro da imagem.
+
+# Ela:
+
+# Fica salva na imagem
+
+# Fica disponível quando o container roda
+
+# Pode ser acessada no Python via:
+
+# import os
+# os.getenv("API_KEY")

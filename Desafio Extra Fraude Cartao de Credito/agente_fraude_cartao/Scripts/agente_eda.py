@@ -144,7 +144,7 @@ def num_tokens_from_string(df:DataFrame) -> int:
 def obter_context_window_size(llm):
     
     headers = {
-        "Authorization": f"Bearer {getenv('API_KEY')}"
+        "Authorization": f"Bearer {getenv('API_KEY_OPENROUTER')}"
     }
 
     response = requests.get(
