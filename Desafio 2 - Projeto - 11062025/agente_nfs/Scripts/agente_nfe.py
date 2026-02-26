@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
-from typing import List, TypedDict
+from typing_extensions import List, TypedDict
 from langchain_openai import ChatOpenAI
 from langchain.globals import set_debug, set_llm_cache
 from langchain_community.cache import InMemoryCache
