@@ -1,1 +1,171 @@
-<html><head><meta charset='utf-8'><title>Análise Temporal</title><style>body{font-family:Arial,sans-serif;margin:12px;}h1,h2{font-weight:600;}table{border-collapse:collapse;width:100%;max-width:900px;margin-bottom:12px;}th,td{border:1px solid #ddd;padding:6px;text-align:right;}th{text-align:center;background:#f2f2f2;}td.amount-low{background:#d4edda;color:#155724;}td.amount-mid{background:#fff3cd;color:#856404;}td.amount-high{background:#f8d7da;color:#721c24;}#plots>div{margin-bottom:18px;}</style><script src='https://cdn.plot.ly/plotly-3.3.0.min.js'></script></head><body><h1>Análise: padrões temporais</h1><div class='legend'>Dados usados: primeiras 100 linhas do CONTEXTO. Registros analisados: 100. Colunas: Time, V1..V28, Amount, Class.</div><table id='sample-table'><thead><tr><th>Time (s)</th><th>Amount</th><th>Class</th></tr></thead><tbody><tr><td>0.0</td><td class='amount-high'>149.62</td><td>0</td></tr><tr><td>0.0</td><td class='amount-low'>2.69</td><td>0</td></tr><tr><td>1.0</td><td class='amount-high'>378.66</td><td>0</td></tr><tr><td>1.0</td><td class='amount-high'>123.5</td><td>0</td></tr><tr><td>2.0</td><td class='amount-mid'>69.99</td><td>0</td></tr><tr><td>2.0</td><td class='amount-low'>3.67</td><td>0</td></tr><tr><td>4.0</td><td class='amount-low'>4.99</td><td>0</td></tr><tr><td>7.0</td><td class='amount-mid'>40.8</td><td>0</td></tr><tr><td>7.0</td><td class='amount-mid'>93.2</td><td>0</td></tr><tr><td>9.0</td><td class='amount-low'>3.68</td><td>0</td></tr></tbody></table><div id='plots'><h2>Tempo (s) X Amount</h2><div id='plot_time_amount' style='height:360px;'></div><h2>Tempo (s) X Número de Transações</h2><div id='plot_time_counts' style='height:320px;'></div><h2>Amount X Frequência</h2><div id='plot_amount_hist' style='height:320px;'></div></div><h2>CONCLUSÕES</h2><div id='conclusoes'>Conclusão sucinta: não há tendência temporal consistente de aumento ou queda nos valores das transações na amostra (100 registros). Observa-se concentração de transações nas faixas iniciais de tempo e ocorrência de outliers de alto valor (ex.: 1402.95 em t=36, 1142.02 em t=59, 243.66 em t=42). Contagem por faixas 0-9,10-19,20-29,30-39,40-49,50-59,60-69: [10,14,16,18,20,13,9]. Recomenda-se monitorar picos e investigar outliers.</div><script>var times=[0,0,1,1,2,2,4,7,7,9,10,10,10,11,12,12,12,13,14,15,16,17,18,18,22,22,23,23,23,23,24,25,26,26,26,26,27,27,29,29,32,32,33,33,34,34,34,34,35,35,35,36,36,36,37,38,39,39,40,41,41,41,41,42,42,44,44,44,44,46,46,46,47,48,48,49,49,49,50,50,51,52,52,53,54,55,55,56,56,59,59,60,60,62,64,64,64,67,67,68];var amounts=[149.62,2.69,378.66,123.5,69.99,3.67,4.99,40.8,93.2,3.68,7.8,9.99,121.5,27.5,58.8,15.99,12.99,0.89,46.8,5,231.71,34.09,2.28,22.75,0.89,26.43,41.88,16,33,12.99,17.28,4.45,6.14,6.14,1.77,1.77,30.49,1.8,20.53,6.54,29.89,2.35,14.8,9.1,15.99,21.34,18.95,9.99,30.9,20.22,0.99,1402.95,7.99,2.09,0.99,21.76,120.96,13.84,13.84,2.67,169.05,96.94,34.13,32.51,243.66,21.55,59.9,0.75,45.71,35,67.97,11.45,3.63,21.66,26.72,13.18,59.99,135.51,9.79,14.8,1.98,6.67,1.46,89.17,7.53,200.01,0.76,20.22,10.84,1142.02,149.9,89.4,26.72,5.99,34.7,54.99,7.55,19.85,28.28,15.99];function movavg(data,window){var res=[];for(var i=0;i<data.length;i++){var start=Math.max(0,i-window+1);var sum=0;var count=0;for(var j=start;j<=i;j++){sum+=data[j];count++;}res.push(sum/count);}return res;}var ma=movavg(amounts,7);Plotly.newPlot('plot_time_amount',[{x:times,y:amounts,mode:'markers',type:'scatter',name:'Valor (Amount)',marker:{color:'rgba(31,119,180,0.9)'}},{x:times,y:ma,mode:'lines',type:'scatter',name:'Média móvel(7)',line:{color:'red',width:2}}],{title:'Tempo (s) X Amount',xaxis:{title:'Tempo (s)'},yaxis:{title:'Amount'}});var bins=[0,10,20,30,40,50,60,70];var labels=['0-9','10-19','20-29','30-39','40-49','50-59','60-69'];var counts=new Array(labels.length).fill(0);times.forEach(function(t){for(var b=0;b<bins.length-1;b++){if(t>=bins[b]&&t<bins[b+1]){counts[b]++;break;}}});Plotly.newPlot('plot_time_counts',[{x:labels,y:counts,type:'bar',marker:{color:'rgba(255,127,14,0.9)'}}],{title:'Tempo (s) X Número de Transações',xaxis:{title:'Tempo (s)'},yaxis:{title:'Número de transações'}});Plotly.newPlot('plot_amount_hist',[{x:amounts,type:'histogram',marker:{color:'rgba(44,160,44,0.9)'}}],{title:'Amount X Frequência',xaxis:{title:'Amount'},yaxis:{title:'Frequência'}});console.log('Simulação de leitura do JSON: dataset com 100 registros. Colunas: Time,V1..V28,Amount,Class');console.log({valid:true,records:100});</script></body></html>
+<!DOCTYPE html>
+<html lang=\"pt-BR\">
+<head>
+  <meta charset=\"UTF-8\" />
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
+  <title>Análise de Tipos de Dados do Dataset</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    h2 { color: #2e6da4; }
+    /* Títulos e legendas */
+    .secao { margin-bottom: 28px; }
+    /* Tabela com formatação condicional (valores altos em vermelho, baixos em verde) */
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; text-align: right; font-family: monospace; }
+    th { background-color: #f2f2f2; }
+    .alto { color: #d12b2b; font-weight: bold; }
+    .baixo { color: #2e8b57; font-weight: bold; }
+    /* containers dos plots */
+    #plot-amount, #plot-time, #plot-heatmap { width: 100%; height: 360px; }
+  </style>
+</head>
+<body>
+  <h1>Análise de Tipos de Dados do Dataset</h1>
+
+  <!-- Seção 1: Tipos de dados -->
+  <section class=\"secao\" id=\"tipos-dados\">
+    <h2>Resumo dos Tipos de Dados</h2>
+    <ul>
+      <li><strong>Time</strong>: numérico (float)</li>
+      <li><strong>V1</strong> a <strong>V28</strong>: numérico (float)</li>
+      <li><strong>Amount</strong>: numérico (float)</li>
+      <li><strong>Class</strong>: binário (0/1) – rótulo da classe (variável categórica binária para fins de classificação)</li>
+    </ul>
+  </section>
+
+  <!-- Seção 2: Nomes das colunas -->
+  <section class=\"secao\" id=\"nomes-colunas\">
+    <h2>Nomes das Colunas</h2>
+    <p>Time, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V28, Amount, Class</p>
+  </section>
+
+  <!-- Seção 3: Amostra de dados (tabela) -->
+  <section class=\"secao\" id=\"tabela-amostra-secao\">
+    <h2>Tabela de Amostra (n=3 registros mostrados)</h2>
+    <table id=\"tabela-amostra\" aria-label=\"Tabela de amostra\">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>V1</th>
+          <th>V2</th>
+          <th>V3</th>
+          <th>V4</th>
+          <th>V5</th>
+          <th>V6</th>
+          <th>V7</th>
+          <th>V8</th>
+          <th>V9</th>
+          <th>V10</th>
+          <th>V11</th>
+          <th>V12</th>
+          <th>V13</th>
+          <th>V14</th>
+          <th>V15</th>
+          <th>V16</th>
+          <th>V17</th>
+          <th>V18</th>
+          <th>V19</th>
+          <th>V20</th>
+          <th>V21</th>
+          <th>V22</th>
+          <th>V23</th>
+          <th>V24</th>
+          <th>V25</th>
+          <th>V26</th>
+          <th>V27</th>
+          <th>V28</th>
+          <th>Amount</th>
+          <th>Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Linhas geradas dinamicamente via JS -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Seção 4: Gráficos com Plotly (via Plotly.js 3.3.0) -->
+  <section class=\"secao\" id=\"graficos\">
+    <h2>Gráficos Interativos</h2>
+    <div id=\"plot-amount\"></div>
+    <div id=\"plot-time\" style=\"margin-top:28px\"></div>
+    <div id=\"plot-heatmap\" style=\"margin-top:28px\"></div>
+    <script src=\"https://cdn.plot.ly/plotly-3.3.0.min.js\"></script>
+    <script>
+      // Dados de amostra: apenas 3 registros para demonstração
+      var dataSubset = [
+        {Time:0, V1:-1.359807, V2:-0.072781, V3:2.536347, V4:1.378155, V5:-0.338321, V6:0.462388, V7:0.239599, V8:0.098698, V9:0.363787, V10:0.090794, V11:-0.551600, V12:-0.617801, V13:-0.991390, V14:-0.311169, V15:1.468177, V16:-0.470401, V17:0.207971, V18:0.025791, V19:0.403993, V20:0.251412, V21:-0.018307, V22:0.277838, V23:-0.110474, V24:0.066928, V25:0.128539, V26:-0.189115, V27:0.133558, V28:-0.021053, Amount:149.62, Class:0},
+        {Time:0, V1:1.191857, V2:0.266151, V3:0.166480, V4:0.448154, V5:0.060018, V6:-0.082361, V7:-0.078803, V8:0.085102, V9:-0.255425, V10:-0.166974, V11:1.612727, V12:1.065235, V13:0.489095, V14:-0.143772, V15:0.635558, V16:0.463917, V17:-0.114805, V18:-0.183361, V19:-0.145783, V20:-0.069083, V21:-0.225775, V22:-0.638672, V23:0.101288, V24:-0.339846, V25:0.167170, V26:0.125895, V27:-0.008983, V28:0.014724, Amount:2.69, Class:0},
+        {Time:1, V1:-1.358354, V2:-1.340163, V3:1.773209, V4:0.379780, V5:-0.503198, V6:1.800499, V7:0.791461, V8:0.247676, V9:-1.514654, V10:0.207643, V11:0.624501, V12:0.066084, V13:0.717293, V14:-0.165946, V15:2.345865, V16:-2.890083, V17:1.109969, V18:-0.121359, V19:-2.261857, V20:0.524980, V21:0.247998, V22:0.771679, V23:0.909412, V24:-0.689281, V25:-0.327642, V26:-0.139097, V27:-0.055353, V28:-0.059752, Amount:378.66, Class:0}
+      ];
+
+      var cols = ['Time','V1','V2','V3','V4','V5','V6','V7','V8','V9','V10','V11','V12','V13','V14','V15','V16','V17','V18','V19','V20','V21','V22','V23','V24','V25','V26','V27','V28','Amount','Class'];
+      // Monta a tabela com as 3 linhas
+      var thead = document.querySelector('#tabela-amostra thead');
+      var linhaCab = document.createElement('tr');
+      cols.forEach(c => { var th = document.createElement('th'); th.textContent = c; linhaCab.appendChild(th); });
+      thead.appendChild(linhaCab);
+      var tbody = document.querySelector('#tabela-amostra tbody');
+      dataSubset.forEach(reg => {
+        var tr = document.createElement('tr');
+        cols.forEach(c => {
+          var td = document.createElement('td');
+          var val = reg[c];
+          td.textContent = (typeof val === 'undefined') ? '' : val;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      // Formatação condicional simples: escala de cor por valor (utiliza min/max por coluna no conjunto de dados da amostra)
+      function colorizeTable() {
+        var min = {}; var max = {};
+        dataSubset.forEach(row => {
+          cols.forEach(col => {
+            if (col === 'Class') return;
+            var v = row[col];
+            if (typeof v !== 'number') return;
+            if (min[col] === undefined || v < min[col]) min[col] = v;
+            if (max[col] === undefined || v > max[col]) max[col] = v;
+          });
+        });
+        var tds = Array.from(document.querySelectorAll('#tabela-amostra tbody td'));
+        tds.forEach((td, idx) => {
+          var colIndex = idx % cols.length;
+          var colName = cols[colIndex];
+          if (colName === 'Class') return;
+          var v = parseFloat(td.textContent);
+          if (isNaN(v)) return;
+          var mn = min[colName], mx = max[colName];
+          var t = (mx - mn) === 0 ? 0.5 : (v - mn) / (mx - mn);
+          var hue = (1 - t) * 120; // 0 vermelho, 120 verde
+          td.style.color = 'hsl(' + hue + ', 70%, 40%)';
+        });
+      }
+      colorizeTable();
+
+      // Gráficos com Plotly (dados da amostra)
+      // 1) Histograma de Amount
+      Plotly.newPlot('plot-amount', [{ x: dataSubset.map(d => d.Amount), type: 'histogram', marker: { color: 'rgba(255,99,71,0.75)' } }], { layout: { title: 'Histograma de Amount', xaxis: { title: 'Amount' }, yaxis: { title: 'Frequência' } } });
+      // 2) Scatter Time vs Amount
+      Plotly.newPlot('plot-time', [{ x: dataSubset.map(d => d.Time), y: dataSubset.map(d => d.Amount), mode: 'markers', type: 'scatter', marker: { color: 'rgb(31,119,180)' } }], { layout: { title: 'Time vs Amount', xaxis: { title: 'Time' }, yaxis: { title: 'Amount' } } });
+      // 3) Heatmap de V1..V28 (3 linhas)
+      var z = dataSubset.map(r => Array.from({ length: 28 }, (_, i) => r['V'+(i+1)]));
+      var x = Array.from({ length: 28 }, (_, i) => 'V' + (i+1));
+      var y = dataSubset.map((_, i) => 'Row ' + i);
+      Plotly.newPlot('plot-heatmap', [{ z: z, x: x, y: y, type: 'heatmap' }], { layout: { title: 'Heatmap: V1 a V28', xaxis: { title: 'V1..V28' }, yaxis: { title: 'Registros' } } });
+
+      // Simulação de leitura do JSON (console)
+      console.log('Dados carregados: ' + dataSubset.length + ' registros (amostra). Colunas: ' + cols.join(', '));
+    </script>
+  </section>
+
+  <!-- Seção 5: Conclusões -->
+  <section class=\"secao\" id=\"conclusoes\">
+    <h2>CONCLUSÕES</h2>
+    <p>Os dados do dataset apresentados são, nesta amostra, predominantemente numéricos (Time, V1–V28, Amount). A variável alvo Class é binária (0/1) e funciona como rótulo para tarefas de classificação. Nesta análise, destacaram-se os nomes das colunas, a natureza numérica dos atributos e a presença de uma etiqueta binária. Os gráficos demonstrados ilustram distribuições (Amount), relacionamento Time x Amount e um heatmap simplificado para as variáveis V1–V28 na amostra apresentada.</p>
+  </section>
+
+  </body>
+</html>

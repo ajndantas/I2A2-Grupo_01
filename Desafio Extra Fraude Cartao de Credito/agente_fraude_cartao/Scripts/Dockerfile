@@ -1,5 +1,5 @@
 # Use uma imagem Python oficial e leve como base
-FROM python:3.12.12-slim-bookworm
+FROM python:3.13.12-slim-trixie
 
 # Defina variáveis de ambiente para evitar prompts interativos durante a instalação
 ENV DEBIAN_FRONTEND=noninteractive
@@ -40,7 +40,7 @@ EXPOSE 8001
 CMD ["streamlit", "run", "agente_eda.py", "--server.port", "8001", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
-# Para baixar -> docker pull ghcr.io/ajndantas/agente_eda:latest
+# Para baixar -> docker pull ghcr.io/ajndantas/agente_fraude_cartao:latest
 # Executar como -> docker run -d -p 8001:8001 ghcr.io/ajndantas/agente_eda
 #
 # SE FOR FAZER O BUILD LOCAL, RODAR docker build --build-arg API_KEY="minha chave" --build-arg API_KEY_OPENROUTER="minha outra chave" -t agente_eda .
