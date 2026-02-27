@@ -370,7 +370,7 @@ def agente2(pergunta,arquivo,engine):
     llm = ChatOpenAI( 
         #model="mistralai/mistral-small-3.2-24b-instruct:free",
         #model="mistralai/mistral-small-3.1-24b-instruct:free",
-        model="gpt-5-mini",
+        model="gpt-5-nano",
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
