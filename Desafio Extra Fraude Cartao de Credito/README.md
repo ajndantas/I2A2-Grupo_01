@@ -17,11 +17,10 @@ O sistema ajuda a:
 * Ter uma conclusão geral da análise sem dor de cabeça 😎
 
 
-
 ## 🖥️ Demo Online
 
 Não quer instalar nada? A gente tem uma versão de testes hospedada aqui 👉
-[🔗 Acesse a demo](https://agente-eda-ai.streamlit.app/)
+[🔗 Acesse a demo](https://ajndantasagenteeda.ddns.net/)
 
 ***
 
