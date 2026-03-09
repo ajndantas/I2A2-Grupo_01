@@ -5,7 +5,7 @@ Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas
 ## 🖥️ Quer só testar?
 
 Sem instalar nada:
-👉 [Acesse a versão online](https://agente-nfe.streamlit.app/)
+👉 [Acesse a versão online](https://ajndantasagentenfe.ddns.net/)
 
 ---
 
