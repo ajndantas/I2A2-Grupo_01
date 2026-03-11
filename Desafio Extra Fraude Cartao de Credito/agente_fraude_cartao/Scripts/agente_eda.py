@@ -31,7 +31,7 @@ set_debug(True)
 
 
 class ErroProcessamento(Exception):
-    pass
+    pass    
 
 # [markdown]
 # ### <b>AGENTE 3: Conclusão Geral</b>
@@ -437,15 +437,27 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
 
                 sleep(10)
                 
-                break
+                continue
             
             except KeyError as e: # EXCEÇÃO DE JSON INVÁLIDO NA GERAÇÃO DO HTML
                 
                 print('\nJSON Inválido...')
                 print("\nAguardando 10 segundos para tentar novamente...\n")                
                 
-                continue                  
+                sleep(10)
+
+                continue
+
+            except Exception as e:
+
+                print("Erro de processamento. Tentando novamente") 
+                print("\nAguardando 10 segundos para tentar novamente...\n")
+
+                sleep(10)
+
+                continue                 
     
+
         
     with open('codigo.html', 'w', encoding='utf-8') as f:
         f.write(resposta['codigo'])
