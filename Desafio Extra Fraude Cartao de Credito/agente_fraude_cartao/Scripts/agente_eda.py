@@ -693,7 +693,7 @@ if __name__ == "__main__":
     llm = ChatOpenAI(
         #model="tngtech/deepseek-r1t2-chimera:free",
         #model="gpt-5-mini", 
-        model="gpt-5.4-nano",
+        model="gpt-5.4-mini",
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
