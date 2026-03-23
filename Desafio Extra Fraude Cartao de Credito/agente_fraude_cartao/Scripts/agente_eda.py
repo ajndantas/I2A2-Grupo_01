@@ -177,7 +177,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                             SELECT**.
                             - A query deve **SEMPRE FILTRAR AS COLUNAS RELEVANTES**. As colunas são "{colunas}" 
                             - Usar apenas parte dos dados, usando WHERE ou outras cláusulas SQL.
-                            - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas}
+                            - ** SEMPRE ** adicionar a cláusula LIMIT que deve ser menor que {linhas} e também não 
+                            estourar a janela de contexto.
                             - ** NÃO UTILIZE UNION **                           
                             #######################################################################################
                                                         
@@ -187,7 +188,8 @@ def llm_gera_query(llm,engine,pergunta,nome_arquivo, conclusoes, df, qtd_tokens,
                             2 - Uma amostra dos dados {amostra}
                             3 - As conclusões de análise anteriores foram {conclusoes}
                             4 - A tabela possui {linhas} linhas                            
-                            5 - O nome da tabela é {arquivo}.                                                                                       
+                            5 - O nome da tabela é {arquivo}.
+                            6 - A janela de contexto contém {qtd_tokens} tokens                                                                                       
                             ########################################################################################
                                                           
                             {formatacao_saida}                            
