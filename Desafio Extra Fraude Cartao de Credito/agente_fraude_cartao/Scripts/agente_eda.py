@@ -31,7 +31,7 @@ set_debug(True)
 
 
 class ErroProcessamento(Exception):
-    pass    
+   pass 
 
 # [markdown]
 # ### <b>AGENTE 3: Conclusão Geral</b>
@@ -455,10 +455,9 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
 
                 sleep(10)
 
-                continue                 
-    
-
-        
+                continue
+            
+                 
     with open('codigo.html', 'w', encoding='utf-8') as f:
         f.write(resposta['codigo'])
     
@@ -694,7 +693,7 @@ if __name__ == "__main__":
     llm = ChatOpenAI(
         #model="tngtech/deepseek-r1t2-chimera:free",
         #model="gpt-5-mini", 
-        model="gpt-5-nano",
+        model="gpt-5.4-nano",
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         reasoning_effort="high",
