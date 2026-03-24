@@ -32,7 +32,7 @@ Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights int
 
 **🧠 Tecnologias:** Python, Streamlit, LangChain, Deepseek-R1t2-chimera (LLM), Plotly, Pandas, SQLAlchemy.
 
-**🌐 Demonstração:** [ajndantasagenteeda.ddns.net](https://ajndantasgenteeda.ddns.net)
+**🌐 Demonstração:** [ajndantasagenteeda.ddns.net](https://ajndantasagenteeda.ddns.net)
 
 **📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/README.md)
 
