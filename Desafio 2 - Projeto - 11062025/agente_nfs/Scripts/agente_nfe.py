@@ -1,22 +1,20 @@
-# %% [markdown]
-# #### INSTALAÇÕES
+# [markdown]
+# ### INSTALAÇÕES
 
-# %% [markdown]
+# [markdown]
 # <ul><li><a href="https://tesseract--ocr-github-io.translate.goog/tessdoc/Installation.html?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc">FAZER DOWNLOAD E INSTALAR O TESSERACT DE ACORDO COM O SEU SISTEMA OPERACIONAL</a></ul></li>
 # <ul><li>FAZER DOWNLOAD DO POPPLER E DESCOMPACTAR NO DIRETÓRIO DE SCRIPTS</li></ul>
 # <ul><ul><li><a href="https://github.com/oschwartz10612/poppler-windows?tab=readme-ov-file">PARA WINDOWS</a></li></ul></ul>
 # <ul><ul><li><a href="https://poppler.freedesktop.org/">OUTROS SISTEMAS OPERACIONAIS</a></li></ul></ul>
 
-# %% [markdown]
+# [markdown]
 # PACOTES
 
-# %%
 #%pip install -qqqr requirements.txt
 
-# %% [markdown]
-# #### IMPORTS
+# [markdown]
+# ### IMPORTS
 
-# %%
 from os import getenv
 from time import sleep
 from os.path import exists
@@ -40,7 +38,6 @@ set_debug(True)
 class SemResposta(Exception):
     pass
 
-# %%
 def consultallmdocfiscal(texto,llm,tipo):
     
     if tipo not in ['text/plain','text/csv']:
@@ -159,7 +156,6 @@ def consultallmdocfiscal(texto,llm,tipo):
         
     return resposta
 
-# %%
 def llm_gera_query(llm,engine,pergunta):
 
         template_query = """Como agente especialista em documentos fiscais brasileiros e banco de dados, seu objetivo é gerar a query SQL para responder a pergunta {pergunta}.
@@ -214,7 +210,6 @@ def llm_gera_query(llm,engine,pergunta):
         return query
 
 
-# %%
 def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JANELA DE CONTEXT. VAI RESPONDER A PERGUNTA POR MEIO 
                                            # DO PROCEDIMENTO LLM_GERA_QUERY    
     
@@ -249,13 +244,12 @@ def obtem_sim_nao(pergunta,df,llm,engine): # AQUI PODE ACONTECER O ESTOURO DE JA
     
     return resposta
 
-# %% [markdown]
-# #### <b>AGENTE 3: Resposta e Interação</b>
+# [markdown]
+# ### <b>AGENTE 3: Resposta e Interação</b>
 # <b>Responsabilidade:</b> Interface inteligente com usuários<br/><br/>
 # <b>Funcionalidades:</b>
 # <ul><li>Integração com LLMs para consultas em linguagem natural.</li></ul>
 
-# %%
 def agente3(pergunta,arquivo,engine):
 
     try:
@@ -277,8 +271,8 @@ def agente3(pergunta,arquivo,engine):
             resposta = "SemResposta"
             return resposta # RETORNANDO A EXCEÇÃO PARA O FRONTEND, AGENTE 1
 
-# %% [markdown]
-# #### <b>AGENTE 2: Extração e Aprendizado</b>
+# [markdown]
+# ### <b>AGENTE 2: Extração e Aprendizado</b>
 # <b>Responsabilidade:</b> Processar documentos e extrair dados relevantes<br/><br/>
 # <b>Funcionalidades:</b>
 # <ul><li>OCR avançado para digitalização de documentos</li></ul>
@@ -286,10 +280,9 @@ def agente3(pergunta,arquivo,engine):
 # <ul><li>IA para adaptação a novos layouts</li></ul>
 # <ul><li>Validação cruzada de dados extraídos</li></ul>
 
-# %% [markdown]
+# [markdown]
 # <b>If you’re unsure about the structure</b>
 
-# %%
 def read_tags_values_xml_file(arquivo, llm):
     
     print("READ TAGS XML...")
@@ -367,7 +360,6 @@ def read_tags_values_xml_file(arquivo, llm):
     return df    
 
 
-# %%
 def agente2(pergunta,arquivo,engine):
 
     print('\nExecutando agente 2...')
@@ -379,7 +371,7 @@ def agente2(pergunta,arquivo,engine):
     llm = ChatOpenAI( 
         #model="mistralai/mistral-small-3.2-24b-instruct:free",
         #model="mistralai/mistral-small-3.1-24b-instruct:free",
-        model="gpt-5-nano",
+        model="gpt-5-mini",
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
@@ -487,15 +479,14 @@ def agente2(pergunta,arquivo,engine):
         print('Não é possível responder a essa pergunta com o arquivo carregado')
         return resposta
 
-# %% [markdown]
-# #### <b>AGENTE 1: Aquisição de Documentos</b>
+# [markdown]
+# ### <b>AGENTE 1: Aquisição de Documentos</b>
 # <b>Responsabilidade:</b> Obter e pré-processar documentos fiscais<br/><br/>
 # <b>Funcionalidades:</b>
 # <ul><li>Interface para upload manual de arquivos (PDF, imagens)</li></ul>
 # <ul><li>Validação inicial de formato e integridade dos documentos</li></ul>
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
-# %%
 def css():
     st.markdown("""
         <style>
@@ -575,7 +566,6 @@ def css():
     """, unsafe_allow_html=True)
 
 
-# %%
 def agente1(engine): # FRONTEND
 
     print("Executando o agente 1...")
@@ -619,10 +609,9 @@ def agente1(engine): # FRONTEND
                 #except Exception as e:
                 #    st.error(f"Erro ao processar: {e}")
 
-# %% [markdown]
-# #### <b>TESTANDO</b>
+# [markdown]
+# ### <b>TESTANDO</b>
 
-# %%
 if __name__ == "__main__":
     
     if not exists('nfs_data.db'): # CRIAÇÃO DO BANCO DE DADOS PARA A PRIMEIRA EXECUÇÃO
@@ -635,8 +624,6 @@ if __name__ == "__main__":
     agente1(engine)  # Executa a função que inicia o agente
      
 
-# %%
 # EXPORTAR ESSE NOTEBOOK PARA UM SCRIPT PYTHON ANTES
 #!streamlit run agente_nfs.py --server.port 8000
-
 
