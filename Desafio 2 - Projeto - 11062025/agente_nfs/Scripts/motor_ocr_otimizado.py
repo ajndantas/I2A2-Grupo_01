@@ -132,8 +132,8 @@ class NotaFiscalOCR:
         Returns:
             numpy.ndarray: Imagem binarizada.
         """
-        cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)       
-             
+        cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY) 
+                     
         _, binarizada = cv2.threshold(cinza, 150, 255, cv2.THRESH_BINARY)
         
         return binarizada

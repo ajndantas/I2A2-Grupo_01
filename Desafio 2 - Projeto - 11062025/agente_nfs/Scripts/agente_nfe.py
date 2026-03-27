@@ -48,6 +48,7 @@ def consultallmdocfiscal(texto,llm,tipo):
             significado: str
             valor : str            
             
+
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             campos: list = Field(description='campos. **SOMENTE** os campos de CONTEUDO, com correção ortográfica, tendo como referência REFERENCIA, **NUNCA** os valores.')
@@ -58,6 +59,8 @@ def consultallmdocfiscal(texto,llm,tipo):
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
+
+        print()
             
         template = """Aja como um analista de contabilidade, aonde o seu objetivo é obter as informações de PASSOS, utlizando como referência de consulta
         REFERENCIA, a respeito do CONTEUDO do documento fiscal.
