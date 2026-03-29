@@ -27,7 +27,7 @@ class NotaFiscalOCR:
             lang (str): Idioma para o Tesseract. Default é 'por' (português).
         """
         self.lang = lang
-        
+
         # PARA WINDOWS
         if name == 'nt':
             self.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe" 
@@ -99,6 +99,7 @@ class NotaFiscalOCR:
             
         if not imagens:
             raise FileNotFoundError(f"PDF não encontrado ou vazio: {caminho_pdf.name}")
+            
         
         return cv2.cvtColor(np.array(imagens[0]), cv2.COLOR_RGB2BGR) # IMAGENS[0] É A PRIMEIRA PÁGINA DO PDF, CONVERTIDA PARA FORMATO COMPATÍVEL COM OPENCV
     
