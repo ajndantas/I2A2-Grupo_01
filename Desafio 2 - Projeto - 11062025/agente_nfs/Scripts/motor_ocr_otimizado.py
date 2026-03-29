@@ -19,6 +19,7 @@ class NotaFiscalOCR:
     Atributos:
         lang (str): Idioma para o Tesseract (padrão 'por').
     """
+    
     def __init__(self, lang='por'):
         """
         Inicializa a classe NotaFiscalOCR.
