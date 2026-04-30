@@ -7,3 +7,24 @@ gcloud services enable artifactregistry.googleapis.com
 gcloud config set run/region southamerica-east1
 
 gcloud run deploy <nome da aplicação> --port 8000 --source . --platform managed --allow-unauthenticated # RODAR DENTRO DO DIRETÓRIO SCRIPTS
+
+# RODAR DENTRO DO DIRETÓRIO DO Dockerfile
+
+gcloud auth login                                   # Abre o navegador para você autenticar sua conta Google e permitir uso do gcloud
+
+gcloud config set project streamlit-project-ajndantas # Define o projeto ativo no Google Cloud (todas as operações vão usar esse projeto)
+
+gcloud services enable run.googleapis.com            # Habilita a API do Cloud Run (necessária para deploy de aplicações serverless)
+
+gcloud services enable cloudbuild.googleapis.com     # Habilita o Cloud Build (usado para construir a imagem automaticamente a partir do código)
+
+gcloud services enable artifactregistry.googleapis.com # Habilita o Artifact Registry (armazenamento das imagens Docker criadas)
+
+gcloud config set run/region southamerica-east1      # Define a região padrão do Cloud Run (aqui: São Paulo)
+
+# RODAR DENTRO DO DIRETÓRIO SCRIPTS
+gcloud run deploy <nome da aplicação> \
+  --port 8000 \                                     # Define a porta que a aplicação expõe dentro do container
+  --source . \                                       # Usa o código-fonte do diretório atual para buildar a imagem
+  --platform managed \                               # Usa o Cloud Run totalmente gerenciado (sem precisar gerenciar servidores)
+  --allow-unauthenticated                           # Permite acesso público à aplicação (sem autenticação)

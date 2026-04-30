@@ -7,7 +7,6 @@ Aqui você encontra alguns dos meus projetos que unem **LLMs, OCR e automação*
   <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
 </a>
 
-
 ## 🧾 Agente de Documentos Fiscais (NF-e)
 
 Aplicação que combina **OCR e LLMs** para interpretar **notas fiscais** em PDF, imagem ou CSV.
@@ -17,7 +16,7 @@ Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas so
 
 **🧠 Tecnologias:** Python, Pandas, Streamlit, LangChain, Docker, LLM [Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503), Tesseract, OpenCV, SQLAlchemy.
 
-**🌐 Demonstração:** [ajndantasagentenfe.ddns.net](https://ajndantasagentenfe.ddns.net)
+**🌐 Demonstração:** [https://antoniodantasia.ddns.net/agentenfe](https://antoniodantasia.ddns.net/agentenfe)
 
 **📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)
 
@@ -32,7 +31,7 @@ Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights int
 
 **🧠 Tecnologias:** Python, Streamlit, LangChain, Deepseek-R1t2-chimera (LLM), Plotly, Pandas, SQLAlchemy.
 
-**🌐 Demonstração:** [ajndantasagenteeda.ddns.net](https://ajndantasagenteeda.ddns.net)
+**🌐 Demonstração:** [https://antoniodantasia.ddns.net/agenteeda](https://antoniodantasia.ddns.net/agenteeda)
 
 **📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/README.md)
 

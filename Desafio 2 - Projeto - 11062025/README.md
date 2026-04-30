@@ -5,7 +5,7 @@ Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas
 ## 🖥️ Quer só testar?
 
 Sem instalar nada:
-👉 [Acesse a versão online](https://ajndantasagentenfe.ddns.net/)
+👉 [Acesse a versão online](https://antoniodantasia.ddns.net/agentenfe)
 
 ---
 

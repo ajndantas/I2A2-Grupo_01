@@ -5,8 +5,11 @@ FROM python:3.11-slim
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
+# Defina o argumento de construção para a API_KEY e configure-o como uma variável de ambiente
 ARG API_KEY
-ENV API_KEY=${API_KEY}
+
+# O ARG é apenas para o processo de construção da imagem. Para que a variável de ambiente esteja disponível em tempo de execução, precisamos copiá-la para um ENV.
+ENV API_KEY=${API_KEY} 
 
 # Tesseract para OCR, Poppler para processamento de PDF, e libmagic para detecção de tipo de arquivo
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -57,6 +60,9 @@ CMD ["streamlit", "run", "agente_nfe.py", "--server.port", "8000", "--server.ena
 #
 # SE FOR FAZER O BUILD LOCAL, RODAR docker build --build-arg API_KEY=abc123 -t minha-imagem .
 # ❗ Importante:
+
+# SE FOR EXECUTAR O BUILD LOCAL. MANEIRA MAIS SEGURA DE PASSAR AS VARIÁVEIS DE AMBIENTE PARA O CONTAINER É USANDO UM ARQUIVO .env
+# docker run -d --env-file .env -p 8000:8000 --name bi_corporativo_csv minha-imagem
 
 # Depois que o build termina, o ARG não existe mais dentro do container — a menos que você copie ele para um ENV.
 
