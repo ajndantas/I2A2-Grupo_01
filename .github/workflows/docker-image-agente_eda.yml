@@ -37,7 +37,9 @@ jobs:
           host: ${{ secrets.GCP_VM_HOST }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          envs: API_KEY, API_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE
+          envs: 
+            - API_KEY
+            - API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE
           script: |
 
             echo "Entrando no diretório do projeto"
