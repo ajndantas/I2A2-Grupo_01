@@ -4,7 +4,11 @@ on:
   push:
     branches: [ "master" ]
     paths: 
-      - 'Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/**'        
+      - 'Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/**'
+
+env:
+  API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES PARA A LLM E SERÁ USADA PELO DOCKER COMPOSE E COMANDOS SSH
+  API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES PARA A LLM E SERÁ USADA PELO DOCKER COMPOSE E COMANDOS SSH
 
 jobs:
 
@@ -32,7 +36,9 @@ jobs:
         with:
           host: ${{ secrets.GCP_VM_HOST }}
           username: ${{ secrets.GCP_VM_USER }}
-          key: ${{ secrets.GCP_SSH_KEY }}         
+          key: ${{ secrets.GCP_SSH_KEY }}
+          envs: API_KEY # EXPORTA A VARIÁVEL DE AMBIENTE
+          envs: API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE   
           script: |
 
             echo "Entrando no diretório do projeto"

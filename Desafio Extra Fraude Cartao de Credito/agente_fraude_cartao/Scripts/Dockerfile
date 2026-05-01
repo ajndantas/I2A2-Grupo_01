@@ -5,8 +5,9 @@ FROM python:3.13.12-slim-trixie
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
-ENV API_KEY=${API_KEY}
-ENV API_KEY_OPENROUTER=${API_KEY_OPENROUTER}
+# ESTARÃO CONFIGURADAS NO GITHUB ACTIONS PARA SEREM PASSADAS COMO ARG NO BUILD E DEPOIS TRANSFORMADAS EM ENV PARA FICAREM DISPONÍVEIS NO CONTAINER
+#ENV API_KEY=${API_KEY}
+#ENV API_KEY_OPENROUTER=${API_KEY_OPENROUTER}
 
 # Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
@@ -40,13 +41,11 @@ CMD ["streamlit", "run", "agente_eda.py", "--server.port", "8001", "--server.ena
 # Para baixar do GITHUB -> docker pull ghcr.io/ajndantas/agente_nfs:latest
 # Executar como -> docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
 #
-# SE FOR FAZER O BUILD LOCAL, RODAR docker build --build-arg API_KEY=abc123 -t minha-imagem .
 # ❗ Importante:
+# SE FOR FAZER O BUILD LOCAL, RODAR docker build --build-arg API_KEY=abc123 -t minha-imagem .
 
-# SE FOR EXECUTAR O BUILD LOCAL. MANEIRA MAIS SEGURA DE PASSAR AS VARIÁVEIS DE AMBIENTE PARA O CONTAINER É USANDO UM ARQUIVO .env
+# SE FOR E X E C U T A R O BUILD LOCAL. MANEIRA MAIS SEGURA DE PASSAR AS VARIÁVEIS DE AMBIENTE PARA O CONTAINER É USANDO UM ARQUIVO .env
 # docker run -d --env-file .env -p 8000:8000 --name bi_corporativo_csv minha-imagem
-
-# Depois que o build termina, o ARG não existe mais dentro do container — a menos que você copie ele para um ENV.
 
 # 🔹 O que faz ENV?
 # ENV API_KEY=${API_KEY}
