@@ -25,5 +25,5 @@ jobs:
           #IMAGE_ID=agente_nfe
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
-          docker build --build-arg API_KEY="${{ secrets.API_KEY_OPENROUTER }}" -t $IMAGE_ID:$TAG "Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker build --build-arg API_KEY="${{ secrets.API_KEY_OPENROUTER }}" -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
           docker push $IMAGE_ID:$TAG       
