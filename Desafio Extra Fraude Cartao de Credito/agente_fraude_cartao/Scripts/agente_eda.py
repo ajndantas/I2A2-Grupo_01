@@ -698,7 +698,7 @@ if __name__ == "__main__":
         model="gpt-5.4-mini",
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
-        reasoning_effort="high",
+        reasoning_effort="medium",
         cache=True, 
         api_key=getenv("API_KEY")        
     )   
