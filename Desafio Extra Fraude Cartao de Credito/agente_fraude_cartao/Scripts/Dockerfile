@@ -5,10 +5,7 @@ FROM python:3.13.12-slim-trixie
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
-ARG API_KEY
 ENV API_KEY=${API_KEY}
-
-ARG API_KEY_OPENROUTER
 ENV API_KEY_OPENROUTER=${API_KEY_OPENROUTER}
 
 # Defina o diretório de trabalho dentro do contêiner
@@ -40,7 +37,30 @@ EXPOSE 8001
 CMD ["streamlit", "run", "agente_eda.py", "--server.port", "8001", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
-# Para baixar -> docker pull ghcr.io/ajndantas/agente_fraude_cartao:latest
-# Executar como -> docker run -d -p 8001:8001 ghcr.io/ajndantas/agente_eda
+# Para baixar do GITHUB -> docker pull ghcr.io/ajndantas/agente_nfs:latest
+# Executar como -> docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfs
 #
-# SE FOR FAZER O BUILD LOCAL, RODAR docker build --build-arg API_KEY="minha chave" --build-arg API_KEY_OPENROUTER="minha outra chave" -t agente_eda .
+# SE FOR FAZER O BUILD LOCAL, RODAR docker build --build-arg API_KEY=abc123 -t minha-imagem .
+# ❗ Importante:
+
+# SE FOR EXECUTAR O BUILD LOCAL. MANEIRA MAIS SEGURA DE PASSAR AS VARIÁVEIS DE AMBIENTE PARA O CONTAINER É USANDO UM ARQUIVO .env
+# docker run -d --env-file .env -p 8000:8000 --name bi_corporativo_csv minha-imagem
+
+# Depois que o build termina, o ARG não existe mais dentro do container — a menos que você copie ele para um ENV.
+
+# 🔹 O que faz ENV?
+# ENV API_KEY=${API_KEY}
+# ✅ O que é:
+
+# ENV define uma variável de ambiente permanente dentro da imagem.
+
+# Ela:
+
+# Fica salva na imagem
+
+# Fica disponível quando o container roda
+
+# Pode ser acessada no Python via:
+
+# import os
+# os.getenv("API_KEY")

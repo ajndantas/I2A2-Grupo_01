@@ -25,4 +25,27 @@ jobs:
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
           docker build --build-arg API_KEY="${{ secrets.API_KEY }}" --build-arg API_KEY_OPENROUTER="${{ secrets.API_KEY_OPENROUTER }}" -t $IMAGE_ID:$TAG "Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/Scripts" # PEGA O DOCKERFILE AQUI
-          docker push $IMAGE_ID:$TAG       
+          docker push $IMAGE_ID:$TAG    
+
+      - name: Executar comandos via SSH na VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_VM_HOST }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}         
+          script: |
+
+            echo "Entrando no diretório do projeto"
+            cd ~/agentes
+
+            echo "Parando container"
+            docker compose down agente_eda
+
+            echo "Removendo imagem antiga"
+            docker image rm -f agente_eda || true
+
+            echo "Subindo container atualizado"
+            docker compose up -d agente_eda
+
+            echo "Deploy finalizado com sucesso"
+   

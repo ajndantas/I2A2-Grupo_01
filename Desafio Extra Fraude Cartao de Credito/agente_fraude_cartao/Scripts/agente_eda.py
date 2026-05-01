@@ -584,7 +584,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
             options_anomalias = [
                                     "Existem valores atípicos nos dados?",
                                     "Como esses outliers afetam a análise?",
-                                    "Podem ser removidos, transformados ou investigados?"
+                                    "Os outliers podem ser removidos, transformados ou investigados?"
                                 ]
             
             if st.session_state['anomalias_done']:
