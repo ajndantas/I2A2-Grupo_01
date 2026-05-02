@@ -6,10 +6,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
 # Defina o argumento de construção para a API_KEY e configure-o como uma variável de ambiente
-ARG API_KEY
+#ARG API_KEY
 
 # O ARG é apenas para o processo de construção da imagem. Para que a variável de ambiente esteja disponível em tempo de execução, precisamos copiá-la para um ENV.
-ENV API_KEY=${API_KEY} 
+#ENV API_KEY=${API_KEY} 
 
 # Tesseract para OCR, Poppler para processamento de PDF, e libmagic para detecção de tipo de arquivo
 RUN apt-get update && apt-get install -y --no-install-recommends \
