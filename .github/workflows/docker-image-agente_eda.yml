@@ -31,12 +31,6 @@ jobs:
           docker build --build-arg API_KEY="${{ secrets.API_KEY }}" --build-arg API_KEY_OPENROUTER="${{ secrets.API_KEY_OPENROUTER }}" -t $IMAGE_ID:$TAG "Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/Scripts" # PEGA O DOCKERFILE AQUI
           docker push $IMAGE_ID:$TAG    
 
-      - name: Test SSH key format
-        run: |
-          echo "${{ secrets.GCP_SSH_KEY }}" > key.pem
-          chmod 600 key.pem
-          ssh-keygen -l -f key.pem
-
       - name: Executar comandos via SSH na VM
         uses: appleboy/ssh-action@v1.0.3
         with:
