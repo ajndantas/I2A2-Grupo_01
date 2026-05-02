@@ -34,6 +34,7 @@ jobs:
       - name: Executar comandos via SSH na VM
         uses: appleboy/ssh-action@v1.0.3
         with:
+          debug: true
           host: ${{ secrets.GCP_VM_HOST }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
