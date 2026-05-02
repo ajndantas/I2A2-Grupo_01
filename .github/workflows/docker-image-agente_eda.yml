@@ -48,13 +48,13 @@ jobs:
             cd ~/agentes
 
             echo "Parando container"
-            docker compose down agente_eda nginx # PARA PARAR O NGINX TAMBÉM, POIS ELE DEPENDE DO AGENTE E PRECISA SER REINICIADO PARA PEGAR AS ATUALIZAÇÕES
+            docker compose down agente_eda nginx_ia # PARA PARAR O NGINX TAMBÉM, POIS ELE DEPENDE DO AGENTE E PRECISA SER REINICIADO PARA PEGAR AS ATUALIZAÇÕES
 
             echo "Removendo imagem antiga"
             docker image rm -f ghcr.io/ajndantas/agente_fraude_cartao:latest || true
 
             echo "Subindo container atualizado"
-            docker compose up -d agente_eda nginx # SOBE O NGINX TAMBÉM, POIS ELE DEPENDE DO AGENTE E PRECISA SER REINICIADO PARA PEGAR AS ATUALIZAÇÕES
+            docker compose up -d agente_eda nginx_ia # SOBE O NGINX TAMBÉM, POIS ELE DEPENDE DO AGENTE E PRECISA SER REINICIADO PARA PEGAR AS ATUALIZAÇÕES
 
             echo "Deploy finalizado com sucesso"
    
