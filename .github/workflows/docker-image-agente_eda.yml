@@ -39,7 +39,6 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           envs: API_KEY, API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE
           script: |
-
             echo "Entrando no diretório do projeto"
             cd ~/agentes
 
