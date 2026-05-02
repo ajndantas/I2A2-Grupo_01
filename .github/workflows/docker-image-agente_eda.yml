@@ -43,7 +43,7 @@ jobs:
             # Exporte a variável para que o Docker Compose consiga visualizá-la
             export API_KEY=$API_KEY
             export API_KEY_OPENROUTER=$API_KEY_OPENROUTER
-            
+
             echo "Entrando no diretório do projeto"
             cd ~/agentes
 
@@ -51,7 +51,7 @@ jobs:
             docker compose down agente_eda
 
             echo "Removendo imagem antiga"
-            docker image rm -f agente_eda || true
+            docker image rm -f ghcr.io/ajndantas/agente_fraude_cartao:latest || true
 
             echo "Subindo container atualizado"
             docker compose up -d agente_eda
