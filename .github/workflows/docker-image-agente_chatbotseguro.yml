@@ -7,7 +7,7 @@ on:
       - 'Insurminds/Desafio 2/agente_chatbotseguro/**'        
 
 env:
-  API_KEY: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
+  API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
 
 jobs:
 
@@ -28,7 +28,7 @@ jobs:
           #IMAGE_ID=agente_nfe
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
-          docker build --build-arg API_KEY="${{ secrets.API_KEY_OPENROUTER }}" -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker build --build-arg API_KEY_OPENROUTER="${{ secrets.API_KEY_OPENROUTER }}" -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
           docker push $IMAGE_ID:$TAG 
 
       - name: Executar comandos via SSH na VM
@@ -37,26 +37,22 @@ jobs:
           host: ${{ secrets.GCP_VM_HOST }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          envs: API_KEY # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH         
+          envs: API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH         
           script: |
             # Exporte a variável para que o Docker Compose consiga visualizá-la
-            export API_KEY=$API_KEY 
+            export API_KEY_OPENROUTER=$API_KEY_OPENROUTER 
 
             echo "Entrando no diretório do projeto"
-            cd ~/n8n_data
-
-            echo "Atualizando código"
-            git pull # PARA QUE ISSO FUNCIONE, SEM QUESTIONAMENTOS, O REPOSITÓRIO PRECISA
-                     # ESTAR CONFIGURADO COM git config pull.rebase false. GARANTE MERGE PADRÃO EM VEZ DE REBASE 
+            cd ~/agentes
 
             echo "Parando container"
-            docker compose down python_runner
+            docker compose down agente_chatbotseguro nginx_ia
 
             echo "Removendo imagem antiga"
-            docker image rm -f n8n_data-python_runner || true
+            docker image rm -f ghcr.io/ajndantas/agente_chatbotseguro || true
 
             echo "Subindo container atualizado"
-            docker compose up -d python_runner
+            docker compose up -d agente_chatbotseguro nginx_ia
 
             echo "Deploy finalizado com sucesso"
       
