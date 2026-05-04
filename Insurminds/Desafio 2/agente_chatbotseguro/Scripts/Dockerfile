@@ -17,9 +17,6 @@ COPY agente_chatbotseguro.ipynb .
 # Copie os arquivos de dados para o contêiner.
 COPY rag_docs/* ./rag_docs/
 
-# Preparação para a instalação de dependências do sistema operacional necessárias para o funcionamento do código Python.
-RUN apt-get update && apt-get install -y --no-install-recommends curl build-essential && rm -rf /var/lib/apt/lists/*
-
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
 
