@@ -14,8 +14,20 @@ COPY requirements.txt .
 
 COPY agente_chatbotseguro.py .
 
+# Copie os arquivos de dados para o contêiner.
+COPY rag_docs/* ./rag_docs/
+
+# Preparação para a instalação de dependências do sistema operacional necessárias para o funcionamento do código Python.
+RUN apt-get update && apt-get install -y --no-install-recommends curl build-essential && rm -rf /var/lib/apt/lists/*
+
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Instale o Jupyter Notebook para converter o notebook em script Python
+RUN pip install --no-cache-dir jupyter
+
+# Converte o notebook para script Python que será utilizado em CMD abaixo
+RUN jupyter nbconvert --to script agente_chatbotseguro.ipynb
 
 # Exponha a porta 8000 para permitir a comunicação com a aplicação Streamlit
 EXPOSE 8002
