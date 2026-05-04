@@ -12,7 +12,7 @@ WORKDIR /app
 # É assumido que um arquivo requirements.txt existe no seu projeto
 COPY requirements.txt .
 
-COPY agente_chatbotseguro.py .
+COPY agente_chatbotseguro.ipynb .
 
 # Copie os arquivos de dados para o contêiner.
 COPY rag_docs/* ./rag_docs/
