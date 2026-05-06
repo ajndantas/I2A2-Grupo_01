@@ -16,24 +16,22 @@
 #%pip install -r requirements.txt
 
 # [markdown]
-# ### <b>EXEMPLO 1</b><br/>
-# O objetivo será realizar a pesquisa em um arquivo txt, sobre os benefícios do cartão Gold contra roubo.
+# ### <b>IMPORTS</b><br/>
 
 from langchain_openai import ChatOpenAI
 from os import getenv
-from dotenv import load_dotenv # CARREGA A VARIÁVEL DE AMBIENTE OPENAI_KEY LIDA DO ARQUIVO .env
+from dotenv import load_dotenv
 from langchain_core.globals import set_debug
+from langchain_community.document_loaders import TextLoader, DirectoryLoader
+from langchain_text_splitters import CharacterTextSplitter
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings
+from langchain.chains import RetrievalQA
 
 set_debug(True)
 
 load_dotenv() # CARREGANDO O ARQUIVO COM A OPENAI_KEY
-
-llm = ChatOpenAI( # INSTANCIANDO A LLM
-                    model="openrouter/free",                    
-                    # 1 - OBTENDO A API KEY POR MEIO DA VARIÁVEL DE AMBIENTE OPENAI_KEY. QUE VAI FICAR ARMAZENADA NO ARQUIVO .env.
-                    # 2 - AINDA É NECESSÁRIO CARREGAR ESSE ARQUIVO. VER NA PRIMEIRA CÉLULA DO NOTEBOOK
-                    api_key=getenv("API_KEY_OPENROUTER")                    
-                )
 
 # [markdown]
 # ### <b>PASSO 1 - CARGA NO CARREGADOR</b>
@@ -41,15 +39,25 @@ llm = ChatOpenAI( # INSTANCIANDO A LLM
 # [markdown]
 # Carregando
 
-from langchain_community.document_loaders import TextLoader
+class Loader:
 
-# CRIAÇÃO - ARQUIVOS NO FORMATO CSV
-carregador = TextLoader("../rag_docs/*.csv", glob=True, encoding="utf-8") # PARA CARREGAR VÁRIOS ARQUIVOS DE UMA SÓ VEZ. O GLOBO É UM CURINGA PARA SELECIONAR VÁRIOS ARQUIVOS COM O MESMO PADRÃO. NESSE CASO, TODOS OS ARQUIVOS COM EXTENSÃO .CSV DENTRO DA PASTA ../rag_docs/
+    def __init__(self):        
 
-# CARGA NO CARREGADOR
-documentos = carregador.load() # UM CARREGADOR DEVOLVE UM ARRAY DE DOCUMENTOS. NESSE CASO, EM PARTICULAR, SERÁ UM ARRAY COM UM ÚNICO ELEMENTO.
+        # CRIAÇÃO - ARQUIVOS TEXTO (CSV, HTML, JSON, ETC) - CARREGADORES 
+        self.loader = DirectoryLoader(
+                                        "rag_docs", # O DIRETÓRIO ONDE ESTÃO OS ARQUIVOS QUE QUERO CARREGAR
+                                        #glob="*.html", # O PADRÃO DE NOME DOS ARQUIVOS
+                                        loader_cls=TextLoader,
+                                        loader_kwargs={"encoding": "utf-8"}
+                                     ) # PARA CARREGAR VÁRIOS ARQUIVOS DE UMA SÓ VEZ. O GLOB 
+                                       # É UM CURINGA PARA SELECIONAR VÁRIOS ARQUIVOS COM O MESMO PADRÃO. NESSE CASO, 
+                                       # TODOS OS ARQUIVOS COM EXTENSÃO .CSV DENTRO DA PASTA ../rag_docs/
 
-print('Documentos\n',documentos)
+        
+    # O MÉTODO LOAD VAI SER RESPONSÁVEL POR CHAMAR O MÉTODO LOAD DO CARREGADOR PARA LER OS ARQUIVOS E DEVOLVER UM ARRAY DE DOCUMENTOS.
+    def load(self) -> list:
+        
+        return self.loader.load() # UM CARREGADOR DEVOLVE UM ARRAY DE DOCUMENTOS.
 
 # [markdown]
 # ### <b>PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA</b>
@@ -57,55 +65,59 @@ print('Documentos\n',documentos)
 # [markdown]
 # <li>Para isso, será necessário, primeiramente, realizar a quebra (splitter) em trechos, para que a IA possa indexá-los.
 
-# [markdown]
-# <b>2.1 - QUEBRA DO TEXTO</b>
+class SearchIndex:
 
-from langchain_text_splitters import CharacterTextSplitter
+    def __init__(self, chunk_size: int, documents: list):
+        self.chunk_size = chunk_size
+        self.documents = documents
+    
+    # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
+    def splitter(self) -> list:
+        
+        splitter = CharacterTextSplitter(chunk_size=self.chunk_size)
+        self.texts = splitter.split_documents(self.documents)  
 
-# DEFINIÇÃO DO QUEBRADOR
-quebrador = CharacterTextSplitter(chunk_size=1000) # QUEBRANDO EM CARACTERES. DE 1000 EM 1000 CARACTERES.
+        return self.texts
+    
+    # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
+    def indexer(self):
 
-# QUEBRA DO TEXTO EM VÁRIOS TEXTOS
-textos = quebrador.split_documents(documentos) # AQUI, DOCUMENTOS NÃO PODE SER UM ARRAY DE ARRAYS. TEM QUE SER APENAS UM ARRAY DE DOCUMENTOS.
+        """self.embeddings = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_kwargs={'device': 'cpu'}            
+        ) """
 
-print('\nTextos\n',textos)
+        self.embeddings = OpenAIEmbeddings(api_key=getenv("OPENAI_KEY"))
 
-# [markdown]
-# <b>2.2 - INDEXANDO AS QUEBRAS DE TEXTO</b>
+        return self.embeddings
 
-# [markdown]
-# <ol>
-#     <li>Sequências de palavras que possuem sentido semelhante, terão números semelhantes no espaço</li>
-#     <li>Esse números são chamados de índices, e esses <b>índices</b> recebem o nome de <b>embeddings</b></li>
-# </ol>
+# PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
+class VectorDB:
 
-from langchain_huggingface import HuggingFaceEmbeddings
+    def __init__(self, documents: list, embeddings):
+        self.documents = documents
+        self.embeddings = embeddings
+    
+    def db(self) -> FAISS:
+        self.db = FAISS.from_documents(self.documents, self.embeddings)
 
-# CRIANDO OS EMBEDDINGS
-#embeddings = OpenAIEmbeddings(api_key=getenv("OPENAI_KEY"))
-
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2",
-    model_kwargs={'device': 'cpu'}
-)
-
-print('Embeddings\n',embeddings)
-
-# [markdown]
-# <b>2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA</b>
-
-from langchain.vectorstores import FAISS
-
-# LUGAR PARA ARMAZENAR OS EMBEDDINGS -> BANCO VETORIAL. ARMAZENA O NÚMERO E A FRASE.
-# SERÁ USADO O BANCO VETORIAL FAISS DO Facebook
-db = FAISS.from_documents(textos,embeddings)   # CRIADO O BD A PARTIR DOS DOCUMENTOS
-
-print(db)
+        return self.db
 
 # [markdown]
 # ### <b>PASSO 3 - EXECUTANDO A PESQUISA</b>
 
-from langchain.chains import RetrievalQA
+# [markdown]
+# ### <b>LLM</b><br/>
+
+llm = ChatOpenAI( # INSTANCIANDO A LLM
+                    model="gpt-5-mini",                    
+                    # 1 - OBTENDO A API KEY POR MEIO DA VARIÁVEL DE AMBIENTE OPENAI_KEY. QUE VAI FICAR ARMAZENADA NO ARQUIVO .env.
+                    # 2 - AINDA É NECESSÁRIO CARREGAR ESSE ARQUIVO. VER NA PRIMEIRA CÉLULA DO NOTEBOOK
+                    api_key=getenv("OPENAI_KEY")                    
+                )
+
+searchindex = SearchIndex(chunk_size=1000, documents=Loader().load())
+db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db()
 
 # create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
 # qa_chain -> Nossa ferramenta de Perguntas e Respostas (Questions and Answers Chain)
@@ -122,6 +134,4 @@ resposta = qa_chain.invoke({"query": pergunta})
 print('\nPergunta: ',pergunta,'\nResposta\n', resposta['result'])
 
 print('\nDocumentos de origem da resposta:\n',resposta['source_documents'])
-
-
 
