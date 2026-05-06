@@ -8,6 +8,7 @@ on:
 
 env:
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
+  OPENAI_KEY: ${{ secrets.OPENAI_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
 
 jobs:
 
@@ -37,10 +38,11 @@ jobs:
           host: ${{ secrets.GCP_VM_HOST }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          envs: API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH         
+          envs: API_KEY_OPENROUTER, OPENAI_KEY # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH         
           script: |
             # Exporte a variável para que o Docker Compose consiga visualizá-la
-            export API_KEY_OPENROUTER=$API_KEY_OPENROUTER 
+            export API_KEY_OPENROUTER=$API_KEY_OPENROUTER
+            export OPENAI_KEY=$OPENAI_KEY 
 
             echo "Entrando no diretório do projeto"
             cd ~/agentes

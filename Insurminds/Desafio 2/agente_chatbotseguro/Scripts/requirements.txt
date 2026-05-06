@@ -1,6 +1,7 @@
-openai==1.66.2
-langchain-openai==0.3.8
-langchain==0.3.25
+openai==2.34.0
+langchain-openai==0.3.35
+langchain==0.3.28
+langchain-core==0.3.84
 langchain-community==0.3.19
 python-dotenv==1.0.1
 sentence-transformers==5.1.2
@@ -9,3 +10,4 @@ faiss-cpu==1.10.0
 pypdf==5.3.1
 pandas==3.0.2
 streamlit==1.57.0
+tqdm==4.67.3
