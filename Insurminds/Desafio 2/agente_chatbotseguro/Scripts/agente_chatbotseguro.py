@@ -110,7 +110,7 @@ class VectorDB:
 # ### <b>LLM</b><br/>
 
 llm = ChatOpenAI( # INSTANCIANDO A LLM
-                    model="gpt-5-mini",                    
+                    model="gpt-5.4-mini",                    
                     # 1 - OBTENDO A API KEY POR MEIO DA VARIÁVEL DE AMBIENTE OPENAI_KEY. QUE VAI FICAR ARMAZENADA NO ARQUIVO .env.
                     # 2 - AINDA É NECESSÁRIO CARREGAR ESSE ARQUIVO. VER NA PRIMEIRA CÉLULA DO NOTEBOOK
                     api_key=getenv("OPENAI_KEY")                    
