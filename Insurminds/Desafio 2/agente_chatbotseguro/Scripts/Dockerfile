@@ -15,7 +15,7 @@ COPY requirements.txt .
 COPY agente_chatbotseguro.ipynb .
 
 # Copie os arquivos de dados para o contêiner.
-COPY rag_docs/* ./rag_docs/
+COPY rag_docs/ ./rag_docs/
 
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
