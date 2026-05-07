@@ -25,12 +25,11 @@ from langchain_core.globals import set_debug
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
-#from langchain.vectorstores import FAISS
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 
-set_debug(True)
+# set_debug(True)
 
 load_dotenv() # CARREGANDO O ARQUIVO COM A OPENAI_KEY
 
@@ -66,11 +65,15 @@ class Loader:
 # [markdown]
 # <li>Para isso, será necessário, primeiramente, realizar a quebra (splitter) em trechos, para que a IA possa indexá-los.
 
+from ast import Load
+from re import L
+
+
 class SearchIndex:
 
     def __init__(self, chunk_size: int, documents: list):
         self.chunk_size = chunk_size
-        self.documents = documents
+        self.documents = Loader().load() # CARREGANDO OS DOCUMENTOS PARA O MÉTODO SPLITTER
     
     # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self) -> list:
@@ -107,32 +110,45 @@ class VectorDB:
 # [markdown]
 # ### <b>PASSO 3 - EXECUTANDO A PESQUISA</b>
 
-# [markdown]
-# ### <b>LLM</b><br/>
+class Main:
 
-llm = ChatOpenAI( # INSTANCIANDO A LLM
-                    model="gpt-5.4-mini",                    
-                    # 1 - OBTENDO A API KEY POR MEIO DA VARIÁVEL DE AMBIENTE OPENAI_KEY. QUE VAI FICAR ARMAZENADA NO ARQUIVO .env.
-                    # 2 - AINDA É NECESSÁRIO CARREGAR ESSE ARQUIVO. VER NA PRIMEIRA CÉLULA DO NOTEBOOK
-                    api_key=getenv("OPENAI_KEY")                    
-                )
+  def __init__(self,pergunta: str):
 
-searchindex = SearchIndex(chunk_size=1000, documents=Loader().load())
-db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db()
+    self.pergunta = pergunta
 
-# create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
-# qa_chain -> Nossa ferramenta de Perguntas e Respostas (Questions and Answers Chain)
-qa_chain = RetrievalQA.from_chain_type(
-                                        llm=llm, 
-                                        retriever=db.as_retriever(),
-                                        return_source_documents=True                       
-                                      )
+    llm = ChatOpenAI( # INSTANCIANDO A LLM
+                        model="gpt-5.4-mini",                    
+                        # 1 - OBTENDO A API KEY POR MEIO DA VARIÁVEL DE AMBIENTE OPENAI_KEY. QUE VAI FICAR ARMAZENADA NO ARQUIVO .env.
+                        # 2 - AINDA É NECESSÁRIO CARREGAR ESSE ARQUIVO. VER NA PRIMEIRA CÉLULA DO NOTEBOOK
+                        api_key=getenv("OPENAI_KEY")                    
+                    )
 
-# exemplo de uso
-pergunta = "Como devo proceder caso tenha um item pessoal roubado ?. Não faça qualquer tipo de comentário ou pergunta, apenas responda a pergunta."
+    documents = Loader().load() # CARREGANDO OS DOCUMENTOS PARA O MÉTODO SPLITTER
+    searchindex = SearchIndex(chunk_size=1000, documents=documents) # INSTANCIANDO A CLASSE DE INDEXAÇÃO DE BUSCA, PASSANDO O CHUNK_SIZE E OS DOCUMENTOS CARREGADOS
+    db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db()
 
-resposta = qa_chain.invoke({"query": pergunta})
-print('\nPergunta: ',pergunta,'\nResposta\n', resposta['result'])
+    # create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
+    # qa_chain -> Nossa ferramenta de Perguntas e Respostas (Questions and Answers Chain)
+    self.qa_chain = RetrievalQA.from_chain_type(
+                                                  llm=llm, 
+                                                  retriever=db.as_retriever(),
+                                                  return_source_documents=True                       
+                                                )
 
-print('\nDocumentos de origem da resposta:\n',resposta['source_documents'])
+    # exemplo de uso
+    #pergunta = "Como devo proceder caso tenha um item pessoal roubado ?. Não faça qualquer tipo de comentário ou pergunta, apenas responda a pergunta."
+
+  def output(self) -> str:
+      
+      self.resposta = self.qa_chain.invoke({"query": self.pergunta})
+      self.output = self.resposta['result']
+
+      print('\nPergunta: ',self.pergunta,'\n')
+      #print('\nDocumentos de origem da resposta:\n',self.resposta['source_documents'])
+
+      return self.output
+
+print(Main(pergunta="Aonde consultar as licitações das unidades da Susep?").output())
+ 
+#pergunta="Como devo proceder caso tenha um item pessoal roubado ?. Não faça qualquer tipo de comentário ou pergunta, apenas responda a pergunta."
 
