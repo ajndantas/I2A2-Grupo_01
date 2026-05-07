@@ -16,7 +16,7 @@ COPY agente_chatbotseguro.py .
 
 # Copie os arquivos de dados para o contêiner.
 COPY rag_docs/ ./rag_docs/
-COPY "rag_docs/Dúvidas frequentes sobre os seguros _ Zurich" "./rag_docs/Dúvidas frequentes sobre os seguros _ Zurich"
+COPY "rag_docs/Dúvidas frequentes sobre os seguros _ Zurich.html" "./rag_docs/Dúvidas frequentes sobre os seguros _ Zurich.html"
 
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
