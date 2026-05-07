@@ -25,7 +25,8 @@ from langchain_core.globals import set_debug
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
+#from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 
