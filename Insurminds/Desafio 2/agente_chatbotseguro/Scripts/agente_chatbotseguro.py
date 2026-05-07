@@ -1,22 +1,16 @@
-# [markdown]
-# # <a href="https://cursos.alura.com.br/course/langchain-python-ferramentas-llm-openai/task/156170?b2cUser=true"><b>Langchain Retrieval Texto</b></a><br/>
-
-# [markdown]
+# "https://cursos.alura.com.br/course/langchain-python-ferramentas-llm-openai/task/156170?b2cUser=true"
+#
+# 
 # Utilizando para fazer pesquisas em documentos para responder perguntas 
 
-# [markdown]
-# <b>PASSOS:</b><br/>
-# <b>PASSO 1 - CARGA NO CARREGADOR</b><br/>
-# <b>PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA</b><br/>
-# <ul><li><b>2.1 - QUEBRA DO TEXTO</b></li></ul>
-# <ul><li><b>2.2 - INDEXANDO AS QUEBRAS DO TEXTO</b></li></ul>
-# <ul><li><b>2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA</b></li></ul>
-# <b>PASSO 3 - EXECUTANDO A PESQUISA</b>
+# PASSOS:
+# PASSO 1 - CARGA NO CARREGADOR
+# PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
+# 2.1 - QUEBRA DO TEXTO
+# 2.2 - INDEXANDO AS QUEBRAS DO TEXTO
+# 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
+# 3 - EXECUTANDO A PESQUISA
 
-#%pip install -r requirements.txt
-
-# [markdown]
-# ### <b>IMPORTS</b><br/>
 
 from langchain_openai import ChatOpenAI
 from os import getenv
@@ -33,12 +27,7 @@ from langchain.chains import RetrievalQA
 
 load_dotenv() # CARREGANDO O ARQUIVO COM A OPENAI_KEY
 
-# [markdown]
-# ### <b>PASSO 1 - CARGA NO CARREGADOR</b>
-
-# [markdown]
-# Carregando
-
+# PASSO 1 - CARGA NO CARREGADOR
 class Loader:
 
     def __init__(self):        
@@ -59,15 +48,9 @@ class Loader:
         
         return self.loader.load() # UM CARREGADOR DEVOLVE UM ARRAY DE DOCUMENTOS.
 
-# [markdown]
-# ### <b>PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA</b>
-
-# [markdown]
-# <li>Para isso, será necessário, primeiramente, realizar a quebra (splitter) em trechos, para que a IA possa indexá-los.
-
-from ast import Load
-from re import L
-
+# PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
+#
+# Para isso, será necessário, primeiramente, realizar a quebra (splitter) em trechos, para que a IA possa indexá-los.
 
 class SearchIndex:
 
@@ -107,8 +90,6 @@ class VectorDB:
 
         return self.db
 
-# [markdown]
-# ### <b>PASSO 3 - EXECUTANDO A PESQUISA</b>
 
 class Main:
 
@@ -116,16 +97,17 @@ class Main:
 
     self.pergunta = pergunta
 
-    llm = ChatOpenAI( # INSTANCIANDO A LLM
-                        #model="gpt-5.4-mini",
+    llm = ChatOpenAI(
                         model="openrouter/free",                    
-                        # 1 - OBTENDO A API KEY POR MEIO DA VARIÁVEL DE AMBIENTE OPENAI_KEY. QUE VAI FICAR ARMAZENADA NO ARQUIVO .env.
-                        # 2 - AINDA É NECESSÁRIO CARREGAR ESSE ARQUIVO. VER NA PRIMEIRA CÉLULA DO NOTEBOOK
                         api_key=getenv("API_KEY_OPENROUTER")                    
                     )
 
+    # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     documents = Loader().load() # CARREGANDO OS DOCUMENTOS PARA O MÉTODO SPLITTER
-    searchindex = SearchIndex(chunk_size=1000, documents=documents) # INSTANCIANDO A CLASSE DE INDEXAÇÃO DE BUSCA, PASSANDO O CHUNK_SIZE E OS DOCUMENTOS CARREGADOS
+
+    # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
+    searchindex = SearchIndex(chunk_size=1000, documents=documents)
+    # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
     db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db()
 
     # create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
@@ -135,10 +117,7 @@ class Main:
                                                   retriever=db.as_retriever(),
                                                   return_source_documents=True                       
                                                 )
-
-    # exemplo de uso
-    #pergunta = "Como devo proceder caso tenha um item pessoal roubado ?. Não faça qualquer tipo de comentário ou pergunta, apenas responda a pergunta."
-
+    
   def output(self) -> str:
       
       self.resposta = self.qa_chain.invoke({"query": self.pergunta})
