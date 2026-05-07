@@ -117,10 +117,11 @@ class Main:
     self.pergunta = pergunta
 
     llm = ChatOpenAI( # INSTANCIANDO A LLM
-                        model="gpt-5.4-mini",                    
+                        #model="gpt-5.4-mini",
+                        model="openrouter/free",                    
                         # 1 - OBTENDO A API KEY POR MEIO DA VARIÁVEL DE AMBIENTE OPENAI_KEY. QUE VAI FICAR ARMAZENADA NO ARQUIVO .env.
                         # 2 - AINDA É NECESSÁRIO CARREGAR ESSE ARQUIVO. VER NA PRIMEIRA CÉLULA DO NOTEBOOK
-                        api_key=getenv("OPENAI_KEY")                    
+                        api_key=getenv("API_KEY_OPENROUTER")                    
                     )
 
     documents = Loader().load() # CARREGANDO OS DOCUMENTOS PARA O MÉTODO SPLITTER
@@ -149,6 +150,7 @@ class Main:
       return self.output
 
 print(Main(pergunta="Aonde consultar as licitações das unidades da Susep?").output())
- 
-#pergunta="Como devo proceder caso tenha um item pessoal roubado ?. Não faça qualquer tipo de comentário ou pergunta, apenas responda a pergunta."
+print(Main(pergunta="Como devo proceder caso tenha um item pessoal roubado ?").output())
+print(Main(pergunta="Quem descobriu o Brasil ?").output())
+#pergunta="Como devo proceder caso tenha um item pessoal roubado ?"
 
