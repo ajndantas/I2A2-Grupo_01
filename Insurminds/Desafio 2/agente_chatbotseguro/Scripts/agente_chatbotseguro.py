@@ -1,6 +1,5 @@
 # "https://cursos.alura.com.br/course/langchain-python-ferramentas-llm-openai/task/156170?b2cUser=true"
 #
-# 
 # Utilizando para fazer pesquisas em documentos para responder perguntas 
 
 # PASSOS:
