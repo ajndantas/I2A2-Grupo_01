@@ -1,5 +1,3 @@
-# "https://cursos.alura.com.br/course/langchain-python-ferramentas-llm-openai/task/156170?b2cUser=true"
-#
 # Utilizando para fazer pesquisas em documentos para responder perguntas 
 
 # PASSOS:
@@ -9,7 +7,6 @@
 # 2.2 - INDEXANDO AS QUEBRAS DO TEXTO
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
-
 
 from langchain_openai import ChatOpenAI
 from os import getenv
@@ -55,26 +52,27 @@ class SearchIndex:
 
     def __init__(self, chunk_size: int, documents: list):
         self.chunk_size = chunk_size
-        self.documents = Loader().load() # CARREGANDO OS DOCUMENTOS PARA O MÉTODO SPLITTER
+        self.documents = documents
     
-    # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
+    # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self) -> list:
         
-        splitter = CharacterTextSplitter(chunk_size=self.chunk_size)
-        self.texts = splitter.split_documents(self.documents)  
+        splitter = CharacterTextSplitter(chunk_size=self.chunk_size, overlap=200) # O OVERLAP É A QUANTIDADE DE CARACTERES QUE VÃO SE SOBREPOR ENTRE OS CHUNKS. 
+                                                                                  # SE FOR 0, NÃO VAI TER SOBRESPOSIÇÃO ENTRE OS CHUNKS.
+        self.texts_chunks = splitter.split_documents(self.documents)  
 
-        return self.texts
+        return self.texts_chunks
     
     # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
     def indexer(self):
 
-        """self.embeddings = HuggingFaceEmbeddings(
+        self.embeddings = HuggingFaceEmbeddings(
             model_name="sentence-transformers/all-MiniLM-L6-v2",
             model_kwargs={'device': 'cpu'}            
-        ) """
+        )
 
-        self.embeddings = OpenAIEmbeddings(api_key=getenv("OPENAI_KEY"))
-
+        #self.embeddings = OpenAIEmbeddings(api_key=getenv("OPENAI_KEY"))
+        
         return self.embeddings
 
 # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
@@ -90,15 +88,16 @@ class VectorDB:
         return self.db
 
 
-class Main:
+class AgenteChatbotSeguro:
 
-  def __init__(self,pergunta: str):
+  def __init__(self, pergunta: str):
 
     self.pergunta = pergunta
 
     llm = ChatOpenAI(
                         model="openrouter/free",                    
-                        api_key=getenv("API_KEY_OPENROUTER")                    
+                        api_key=getenv("API_KEY_OPENROUTER"),
+                        base_url="https://openrouter.ai/api/v1"                    
                     )
 
     # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
@@ -122,13 +121,15 @@ class Main:
       self.resposta = self.qa_chain.invoke({"query": self.pergunta})
       self.output = self.resposta['result']
 
-      print('\nPergunta: ',self.pergunta,'\n')
-      #print('\nDocumentos de origem da resposta:\n',self.resposta['source_documents'])
+      print('\nPergunta: ',self.pergunta)
+      print('Documentos de origem da resposta:\n', [doc.metadata for doc in self.resposta['source_documents']])
 
       return self.output
 
-print(Main(pergunta="Aonde consultar as licitações das unidades da Susep?").output())
-print(Main(pergunta="Como devo proceder caso tenha um item pessoal roubado ?").output())
-print(Main(pergunta="Quem descobriu o Brasil ?").output())
-#pergunta="Como devo proceder caso tenha um item pessoal roubado ?"
 
+if __name__ == "__main__":
+
+    print(AgenteChatbotSeguro(pergunta="Aonde consultar as licitações das unidades da Susep?").output())
+    print(AgenteChatbotSeguro(pergunta="Como devo proceder caso tenha um item pessoal roubado ?").output())
+    print(AgenteChatbotSeguro(pergunta="Quem descobriu o Brasil ?").output())
+#pergunta="Como devo proceder caso tenha um item pessoal roubado ?"
