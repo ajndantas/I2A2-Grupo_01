@@ -24,9 +24,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY huggingface_models_download.py .
 RUN python huggingface_models_download.py
 
-# Instale os pacotes Python
-RUN pip install --no-cache-dir -r requirements.txt
-
 # Exponha a porta 8000 para permitir a comunicação com a aplicação Streamlit
 EXPOSE 8002
 
