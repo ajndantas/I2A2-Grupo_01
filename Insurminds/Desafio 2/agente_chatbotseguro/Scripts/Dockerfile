@@ -18,8 +18,8 @@ COPY agente_chatbotseguro.py .
 COPY rag_docs/ ./rag_docs/
 
 # AS DUAS LINHAS ABAIXO TÊM A FUNÇÃO DE BAIXAR O MODELO DE EMBEDDING LOCALMENTE 
-COPY download_embeddings.py .
-RUN python download_embeddings.py
+COPY huggingface_models_download.py .
+RUN python huggingface_models_download.py
 
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
