@@ -9,8 +9,8 @@
 # 3 - EXECUTANDO A PESQUISA
 
 from langchain_openai import ChatOpenAI
-from os import getenv
 from dotenv import load_dotenv
+from os import getenv
 from langchain_core.globals import set_debug
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain_text_splitters import CharacterTextSplitter
@@ -18,6 +18,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
+from sklearn import base
 
 # set_debug(True)
 
@@ -51,14 +52,18 @@ class Loader:
 class SearchIndex:
 
     def __init__(self, chunk_size: int, documents: list):
+        
+        #environ['CURL_CA_BUNDLE'] = '' # PARA EVITAR O ERRO DE CERTIFICADO SSL QUANDO O MODELO DE EMBEDDING TENTA SE CONECTAR À INTERNET PARA BAIXAR O MODELO.
+
         self.chunk_size = chunk_size
         self.documents = documents
     
     # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self) -> list:
         
-        splitter = CharacterTextSplitter(chunk_size=self.chunk_size, overlap=200) # O OVERLAP É A QUANTIDADE DE CARACTERES QUE VÃO SE SOBREPOR ENTRE OS CHUNKS. 
-                                                                                  # SE FOR 0, NÃO VAI TER SOBRESPOSIÇÃO ENTRE OS CHUNKS.
+        splitter = CharacterTextSplitter(chunk_size=self.chunk_size, chunk_overlap=200) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
+                                                                                      # SE FOR MAIOR QUE 0, OS CHUNKS VÃO SE SOBREPOR EM UMA QUANTIDADE DE CARACTERES DETERMINADA 
+                                                                                      # PELO VALOR DO CHUNK_OVERLAP.
         self.texts_chunks = splitter.split_documents(self.documents)  
 
         return self.texts_chunks
@@ -67,25 +72,40 @@ class SearchIndex:
     def indexer(self):
 
         self.embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
-            model_kwargs={'device': 'cpu'}            
-        )
+                                                    model_name="BAAI/bge-small-2M", 
+                                                    model_kwargs={"device": "cpu"},
+                                                    base_url="https://api-inference.huggingface.co/models/BAAI/bge-small-2M",
+                                                    api_key=getenv("HUGGINGFACE_KEY")
+                                                    
+                                                ) # PARA GERAR OS VETORES DE EMBEDDING DOS CHUNKS DE TEXTO. 
+                                                  # O MODELO DE EMBEDDING VAI TRANSFORMAR CADA CHUNK DE TEXTO EM UM VETOR 
+                                                  # NUMÉRICO QUE REPRESENTA O SIGNIFICADO DO TEXTO. 
+                                                  # ESSE VETOR VAI SER USADO PARA REALIZAR BUSCAS EFICIENTES NO BANCO DE DADOS 
+                                                  # VETORIAL.
 
         #self.embeddings = OpenAIEmbeddings(api_key=getenv("OPENAI_KEY"))
         
         return self.embeddings
 
 # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
-class VectorDB:
+# Somente a primeira instância da classe VectorDB vai criar o banco de dados vetorial. As próximas instâncias vão reutilizar o banco de dados já criado, 
+# evitando a necessidade de recriá-lo a cada vez que uma nova instância da classe for criada. Isso é possível graças ao uso da variável de CLASSE _db_instance,
+class VectorDBSingleton:
+    _db_instance = None  # PARA GARANTIR QUE SEJA COMPARTILHADA ENTRE TODAS AS INSTÂNCIAS DA CLASSE.
 
     def __init__(self, documents: list, embeddings):
         self.documents = documents
         self.embeddings = embeddings
-    
-    def db(self) -> FAISS:
-        self.db = FAISS.from_documents(self.documents, self.embeddings)
 
-        return self.db
+    def db(self) -> FAISS:
+        # Verifica se a instância da CLASSE está vazia
+        if VectorDBSingleton._db_instance is None:
+            print("Criando banco vetorial pela primeira vez...")
+            VectorDBSingleton._db_instance = FAISS.from_documents(self.documents, self.embeddings)
+        else:
+            print("Banco vetorial já existe, utilizando a instância existente...")
+            
+        return VectorDBSingleton._db_instance
 
 
 class AgenteChatbotSeguro:
@@ -99,14 +119,10 @@ class AgenteChatbotSeguro:
                         api_key=getenv("API_KEY_OPENROUTER"),
                         base_url="https://openrouter.ai/api/v1"                    
                     )
-
-    # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
-    documents = Loader().load() # CARREGANDO OS DOCUMENTOS PARA O MÉTODO SPLITTER
-
-    # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
-    searchindex = SearchIndex(chunk_size=1000, documents=documents)
-    # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
-    db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db()
+    
+    documents = Loader().load() # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
+    searchindex = SearchIndex(chunk_size=1000, documents=documents) # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
+    db = VectorDBSingleton(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db() # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
 
     # create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
     # qa_chain -> Nossa ferramenta de Perguntas e Respostas (Questions and Answers Chain)
