@@ -17,6 +17,9 @@ COPY agente_chatbotseguro.py .
 # Copie os arquivos de dados para o contêiner.
 COPY rag_docs/ ./rag_docs/
 
+# Copie o modelo de embedding para o contêiner, evitando a necessidade de baixar o modelo toda vez que o código for executado. 
+COPY cache/ ./cache/
+
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
 
