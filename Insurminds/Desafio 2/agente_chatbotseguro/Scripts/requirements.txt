@@ -6,7 +6,7 @@ langchain-community==0.3.19
 python-dotenv==1.0.1
 sentence-transformers==5.1.2
 langchain-huggingface==0.3.1
-faiss-cpu==1.10.0
+faiss-cpu==1.13.2
 pypdf==5.3.1
 pandas==3.0.2
 streamlit==1.57.0
@@ -19,3 +19,5 @@ tiktoken==0.12.0
 numpy==2.4.4
 jiter==0.14.0
 wheel==0.47.0
+packaging==25.0
+urllib3==2.7.0

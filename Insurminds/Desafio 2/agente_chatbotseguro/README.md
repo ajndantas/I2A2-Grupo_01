@@ -1,4 +1,4 @@
-# 🤖 Agente Inteligente de Atendimento ao Segurado
+# 🤖 Agente Inteligente Chatbot Seguro
 
 Este projeto utiliza **Inteligência Artificial (LLMs)** e **RAG (Retrieval-Augmented Generation)** para automatizar o atendimento a segurados, processando manuais, apólices e bases de conhecimento para fornecer respostas precisas e naturais.
 
@@ -16,9 +16,7 @@ O projeto foi desenhado para rodar de forma escalável na  **Google Cloud Platfo
 
 * **Hospedagem:** Implementado em uma  **VM (Virtual Machine) na GCP** .
 * **Rede e Segurança:**
-  * Utiliza **Nginx** como Proxy Reverso para gerenciar o tráfego nas portas **80 (HTTP)** e  **443 (HTTPS)** .
-  * As portas de entrada devem estar liberadas no  **Firewall da GCP** .
-  * Integração com **Certbot** para renovação automática de certificados SSL.
+  * Utiliza **Nginx** como Proxy Reverso.
 * **CI/CD:** Pipeline automatizado que realiza o build da imagem e executa comandos via SSH diretamente na instância da GCP para atualização do serviço.
 
 ---
@@ -29,20 +27,9 @@ O serviço é distribuído como um container Docker, facilitando a portabilidade
 
 ### 1️⃣ Requisitos
 
-* Docker e Docker Compose.
-* Chave de API do **OpenRouter** (configurada como segredo no GitHub ou variável de ambiente).
+* Chave de API para a LLM do **OpenRouter** (configurada como segredo no GitHub ou variável de ambiente).
 
-### 2️⃣ Rodando Localmente
-
-Para subir o agente de seguros junto com a infraestrutura de rede:
-
-**Bash**
-
-```
-docker compose up -d agente_chatbotseguro nginx_ia
-```
-
-### 3️⃣ Variáveis de Ambiente
+### 2️⃣ Variáveis de Ambiente
 
 O container utiliza a variável `API_KEY_OPENROUTER` para comunicação com o cérebro da IA.
 
@@ -56,15 +43,6 @@ O container utiliza a variável `API_KEY_OPENROUTER` para comunicação com o c�
 * 🐳 **Docker** – Containerização da aplicação.
 * 🛡️ **Nginx** – Gateway de segurança e gerenciamento de portas na GCP.
 * 📓 **Jupyter** – O código principal reside em `agente_chatbotseguro.ipynb` e é convertido automaticamente para produção.
-
----
-
-## 📁 Estrutura de Arquivos
-
-* `agente_chatbotseguro.ipynb`: Lógica central do chatbot.
-* `Dockerfile`: Configuração da imagem Python 3.13-slim.
-* `rag_docs/`: Repositório de conhecimento (PDFs e manuais).
-* `docker-compose.yml`: Orquestração do agente e do servidor Nginx.
 
 ---
 

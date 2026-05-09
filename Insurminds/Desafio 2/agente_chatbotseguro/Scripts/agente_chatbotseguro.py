@@ -10,19 +10,24 @@
 
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from os import getenv
-from langchain_core.globals import set_debug
+from os import getenv, environ
+from langchain_core.globals import set_debug, set_llm_cache
+from langchain_core.caches import InMemoryCache
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain_text_splitters import CharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings, HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
-from sklearn import base
 
 # set_debug(True)
 
 load_dotenv() # CARREGANDO O ARQUIVO COM A OPENAI_KEY
+
+# -------------------------------------------------------
+# Cache nativo do LangChain (InMemoryCache)
+# -------------------------------------------------------
+set_llm_cache(InMemoryCache())
 
 # PASSO 1 - CARGA NO CARREGADOR
 class Loader:
@@ -52,8 +57,6 @@ class Loader:
 class SearchIndex:
 
     def __init__(self, chunk_size: int, documents: list):
-        
-        #environ['CURL_CA_BUNDLE'] = '' # PARA EVITAR O ERRO DE CERTIFICADO SSL QUANDO O MODELO DE EMBEDDING TENTA SE CONECTAR À INTERNET PARA BAIXAR O MODELO.
 
         self.chunk_size = chunk_size
         self.documents = documents
@@ -72,47 +75,40 @@ class SearchIndex:
     def indexer(self):
 
         self.embeddings = HuggingFaceEmbeddings(
-                                                    model_name="BAAI/bge-small-2M", 
-                                                    model_kwargs={"device": "cpu"},
-                                                    base_url="https://api-inference.huggingface.co/models/BAAI/bge-small-2M",
-                                                    api_key=getenv("HUGGINGFACE_KEY")
-                                                    
-                                                ) # PARA GERAR OS VETORES DE EMBEDDING DOS CHUNKS DE TEXTO. 
-                                                  # O MODELO DE EMBEDDING VAI TRANSFORMAR CADA CHUNK DE TEXTO EM UM VETOR 
-                                                  # NUMÉRICO QUE REPRESENTA O SIGNIFICADO DO TEXTO. 
-                                                  # ESSE VETOR VAI SER USADO PARA REALIZAR BUSCAS EFICIENTES NO BANCO DE DADOS 
-                                                  # VETORIAL.
+                    model_name="./cache/all-MiniLM-L6-v2",
+                    model_kwargs={'device': 'cpu'}, # Força o uso do seu processador
+                    encode_kwargs={'normalize_embeddings': True} # Normaliza os vetores de embedding para melhorar a precisão da busca.                                            
+        )
 
-        #self.embeddings = OpenAIEmbeddings(api_key=getenv("OPENAI_KEY"))
+        """ self.embeddings = OpenAIEmbeddings(
+                                                model="nvidia/llama-nemotron-embed-vl-1b-v2:free",
+                                                api_key=getenv("API_KEY_OPENROUTER"),
+                                                base_url="https://openrouter.ai/api/v1"
+                                                )  """
+
+        """ self.embeddings = OpenAIEmbeddings(
+                                                model="text-embedding-3-small", # MAIS RÁPIDO E BARATO, MAS MENOS PRECISO. IDEAL PARA TESTES E PROJETOS PEQUENOS.
+                                                api_key=getenv("API_KEY")                                                
+                                          ) """
         
         return self.embeddings
 
 # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
-# Somente a primeira instância da classe VectorDB vai criar o banco de dados vetorial. As próximas instâncias vão reutilizar o banco de dados já criado, 
-# evitando a necessidade de recriá-lo a cada vez que uma nova instância da classe for criada. Isso é possível graças ao uso da variável de CLASSE _db_instance,
-class VectorDBSingleton:
-    _db_instance = None  # PARA GARANTIR QUE SEJA COMPARTILHADA ENTRE TODAS AS INSTÂNCIAS DA CLASSE.
-
+class VectorDB:
+ 
     def __init__(self, documents: list, embeddings):
         self.documents = documents
         self.embeddings = embeddings
 
-    def db(self) -> FAISS:
-        # Verifica se a instância da CLASSE está vazia
-        if VectorDBSingleton._db_instance is None:
-            print("Criando banco vetorial pela primeira vez...")
-            VectorDBSingleton._db_instance = FAISS.from_documents(self.documents, self.embeddings)
-        else:
-            print("Banco vetorial já existe, utilizando a instância existente...")
-            
-        return VectorDBSingleton._db_instance
+    def db(self) -> FAISS:        
+        db_instance = FAISS.from_documents(self.documents, self.embeddings)
+                    
+        return db_instance
 
 
 class AgenteChatbotSeguro:
 
-  def __init__(self, pergunta: str):
-
-    self.pergunta = pergunta
+  def __init__(self):
 
     llm = ChatOpenAI(
                         model="openrouter/free",                    
@@ -122,7 +118,7 @@ class AgenteChatbotSeguro:
     
     documents = Loader().load() # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     searchindex = SearchIndex(chunk_size=1000, documents=documents) # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
-    db = VectorDBSingleton(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db() # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
+    db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer()).db() # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
 
     # create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
     # qa_chain -> Nossa ferramenta de Perguntas e Respostas (Questions and Answers Chain)
@@ -132,20 +128,23 @@ class AgenteChatbotSeguro:
                                                   return_source_documents=True                       
                                                 )
     
-  def output(self) -> str:
+  def query(self, question: str) -> str:
       
-      self.resposta = self.qa_chain.invoke({"query": self.pergunta})
-      self.output = self.resposta['result']
+      self.output = self.qa_chain.invoke({"query": question})
+      self.result = self.output['result']
 
-      print('\nPergunta: ',self.pergunta)
-      print('Documentos de origem da resposta:\n', [doc.metadata for doc in self.resposta['source_documents']])
+      print('\nPergunta: ', question)
+      print('Documentos de origem da resposta:\n', [doc.metadata for doc in self.output['source_documents']])
 
-      return self.output
+      return self.result
 
 
 if __name__ == "__main__":
 
-    print(AgenteChatbotSeguro(pergunta="Aonde consultar as licitações das unidades da Susep?").output())
-    print(AgenteChatbotSeguro(pergunta="Como devo proceder caso tenha um item pessoal roubado ?").output())
-    print(AgenteChatbotSeguro(pergunta="Quem descobriu o Brasil ?").output())
+    agente = AgenteChatbotSeguro()
+
+    print(agente.query("Aonde consultar as licitações das unidades da Susep ?"))
+    print(agente.query("Como devo proceder caso tenha um item pessoal roubado ?"))
+    print(agente.query("Quem descobriu o Brasil ?"))
+
 #pergunta="Como devo proceder caso tenha um item pessoal roubado ?"
