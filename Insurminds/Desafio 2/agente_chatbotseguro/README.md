@@ -13,6 +13,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** e **RAG (Retrieval-Augm
 ## 📜 Código Fonte Principal
 
 O núcleo lógico do chatbot, incluindo a orquestração do LangChain e a interface Streamlit, pode ser acessado diretamente aqui:
+
 * 🔗 **[agente_chatbotseguro.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/agente_chatbotseguro.py)**
 
 ---
@@ -23,8 +24,8 @@ O projeto foi desenhado para rodar de forma escalável na **Google Cloud Platfor
 
 * **Hospedagem:** Implementado em uma **VM (Virtual Machine) na GCP**.
 * **Rede e Segurança:**
-    * Utiliza **Nginx** como Proxy Reverso para gerenciar o tráfego nas portas 80 e 443.
-    * Suporte a SSL via **Certbot**.
+  * Utiliza **Nginx** como Proxy Reverso para gerenciar o tráfego nas portas 80 e 443.
+  * Suporte a SSL via **Certbot**.
 * **CI/CD:** Pipeline automatizado (GitHub Actions) que realiza o build da imagem, envia para o GitHub Container Registry (GHCR) e executa o deploy via SSH na VM da GCP.
 
 ---
@@ -33,27 +34,22 @@ O projeto foi desenhado para rodar de forma escalável na **Google Cloud Platfor
 
 As variáveis de ambiente são geridas de forma segura e persistente através de diferentes camadas:
 
-### 1. GitHub Secrets (CI/CD)
-As chaves sensíveis (`API_KEY_OPENROUTER`, `API_KEY`, `HUGGINGFACE_KEY`) são armazenadas nos **GitHub Secrets**. Durante o build, são passadas como `--build-arg`.
+### GitHub Secrets (CI/CD)
 
-### 2. Dockerfile (Persistência)
-As variáveis são capturadas via `ARG` e fixadas na imagem via `ENV`, tornando-as disponíveis permanentemente para a aplicação Python via `os.getenv()`.
-
-### 3. Docker Compose (Runtime)
-No `docker-compose.yml`, as variáveis são injetadas no container para uso em tempo de execução.
+As chaves sensíveis (`API_KEY_OPENROUTER`, `API_KEY`, `HUGGINGFACE_KEY`) são armazenadas nos **GitHub Secrets**. Durante o build, são passadas como `--build-arg`
 
 ---
 
 ## 🐳 Execução com Docker
 
 ### 1️⃣ Configuração
+
 * **Imagem Base:** Python 3.13-slim.
 * **Modelos:** Embeddings baixados localmente via `huggingface_models_download.py` para otimizar performance.
 
 ### 2️⃣ Variáveis Necessárias
+
 * `API_KEY_OPENROUTER`: Comunicação com LLMs.
-* `API_KEY`: Autenticação adicional.
-* `HUGGINGFACE_KEY`: Acesso a modelos e tokens.
 
 ---
 
