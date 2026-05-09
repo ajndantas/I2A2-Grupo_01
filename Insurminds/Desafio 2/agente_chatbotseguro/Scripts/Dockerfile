@@ -15,7 +15,7 @@ COPY requirements.txt .
 COPY agente_chatbotseguro.py .
 
 # Copie os arquivos de dados para o contêiner.
-COPY rag_docs/ ./rag_docs/
+COPY ./rag_docs ./rag_docs
 
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
@@ -27,7 +27,7 @@ COPY huggingface_models_download.py .
 RUN python huggingface_models_download.py
 
 # COPIA O ÍNDICE DE BUSCA PARA O CONTÊINER.
-COPY faiss_index/ ./faiss_index/
+COPY ./faiss_index/ ./faiss_index
 
 # Exponha a porta 8000 para permitir a comunicação com a aplicação Streamlit
 EXPOSE 8002
