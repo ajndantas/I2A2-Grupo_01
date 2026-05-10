@@ -9,20 +9,21 @@
 # 3 - EXECUTANDO A PESQUISA
 
 
-import shutil
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from os import getenv, path, rmdir
+from os import getenv, path
 from langchain_core.globals import set_debug, set_llm_cache
 from langchain_core.caches import InMemoryCache
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
-from langchain_text_splitters import CharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from time import time
+from re import sub
+
 
 #set_debug(True)
 
@@ -60,15 +61,16 @@ class Loader:
 
 class SearchIndex:
 
-    def __init__(self, chunk_size: int, documents: list):
+    def __init__(self, chunk_size: int, chunk_overlap: int, documents: list):
 
         self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
         self.documents = documents
     
     # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self) -> list:
         
-        splitter = CharacterTextSplitter(chunk_size=self.chunk_size, chunk_overlap=200) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
+        splitter = RecursiveCharacterTextSplitter(chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
                                                                                       # SE FOR MAIOR QUE 0, OS CHUNKS VÃO SE SOBREPOR EM UMA QUANTIDADE DE CARACTERES DETERMINADA 
                                                                                       # PELO VALOR DO CHUNK_OVERLAP.
         self.texts_chunks = splitter.split_documents(self.documents)  
@@ -76,7 +78,7 @@ class SearchIndex:
         return self.texts_chunks
     
     # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
-    def indexer(self):
+    def indexer(self) -> HuggingFaceEmbeddings:
 
         self.embeddings = HuggingFaceEmbeddings(
                     model_name="./cache/all-MiniLM-L6-v2",
@@ -111,16 +113,18 @@ class VectorDB:
     def db(self) -> FAISS:
 
         if path.exists(self.db_path):
+            print("Índice de busca encontrado. Carregando o índice existente...\n")
             return FAISS.load_local(self.db_path, self.embeddings, allow_dangerous_deserialization=True) # O MÉTODO LOAD_LOCAL VAI CARREGAR O ÍNDICE DE BUSCA A PARTIR DO ARQUIVO SALVO. 
                                                                                                          # O PARÂMETRO ALLOW_DANGEROUS_DESERIALIZATION É NECESSÁRIO PARA PERMITIR 
                                                                                                          # QUE O FAISS CARREGUE O ÍNDICE DE BUSCA A PARTIR DO ARQUIVO        
         
         # Se não existir, cria e salva
+        print("Índice de busca não encontrado. Criando...\n")
         db_instance = FAISS.from_documents(self.documents, self.embeddings)
         
         db_instance.save_local(self.db_path)
 
-        return db_instance
+        return db_instance   
 
 
 class AgenteChatbotSeguro:
@@ -131,21 +135,19 @@ class AgenteChatbotSeguro:
                         model="openrouter/free",                    
                         api_key=getenv("API_KEY_OPENROUTER"),
                         base_url="https://openrouter.ai/api/v1",
-                        temperature=0 # POR CAUSA DE PERGUNTAS COMO "QUEM DESCOBRIU O BRASIL ?", É IMPORTANTE DEFINIR A TEMPERATURA COMO 0 
-                                      # PARA GARANTIR QUE A RESPOSTA SEJA SEMPRE A MESMA E NÃO VARIE ENTRE EXECUÇÕES DIFERENTES.                   
+                        reasoning_effort="high"                  
                     )
     
     documents = Loader().load() # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
-    searchindex = SearchIndex(chunk_size=1000, documents=documents) # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
+    searchindex = SearchIndex(chunk_size=800, chunk_overlap=500, documents=documents) # PASSO 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS EFICIENTES NOS DOCUMENTOS FRAGMENTADOS.
     
     self.db_path = "faiss_index"
 
-    if path.exists(self.db_path): 
-        shutil.rmtree(self.db_path) # O MÉTODO RMTREE VAI APAGAR O DIRETÓRIO ONDE O ÍNDICE DE BUSCA ESTÁ SALVO, INCLUINDO TODOS OS ARQUIVOS E SUBDIRETÓRIOS CONTIDOS NELE.
-                                    # rmdir só pode ser usado para remover diretórios vazios.
-        
-        print("Apagando Índice de busca existente para carga de novos documentos...")
-        (self.db_path) # APAGANDO O ÍNDICE DE BUSCA EXISTENTE PARA GARANTIR QUE O NOVO ÍNDICE SEJA CRIADO COM OS NOVOS DOCUMENTOS CARREGADOS. 
+    #if path.exists(self.db_path): 
+    #   print("Apagando Índice de busca existente para carga de novos documentos...\n")
+    #   shutil.rmtree(self.db_path) # O MÉTODO RMTREE VAI APAGAR O DIRETÓRIO ONDE O ÍNDICE DE BUSCA ESTÁ SALVO, INCLUINDO TODOS OS ARQUIVOS E SUBDIRETÓRIOS CONTIDOS NELE.
+                                    # rmdir só pode ser usado para remover diretórios vazios.       
+         
 
     db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer(), db_path=self.db_path).db() # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
     
@@ -158,17 +160,29 @@ class AgenteChatbotSeguro:
                         {context}
                     --------------------------------------------------------------------------------
 
-                    - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.".
-                    - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando as fontes utilizadas. Seja claro e conciso em suas respostas.
+                    DIRETRIZES:
+                    ----------------------------------------------------------------------------------------------------------------------------------------------------------
+                        - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para 
+                        responder a essa pergunta.".
+                        - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando os nomes das fontes utilizadas. Seja claro e conciso em 
+                        suas respostas.
+                        - Se as fontes não forem citadas, responda "Desculpe, não existem fontes que possam responder a essa pergunta.". NUNCA deixar em branco ou omitir as fontes.
+                        - SEMPRE responda no formato JSON, seguindo a estrutura definida abaixo.
+                    ---------------------------------------------------------------------------------------------------------------------------------------------------------- 
                     
-                    Pergunta: {query}
+                    Pergunta: {question}
                     
                     Resposta:
-                """
-    
+                    {{
+                        "pergunta": "{question}",     
+                        "resposta": "A resposta para a pergunta. Seja claro e conciso em sua resposta.",
+                        "fontes": "As fontes utilizadas para responder à pergunta do usuário"
+                    }}
+                """    
+
     prompt_template = PromptTemplate(
-                                        input_variables=["context", "query"],
-                                        template=template
+                                        template=template,
+                                        input_variables=["context", "question"]                                  
                                     )
 
     # create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
@@ -183,15 +197,13 @@ class AgenteChatbotSeguro:
     self.qa_chain = RetrievalQA.from_chain_type(
                                                   llm=llm, 
                                                   retriever=db.as_retriever(),                                                                                                      
-                                                  chain_type_kwargs={"prompt": prompt_template}                                                                                                                            
+                                                  chain_type_kwargs={"prompt": prompt_template}                                                                                                                                                                              
                                                 )
     
   def query(self, question: str) -> str:
       
       self.output = self.qa_chain.invoke({"query": question}) 
-      self.result = self.output['result']
-
-      print('\nPergunta: ', question)
+      self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
 
       return self.result
 
@@ -205,11 +217,14 @@ if __name__ == "__main__":
     # PERGUNTAS PARA TESTAR O AGENTE
     print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"))
     fim = time() # Marca o tempo final
-    print(f"\nTempo total de execução: {fim - inicio:.2f} segundos")
+    #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
 
     inicio = time() # Marca o tempo inicial
-    print(agente.query("Como devo proceder caso tenha um item pessoal roubado ?"))
+    print(agente.query("Como devo proceder caso tenha meu celular roubado ?"))
     fim = time() # Marca o tempo final
-    print(f"\nTempo total de execução: {fim - inicio:.2f} segundos")
+    #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
 
+    inicio = time() # Marca o tempo inicial
     print(agente.query("Quem descobriu o Brasil ?"))
+    fim = time() # Marca o tempo final
+    #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
