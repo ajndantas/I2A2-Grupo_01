@@ -9,16 +9,15 @@
 # 3 - EXECUTANDO A PESQUISA
 
 
-from itertools import chain
 import shutil
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from os import getenv, path
+from os import getenv, path, rmdir
 from langchain_core.globals import set_debug, set_llm_cache
 from langchain_core.caches import InMemoryCache
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain_text_splitters import CharacterTextSplitter
-from langchain_huggingface import HuggingFaceEndpointEmbeddings, HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
@@ -143,6 +142,7 @@ class AgenteChatbotSeguro:
 
     if path.exists(self.db_path): 
         shutil.rmtree(self.db_path) # O MÉTODO RMTREE VAI APAGAR O DIRETÓRIO ONDE O ÍNDICE DE BUSCA ESTÁ SALVO, INCLUINDO TODOS OS ARQUIVOS E SUBDIRETÓRIOS CONTIDOS NELE.
+                                    # rmdir só pode ser usado para remover diretórios vazios.
         
         print("Apagando Índice de busca existente para carga de novos documentos...")
         (self.db_path) # APAGANDO O ÍNDICE DE BUSCA EXISTENTE PARA GARANTIR QUE O NOVO ÍNDICE SEJA CRIADO COM OS NOVOS DOCUMENTOS CARREGADOS. 
@@ -202,6 +202,7 @@ if __name__ == "__main__":
 
     agente = AgenteChatbotSeguro()
 
+    # PERGUNTAS PARA TESTAR O AGENTE
     print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"))
     fim = time() # Marca o tempo final
     print(f"\nTempo total de execução: {fim - inicio:.2f} segundos")
@@ -211,6 +212,4 @@ if __name__ == "__main__":
     fim = time() # Marca o tempo final
     print(f"\nTempo total de execução: {fim - inicio:.2f} segundos")
 
-    print(agente.query("Quem descobriu o Brasil ?"))    
-
-#pergunta="Como devo proceder caso tenha um item pessoal roubado ?"
+    print(agente.query("Quem descobriu o Brasil ?"))
