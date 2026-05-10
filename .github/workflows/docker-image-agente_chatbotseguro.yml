@@ -8,9 +8,7 @@ on:
 
 env:
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
-  API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
-  HUGGINGFACE_KEY: ${{ secrets.HUGGINGFACE_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
-
+  
 jobs:
 
   build:
@@ -30,7 +28,7 @@ jobs:
           #IMAGE_ID=agente_nfe
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
-          docker build --build-arg API_KEY_OPENROUTER="${{ secrets.API_KEY_OPENROUTER }}" --build-arg API_KEY="${{ secrets.API_KEY }}" --build-arg HUGGINGFACE_kEY="${{ secrets.HUGGINGFACE_KEY }}" -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker build --build-arg API_KEY_OPENROUTER="${{ secrets.API_KEY_OPENROUTER }}" -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
           docker push $IMAGE_ID:$TAG 
 
       - name: Executar comandos via SSH na VM
@@ -39,14 +37,15 @@ jobs:
           host: ${{ secrets.GCP_VM_HOST }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
+          command_timeout: 30m # Aumenta o tempo limite para execução
+          timeout: 60s         # Aumenta o tempo limite para a conexão inicial
+          
           envs: 
-            API_KEY_OPENROUTER, API_KEY, HUGGINGFACE_KEY # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH         
+            API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH         
           script: |
             # Exporte a variável para que o Docker Compose consiga visualizá-la
             export API_KEY_OPENROUTER=$API_KEY_OPENROUTER
-            export API_KEY=$API_KEY 
-            export HUGGINGFACE_KEY=$HUGGINGFACE_KEY
-
+            
             echo "Entrando no diretório do projeto"
             cd ~/agentes
 
