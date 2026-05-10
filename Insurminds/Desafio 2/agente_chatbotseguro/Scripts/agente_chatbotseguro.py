@@ -8,6 +8,9 @@
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
 
+
+from itertools import chain
+import shutil
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
@@ -19,6 +22,8 @@ from langchain_huggingface import HuggingFaceEndpointEmbeddings, HuggingFaceEmbe
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
+from langchain_core.prompts import PromptTemplate
+from time import time
 
 #set_debug(True)
 
@@ -137,23 +142,53 @@ class AgenteChatbotSeguro:
     self.db_path = "faiss_index"
 
     if path.exists(self.db_path): 
+        shutil.rmtree(self.db_path) # O MÉTODO RMTREE VAI APAGAR O DIRETÓRIO ONDE O ÍNDICE DE BUSCA ESTÁ SALVO, INCLUINDO TODOS OS ARQUIVOS E SUBDIRETÓRIOS CONTIDOS NELE.
+        
         print("Apagando Índice de busca existente para carga de novos documentos...")
-        path.remove(self.db_path) # APAGANDO O ÍNDICE DE BUSCA EXISTENTE PARA GARANTIR QUE O NOVO ÍNDICE SEJA CRIADO COM OS NOVOS DOCUMENTOS CARREGADOS. 
+        (self.db_path) # APAGANDO O ÍNDICE DE BUSCA EXISTENTE PARA GARANTIR QUE O NOVO ÍNDICE SEJA CRIADO COM OS NOVOS DOCUMENTOS CARREGADOS. 
 
     db = VectorDB(documents=searchindex.splitter(), embeddings=searchindex.indexer(), db_path=self.db_path).db() # PASSO 3 - BANCO DE VETORES - UTILIZAR O ÍNDICE DE BUSCA PARA ARMAZENAR OS CHUNKS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
+    
+    template = """
+                    Você é um assistente de perguntas e respostas especializado em seguros.
+                    
+                    CONTEXTO: Você tem acesso a um conjunto de documentos relacionados a seguros, que podem conter informações relevantes para responder às perguntas dos usuários. 
+                    Esses documentos podem incluir políticas de seguro, termos e condições, FAQs, entre outros. 
+                    --------------------------------------------------------------------------------
+                        {context}
+                    --------------------------------------------------------------------------------
+
+                    - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.".
+                    - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando as fontes utilizadas. Seja claro e conciso em suas respostas.
+                    
+                    Pergunta: {query}
+                    
+                    Resposta:
+                """
+    
+    prompt_template = PromptTemplate(
+                                        input_variables=["context", "query"],
+                                        template=template
+                                    )
 
     # create the RetrievalQA chain using the existing llm and the retriever (Quem busca no banco de dados)
-    # qa_chain -> Nossa ferramenta de Perguntas e Respostas (Questions and Answers Chain)
+    # 
+    # Quando o usuário faz uma pergunta, o as_retriever() converte a pergunta em vetor e faz uma busca por similaridade no FAISS, 
+    # retornando os K chunks cujos vetores são matematicamente mais próximos ao vetor da pergunta. Por padrão, LangChain retorna os 4 mais relevantes.
+    #
+    # OS CHUNKS ENCONTRADOS SÃO INJETADOS NO {context}
+    # chain_type_kwargs={"prompt": prompt_template}
+    #
+    # O RetrievalQA pega os chunks retornados pelo retriever, concatena seus textos e injeta o resultado dentro da variável {context} do PromptTemplate. O prompt final enviado ao LLM fica assim:
     self.qa_chain = RetrievalQA.from_chain_type(
                                                   llm=llm, 
-                                                  retriever=db.as_retriever(),
-                                                  return_source_documents=True # ESSA OPÇÃO VAI PERMITIR QUE A CHAINE DEVOLVA OS DOCUMENTOS DE ORIGEM QUE FORAM UTILIZADOS PARA GERAR A RESPOSTA.
-                                                                                                                                                                             
+                                                  retriever=db.as_retriever(),                                                                                                      
+                                                  chain_type_kwargs={"prompt": prompt_template}                                                                                                                            
                                                 )
     
   def query(self, question: str) -> str:
       
-      self.output = self.qa_chain.invoke({"query": question})
+      self.output = self.qa_chain.invoke({"query": question}) 
       self.result = self.output['result']
 
       print('\nPergunta: ', question)
@@ -163,10 +198,19 @@ class AgenteChatbotSeguro:
 
 if __name__ == "__main__":
 
+    inicio = time() # Marca o tempo inicial
+
     agente = AgenteChatbotSeguro()
 
     print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"))
+    fim = time() # Marca o tempo final
+    print(f"\nTempo total de execução: {fim - inicio:.2f} segundos")
+
+    inicio = time() # Marca o tempo inicial
     print(agente.query("Como devo proceder caso tenha um item pessoal roubado ?"))
-    print(agente.query("Quem descobriu o Brasil ?"))
+    fim = time() # Marca o tempo final
+    print(f"\nTempo total de execução: {fim - inicio:.2f} segundos")
+
+    print(agente.query("Quem descobriu o Brasil ?"))    
 
 #pergunta="Como devo proceder caso tenha um item pessoal roubado ?"

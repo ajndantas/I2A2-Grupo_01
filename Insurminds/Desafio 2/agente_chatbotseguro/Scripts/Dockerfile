@@ -26,8 +26,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY huggingface_models_download.py .
 RUN python huggingface_models_download.py
 
-# COPIA O ÍNDICE DE BUSCA PARA O CONTÊINER.
-COPY faiss_index/ ./faiss_index/
 
 # Exponha a porta 8000 para permitir a comunicação com a aplicação Streamlit
 EXPOSE 8002
