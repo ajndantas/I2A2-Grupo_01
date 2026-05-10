@@ -15,7 +15,7 @@ from os import getenv, path
 from langchain_core.globals import set_debug, set_llm_cache
 from langchain_core.caches import InMemoryCache
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter, CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
@@ -70,7 +70,7 @@ class SearchIndex:
     # PASSO 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self) -> list:
         
-        splitter = RecursiveCharacterTextSplitter(chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
+        splitter = CharacterTextSplitter(chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
                                                                                       # SE FOR MAIOR QUE 0, OS CHUNKS VÃO SE SOBREPOR EM UMA QUANTIDADE DE CARACTERES DETERMINADA 
                                                                                       # PELO VALOR DO CHUNK_OVERLAP.
         self.texts_chunks = splitter.split_documents(self.documents)  
@@ -161,14 +161,14 @@ class AgenteChatbotSeguro:
                     --------------------------------------------------------------------------------
 
                     DIRETRIZES:
-                    ----------------------------------------------------------------------------------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para 
                         responder a essa pergunta.".
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando os nomes das fontes utilizadas. Seja claro e conciso em 
                         suas respostas.
                         - Se as fontes não forem citadas, responda "Desculpe, não existem fontes que possam responder a essa pergunta.". NUNCA deixar em branco ou omitir as fontes.
                         - SEMPRE responda no formato JSON, seguindo a estrutura definida abaixo.
-                    ---------------------------------------------------------------------------------------------------------------------------------------------------------- 
+                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
                     Pergunta: {question}
                     
@@ -176,7 +176,7 @@ class AgenteChatbotSeguro:
                     {{
                         "pergunta": "{question}",     
                         "resposta": "A resposta para a pergunta. Seja claro e conciso em sua resposta.",
-                        "fontes": "As fontes utilizadas para responder à pergunta do usuário"
+                        "fontes": "NOMES dos documentos utilizados para responder à pergunta do usuário"
                     }}
                 """    
 
@@ -215,12 +215,12 @@ if __name__ == "__main__":
     agente = AgenteChatbotSeguro()
 
     # PERGUNTAS PARA TESTAR O AGENTE
-    print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"))
+    print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"),"\n")
     fim = time() # Marca o tempo final
     #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
 
     inicio = time() # Marca o tempo inicial
-    print(agente.query("Como devo proceder caso tenha meu celular roubado ?"))
+    print(agente.query("Como devo proceder caso tenha meu celular roubado ?"),"\n")
     fim = time() # Marca o tempo final
     #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
 
