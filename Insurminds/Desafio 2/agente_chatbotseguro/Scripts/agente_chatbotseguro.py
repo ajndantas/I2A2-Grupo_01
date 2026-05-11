@@ -160,7 +160,7 @@ class AgenteChatbotSeguro:
     documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
 
     fontes = set([doc.metadata["source"] for doc in documents])
-    print("Documentos carregados:", fontes)
+    #print("Documentos carregados:", fontes)
 
     # PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
     searchindex = SearchIndex()
@@ -203,7 +203,7 @@ class AgenteChatbotSeguro:
                     Resposta:
                     {{
                         "pergunta": "{question}",     
-                        "resposta": "A resposta para a pergunta. Seja claro e conciso em sua resposta.",
+                        "resposta": "A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta.",
                         "fontes": "Nomes dos ARQUIVOS ou ARQUIVO utilizado para responder à pergunta do usuário"
                     }}
                 """    
