@@ -186,7 +186,7 @@ class AgenteChatbotSeguro:
                     Seus conhecimentos estao baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
                     que podem conter informações relevantes para responder às perguntas dos usuários.
 
-                    **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários.
+                    **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
                     CONTEXTO:                    
                     --------------------------------------------------------------------------------
