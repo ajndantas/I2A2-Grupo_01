@@ -9,15 +9,13 @@
 # 3 - EXECUTANDO A PESQUISA
 
 
-from tabnanny import verbose
-
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
 from langchain_core.globals import set_debug, set_llm_cache, set_verbose
 from langchain_core.caches import InMemoryCache
-from langchain_community.document_loaders import TextLoader, DirectoryLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import TextLoader, DirectoryLoader, HTMLLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter, CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
@@ -27,7 +25,7 @@ from time import time
 from re import sub
 
 #set_debug(True)
-#set_verbose(True)
+set_verbose(True)
 
 load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY_OPENROUTER
 
@@ -45,7 +43,7 @@ class Loader:
         self.loader = DirectoryLoader(
                                         "rag_docs", # O DIRETÓRIO ONDE ESTÃO OS ARQUIVOS QUE QUERO CARREGAR
                                         #glob="*.html", # O PADRÃO DE NOME DOS ARQUIVOS
-                                        loader_cls=TextLoader,
+                                        loader_cls=[TextLoader, HTMLLoader],
                                         loader_kwargs={"encoding": "utf-8"}
                                      ) # PARA CARREGAR VÁRIOS ARQUIVOS DE UMA SÓ VEZ. O GLOB 
                                        # É UM CURINGA PARA SELECIONAR VÁRIOS ARQUIVOS COM O MESMO PADRÃO. NESSE CASO, 
@@ -65,10 +63,10 @@ class SearchIndex:
     # 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self, chunk_size: int, chunk_overlap: int, documents: list) -> list:
 
-        splitter = RecursiveCharacterTextSplitter(                                                    
+        splitter = CharacterTextSplitter(                                                    
                                                     chunk_size=chunk_size, 
                                                     chunk_overlap=chunk_overlap,                                                    
-                                                    separators=["</h1>","</h2>","</h3>","</h4>","</h5>","\n\n", "\n", " ", ""], # OS SEPARADORES VÃO DETERMINAR ONDE O 
+                                                    #separators=["<h1>","<h2>","<h3>","<h4>","<h5>","\n\n", "\n", " ", ""] # OS SEPARADORES VÃO DETERMINAR ONDE O 
                                                                                                                                 # SPLITTER VAI TENTAR QUEBRAR O TEXTO. 
                                                                                                                                 # ELE VAI TENTAR QUEBRAR PRIMEIRO 
                                                                                                                                 # PELO SEPARADOR MAIS PRIORITÁRIO, 
@@ -83,8 +81,8 @@ class SearchIndex:
                                                                                                                                 # O QUE SIGNIFICA QUE O SPLITTER VAI TENTAR 
                                                                                                                                 # QUEBRAR O TEXTO EM QUALQUER LUGAR SE NÃO 
                                                                                                                                 # CONSEGUIR PELO SEPARADOR ANTERIOR.
-                                                    verbose=True
-                                                  ) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
+                                                    
+                                        ) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
                                                     # SE FOR MAIOR QUE 0, OS CHUNKS VÃO SE SOBREPOR EM UMA QUANTIDADE DE CARACTERES DETERMINADA 
                                                     # PELO VALOR DO CHUNK_OVERLAP.
 
@@ -147,15 +145,17 @@ class AgenteChatbotSeguro:
   def __init__(self):
 
     llm = ChatOpenAI(
-                        #model="openrouter/free",
-                        model="gpt-5-mini",                   
-                        #api_key=getenv("API_KEY_OPENROUTER"),
-                        api_key=getenv("API_KEY"),
-                        reasoning_effort="high",
-                        #base_url="https://openrouter.ai/api/v1"                  
+                        model="openrouter/free",
+                        #model="gpt-5-mini",                   
+                        api_key=getenv("API_KEY_OPENROUTER"),
+                        #api_key=getenv("API_KEY")                        
+                        base_url="https://openrouter.ai/api/v1"                  
                     )
     
-    documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR                        
+    documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
+
+    print("Documentos:\n", documents.sources)
+
     # PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
     searchindex = SearchIndex()
     chunked_docs = searchindex.splitter(chunk_size=800, chunk_overlap=500, documents=documents) # PASSO 2.1 - QUEBRA DO TEXTO - DIVIDIR OS DOCUMENTOS 
