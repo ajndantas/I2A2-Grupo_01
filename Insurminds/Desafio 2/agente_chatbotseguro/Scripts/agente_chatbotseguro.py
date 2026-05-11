@@ -188,6 +188,9 @@ class AgenteChatbotSeguro:
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
+                    **SEMPRE** pesquisar nos documentos que sejam relacionados ao objeto da pergunta. Ex: Celular, pesquisar nos documentos
+                    relacionados a celular.
+
                     CONTEXTO:                    
                     --------------------------------------------------------------------------------
                         {context}
