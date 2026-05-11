@@ -15,6 +15,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** e **RAG (Retrieval-Augm
 O núcleo lógico do chatbot, incluindo a orquestração do LangChain e a interface Streamlit, pode ser acessado diretamente aqui:
 
 * 🔗 **[agente_chatbotseguro.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/agente_chatbotseguro.py)**
+* 🔗 **[Frontend Streamlit app.py]()**
 
 ---
 
@@ -68,3 +69,112 @@ As chaves sensíveis (`API_KEY_OPENROUTER`, `API_KEY`, `HUGGINGFACE_KEY`) são a
 ## 📃 Licença
 
 Código aberto sob **licença MIT**.
+
+---
+
+# 💻 Implantação Local
+
+Caso deseje executar o projeto localmente para fins de desenvolvimento, testes ou estudos, siga os passos abaixo.
+
+## 📋 Pré-requisitos
+
+Antes de iniciar, certifique-se de possuir instalado:
+
+- Python 3.13+Git
+- Conta com acesso à API utilizada pelo OpenRouter
+
+---
+
+## 📥 Clonando o Projeto
+
+```bash
+git clone https://github.com/ajndantas/I2A2-Grupo_01.git
+cd I2A2-Grupo_01
+```
+
+---
+
+## 🔐 Configuração das Variáveis de Ambiente
+
+Crie um arquivo `.env` no diretório do projeto contendo as variáveis necessárias:
+
+```env
+API_KEY_OPENROUTER=SEU_TOKEN
+```
+
+---
+
+## 📦 Instalação das Dependências (Execução Local sem Docker)
+
+Crie e ative um ambiente virtual:
+
+### Linux / macOS
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+### Windows
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🤖 Download dos Modelos de Embedding
+
+O projeto utiliza modelos locais do Hugging Face para embeddings.
+
+Execute o script responsável pelo download:
+
+```bash
+python huggingface_models_download.py
+```
+
+Os modelos serão armazenados localmente para melhorar a performance e reduzir chamadas externas.
+
+---
+
+## ▶️ Execução Local com Streamlit
+
+Após instalar as dependências e configurar as variáveis:
+
+```bash
+streamlit run agente_chatbotseguro.py
+```
+
+O sistema ficará disponível em:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## 📁 Estrutura Esperada
+
+O diretório `/rag_docs` deve conter os documentos utilizados pelo mecanismo RAG, como:
+
+- Apólices
+- FAQs
+- Manuais técnicos
+- Documentação de seguros
+
+Esses arquivos são utilizados como base contextual para respostas da IA.
+
+---
+
+## 🛠️ Observações Importantes
+
+- Certifique-se de que as portas `8501`, `80` e `443` estejam disponíveis.
+- O primeiro carregamento dos modelos pode demorar alguns minutos.
+- Para ambientes produtivos, recomenda-se utilizar proxy reverso com Nginx e HTTPS configurado via Certbot.
