@@ -183,8 +183,12 @@ class AgenteChatbotSeguro:
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
                     
-                    CONTEXTO: Você tem acesso a um conjunto de documentos relacionados a seguros, que podem conter informações relevantes para responder às perguntas dos usuários. 
-                    Esses documentos podem incluir políticas de seguro, termos e condições, FAQs, entre outros. 
+                    Seus conhecimentos estao baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
+                    que podem conter informações relevantes para responder às perguntas dos usuários.
+
+                    **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários.
+
+                    CONTEXTO:                    
                     --------------------------------------------------------------------------------
                         {context}
                     --------------------------------------------------------------------------------
