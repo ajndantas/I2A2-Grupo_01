@@ -194,7 +194,11 @@ with chat_container:
             try:
                 data = json.loads(content)
                 resposta = html_lib.escape(data.get("resposta", content))
-                fontes = html_lib.escape(data.get("fontes", ""))
+                fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
+                
+                if isinstance(fontes, list):
+                    fontes = ", ".join(fontes)
+
             except (json.JSONDecodeError, TypeError):
                 resposta = html_lib.escape(content)
                 fontes = ""
