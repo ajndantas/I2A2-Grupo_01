@@ -153,7 +153,8 @@ class AgenteChatbotSeguro:
                         model="openrouter/free",
                         #model="gpt-5-mini",                   
                         api_key=getenv("API_KEY_OPENROUTER"),
-                        #api_key=getenv("API_KEY")                        
+                        #api_key=getenv("API_KEY")
+                        reasoning_effort="high",                        
                         base_url="https://openrouter.ai/api/v1"                  
                     )
     
@@ -204,7 +205,7 @@ class AgenteChatbotSeguro:
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando os nomes das fontes utilizadas. Seja claro e conciso em 
                         suas respostas.
-                        
+
                         - SEMPRE responda no formato JSON, seguindo a estrutura definida abaixo.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
