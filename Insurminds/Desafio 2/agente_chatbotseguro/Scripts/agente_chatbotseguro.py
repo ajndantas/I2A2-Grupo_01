@@ -159,7 +159,7 @@ class AgenteChatbotSeguro:
     
     documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
 
-    fontes = set([doc.metadata.source for doc in documents])
+    fontes = set([doc.metadata["source"] for doc in documents])
     print("Documentos carregados:", fontes)
 
     # PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
