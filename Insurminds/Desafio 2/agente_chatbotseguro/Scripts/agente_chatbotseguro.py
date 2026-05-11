@@ -15,7 +15,7 @@ from os import getenv, path
 from langchain_core.globals import set_debug, set_llm_cache, set_verbose
 from langchain_core.caches import InMemoryCache
 from langchain_community.document_loaders import TextLoader, DirectoryLoader, BSHTMLLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter, CharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
@@ -192,7 +192,7 @@ class AgenteChatbotSeguro:
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para 
-                        responder a essa pergunta." e deixar em branco as fontes.
+                        responder a essa pergunta." e informe "Fonte não encontrada" em fontes.
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando os nomes das fontes utilizadas. Seja claro e conciso em 
                         suas respostas.                        
                         - SEMPRE responda no formato JSON, seguindo a estrutura definida abaixo.
