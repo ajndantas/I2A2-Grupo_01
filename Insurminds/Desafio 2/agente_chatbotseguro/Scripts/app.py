@@ -3,6 +3,11 @@ import json
 import html as html_lib
 from agente_chatbotseguro import AgenteChatbotSeguro
 
+#-------------------------------------------------------
+# Para executar localmente, execute o seguinte comando:
+# streamlit run app.py
+#-------------------------------------------------------
+
 # ──────────────────────────────────────────────
 # CONFIGURAÇÃO DA PÁGINA
 # ──────────────────────────────────────────────
@@ -160,21 +165,14 @@ if "historico" not in st.session_state:
 # ──────────────────────────────────────────────
 # SUGESTÕES RÁPIDAS
 # ──────────────────────────────────────────────
-""" SUGESTOES = [
-    "Como acionar meu seguro?",
-    "O que cobre o seguro de vida?",
-    "Prazo para abertura de sinistro",
-    "Como cancelar minha apólice?",
-]
-
 if not st.session_state.historico:
-    st.markdown("**💡 Perguntas frequentes:**")
-    cols = st.columns(len(SUGESTOES))
-    for i, sugestao in enumerate(SUGESTOES):
-        if cols[i].button(sugestao, key=f"chip_{i}"):
-            st.session_state.historico.append({"role": "user", "content": sugestao})
-            st.rerun() """
 
+    st.markdown("**💡 Perguntas frequentes:**")
+    st.markdown(" - Como posso acionar o seguro ?")
+    st.markdown(" - O que cobre o seguro ?")
+    st.markdown(" - Como devo proceder caso tenha meu celular roubado ?")
+    st.markdown(" - Quem descobriu o Brasil ?")
+    
 # ──────────────────────────────────────────────
 # RENDERIZAR HISTÓRICO
 # ──────────────────────────────────────────────
@@ -219,7 +217,9 @@ ultima = st.session_state.historico[-1] if st.session_state.historico else None
 if ultima and ultima["role"] == "user":
     with st.spinner("🔍 Consultando base de conhecimento…"):
         try:
+            agente = st.session_state.agente
             resultado = agente.query(ultima["content"])
+
             # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
             import re
             try:

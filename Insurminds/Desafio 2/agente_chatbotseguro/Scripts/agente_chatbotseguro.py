@@ -235,6 +235,8 @@ class AgenteChatbotSeguro:
       self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
                                                                               # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
 
+      print("JSON\n",self.result)    
+
       return self.result
 
 
