@@ -5,7 +5,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** e **RAG (Retrieval-Augm
 ## 🚀 O que este projeto faz
 
 * **Automação de FAQ:** Responde a perguntas frequentes de segurados de forma instantânea.
-* **Inteligência Contextual (RAG):** Utiliza documentos técnicos localizados em `/rag_docs` (como manuais e termos de apólices) para garantir que a IA forneça informações baseadas em dados reais.
+* **Inteligência Contextual (RAG):** Utiliza documentos técnicos localizados em [/rag_docs](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/rag_docs) (como manuais e termos de apólices) para garantir que a IA forneça informações baseadas em dados reais.
 * **Processamento de Intenções:** Diferencia tipos de consultas e direciona fluxos conversacionais específicos.
 
 ---
@@ -15,7 +15,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** e **RAG (Retrieval-Augm
 O núcleo lógico do chatbot, incluindo a orquestração do LangChain e a interface Streamlit, pode ser acessado diretamente aqui:
 
 * 🔗 **[agente_chatbotseguro.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/agente_chatbotseguro.py)**
-* 🔗 **[Frontend Streamlit app.py]()**
+* 🔗 **[Frontend Streamlit app.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/app.py)**
 
 ---
 
@@ -66,12 +66,6 @@ As chaves sensíveis (`API_KEY_OPENROUTER`, `API_KEY`, `HUGGINGFACE_KEY`) são a
 
 ---
 
-## 📃 Licença
-
-Código aberto sob **licença MIT**.
-
----
-
 # 💻 Implantação Local
 
 Caso deseje executar o projeto localmente para fins de desenvolvimento, testes ou estudos, siga os passos abaixo.
@@ -80,29 +74,8 @@ Caso deseje executar o projeto localmente para fins de desenvolvimento, testes o
 
 Antes de iniciar, certifique-se de possuir instalado:
 
-- Python 3.13+Git
+- Python 3.13
 - Conta com acesso à API utilizada pelo OpenRouter
-
----
-
-## 📥 Clonando o Projeto
-
-```bash
-git clone https://github.com/ajndantas/I2A2-Grupo_01.git
-cd I2A2-Grupo_01
-```
-
----
-
-## 🔐 Configuração das Variáveis de Ambiente
-
-Crie um arquivo `.env` no diretório do projeto contendo as variáveis necessárias:
-
-```env
-API_KEY_OPENROUTER=SEU_TOKEN
-```
-
----
 
 ## 📦 Instalação das Dependências (Execução Local sem Docker)
 
@@ -130,26 +103,66 @@ pip install -r requirements.txt
 
 ---
 
-## 🤖 Download dos Modelos de Embedding
 
-O projeto utiliza modelos locais do Hugging Face para embeddings.
 
-Execute o script responsável pelo download:
+## 🔐 Configuração das Variáveis de Ambiente
+
+Crie um arquivo `.env` dentro do diretório Scripts do ambiente virtual, contendo as variáveis necessárias:
+
+```
+cd .venv\Scripts
+```
+
+```env
+API_KEY_OPENROUTER=SEU_TOKEN
+```
+
+
+## 📥 Instalando os códigos
+
+Faça o download dos códigos abaixo, para dentro do diretório Scripts no ambiente virtual:
 
 ```bash
+cd .venv\Scripts
+```
+
+🔗 **[agente_chatbotseguro.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/agente_chatbotseguro.py)**
+
+🔗 **[app.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/app.py)**
+
+---
+
+## 🤖 Download do Modelo de Embedding
+
+O projeto utiliza um modelo local ([all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)) do Hugging Face para embeddings.
+
+- Faça o download do código [huggingface_models_download.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/huggingface_models_download.py) para dentro do diretório Scripts no ambiente virtual:
+- De dentro desse diretório, execute o script responsável pelo download:
+
+```bash
+cd .venv\Scripts
 python huggingface_models_download.py
 ```
 
 Os modelos serão armazenados localmente para melhorar a performance e reduzir chamadas externas.
 
----
+## 📁 Documentos da base de consulta
+
+O diretório [/rag_docs](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/rag_docs), dentro de Scripts, deve conter os documentos utilizados pelo mecanismo RAG, como:
+
+- Apólices
+- FAQs
+- Manuais técnicos
+- Documentação de seguros
+
+Esses arquivos são utilizados como base contextual para respostas da IA.
 
 ## ▶️ Execução Local com Streamlit
 
-Após instalar as dependências e configurar as variáveis:
+Após instalar as dependências, configurar as variáveis e baixar o modelo de embedding, execute o comando a seguir:
 
 ```bash
-streamlit run agente_chatbotseguro.py
+streamlit run app.py
 ```
 
 O sistema ficará disponível em:
@@ -160,21 +173,11 @@ http://localhost:8501
 
 ---
 
-## 📁 Estrutura Esperada
-
-O diretório `/rag_docs` deve conter os documentos utilizados pelo mecanismo RAG, como:
-
-- Apólices
-- FAQs
-- Manuais técnicos
-- Documentação de seguros
-
-Esses arquivos são utilizados como base contextual para respostas da IA.
-
----
-
 ## 🛠️ Observações Importantes
 
 - Certifique-se de que as portas `8501`, `80` e `443` estejam disponíveis.
 - O primeiro carregamento dos modelos pode demorar alguns minutos.
-- Para ambientes produtivos, recomenda-se utilizar proxy reverso com Nginx e HTTPS configurado via Certbot.
+
+## 📃 Licença
+
+Código aberto sob **licença MIT**.
