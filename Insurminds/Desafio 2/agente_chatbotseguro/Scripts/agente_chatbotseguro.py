@@ -188,9 +188,6 @@ class AgenteChatbotSeguro:
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
-                    **SEMPRE** pesquisar nos documentos que sejam relacionados ao objeto da pergunta. Ex: Celular, pesquisar nos documentos
-                    relacionados a celular.
-
                     CONTEXTO:                    
                     --------------------------------------------------------------------------------
                         {context}
@@ -198,10 +195,16 @@ class AgenteChatbotSeguro:
 
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                        - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados 
+                        a celular. Caso o bem informado nao esteja relacionado aos documentos, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta." 
+                        e informe "Fonte não encontrada" em fontes.
+
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para 
                         responder a essa pergunta." e informe "Fonte não encontrada" em fontes.
+
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando os nomes das fontes utilizadas. Seja claro e conciso em 
-                        suas respostas.                        
+                        suas respostas.
+                        
                         - SEMPRE responda no formato JSON, seguindo a estrutura definida abaixo.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
