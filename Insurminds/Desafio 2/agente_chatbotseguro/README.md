@@ -2,7 +2,17 @@
 
 Este projeto utiliza **Inteligência Artificial (LLMs)** e **RAG (Retrieval-Augmented Generation)** para automatizar o atendimento a segurados, processando manuais, apólices e bases de conhecimento para fornecer respostas precisas e naturais.
 
-## 🚀 O que este projeto faz
+---
+
+## 🚀 Demonstração ao Vivo
+
+O projeto está implantado e disponível para testes em tempo real na infraestrutura da **Google Cloud Platform (GCP)**:
+
+🔗 **[Acessar Demo do Agente Chatbot Seguro](https://antoniodantasn8n.ddns.net/agentechatbotseguro)**
+
+---
+
+## 🛠️ O que este projeto faz
 
 * **Automação de FAQ:** Responde a perguntas frequentes de segurados de forma instantânea.
 * **Inteligência Contextual (RAG):** Utiliza documentos técnicos localizados em [/rag_docs](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/rag_docs) (como manuais e termos de apólices) para garantir que a IA forneça informações baseadas em dados reais.
@@ -37,7 +47,7 @@ As variáveis de ambiente são geridas de forma segura e persistente através de
 
 ### GitHub Secrets (CI/CD)
 
-As chaves sensíveis (`API_KEY_OPENROUTER`, `API_KEY`, `HUGGINGFACE_KEY`) são armazenadas nos **GitHub Secrets**. Durante o build, são passadas como `--build-arg`
+A chave sensível (`API_KEY_OPENROUTER`) é armazenada nos **GitHub Secrets**. Durante o build, é passada como `--build-arg`.
 
 ---
 
@@ -61,8 +71,8 @@ As chaves sensíveis (`API_KEY_OPENROUTER`, `API_KEY`, `HUGGINGFACE_KEY`) são a
 * 🧱 **Streamlit** – Interface web interativa para o usuário.
 * 🐳 **Docker & Docker Compose** – Containerização e orquestração de serviços.
 * 🛡️ **Nginx** – Gateway de segurança e gerenciamento de subdomínios.
-* 🐙 **GitHub** – Hospedagem do código-fonte, gestão de versões e automação de CI/CD via GitHub Actions.
-* ☁️ **GCP (Google Cloud Platform)** – Infraestrutura de nuvem e hospedagem em Máquina Virtual (VM).
+* 🐙 **GitHub** – Hospedagem do código-fonte e automação de CI/CD.
+* ☁️ **GCP (Google Cloud Platform)** – Infraestrutura de nuvem e hospedagem em VM.
 
 ---
 
@@ -88,6 +98,7 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
+
 ### Windows
 
 ```powershell
@@ -103,8 +114,6 @@ pip install -r requirements.txt
 
 ---
 
-
-
 ## 🔐 Configuração das Variáveis de Ambiente
 
 Crie um arquivo `.env` dentro do diretório Scripts do ambiente virtual, contendo as variáveis necessárias:
@@ -116,7 +125,6 @@ cd .venv\Scripts
 ```env
 API_KEY_OPENROUTER=SEU_TOKEN
 ```
-
 
 ## 📥 Instalando os códigos
 
