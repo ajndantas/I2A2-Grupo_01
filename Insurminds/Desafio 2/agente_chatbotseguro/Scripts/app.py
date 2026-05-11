@@ -143,9 +143,13 @@ st.markdown("""
 # ──────────────────────────────────────────────
 @st.cache_resource(show_spinner="⚙️ Carregando base de conhecimento…")
 def carregar_agente():
+    
     return AgenteChatbotSeguro()
 
-agente = carregar_agente()
+
+if "agente" not in st.session_state:
+    agente = carregar_agente()
+    st.session_state.agente = agente
 
 # ──────────────────────────────────────────────
 # HISTÓRICO DE MENSAGENS
@@ -156,7 +160,7 @@ if "historico" not in st.session_state:
 # ──────────────────────────────────────────────
 # SUGESTÕES RÁPIDAS
 # ──────────────────────────────────────────────
-SUGESTOES = [
+""" SUGESTOES = [
     "Como acionar meu seguro?",
     "O que cobre o seguro de vida?",
     "Prazo para abertura de sinistro",
@@ -169,7 +173,7 @@ if not st.session_state.historico:
     for i, sugestao in enumerate(SUGESTOES):
         if cols[i].button(sugestao, key=f"chip_{i}"):
             st.session_state.historico.append({"role": "user", "content": sugestao})
-            st.rerun()
+            st.rerun() """
 
 # ──────────────────────────────────────────────
 # RENDERIZAR HISTÓRICO

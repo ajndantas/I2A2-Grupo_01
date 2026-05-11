@@ -7,7 +7,7 @@ python-dotenv==1.0.1
 sentence-transformers==5.1.2
 langchain-huggingface==0.3.1
 faiss-cpu==1.13.2
-pypdf==5.3.1
+pypdf==6.11.0
 pandas==3.0.2
 streamlit==1.57.0
 tqdm==4.67.3
@@ -21,3 +21,6 @@ jiter==0.14.0
 wheel==0.47.0
 packaging==25.0
 urllib3==2.7.0
+unstructured==0.22.27
+libmagic==1.0
+python-magic-bin==0.4.14

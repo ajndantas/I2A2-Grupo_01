@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 from os import getenv, path
 from langchain_core.globals import set_debug, set_llm_cache, set_verbose
 from langchain_core.caches import InMemoryCache
-from langchain_community.document_loaders import TextLoader, DirectoryLoader, HTMLLoader
+from langchain_community.document_loaders import TextLoader, DirectoryLoader, BSHTMLLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter, CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -40,16 +40,21 @@ class Loader:
     def __init__(self):        
 
         # CRIAÇÃO - ARQUIVOS TEXTO (CSV, HTML, JSON, ETC) - CARREGADORES 
+        loader_cls_map = {
+            ".txt": TextLoader,
+            ".html": BSHTMLLoader
+        }
+        
         self.loader = DirectoryLoader(
                                         "rag_docs", # O DIRETÓRIO ONDE ESTÃO OS ARQUIVOS QUE QUERO CARREGAR
                                         #glob="*.html", # O PADRÃO DE NOME DOS ARQUIVOS
-                                        loader_cls=[TextLoader, HTMLLoader],
                                         loader_kwargs={"encoding": "utf-8"}
                                      ) # PARA CARREGAR VÁRIOS ARQUIVOS DE UMA SÓ VEZ. O GLOB 
                                        # É UM CURINGA PARA SELECIONAR VÁRIOS ARQUIVOS COM O MESMO PADRÃO. NESSE CASO, 
                                        # TODOS OS ARQUIVOS COM EXTENSÃO .CSV DENTRO DA PASTA ../rag_docs/
 
-        
+        self.loader.loader_cls_map = loader_cls_map # PARA USAR NO MÉTODO LOAD  
+
     # O MÉTODO LOAD VAI SER RESPONSÁVEL POR CHAMAR O MÉTODO LOAD DO CARREGADOR PARA LER OS ARQUIVOS E DEVOLVER UM ARRAY DE DOCUMENTOS.
     def load(self) -> list:
         
@@ -63,30 +68,30 @@ class SearchIndex:
     # 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self, chunk_size: int, chunk_overlap: int, documents: list) -> list:
 
-        splitter = CharacterTextSplitter(                                                    
-                                                    chunk_size=chunk_size, 
-                                                    chunk_overlap=chunk_overlap,                                                    
-                                                    #separators=["<h1>","<h2>","<h3>","<h4>","<h5>","\n\n", "\n", " ", ""] # OS SEPARADORES VÃO DETERMINAR ONDE O 
-                                                                                                                                # SPLITTER VAI TENTAR QUEBRAR O TEXTO. 
-                                                                                                                                # ELE VAI TENTAR QUEBRAR PRIMEIRO 
-                                                                                                                                # PELO SEPARADOR MAIS PRIORITÁRIO, 
-                                                                                                                                # E SE NÃO CONSEGUIR, VAI TENTAR PELO PRÓXIMO 
-                                                                                                                                # SEPARADOR DA LISTA.
+        splittered_docs = RecursiveCharacterTextSplitter(                                                    
+                                                            chunk_size=chunk_size, 
+                                                            chunk_overlap=chunk_overlap,                                                    
+                                                            separators=["<h1>","<h2>","<h3>","<h4>","<h5>","\n\n", "\n", " ", ""] # OS SEPARADORES VÃO DETERMINAR ONDE O 
+                                                                                                                                        # SPLITTER VAI TENTAR QUEBRAR O TEXTO. 
+                                                                                                                                        # ELE VAI TENTAR QUEBRAR PRIMEIRO 
+                                                                                                                                        # PELO SEPARADOR MAIS PRIORITÁRIO, 
+                                                                                                                                        # E SE NÃO CONSEGUIR, VAI TENTAR PELO PRÓXIMO 
+                                                                                                                                        # SEPARADOR DA LISTA.
 
-                                                                                                                                # Somente se o texto entre as tags ainda for maior que o seu chunk_size 
-                                                                                                                                # é que o splitter utilizará os demais 
-                                                                                                                                # separadores (\n\n, \n, etc.)
-                                                                                                                                #
-                                                                                                                                # O ÚLTIMO SEPARADOR É UMA STRING VAZIA, 
-                                                                                                                                # O QUE SIGNIFICA QUE O SPLITTER VAI TENTAR 
-                                                                                                                                # QUEBRAR O TEXTO EM QUALQUER LUGAR SE NÃO 
-                                                                                                                                # CONSEGUIR PELO SEPARADOR ANTERIOR.
+                                                                                                                                        # Somente se o texto entre as tags ainda for maior que o seu chunk_size 
+                                                                                                                                        # é que o splitter utilizará os demais 
+                                                                                                                                        # separadores (\n\n, \n, etc.)
+                                                                                                                                        #
+                                                                                                                                        # O ÚLTIMO SEPARADOR É UMA STRING VAZIA, 
+                                                                                                                                        # O QUE SIGNIFICA QUE O SPLITTER VAI TENTAR 
+                                                                                                                                        # QUEBRAR O TEXTO EM QUALQUER LUGAR SE NÃO 
+                                                                                                                                        # CONSEGUIR PELO SEPARADOR ANTERIOR.
                                                     
-                                        ) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
+                                                        ) # O CHUNK_OVERLAP VAI DETERMINAR O NÍVEL DE SOBREPOSIÇÃO ENTRE OS CHUNKS. SE FOR 0, NÃO HAVERÁ SOBREPOSIÇÃO. 
                                                     # SE FOR MAIOR QUE 0, OS CHUNKS VÃO SE SOBREPOR EM UMA QUANTIDADE DE CARACTERES DETERMINADA 
                                                     # PELO VALOR DO CHUNK_OVERLAP.
 
-        self.chunked_docs = splitter.split_documents(documents)  
+        self.chunked_docs = splittered_docs.split_documents(documents)  
 
         return self.chunked_docs 
     
@@ -154,7 +159,8 @@ class AgenteChatbotSeguro:
     
     documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
 
-    print("Documentos:\n", documents.sources)
+    fontes = set([doc.metadata.source for doc in documents])
+    print("Documentos carregados:", fontes)
 
     # PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
     searchindex = SearchIndex()
@@ -198,7 +204,7 @@ class AgenteChatbotSeguro:
                     {{
                         "pergunta": "{question}",     
                         "resposta": "A resposta para a pergunta. Seja claro e conciso em sua resposta.",
-                        "fontes": "NOMES dos documentos utilizados para responder à pergunta do usuário"
+                        "fontes": "Nomes dos ARQUIVOS ou ARQUIVO utilizado para responder à pergunta do usuário"
                     }}
                 """    
 
