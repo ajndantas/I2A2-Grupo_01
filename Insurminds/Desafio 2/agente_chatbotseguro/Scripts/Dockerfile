@@ -13,6 +13,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 COPY agente_chatbotseguro.py .
+COPY app.py .
 
 # Copie os arquivos de dados para o contêiner.
 COPY rag_docs/ ./rag_docs/
