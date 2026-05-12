@@ -18,6 +18,7 @@ requests.Session.send = _patched_send
 
 from sentence_transformers import SentenceTransformer
 
+print('Fazendo download do modelo de embeddings...')
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 model.save('./cache/all-MiniLM-L6-v2')
 print("Modelo salvo com sucesso!")
