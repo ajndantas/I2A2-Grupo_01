@@ -70,8 +70,7 @@ class SearchIndex:
 
         splittered_docs = RecursiveCharacterTextSplitter(                                                    
                                                             chunk_size=chunk_size, 
-                                                            chunk_overlap=chunk_overlap,
-                                                            normalize_text=True,                                                                                                                
+                                                            chunk_overlap=chunk_overlap,                                                                                                                
                                                             separators=["<h1>","<h2>","<h3>","<h4>","<h5>","\n\n", "\n", " ", ""] # OS SEPARADORES VÃO DETERMINAR ONDE O 
                                                                                                                                         # SPLITTER VAI TENTAR QUEBRAR O TEXTO. 
                                                                                                                                         # ELE VAI TENTAR QUEBRAR PRIMEIRO 
@@ -149,7 +148,7 @@ class AgenteChatbotSeguro:
     
     documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
 
-    fontes = set([doc.metadata["source"] for doc in documents])
+    #fontes = set([doc.metadata["source"] for doc in documents])
     #print("Documentos carregados:", fontes)
 
     # PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
