@@ -23,8 +23,7 @@ from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from time import time
 from re import sub
-from pydantic import BaseModel, Field
-from langchain_core.output_parsers import JsonOutputParser
+
 
 #set_debug(True)
 set_verbose(True)
@@ -172,8 +171,6 @@ class AgenteChatbotSeguro:
     db = VectorDB(documents=chunked_docs, embeddings=searchindex.indexer(), db_path_name=db_path_name).db() # PASSO 3 - BANCO DE VETORES - PARA ARMAZENAR O ÍNDICE DE 
                                                                                                             # BUSCA DOS CHUNKS DOS DOCS E SEUS RESPECTIVOS VETORES 
                                                                                                             # DE EMBEDDING.
-    parseador = JsonOutputParser(pydantic_object=FAQModel)
-
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
                     
@@ -205,13 +202,16 @@ class AgenteChatbotSeguro:
                     Pergunta: {question}
                     
                     Resposta:
-                    {formatador_saida}
+                    {{
+                        "pergunta": "{question}",     
+                        "resposta": "A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta.",
+                        "fontes": "Nomes das fontes ou da fonte (source) que foi utilizada para responder à pergunta do usuário."
+                    }}
                 """    
 
     prompt_template = PromptTemplate(
                                         template=template,
-                                        input_variables=["context", "question"],
-                                        partial_variables={"formatador_saida": parseador.get_format_instructions()}                                  
+                                        input_variables=["context", "question"]                                                                          
                                     )    
     
 
