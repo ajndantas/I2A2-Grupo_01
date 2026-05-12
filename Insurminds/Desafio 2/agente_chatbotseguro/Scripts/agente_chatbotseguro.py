@@ -23,6 +23,8 @@ from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from time import time
 from re import sub
+from pydantic import BaseModel, Field
+from langchain_community.output_parsers import JsonOutputParser
 
 #set_debug(True)
 set_verbose(True)
@@ -133,6 +135,11 @@ class VectorDB:
 
         return db_instance   
 
+class FAQModel(BaseModel):
+    pergunta: str = Field(description="Pergunta do usuário")
+    resposta: str = Field(description="A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta.",)
+    fontes: str = Field(description="Os documentos que foram usados para responder a pergunta")
+
 
 class AgenteChatbotSeguro:
 
@@ -161,10 +168,12 @@ class AgenteChatbotSeguro:
 
     db_path_name = "faiss_index"
 
+
     db = VectorDB(documents=chunked_docs, embeddings=searchindex.indexer(), db_path_name=db_path_name).db() # PASSO 3 - BANCO DE VETORES - PARA ARMAZENAR O ÍNDICE DE 
                                                                                                             # BUSCA DOS CHUNKS DOS DOCS E SEUS RESPECTIVOS VETORES 
                                                                                                             # DE EMBEDDING.
-    
+    parseador = JsonOutputParser(pydantic_object=FAQModel)
+
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
                     
@@ -196,16 +205,13 @@ class AgenteChatbotSeguro:
                     Pergunta: {question}
                     
                     Resposta:
-                    {{
-                        "pergunta": "{question}",     
-                        "resposta": "A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta.",
-                        "fontes": "document.metdata['source'] - Nomes dos ARQUIVOS ou ARQUIVO utilizado para responder à pergunta do usuário."
-                    }}
+                    {formatador_saida}
                 """    
 
     prompt_template = PromptTemplate(
                                         template=template,
-                                        input_variables=["context", "question"]                                  
+                                        input_variables=["context", "question"],
+                                        partial_variables={"formatador_saida": parseador.get_format_instructions()}                                  
                                     )    
     
 
@@ -221,14 +227,17 @@ class AgenteChatbotSeguro:
     self.qa_chain = RetrievalQA.from_chain_type(
                                                   llm=llm, 
                                                   retriever=db.as_retriever(),                                                                                                      
-                                                  chain_type_kwargs={"prompt": prompt_template}                                                                                                                                                                              
+                                                  chain_type_kwargs={"prompt": prompt_template}
+                                                  return_source_documents=True                                                                                                                                                                              
                                                 )
     
   def query(self, question: str) -> str:
       
       self.output = self.qa_chain.invoke({"query": question}) 
-      self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
+      #self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
                                                                               # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
+
+      self.result = self.output['result']
 
       print("JSON\n",self.result)    
 
