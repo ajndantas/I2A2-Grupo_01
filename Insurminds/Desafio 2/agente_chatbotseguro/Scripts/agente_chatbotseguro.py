@@ -132,12 +132,7 @@ class VectorDB:
         
         db_instance.save_local(self.db_path)
 
-        return db_instance   
-
-class FAQModel(BaseModel):
-    pergunta: str = Field(description="Pergunta do usuário")
-    resposta: str = Field(description="A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta.",)
-    fontes: str = Field(description="Os documentos que foram usados para responder a pergunta")
+        return db_instance
 
 
 class AgenteChatbotSeguro:
@@ -161,7 +156,6 @@ class AgenteChatbotSeguro:
     searchindex = SearchIndex()
     chunked_docs = searchindex.splitter(chunk_size=800, chunk_overlap=500, documents=documents) # PASSO 2.1 - QUEBRA DO TEXTO - DIVIDIR OS DOCUMENTOS 
                                                                                                 # EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM.
-
 
     #print("Chunked Docs:\n",chunked_docs)
 
@@ -234,10 +228,10 @@ class AgenteChatbotSeguro:
   def query(self, question: str) -> str:
       
       self.output = self.qa_chain.invoke({"query": question}) 
-      #self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
+      self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
                                                                               # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
 
-      self.result = self.output['result']
+      #self.result = self.output['result']
 
       print("JSON\n",self.result)    
 
