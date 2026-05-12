@@ -70,7 +70,8 @@ class SearchIndex:
 
         splittered_docs = RecursiveCharacterTextSplitter(                                                    
                                                             chunk_size=chunk_size, 
-                                                            chunk_overlap=chunk_overlap,                                                    
+                                                            chunk_overlap=chunk_overlap,
+                                                            normalize_text=True,                                                                                                                
                                                             separators=["<h1>","<h2>","<h3>","<h4>","<h5>","\n\n", "\n", " ", ""] # OS SEPARADORES VÃO DETERMINAR ONDE O 
                                                                                                                                         # SPLITTER VAI TENTAR QUEBRAR O TEXTO. 
                                                                                                                                         # ELE VAI TENTAR QUEBRAR PRIMEIRO 
@@ -142,8 +143,7 @@ class AgenteChatbotSeguro:
                         model="openrouter/free",
                         #model="gpt-5-mini",                   
                         api_key=getenv("API_KEY_OPENROUTER"),
-                        #api_key=getenv("API_KEY")
-                        reasoning_effort="high",                        
+                        #api_key=getenv("API_KEY")                        
                         base_url="https://openrouter.ai/api/v1"                  
                     )
     
