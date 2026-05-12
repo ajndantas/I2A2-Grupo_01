@@ -251,6 +251,7 @@ class AgenteChatbotSeguro:
       return self.result
 
 
+# CÓDIGO PARA WARM UP PARA CRIAR O BANCO DE DADOS VETORIAL 
 if __name__ == "__main__":
 
     inicio = time() # Marca o tempo inicial
@@ -258,16 +259,15 @@ if __name__ == "__main__":
     agente = AgenteChatbotSeguro()
 
     # PERGUNTAS PARA TESTAR O AGENTE
-    print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"),"\n")
+    """     print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"),"\n")
     fim = time() # Marca o tempo final
     #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
 
     inicio = time() # Marca o tempo inicial
     print(agente.query("Como devo proceder caso tenha meu celular roubado ?"),"\n")
     fim = time() # Marca o tempo final
-    #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
+    #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n") """
 
-    inicio = time() # Marca o tempo inicial
     print(agente.query("Quem descobriu o Brasil ?"))
     fim = time() # Marca o tempo final
     #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
