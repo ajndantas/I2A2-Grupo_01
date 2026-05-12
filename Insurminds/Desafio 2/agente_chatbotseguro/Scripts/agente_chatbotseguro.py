@@ -227,7 +227,7 @@ class AgenteChatbotSeguro:
     self.qa_chain = RetrievalQA.from_chain_type(
                                                   llm=llm, 
                                                   retriever=db.as_retriever(),                                                                                                      
-                                                  chain_type_kwargs={"prompt": prompt_template}
+                                                  chain_type_kwargs={"prompt": prompt_template},
                                                   return_source_documents=True                                                                                                                                                                              
                                                 )
     
