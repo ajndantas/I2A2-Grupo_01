@@ -255,4 +255,4 @@ if __name__ == "__main__":
 
     print(agente.query("Quem descobriu o Brasil ?"))
     fim = time() # Marca o tempo final
-    #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
+    print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
