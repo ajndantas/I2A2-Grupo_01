@@ -199,7 +199,7 @@ class AgenteChatbotSeguro:
                     {{
                         "pergunta": "{question}",     
                         "resposta": "A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta.",
-                        "fontes": "Nomes dos ARQUIVOS ou ARQUIVO utilizado para responder à pergunta do usuário"
+                        "fontes": "document.metdata['source'] - Nomes dos ARQUIVOS ou ARQUIVO utilizado para responder à pergunta do usuário."
                     }}
                 """    
 
