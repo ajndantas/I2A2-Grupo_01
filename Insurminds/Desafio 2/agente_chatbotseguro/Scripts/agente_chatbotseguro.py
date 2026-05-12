@@ -24,7 +24,7 @@ from langchain_core.prompts import PromptTemplate
 from time import time
 from re import sub
 from pydantic import BaseModel, Field
-from langchain_community.output_parsers import JsonOutputParser
+from langchain_core.output_parsers import JsonOutputParser
 
 #set_debug(True)
 set_verbose(True)
