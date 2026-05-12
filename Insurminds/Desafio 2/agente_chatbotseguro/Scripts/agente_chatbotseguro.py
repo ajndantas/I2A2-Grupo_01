@@ -103,17 +103,6 @@ class SearchIndex:
                     model_kwargs={'device': 'cpu'}, # Força o uso do seu processador
                     encode_kwargs={'normalize_embeddings': True} # Normaliza os vetores de embedding para melhorar a precisão da busca.                                            
         )
-
-        """ self.embeddings = OpenAIEmbeddings(
-                                                model="nvidia/llama-nemotron-embed-vl-1b-v2:free",
-                                                api_key=getenv("API_KEY_OPENROUTER"),
-                                                base_url="https://openrouter.ai/api/v1"
-                                                )  """
-
-        """ self.embeddings = OpenAIEmbeddings(
-                                                model="text-embedding-3-small", # MAIS RÁPIDO E BARATO, MAS MENOS PRECISO. IDEAL PARA TESTES E PROJETOS PEQUENOS.
-                                                api_key=getenv("API_KEY")                                                
-                                          ) """
         
         return self.embeddings
 
@@ -173,10 +162,6 @@ class AgenteChatbotSeguro:
 
     db_path_name = "faiss_index"
 
-    #if path.exists(self.db_path): 
-    #   print("Apagando Índice de busca existente para carga de novos documentos...\n")
-    #   shutil.rmtree(self.db_path) # O MÉTODO RMTREE VAI APAGAR O DIRETÓRIO ONDE O ÍNDICE DE BUSCA ESTÁ SALVO, INCLUINDO TODOS OS ARQUIVOS E SUBDIRETÓRIOS CONTIDOS NELE.
-                                    # rmdir só pode ser usado para remover diretórios vazios.
     db = VectorDB(documents=chunked_docs, embeddings=searchindex.indexer(), db_path_name=db_path_name).db() # PASSO 3 - BANCO DE VETORES - PARA ARMAZENAR O ÍNDICE DE 
                                                                                                             # BUSCA DOS CHUNKS DOS DOCS E SEUS RESPECTIVOS VETORES 
                                                                                                             # DE EMBEDDING.
