@@ -8,7 +8,7 @@
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
 
-
+import json
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
@@ -42,20 +42,22 @@ class Loader:
 
         # CRIAÇÃO - ARQUIVOS TEXTO (CSV, HTML, JSON, ETC) - CARREGADORES 
         loader_cls_map = {
-            ".txt": TextLoader,
-            ".html": BSHTMLLoader
+            ".html": BSHTMLLoader,
+            ".csv": TextLoader,
+            ".txt": TextLoader
         }
         
         self.loader = DirectoryLoader(
                                         "rag_docs", # O DIRETÓRIO ONDE ESTÃO OS ARQUIVOS QUE QUERO CARREGAR
                                         #glob="*.html", # O PADRÃO DE NOME DOS ARQUIVOS
-                                        loader_kwargs={"encoding": "utf-8"}
+                                        glob=["*.html","*.csv","*.txt"],
+                                        loader_kwargs={"encoding": "utf-8","language": "pt"}                        
                                      ) # PARA CARREGAR VÁRIOS ARQUIVOS DE UMA SÓ VEZ. O GLOB 
                                        # É UM CURINGA PARA SELECIONAR VÁRIOS ARQUIVOS COM O MESMO PADRÃO. NESSE CASO, 
                                        # TODOS OS ARQUIVOS COM EXTENSÃO .CSV DENTRO DA PASTA ../rag_docs/
 
         self.loader.loader_cls_map = loader_cls_map # PARA USAR NO MÉTODO LOAD  
-
+        
     # O MÉTODO LOAD VAI SER RESPONSÁVEL POR CHAMAR O MÉTODO LOAD DO CARREGADOR PARA LER OS ARQUIVOS E DEVOLVER UM ARRAY DE DOCUMENTOS.
     def load(self) -> list:
         
@@ -144,7 +146,8 @@ class AgenteChatbotSeguro:
                         #model="gpt-5-mini",                   
                         api_key=getenv("API_KEY_OPENROUTER"),
                         #api_key=getenv("API_KEY")                        
-                        base_url="https://openrouter.ai/api/v1"                  
+                        base_url="https://openrouter.ai/api/v1",
+                        reasoning_effort="high"                  
                     )
     
     documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
@@ -171,6 +174,9 @@ class AgenteChatbotSeguro:
                     Seus conhecimentos estao baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
                     que podem conter informações relevantes para responder às perguntas dos usuários.
 
+                    Qualquer atendimento deve iniciar com a geração de um protocolo, que deverá ser informado para o usuário assim que 
+                    ele enviar a primeira pergunta e antes de responder a pergunta.
+
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
                     CONTEXTO:                    
@@ -180,14 +186,14 @@ class AgenteChatbotSeguro:
 
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                        - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados 
-                        a celular. Caso o bem informado não esteja relacionado aos documentos, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta." 
-                        e informe "Fonte não encontrada" em fontes.
+                        - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados. 
+                        a celular. Caso o bem informado não esteja relacionado aos documentos, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
+                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele possa lhe ajudar."
 
-                        - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para 
-                        responder a essa pergunta." e informe "Fonte não encontrada" em fontes.
+                        - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
+                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele possa lhe ajudar." 
 
-                        - Se os documentos contiverem informações relevantes, responda com base nessas informações, citando os nomes das fontes utilizadas. Seja claro e conciso em 
+                        - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso em 
                         suas respostas.
 
                         - SEMPRE responda no formato JSON, seguindo a estrutura definida abaixo.
@@ -198,8 +204,7 @@ class AgenteChatbotSeguro:
                     Resposta:
                     {{
                         "pergunta": "{question}",     
-                        "resposta": "A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta.",
-                        "fontes": "Nomes das fontes ou da fonte (source) que foi utilizada para responder à pergunta do usuário."
+                        "resposta": "A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta."
                     }}
                 """    
 
@@ -228,10 +233,13 @@ class AgenteChatbotSeguro:
   def query(self, question: str) -> str:
       
       self.output = self.qa_chain.invoke({"query": question}) 
+      print("Saída: \n",self.output)
       self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
                                                                               # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
+      
 
       #self.result = self.output['result']
+      self.result["fonte"] = [path.basename(r.metadata["source"]) if r and not(r.empty) else "Nenhuma fonte encontrada" for r in self.output['source_documents']]
 
       print("JSON\n",self.result)    
 
@@ -240,6 +248,7 @@ class AgenteChatbotSeguro:
 
 # CÓDIGO PARA WARM UP PARA CRIAR O BANCO DE DADOS VETORIAL 
 if __name__ == "__main__":
+
 
     inicio = time() # Marca o tempo inicial
 
