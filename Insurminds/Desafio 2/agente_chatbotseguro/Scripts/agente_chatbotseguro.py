@@ -246,9 +246,11 @@ class AgenteChatbotSeguro:
 
       self.result["protocolo"] = f"{randint(0, 999999):06d}"
 
-      #print("JSON\n",self.result)    
+      self.json = json.dumps(self.result, indent=2, ensure_ascii=True)
+      
+      print("JSON\n",self.json)    
 
-      return json.dumps(self.result, indent=4, ensure_ascii=True) # RETORNA O RESULTADO EM JSON COM INDENTAÇÃO
+      return self.json 
 
 
 # CÓDIGO PARA WARM UP PARA CRIAR O BANCO DE DADOS VETORIAL 
