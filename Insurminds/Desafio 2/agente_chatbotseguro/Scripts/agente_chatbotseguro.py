@@ -246,7 +246,7 @@ class AgenteChatbotSeguro:
 
       self.result["protocolo"] = f"{randint(0, 999999):06d}"
 
-      print("JSON\n",self.result)    
+      #print("JSON\n",self.result)    
 
       return self.result
 
