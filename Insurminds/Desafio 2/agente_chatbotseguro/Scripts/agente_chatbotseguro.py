@@ -248,7 +248,7 @@ class AgenteChatbotSeguro:
 
       #print("JSON\n",self.result)    
 
-      return self.result
+      return json.dumps(self.result, indent=4, ensure_ascii=True) # RETORNA O RESULTADO EM JSON COM INDENTAÇÃO
 
 
 # CÓDIGO PARA WARM UP PARA CRIAR O BANCO DE DADOS VETORIAL 
