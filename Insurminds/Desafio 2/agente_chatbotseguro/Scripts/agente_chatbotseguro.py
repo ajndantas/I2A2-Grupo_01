@@ -8,7 +8,6 @@
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
 
-import json
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
@@ -18,12 +17,12 @@ from langchain_community.document_loaders import TextLoader, DirectoryLoader, BS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from time import time
 from re import sub
 from random import randint
+import json
 
 
 #set_debug(True)
@@ -236,9 +235,11 @@ class AgenteChatbotSeguro:
       print("Saída: \n",output)
 
       self.result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
-                                                                              # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.      
+                                                                         # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.      
 
       #self.result = self.output['result']
+
+      self.result = json.loads(self.result) 
       
       source_documents = output['source_documents']
       self.result["fonte"] = ", ".join([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents])
