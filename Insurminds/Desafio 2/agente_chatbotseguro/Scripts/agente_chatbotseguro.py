@@ -23,6 +23,7 @@ from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from time import time
 from re import sub
+from random import randint
 
 
 #set_debug(True)
@@ -172,10 +173,7 @@ class AgenteChatbotSeguro:
                     Você é um assistente de perguntas e respostas especializado em seguros.
                     
                     Seus conhecimentos estao baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
-                    que podem conter informações relevantes para responder às perguntas dos usuários.
-
-                    Qualquer atendimento deve iniciar com a geração de um protocolo, que deverá ser informado para o usuário assim que 
-                    ele enviar a primeira pergunta e antes de responder a pergunta.
+                    que podem conter informações relevantes para responder às perguntas dos usuários.                    
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
@@ -188,10 +186,12 @@ class AgenteChatbotSeguro:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados. 
                         a celular. Caso o bem informado não esteja relacionado aos documentos, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
-                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele possa lhe ajudar."
+                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele possa lhe 
+                        ajudar."
 
-                        - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
-                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele possa lhe ajudar." 
+                        - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para responder a 
+                        essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele 
+                        possa lhe ajudar." 
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso em 
                         suas respostas.
@@ -239,7 +239,9 @@ class AgenteChatbotSeguro:
       
 
       #self.result = self.output['result']
-      self.result["fonte"] = [path.basename(r.metadata["source"]) if r and not(r.empty) else "Nenhuma fonte encontrada" for r in self.output['source_documents']]
+      self.result["fonte"] = [path.basename(r.metadata["source"]) if r and r.length > 0 else "Nenhuma fonte encontrada" for r in self.output['source_documents']]
+      self.result["protocolo"] = f"{random.randint(0, 999999):06d}"
+
 
       print("JSON\n",self.result)    
 
