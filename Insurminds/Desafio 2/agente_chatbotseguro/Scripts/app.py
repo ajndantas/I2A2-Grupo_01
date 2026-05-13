@@ -228,6 +228,8 @@ if ultima and ultima["role"] == "user":
             import re
             try:
                 data = json.loads(resultado)
+                print("DATA: \n", data)
+                
                 if "resposta" in data:
                     data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
                 if "fontes" in data:
