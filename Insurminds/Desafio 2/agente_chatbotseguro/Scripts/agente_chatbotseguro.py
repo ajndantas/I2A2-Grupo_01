@@ -8,6 +8,8 @@
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
 
+import datetime
+
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
@@ -238,7 +240,7 @@ class AgenteChatbotSeguro:
       
       source_documents = output['source_documents']
       self.result["fonte"] = ", ".join([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents])
-      self.result["protocolo"] = f"{randint(0, 999999):06d}"
+      self.result["protocolo"] = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
 
       self.json = json.dumps(self.result, indent=2, ensure_ascii=True)
       
