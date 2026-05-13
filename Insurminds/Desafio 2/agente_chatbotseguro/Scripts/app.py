@@ -222,9 +222,7 @@ if ultima and ultima["role"] == "user":
     with st.spinner("🔍 Consultando base de conhecimento…"):
         try:
             agente = st.session_state.agente
-            resultado = agente.query(ultima["content"])
-            
-            print("DATA: \n", data)
+            resultado = agente.query(ultima["content"])           
 
             # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
             import re           
