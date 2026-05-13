@@ -194,8 +194,6 @@ class AgenteChatbotSeguro:
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso em 
                         suas respostas.
-
-                        - SEMPRE responda no formato JSON, seguindo a estrutura definida abaixo.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
                     Pergunta: {question}
@@ -235,15 +233,11 @@ class AgenteChatbotSeguro:
       print("Saída: \n",output)
 
       self.result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
-                                                                         # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.      
-
-      #self.result = self.output['result']
-
+                                                                         # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
       self.result = json.loads(self.result) 
       
       source_documents = output['source_documents']
       self.result["fonte"] = ", ".join([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents])
-
       self.result["protocolo"] = f"{randint(0, 999999):06d}"
 
       self.json = json.dumps(self.result, indent=2, ensure_ascii=True)
@@ -255,7 +249,6 @@ class AgenteChatbotSeguro:
 
 # CÓDIGO PARA WARM UP PARA CRIAR O BANCO DE DADOS VETORIAL 
 if __name__ == "__main__":
-
 
     inicio = time() # Marca o tempo inicial
 
