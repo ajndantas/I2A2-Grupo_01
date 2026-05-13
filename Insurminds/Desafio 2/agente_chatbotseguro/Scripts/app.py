@@ -223,13 +223,15 @@ if ultima and ultima["role"] == "user":
         try:
             agente = st.session_state.agente
             resultado = agente.query(ultima["content"])
+            
+            print("DATA: \n", data)
 
             # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
-            import re
+            import re           
+
             try:
-                data = json.loads(resultado)
-                print("DATA: \n", data)
-                
+                data = json.loads(resultado)                
+
                 if "resposta" in data:
                     data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
                 if "fontes" in data:
