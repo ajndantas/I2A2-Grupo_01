@@ -8,7 +8,7 @@
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
 
-import datetime
+from datetime import datetime
 
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
