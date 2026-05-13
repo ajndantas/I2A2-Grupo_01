@@ -131,8 +131,7 @@ class VectorDB:
         
         # Se não existir, cria e salva
         print("Índice de busca não encontrado. Criando...\n")
-        db_instance = FAISS.from_documents(self.documents, self.embeddings) # CRIANDO O BD DE VETORES A PARTIR DOS DOCUMENTOS E DOS VETORES DE EMBEDDING. 
-        
+        db_instance = FAISS.from_documents(self.documents, self.embeddings) # CRIANDO O BD DE VETORES A PARTIR DOS DOCUMENTOS E DOS VETORES DE EMBEDDING.        
         db_instance.save_local(self.db_path)
 
         return db_instance
@@ -148,7 +147,7 @@ class AgenteChatbotSeguro:
                         api_key=getenv("API_KEY_OPENROUTER"),
                         #api_key=getenv("API_KEY")                        
                         base_url="https://openrouter.ai/api/v1",
-                        reasoning_effort="high"                  
+                        reasoning_effort="high" # PARA EVIDENTAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS                  
                     )
     
     documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
@@ -169,6 +168,7 @@ class AgenteChatbotSeguro:
     db = VectorDB(documents=chunked_docs, embeddings=searchindex.indexer(), db_path_name=db_path_name).db() # PASSO 3 - BANCO DE VETORES - PARA ARMAZENAR O ÍNDICE DE 
                                                                                                             # BUSCA DOS CHUNKS DOS DOCS E SEUS RESPECTIVOS VETORES 
                                                                                                             # DE EMBEDDING.
+    
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
                     
@@ -186,7 +186,7 @@ class AgenteChatbotSeguro:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados. 
                         a celular. Caso o bem informado não esteja relacionado aos documentos, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
-                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele possa lhe 
+                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe 
                         ajudar."
 
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para responder a 
@@ -232,16 +232,18 @@ class AgenteChatbotSeguro:
     
   def query(self, question: str) -> str:
       
-      self.output = self.qa_chain.invoke({"query": question}) 
-      print("Saída: \n",self.output)
-      self.result = sub(r"```json|```","",str(self.output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
-                                                                              # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
-      
+      output = self.qa_chain.invoke({"query": question}) 
+      print("Saída: \n",output)
+
+      self.result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
+                                                                              # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.      
 
       #self.result = self.output['result']
-      self.result["fonte"] = [path.basename(r.metadata["source"]) if r and r.length > 0 else "Nenhuma fonte encontrada" for r in self.output['source_documents']]
-      self.result["protocolo"] = f"{random.randint(0, 999999):06d}"
+      
+      source_documents = output['source_documents']
+      self.result["fonte"] = ", ".join([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents])
 
+      self.result["protocolo"] = f"{randint(0, 999999):06d}"
 
       print("JSON\n",self.result)    
 
