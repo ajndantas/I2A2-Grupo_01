@@ -29,6 +29,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY huggingface_models_download.py .
 RUN python huggingface_models_download.py
 
+# WARM UP DE CRIAÇÃO DO BANCO DE DADOS VETORIAL
+RUN python agente_chatbotseguro.py
+COPY cache/ ./cache/
+
 # Exponha a porta 8000 para permitir a comunicação com a aplicação Streamlit
 EXPOSE 8002
 
