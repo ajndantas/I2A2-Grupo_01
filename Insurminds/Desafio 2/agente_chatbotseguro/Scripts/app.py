@@ -260,8 +260,7 @@ if ultima and ultima["role"] == "user":
         print("Valor de i = ", st.session_state.i)                    
         protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
         st.session_state.protocolo = protocolo
-        st.session_state.historico.append({"role": "assistante", "content": f"Protocolo: {st.session_state.protocolo}"})
-    
+            
     st.session_state.historico.append({"role": "assistant", "content": resultado})
     
     st.rerun()
