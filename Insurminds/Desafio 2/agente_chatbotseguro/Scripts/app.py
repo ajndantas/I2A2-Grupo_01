@@ -181,6 +181,8 @@ if not st.session_state.historico:
 chat_container = st.container() # Cria um container para o chat
 
 with chat_container:
+    i = i + 1
+    
     for msg in st.session_state.historico:
         if msg["role"] == "user":
             texto_usuario = html_lib.escape(msg["content"])  
