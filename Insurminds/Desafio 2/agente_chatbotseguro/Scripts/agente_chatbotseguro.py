@@ -234,7 +234,7 @@ class AgenteChatbotSeguro:
       self.result = json.loads(self.result) 
       
       source_documents = output['source_documents']
-      self.result["fontes"] = set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents])
+      self.result["fontes"] = list(set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents]))
       
       self.json = json.dumps(self.result, indent=2, ensure_ascii=True)
       
