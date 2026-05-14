@@ -176,6 +176,11 @@ class AgenteChatbotSeguro:
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
+                    PERGUNTA:                    
+                    --------------------------------------------------------------------------------
+                        {question}
+                    --------------------------------------------------------------------------------
+
                     CONTEXTO:                    
                     --------------------------------------------------------------------------------
                         {context}
@@ -198,7 +203,7 @@ class AgenteChatbotSeguro:
                     
                     **SEMPRE** utilizar o seguinte formato de resposta:     
                     {{
-                        "pergunta": "{question}",     
+                        "pergunta": "Pergunta do usuário",     
                         "resposta": "A resposta para a pergunta."
                     }}
                 """    
