@@ -156,6 +156,8 @@ def carregar_agente():
 if "agente" not in st.session_state:
     i = 0
     agente = carregar_agente()
+
+    st.session_state.i = i
     st.session_state.agente = agente
 
 # ──────────────────────────────────────────────
@@ -181,8 +183,9 @@ if not st.session_state.historico:
 chat_container = st.container() # Cria um container para o chat
 
 with chat_container:
-    i = i + 1
-    
+
+    i = st.session_state.i + 1
+
     for msg in st.session_state.historico:
         if msg["role"] == "user":
             texto_usuario = html_lib.escape(msg["content"])  
@@ -253,9 +256,10 @@ if ultima and ultima["role"] == "user":
                 "fontes": ""
             })
             
-    if i == 0:                    
+    if st.session_state.i == 0:                    
         protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
-        st.session_state.historico.append({"role": "assistante", "content": f"Protocolo: {protocolo}"})
+        st.session_state.protocolo = protocolo
+        st.session_state.historico.append({"role": "assistante", "content": f"Protocolo: {st.session_state.protocolo}"})
     
     st.session_state.historico.append({"role": "assistant", "content": resultado})
     
