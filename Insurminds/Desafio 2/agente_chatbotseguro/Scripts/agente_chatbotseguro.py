@@ -123,16 +123,27 @@ class VectorDB:
 
     def db(self) -> FAISS:
 
+        #---------------------------------------------------------
+        #  MANEIRA RÁPIDA DE IMPLEMENTAR O RAG 
+        #
+        # 1 - LAZY LOADING
+        # 2 - LAZY SPLITTING
+        # 3 - CRIAÇÃO DO BANCO VETORIAL SÓ QUANDO FOR NECESSÁRIO.
+        #---------------------------------------------------------
+
+        # ...se existir, carrega
         if path.exists(self.db_path):
             print("Índice de busca encontrado. Carregando o índice existente...\n")
             return FAISS.load_local(self.db_path, self.embeddings, allow_dangerous_deserialization=True) # O MÉTODO LOAD_LOCAL VAI CARREGAR O ÍNDICE DE BUSCA A PARTIR DO ARQUIVO SALVO. 
                                                                                                          # O PARÂMETRO ALLOW_DANGEROUS_DESERIALIZATION É NECESSÁRIO PARA PERMITIR 
                                                                                                          # QUE O FAISS CARREGUE O ÍNDICE DE BUSCA A PARTIR DO ARQUIVO        
         
-        # Se não existir, cria e salva
+        # ...se não existir, cria e salva
         print("Índice de busca não encontrado. Criando...\n")
 
+        # LAZY LOADING
         documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
+        # LAZY SPLITTING
         chunked_documents = SearchIndex().splitter(chunk_size=800, chunk_overlap=500, documents=documents) # PASSO 2.1 - DIVISÃO DOS DOCUMENTOS
 
         db_instance = FAISS.from_documents(chunked_documents, self.embeddings) # PASSO 3 - CRIAÇÃO DO BD DE VETORES 
