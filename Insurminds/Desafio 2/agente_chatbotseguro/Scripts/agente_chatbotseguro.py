@@ -110,16 +110,16 @@ class SearchIndex:
         
         return self.embeddings
 
-# PASSO 3 - BANCO DE VETORES - PARA ARMAZENAR O ÍNDICE DE BUSCA DOS CHUNKS DOS DOCS E SEUS RESPECTIVOS VETORES DE EMBEDDING.
+# PASSO 3 - CRIAÇÃO DO BANCO VETORIAL
 class VectorDB:
  
-    def __init__(self, documents: list, embeddings, db_path_name: str):
-        self.documents = documents
-        self.embeddings = embeddings
+    def __init__(self, db_path_name: str):
 
         self.db_path = db_path_name # O CAMINHO ONDE O ÍNDICE DE BUSCA VAI SER ARMAZENADO. 
-                                         # O OBJETIVO DE ARMAZENAR O ÍNDICE EM UM ARQUIVO É PERMITIR QUE ELE SEJA REUTILIZADO 
-                                         # EM VEZ DE SER RECRIADO TODA VEZ QUE O PROGRAMA FOR EXECUTADO AUMENTANDO ASSIM A PERFORMANCE.
+                                    # O OBJETIVO DE ARMAZENAR O ÍNDICE EM UM ARQUIVO É PERMITIR QUE ELE SEJA REUTILIZADO 
+                                    # EM VEZ DE SER RECRIADO TODA VEZ QUE O PROGRAMA FOR EXECUTADO AUMENTANDO ASSIM A PERFORMANCE.
+
+        self.embeddings = SearchIndex().indexer() # PASSO 2.2 - CRIAÇÃO DO INDEXADOR
 
     def db(self) -> FAISS:
 
@@ -131,11 +131,15 @@ class VectorDB:
         
         # Se não existir, cria e salva
         print("Índice de busca não encontrado. Criando...\n")
-        db_instance = FAISS.from_documents(self.documents, self.embeddings) # CRIANDO O BD DE VETORES A PARTIR DOS DOCUMENTOS E DOS VETORES DE EMBEDDING.        
+
+        documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
+        chunked_documents = SearchIndex().splitter(chunk_size=800, chunk_overlap=500, documents=documents) # PASSO 2.1 - DIVISÃO DOS DOCUMENTOS
+
+        db_instance = FAISS.from_documents(chunked_documents, self.embeddings) # PASSO 3 - CRIAÇÃO DO BD DE VETORES 
+                                                                               # CRIANDO O BD DE VETORES A PARTIR DOS DOCUMENTOS E DOS VETORES DE EMBEDDING.        
         db_instance.save_local(self.db_path)
 
         return db_instance
-
 
 class AgenteChatbotSeguro:
 
@@ -150,24 +154,9 @@ class AgenteChatbotSeguro:
                         reasoning_effort="high" # PARA EVIDENTAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS                  
                     )
     
-    documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
-
-    #fontes = set([doc.metadata["source"] for doc in documents])
-    #print("Documentos carregados:", fontes)
-
-    # PASSO 2 - CRIAÇÃO DO ÍNDICE DE BUSCA
-    searchindex = SearchIndex()
-    chunked_docs = searchindex.splitter(chunk_size=800, chunk_overlap=500, documents=documents) # PASSO 2.1 - QUEBRA DO TEXTO - DIVIDIR OS DOCUMENTOS 
-                                                                                                # EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM.
-
-    #print("Chunked Docs:\n",chunked_docs)
-
     db_path_name = "faiss_index"
 
-
-    db = VectorDB(documents=chunked_docs, embeddings=searchindex.indexer(), db_path_name=db_path_name).db() # PASSO 3 - BANCO DE VETORES - PARA ARMAZENAR O ÍNDICE DE 
-                                                                                                            # BUSCA DOS CHUNKS DOS DOCS E SEUS RESPECTIVOS VETORES 
-                                                                                                            # DE EMBEDDING.
+    db = VectorDB(db_path_name).db()
     
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
@@ -220,7 +209,7 @@ class AgenteChatbotSeguro:
     # OS CHUNKS ENCONTRADOS SÃO INJETADOS NO {context}
     # chain_type_kwargs={"prompt": prompt_template}
     #
-    # O RetrievalQA pega os chunks retornados pelo retriever, concatena seus textos e injeta o resultado dentro da variável {context} do PromptTemplate. O prompt final enviado ao LLM fica assim:
+    # O RetrievalQA pega os chunks retornados pelo retriever, concatena seus textos e injeta o resultado dentro da variável {context} do PromptTemplate.
     self.qa_chain = RetrievalQA.from_chain_type(
                                                   llm=llm, 
                                                   retriever=db.as_retriever(),                                                                                                      
