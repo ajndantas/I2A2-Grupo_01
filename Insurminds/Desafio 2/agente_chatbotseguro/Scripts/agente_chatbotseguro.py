@@ -184,13 +184,13 @@ class AgenteChatbotSeguro:
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados. 
-                        a celular. Caso o bem informado não esteja relacionado aos documentos, responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
+                        a celular. Caso o bem informado não esteja relacionado aos documentos, **SEMPRE** responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
                         Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe 
-                        ajudar."
+                        ajudar." e nada mais.
 
-                        - Se os documentos não contiverem informações relevantes para responder à pergunta, responda "Desculpe, não tenho informações suficientes para responder a 
+                        - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para responder a 
                         essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele 
-                        possa lhe ajudar." 
+                        possa lhe ajudar." e nada mais. 
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso
                         suas respostas. Realize todas as correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
