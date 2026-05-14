@@ -205,7 +205,7 @@ with chat_container:
 
                 fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
                     
-                if isinstance(fontes, (list,set)):
+                if isinstance(fontes, list):
                     fontes = ", ".join(fontes)
 
             except (json.JSONDecodeError, TypeError):
@@ -256,7 +256,8 @@ if ultima and ultima["role"] == "user":
                 "fontes": ""
             })
             
-    if st.session_state.i == 0:                    
+    if st.session_state.i == 0:
+        print("Valor de 1: ", st.session_state.i)                    
         protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
         st.session_state.protocolo = protocolo
         st.session_state.historico.append({"role": "assistante", "content": f"Protocolo: {st.session_state.protocolo}"})
