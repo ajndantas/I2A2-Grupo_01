@@ -237,7 +237,7 @@ class AgenteChatbotSeguro:
 
       result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
                                                                          # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
-      result = json.loads(self.result) 
+      result = json.loads(result) 
       
       source_documents = output['source_documents']
       fontes = list(set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents]))      
