@@ -235,14 +235,16 @@ class AgenteChatbotSeguro:
       output = self.qa_chain.invoke({"query": question}) 
       print("Saída: \n",output)
 
-      self.result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
+      result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
                                                                          # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
-      self.result = json.loads(self.result) 
+      result = json.loads(self.result) 
       
       source_documents = output['source_documents']
-      self.result["fontes"] = list(set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents]))
-      
-      self.json = json.dumps(self.result, indent=2, ensure_ascii=True)
+      fontes = list(set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents]))      
+      fontes = "Todas" if len(fontes) == len(source_documents) else fontes 
+      result["fontes"] = fontes
+           
+      self.json = json.dumps(result, indent=2, ensure_ascii=True)
       
       print("JSON\n",self.json)    
 
