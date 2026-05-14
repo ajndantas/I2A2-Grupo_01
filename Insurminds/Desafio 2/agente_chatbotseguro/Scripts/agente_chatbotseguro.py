@@ -8,7 +8,6 @@
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
 
-from datetime import datetime
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
@@ -22,7 +21,6 @@ from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from time import time
 from re import sub
-from random import randint
 import json
 
 
@@ -193,16 +191,16 @@ class AgenteChatbotSeguro:
                         essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele 
                         possa lhe ajudar." 
 
-                        - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso em 
+                        - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso
                         suas respostas.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
-                    Pergunta: {question}
+                    **SEMPRE** utilizar o seguinte formato de resposta:
                     
                     Resposta:
                     {{
                         "pergunta": "{question}",     
-                        "resposta": "A resposta para a pergunta. Seja claro, conciso e realize todas as correções ortográficas e gramaticais, da lingua portuguesa, em sua resposta."
+                        "resposta": "A resposta para a pergunta. Realize todas as correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta."
                     }}
                 """    
 
@@ -238,9 +236,8 @@ class AgenteChatbotSeguro:
       self.result = json.loads(self.result) 
       
       source_documents = output['source_documents']
-      self.result["fonte"] = ", ".join([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents])
-      self.result["protocolo"] = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
-
+      self.result["fontes"] = set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents])
+      
       self.json = json.dumps(self.result, indent=2, ensure_ascii=True)
       
       print("JSON\n",self.json)    
@@ -265,6 +262,7 @@ if __name__ == "__main__":
     fim = time() # Marca o tempo final
     #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n") """
 
+    # WARMUP PARA CRIAR O BANCO DE DADOS VETORIAL
     print(agente.query("Quem descobriu o Brasil ?"))
     fim = time() # Marca o tempo final
     print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")

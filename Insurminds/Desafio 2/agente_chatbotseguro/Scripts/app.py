@@ -2,6 +2,8 @@ import streamlit as st
 import json
 import html as html_lib
 from agente_chatbotseguro import AgenteChatbotSeguro
+from random import randint
+from datetime import datetime
 
 #-------------------------------------------------------
 # Para executar localmente, execute o seguinte comando:
@@ -151,8 +153,8 @@ def carregar_agente():
     
     return AgenteChatbotSeguro()
 
-
 if "agente" not in st.session_state:
+    i = 0
     agente = carregar_agente()
     st.session_state.agente = agente
 
@@ -176,12 +178,12 @@ if not st.session_state.historico:
 # ──────────────────────────────────────────────
 # RENDERIZAR HISTÓRICO
 # ──────────────────────────────────────────────
-chat_container = st.container()
+chat_container = st.container() # Cria um container para o chat
 
 with chat_container:
     for msg in st.session_state.historico:
         if msg["role"] == "user":
-            texto_usuario = html_lib.escape(msg["content"])
+            texto_usuario = html_lib.escape(msg["content"])  
             st.markdown(f"""
             <div class="msg-user">
                 <div class="bubble-user">{texto_usuario}</div>
@@ -189,13 +191,15 @@ with chat_container:
             </div>""", unsafe_allow_html=True)
 
         elif msg["role"] == "assistant":
+
             content = msg["content"]
             # Tenta parsear JSON da resposta do agente
             try:
                 data = json.loads(content)
                 resposta = html_lib.escape(data.get("resposta", content))
-                fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
-                
+
+                fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", "")) # DANDO PROBLEMA AQUI
+                    
                 if isinstance(fontes, list):
                     fontes = ", ".join(fontes)
 
@@ -203,16 +207,17 @@ with chat_container:
                 resposta = html_lib.escape(content)
                 fontes = ""
 
-            fontes_html = f'<div class="fontes"><strong>📄 Fontes:</strong> {fontes}</div>' if fontes else ""
+            if i != 0:
+                fontes_html = f'<div class="fontes"><strong>📄 Fontes:</strong> {fontes}</div>' if fontes else ""
 
-            st.markdown(f"""
-            <div class="msg-bot">
-                <div class="avatar avatar-bot">🛡️</div>
-                <div class="bubble-bot">
-                    <div class="resposta">{resposta}</div>
-                    {fontes_html}
-                </div>
-            </div>""", unsafe_allow_html=True)
+                st.markdown(f"""
+                <div class="msg-bot">
+                    <div class="avatar avatar-bot">🛡️</div>
+                    <div class="bubble-bot">
+                        <div class="resposta">{resposta}</div>
+                        {fontes_html}
+                    </div>
+                </div>""", unsafe_allow_html=True)
 
 # ──────────────────────────────────────────────
 # PROCESSAR PERGUNTA PENDENTE (vinda dos chips)
@@ -228,21 +233,30 @@ if ultima and ultima["role"] == "user":
             import re           
 
             try:
-                data = json.loads(resultado)                
+                data = json.loads(resultado)
 
                 if "resposta" in data:
-                    data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
+                        data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
                 if "fontes" in data:
-                    data["fontes"] = re.sub(r"<[^>]+>", "", data["fontes"]).strip()
+                        data["fontes"] = re.sub(r"<[^>]+>", "", data["fontes"]).strip()
+
                 resultado = json.dumps(data, ensure_ascii=False)
+
             except (json.JSONDecodeError, TypeError):
                 pass  # se não for JSON, html_lib.escape já trata na renderização
+
         except Exception as e:
             resultado = json.dumps({
                 "resposta": f"Ocorreu um erro ao processar sua pergunta: {e}",
                 "fontes": ""
             })
+            
+    if i == 0:                    
+        protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
+        st.session_state.historico.append({"role": "assistante", "content": f"Protocolo: {protocolo}"})
+    
     st.session_state.historico.append({"role": "assistant", "content": resultado})
+    
     st.rerun()
 
 # ──────────────────────────────────────────────
