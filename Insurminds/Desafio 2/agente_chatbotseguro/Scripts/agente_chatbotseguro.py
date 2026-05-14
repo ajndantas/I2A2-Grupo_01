@@ -20,7 +20,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from time import time
-from re import sub
+import re
 import json
 
 
@@ -236,8 +236,11 @@ class AgenteChatbotSeguro:
       output = self.qa_chain.invoke({"query": question}) 
       print("Saída: \n",output)
 
-      result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
+      #result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
                                                                          # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
+      
+      result = 
+
       result = json.loads(result) 
       
       source_documents = output['source_documents']
