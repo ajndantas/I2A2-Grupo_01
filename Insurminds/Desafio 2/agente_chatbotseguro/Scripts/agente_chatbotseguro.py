@@ -160,7 +160,8 @@ class AgenteChatbotSeguro:
                         api_key=getenv("API_KEY_OPENROUTER"),
                         #api_key=getenv("API_KEY")                        
                         base_url="https://openrouter.ai/api/v1",
-                        reasoning_effort="high" # PARA EVIDENTAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS                  
+                        reasoning_effort="high", # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
+                        temperature=0                  
                     )
     
     db_path_name = "faiss_index"
@@ -192,13 +193,13 @@ class AgenteChatbotSeguro:
                         possa lhe ajudar." 
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso
-                        suas respostas.
+                        suas respostas. Realize todas as correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
                     **SEMPRE** utilizar o seguinte formato de resposta:     
                     {{
                         "pergunta": "{question}",     
-                        "resposta": "A resposta para a pergunta. Realize todas as correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta."
+                        "resposta": "A resposta para a pergunta."
                     }}
                 """    
 
