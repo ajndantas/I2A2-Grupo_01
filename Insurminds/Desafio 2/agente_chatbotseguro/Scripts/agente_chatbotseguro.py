@@ -9,7 +9,6 @@
 # 3 - EXECUTANDO A PESQUISA
 
 from datetime import datetime
-
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
