@@ -257,7 +257,7 @@ if ultima and ultima["role"] == "user":
             })
             
     if st.session_state.i == 0:
-        print("Valor de 1: ", st.session_state.i)                    
+        print("Valor de i = ", st.session_state.i)                    
         protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
         st.session_state.protocolo = protocolo
         st.session_state.historico.append({"role": "assistante", "content": f"Protocolo: {st.session_state.protocolo}"})
