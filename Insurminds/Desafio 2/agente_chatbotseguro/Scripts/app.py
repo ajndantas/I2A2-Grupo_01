@@ -203,9 +203,9 @@ with chat_container:
                 data = json.loads(content)
                 resposta = html_lib.escape(data.get("resposta", content))
 
-                fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", "")) # DANDO PROBLEMA AQUI
+                fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
                     
-                if isinstance(fontes, list):
+                if isinstance(fontes, (list,set)):
                     fontes = ", ".join(fontes)
 
             except (json.JSONDecodeError, TypeError):

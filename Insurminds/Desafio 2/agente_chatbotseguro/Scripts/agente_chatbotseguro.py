@@ -195,9 +195,7 @@ class AgenteChatbotSeguro:
                         suas respostas.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
-                    **SEMPRE** utilizar o seguinte formato de resposta:
-                    
-                    Resposta:
+                    **SEMPRE** utilizar o seguinte formato de resposta:     
                     {{
                         "pergunta": "{question}",     
                         "resposta": "A resposta para a pergunta. Realize todas as correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta."
