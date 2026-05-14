@@ -30,8 +30,6 @@ COPY huggingface_models_download.py .
 RUN python huggingface_models_download.py
 
 # WARM UP DE CRIAÇÃO DO BANCO DE DADOS VETORIAL - PASTA CACHE
-ARG API_KEY_OPENROUTER
-ENV API_KEY_OPENROUTER=$API_KEY_OPENROUTER
 RUN python agente_chatbotseguro.py
 
 # Defina o comando para executar a aplicação
