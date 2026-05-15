@@ -227,7 +227,11 @@ with chat_container:
 # ──────────────────────────────────────────────
 # PROCESSAR PERGUNTA PENDENTE (vinda dos chips)
 # ──────────────────────────────────────────────
-ultima = st.session_state.historico[-1] if st.session_state.historico else None
+if i == 0: # Primeira mensagem
+    ultima = st.session_state.historico[-1] if st.session_state.historico else None
+else:
+    ultima = st.session_state.historico[-1] if st.session_state.historico else None
+
 if ultima and ultima["role"] == "user":
     with st.spinner("🔍 Consultando base de conhecimento…"):
         try:
@@ -260,6 +264,7 @@ if ultima and ultima["role"] == "user":
         print("Valor de i = ", st.session_state.i)                    
         protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
         st.session_state.protocolo = protocolo
+        st.session_state.historico.append({"role": "assistant", "content": protocolo})
             
     st.session_state.historico.append({"role": "assistant", "content": resultado})
     

@@ -235,13 +235,13 @@ class AgenteChatbotSeguro:
       
       output = self.qa_chain.invoke({"query": question}) 
       print("Saída: \n",output)
-
-      #result = sub(r"```json|```","",str(output['result'])).strip() # O RESULTADO VAI VIR COM QUEBRAS DE LINHA, ENTÃO SUBSTITUÍMOS AS QUEBRAS DE LINHA 
-                                                                         # POR ESPAÇOS EM BRANCO PARA DEIXAR O JSON EM UMA ÚNICA LINHA.
       
-      result = 
+      try:          
+            result = json.loads(output['result'])
 
-      result = json.loads(result) 
+      except json.JSONDecodeError as e:
+            result = re.search(r"\{.*?\}{1}}", str(output['result'])).strip()
+
       
       source_documents = output['source_documents']
       fontes = list(set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents]))      
