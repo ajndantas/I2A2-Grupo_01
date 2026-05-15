@@ -228,7 +228,7 @@ with chat_container:
 # PROCESSAR PERGUNTA PENDENTE (vinda dos chips)
 # ──────────────────────────────────────────────
 if i == 0: # Primeira mensagem
-    ultima = st.session_state.historico[-1] if st.session_state.historico else None
+    ultima = st.session_state.historico[-2] if st.session_state.historico else None
 else:
     ultima = st.session_state.historico[-1] if st.session_state.historico else None
 
