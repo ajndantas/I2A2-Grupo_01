@@ -194,10 +194,10 @@ class AgenteChatbotSeguro:
                         ajudar." e nada mais.
 
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para responder a 
-                        essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e informe o protocolo gerado, para que ele 
+                        essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para que ele 
                         possa lhe ajudar." e nada mais. 
 
-                        - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso
+                        - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso nas 
                         suas respostas. Realize todas as correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
@@ -240,14 +240,18 @@ class AgenteChatbotSeguro:
             result = json.loads(output['result'])
 
       except json.JSONDecodeError as e:
-            result = re.search(r"\{.*?\}{1}}", str(output['result'])).strip()
+            result = re.search(r"\{.*?\}{1}}", str(output['result'])).strip() # TENTA EXTRAIR O JSON DE DENTRO DA RESPOSTA USANDO EXPRESSÃO REGULAR. 
+                                                                              # ISSO É NECESSÁRIO, PORQUE ÀS VEZES O LLM INJETA TEXTO ADICIONAL JUNTO COM O JSON, 
+                                                                              # O QUE CAUSA ERROS NA HORA DE FAZER O PARSE DO JSON.
 
       
+      # EXTRAÇÃO DAS FONTES DOS DOCUMENTOS RETORNADOS PELO RETRIEVER PARA INCLUIR NA RESPOSTA DO AGENTE. 
       source_documents = output['source_documents']
       fontes = list(set([path.basename(r.metadata["source"]) if r and len(source_documents) > 0 else "Nenhuma fonte encontrada" for r in source_documents]))      
       fontes = "Todas" if len(fontes) == len(source_documents) else fontes 
       result["fontes"] = fontes
-           
+      
+      # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
       self.json = json.dumps(result, indent=2, ensure_ascii=True)
       
       print("JSON\n",self.json)    
