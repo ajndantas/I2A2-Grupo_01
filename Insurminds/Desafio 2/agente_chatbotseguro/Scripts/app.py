@@ -198,7 +198,7 @@ with chat_container:
             content = msg["content"]
             # Tenta parsear JSON da resposta do agente
             try:
-                data = json.loads(content
+                data = json.loads(content)
                 resposta = html_lib.escape(data.get("resposta", content))
 
                 fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
