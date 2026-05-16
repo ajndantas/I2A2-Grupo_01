@@ -240,9 +240,9 @@ class AgenteChatbotSeguro:
             result = json.loads(output['result'])
 
       except json.JSONDecodeError as e:
-            result = re.search(r"\{.*?\}{1}}", str(output['result'])).strip() # TENTA EXTRAIR O JSON DE DENTRO DA RESPOSTA USANDO EXPRESSÃO REGULAR. 
-                                                                              # ISSO É NECESSÁRIO, PORQUE ÀS VEZES O LLM INJETA TEXTO ADICIONAL JUNTO COM O JSON, 
-                                                                              # O QUE CAUSA ERROS NA HORA DE FAZER O PARSE DO JSON.
+            result = re.search(r"\{.*?\}", str(output['result'])).group().strip() # TENTA EXTRAIR O JSON DE DENTRO DA RESPOSTA USANDO EXPRESSÃO REGULAR. 
+                                                                                  # ISSO É NECESSÁRIO, PORQUE ÀS VEZES O LLM INJETA TEXTO ADICIONAL JUNTO COM O JSON, 
+                                                                                  # O QUE CAUSA ERROS NA HORA DE FAZER O PARSE DO JSON.
 
       
       # EXTRAÇÃO DAS FONTES DOS DOCUMENTOS RETORNADOS PELO RETRIEVER PARA INCLUIR NA RESPOSTA DO AGENTE. 
