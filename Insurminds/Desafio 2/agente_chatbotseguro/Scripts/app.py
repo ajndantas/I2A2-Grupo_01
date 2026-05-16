@@ -164,12 +164,12 @@ if "agente" not in st.session_state:
 # HISTÓRICO DE MENSAGENS
 # ──────────────────────────────────────────────
 if "historico" not in st.session_state:
-    st.session_state.historico = []
+    st.session_state.historico = [] # Cria o histórico de mensagens
 
 # ──────────────────────────────────────────────
 # SUGESTÕES RÁPIDAS
 # ──────────────────────────────────────────────
-if not st.session_state.historico:
+if not st.session_state.historico: # SE O HISTÓRICO ESTIVER VAZIO, MOSTRA AS SUGESTÕES
 
     st.markdown("**💡 Perguntas frequentes:**")
     st.markdown(" - Como posso acionar o seguro ?")
@@ -183,8 +183,6 @@ if not st.session_state.historico:
 chat_container = st.container() # Cria um container para o chat
 
 with chat_container:
-
-    i = st.session_state.i + 1
 
     for msg in st.session_state.historico:
         if msg["role"] == "user":
@@ -200,7 +198,7 @@ with chat_container:
             content = msg["content"]
             # Tenta parsear JSON da resposta do agente
             try:
-                data = json.loads(content)
+                data = json.loads(content
                 resposta = html_lib.escape(data.get("resposta", content))
 
                 fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
@@ -261,7 +259,7 @@ if ultima and ultima["role"] == "user":
             })
             
     if st.session_state.i == 0:
-        print("Valor de i = ", st.session_state.i)                    
+        print("Valor de i =", st.session_state.i)                    
         protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
         st.session_state.protocolo = protocolo
         st.session_state.historico.append({"role": "assistant", "content": protocolo})
