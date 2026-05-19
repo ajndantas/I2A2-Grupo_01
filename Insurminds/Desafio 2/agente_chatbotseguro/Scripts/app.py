@@ -159,7 +159,7 @@ if "agente" not in st.session_state:
     print("Criando o agente pela primeira vez...")
     
     agente = carregar_agente()
-    st.session.isprotocolo = False # Condição inicial para controle de geração do protocolo de atendimento.
+    st.session_state.isprotocolo = False # Condição inicial para controle de geração do protocolo de atendimento.
     st.session_state.agente = agente
 
 # ──────────────────────────────────────────────
