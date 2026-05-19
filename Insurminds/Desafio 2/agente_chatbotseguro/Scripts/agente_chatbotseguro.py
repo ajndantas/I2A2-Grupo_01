@@ -175,8 +175,8 @@ class AgenteChatbotSeguro:
                     Seus conhecimentos estão baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
                     que podem conter informações relevantes para responder às perguntas dos usuários. 
 
-                    Ao ler os documentos fornecidos no CONTEXTO, entenda que o termo 'veículo' e o termo 'carro' devem ser tratados como sinônimos exatos, assim como
-                    para outros sinônimos. Responda à pergunta do usuário baseando-se nessa premissa.                   
+                    Reescreva a pergunta do usuário para incluir **TODOS** os sinônimos importantes do bem informado. Ex: Se a pergunta mencionar 'carro', certifique-se de incluir 
+                    'veículo' na busca.                  
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
@@ -192,11 +192,6 @@ class AgenteChatbotSeguro:
 
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                        - De acordo com o bem presente na PERGUNTA {question} *SEMPRE** pesquisar nos documentos que sejam relacionados ao bem. 
-                        Ex: Se o bem informado for celular, pesquisar nos documentos que sejam relacionados a este bem. Caso o bem não esteja relacionado aos documentos, **SEMPRE** 
-                        responda "Desculpe, não tenho informações suficientes para responder a essa pergunta. Entre em contato com um especialista por meio de email, informe no 
-                        assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe ajudar." e nada mais.
-
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para
                         responder a essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para 
                         que ele possa lhe ajudar." e nada mais. 
