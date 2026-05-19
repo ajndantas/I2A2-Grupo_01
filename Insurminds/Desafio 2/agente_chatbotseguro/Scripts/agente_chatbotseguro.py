@@ -204,7 +204,7 @@ class AgenteChatbotSeguro:
 
                     {{
                         "pergunta": "Pergunta do usuário",     
-                        "resposta": "A resposta para a pergunta."
+                        "resposta": "A resposta para a pergunta. Se for informar o bem, não é necessário informar seus sinonimos."
                     }}
                 """    
 
