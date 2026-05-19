@@ -1,6 +1,8 @@
 import streamlit as st
 import json
 import html as html_lib
+
+from torch import rand
 from agente_chatbotseguro import AgenteChatbotSeguro
 from random import randint
 from datetime import datetime
@@ -200,6 +202,8 @@ with chat_container:
             </div>""", unsafe_allow_html=True)
         
         if msg["role"] == "assistant":
+            isprotocolo = True
+            
             content = msg["content"]
             # Tenta parsear JSON da resposta do agente
             try:
@@ -217,14 +221,24 @@ with chat_container:
             # VERIFICA SE O PROTOCOLO JÁ FOI GERADO (isprotocolo) PARA DECIDIR SE EXIBE AS FONTES OU NÃO.
             fontes_html = f'<div class="fontes"><strong>📄 Fontes:</strong> {fontes}</div>' if fontes else ""
 
-            st.markdown(f"""
-                    <div class="msg-bot">
-                        <div class="avatar avatar-bot">🛡️</div>
-                        <div class="bubble-bot">
-                            <div class="resposta">{resposta}</div>
-                            {fontes_html}
-                        </div>
-                    </div>""", unsafe_allow_html=True)
+            if isprotocolo:
+                st.markdown(f"""
+                        <div class="msg-bot">
+                            <div class="avatar avatar-bot">🛡️</div>
+                            <div class="bubble-bot">
+                                <div class="resposta">{resposta}</div>
+                                {fontes_html}
+                            </div>
+                        </div>""", unsafe_allow_html=True)
+                
+            else:
+                st.markdown(f"""
+                        <div class="msg-bot">
+                            <div class="avatar avatar-bot">🛡️</div>
+                            <div class="bubble-bot">
+                                <div class="resposta">{resposta}</div>
+                            </div>
+                        </div>""", unsafe_allow_html=True)
 
 
 # ───────────────────────────────────────────────────
@@ -284,6 +298,14 @@ with st.form(key="chat_form", clear_on_submit=True):
 
 # 5 - QUANDO O USUÁRIO ENVIA A PERGUNTA, ELA É ADICIONADA AO HISTÓRICO E O APP É RECARREGADO
 if enviar and pergunta.strip():
+    if not isprotocolo: # GERA O PROTOCOLO APENAS NA PRIMEIRA PERGUNTA DA CONVERSA, PARA SIMULAR O INÍCIO DE UM ATENDIMENTO.
+        protocolo = randint(1, 999999) # Gera um número de protocolo aleatório para a conversa.
+        protocolo = f"{protocolo:06d}" # Formata o número do protocolo com zeros à esquerda (ex: 000123).
+        resultado = json.dumps({
+                    "resposta": protocolo
+                })
+        st.session_state.historico.append({"role": "assistant", "content": resultado}) 
+
     st.session_state.historico.append({"role": "user", "content": pergunta.strip()}) # AQUI, CONTENT É A PERGUNTA DO USUÁRIO.
     st.rerun()
 
