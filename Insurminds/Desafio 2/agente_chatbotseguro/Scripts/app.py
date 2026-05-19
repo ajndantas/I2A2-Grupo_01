@@ -159,7 +159,7 @@ if "agente" not in st.session_state:
     print("Criando o agente pela primeira vez...")
     
     agente = carregar_agente()
-    isprotocolo = False # Condição inicial para controle de geração do protocolo de atendimento.
+    st.session.isprotocolo = False # Condição inicial para controle de geração do protocolo de atendimento.
     st.session_state.agente = agente
 
 # ──────────────────────────────────────────────
@@ -202,8 +202,7 @@ with chat_container:
             </div>""", unsafe_allow_html=True)
         
         if msg["role"] == "assistant":
-            isprotocolo = True
-            
+                        
             content = msg["content"]
             # Tenta parsear JSON da resposta do agente
             try:
@@ -221,7 +220,7 @@ with chat_container:
             # VERIFICA SE O PROTOCOLO JÁ FOI GERADO (isprotocolo) PARA DECIDIR SE EXIBE AS FONTES OU NÃO.
             fontes_html = f'<div class="fontes"><strong>📄 Fontes:</strong> {fontes}</div>' if fontes else ""
 
-            if isprotocolo:
+            if st.session_state.isprotocolo: # EXIBE AS FONTES APENAS SE O PROTOCOLO JÁ FOI GERADO, PARA SIMULAR O FLUXO DE UM ATENDIMENTO REAL.
                 st.markdown(f"""
                         <div class="msg-bot">
                             <div class="avatar avatar-bot">🛡️</div>
@@ -231,7 +230,7 @@ with chat_container:
                             </div>
                         </div>""", unsafe_allow_html=True)
                 
-            else:
+            else: 
                 st.markdown(f"""
                         <div class="msg-bot">
                             <div class="avatar avatar-bot">🛡️</div>
@@ -246,10 +245,11 @@ with chat_container:
 # ───────────────────────────────────────────────────
 ultima = st.session_state.historico[-1] if st.session_state.historico else None
 
-if ultima and ultima["role"] == "user":
+if (ultima and ultima["role"] == "user") or ((ultima and ultima["role"] == "assistant") and not st.session_state.isprotocolo): # SE A ÚLTIMA MENSAGEM FOR DO USUÁRIO E O PROTOCOLO AINDA NÃO FOI GERADO, PROCESSA A PERGUNTA PENDENTE PARA GERAR O PROTOCOLO.
     
     with st.spinner("🔍 Consultando base de conhecimento…"):
-            
+            st.session_state.isprotocolo = True
+
             try:
                 agente = st.session_state.agente
                 resultado = agente.query(ultima["content"])           
@@ -277,7 +277,7 @@ if ultima and ultima["role"] == "user":
                     "fontes": ""
                 })
                 
-    st.session_state.historico.append({"role": "assistant", "content": resultado}) # AQUI, CONTENT É A RESPOSTA DO AGENTE COM OS CAMPOS "resposta" E "fontes".
+    st.session_state.historico.append({"role": "assistant", "content": resultado})
     st.rerun() # Recarrega o app para mostrar a resposta do agente.
     
 # ──────────────────────────────────────────────
@@ -298,7 +298,7 @@ with st.form(key="chat_form", clear_on_submit=True):
 
 # 5 - QUANDO O USUÁRIO ENVIA A PERGUNTA, ELA É ADICIONADA AO HISTÓRICO E O APP É RECARREGADO
 if enviar and pergunta.strip():
-    if not isprotocolo: # GERA O PROTOCOLO APENAS NA PRIMEIRA PERGUNTA DA CONVERSA, PARA SIMULAR O INÍCIO DE UM ATENDIMENTO.
+    if not st.session_state.isprotocolo: # GERA O PROTOCOLO APENAS NA PRIMEIRA PERGUNTA DA CONVERSA, PARA SIMULAR O INÍCIO DE UM ATENDIMENTO.
         protocolo = randint(1, 999999) # Gera um número de protocolo aleatório para a conversa.
         protocolo = f"{protocolo:06d}" # Formata o número do protocolo com zeros à esquerda (ex: 000123).
         resultado = json.dumps({
@@ -313,6 +313,7 @@ if enviar and pergunta.strip():
 if st.session_state.historico:
     if st.button("🗑️ Nova conversa", type="secondary"):
         st.session_state.historico = []
+        st.session_state.isprotocolo = False
         st.rerun()
 
 # ──────────────────────────────────────────────
