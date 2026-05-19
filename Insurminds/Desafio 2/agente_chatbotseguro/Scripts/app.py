@@ -146,7 +146,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ──────────────────────────────────────────────
-# INICIALIZAÇÃO DO AGENTE (cached)
+# 1 - INICIALIZAÇÃO DO AGENTE (cached)
 # ──────────────────────────────────────────────
 @st.cache_resource(show_spinner="⚙️ Carregando base de conhecimento…")
 def carregar_agente():
@@ -154,20 +154,20 @@ def carregar_agente():
     return AgenteChatbotSeguro()
 
 if "agente" not in st.session_state:
-    i = 0
+    print("Criando o agente pela primeira vez...")
+    
     agente = carregar_agente()
-
-    st.session_state.i = i
+    isprotocolo = False # Condição inicial para controle de geração do protocolo de atendimento.
     st.session_state.agente = agente
 
 # ──────────────────────────────────────────────
-# HISTÓRICO DE MENSAGENS
+# 2 - HISTÓRICO DE MENSAGENS
 # ──────────────────────────────────────────────
-if "historico" not in st.session_state:
-    st.session_state.historico = [] # Cria o histórico de mensagens
+if "historico" not in st.session_state: # INICIALIZA O HISTÓRICO DE MENSAGENS COMO UMA LISTA VAZIA SE AINDA NÃO EXISTIR
+    st.session_state.historico = [] 
 
 # ──────────────────────────────────────────────
-# SUGESTÕES RÁPIDAS
+# 3 - SUGESTÕES RÁPIDAS
 # ──────────────────────────────────────────────
 if not st.session_state.historico: # SE O HISTÓRICO ESTIVER VAZIO, MOSTRA AS SUGESTÕES
 
@@ -177,99 +177,97 @@ if not st.session_state.historico: # SE O HISTÓRICO ESTIVER VAZIO, MOSTRA AS SU
     st.markdown(" - Como devo proceder caso tenha meu celular roubado ?")
     st.markdown(" - Quem descobriu o Brasil ?")
     
-# ──────────────────────────────────────────────
-# RENDERIZAR HISTÓRICO
-# ──────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+# 6 - RENDERIZAR HISTÓRICO - 
+# 
+# TEM QUE VIR DEPOIS DO PROCESSAMENTO DA PERGUNTA PENDENTE, 
+# PARA QUE O PROTOCOLO SEJA EXIBIDO NO HISTÓRICO ANTES DA RESPOSTA DO AGENTE.
+# 
+# Exibição das mensagens do histórico em formato de chat.
+# ──────────────────────────────────────────────────────────────────────────────
 chat_container = st.container() # Cria um container para o chat
 
 with chat_container:
 
     for msg in st.session_state.historico:
+
         if msg["role"] == "user":
-            texto_usuario = html_lib.escape(msg["content"])  
+            texto_usuario = html_lib.escape(msg["content"]) 
             st.markdown(f"""
             <div class="msg-user">
                 <div class="bubble-user">{texto_usuario}</div>
                 <div class="avatar avatar-user">👤</div>
             </div>""", unsafe_allow_html=True)
-
-        elif msg["role"] == "assistant":
-
+        
+        if msg["role"] == "assistant":
             content = msg["content"]
             # Tenta parsear JSON da resposta do agente
             try:
-                data = json.loads(content)
-                resposta = html_lib.escape(data.get("resposta", content))
-
-                fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
+                    data = json.loads(content)
+                    resposta = html_lib.escape(data.get("resposta", content))                
+                    fontes = html_lib.escape(", ".join(data.get("fontes", [])) if isinstance(data.get("fontes", []), list) else data.get("fontes", ""))
                     
-                if isinstance(fontes, list):
-                    fontes = ", ".join(fontes)
+                    if isinstance(fontes, list):
+                        fontes = ", ".join(fontes)
 
             except (json.JSONDecodeError, TypeError):
                 resposta = html_lib.escape(content)
-                fontes = ""
+                fontes = ""           
 
-            if i != 0:
-                fontes_html = f'<div class="fontes"><strong>📄 Fontes:</strong> {fontes}</div>' if fontes else ""
+            # VERIFICA SE O PROTOCOLO JÁ FOI GERADO (isprotocolo) PARA DECIDIR SE EXIBE AS FONTES OU NÃO.
+            fontes_html = f'<div class="fontes"><strong>📄 Fontes:</strong> {fontes}</div>' if fontes else ""
 
-                st.markdown(f"""
-                <div class="msg-bot">
-                    <div class="avatar avatar-bot">🛡️</div>
-                    <div class="bubble-bot">
-                        <div class="resposta">{resposta}</div>
-                        {fontes_html}
-                    </div>
-                </div>""", unsafe_allow_html=True)
+            st.markdown(f"""
+                    <div class="msg-bot">
+                        <div class="avatar avatar-bot">🛡️</div>
+                        <div class="bubble-bot">
+                            <div class="resposta">{resposta}</div>
+                            {fontes_html}
+                        </div>
+                    </div>""", unsafe_allow_html=True)
 
-# ──────────────────────────────────────────────
-# PROCESSAR PERGUNTA PENDENTE (vinda dos chips)
-# ──────────────────────────────────────────────
-if i == 0: # Primeira mensagem
-    ultima = st.session_state.historico[-2] if st.session_state.historico else None
-else:
-    ultima = st.session_state.historico[-1] if st.session_state.historico else None
+
+# ───────────────────────────────────────────────────
+# 7 - PROCESSAR PERGUNTA PENDENTE (vinda dos chips)
+# ───────────────────────────────────────────────────
+ultima = st.session_state.historico[-1] if st.session_state.historico else None
 
 if ultima and ultima["role"] == "user":
-    with st.spinner("🔍 Consultando base de conhecimento…"):
-        try:
-            agente = st.session_state.agente
-            resultado = agente.query(ultima["content"])           
-
-            # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
-            import re           
-
-            try:
-                data = json.loads(resultado)
-
-                if "resposta" in data:
-                        data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
-                if "fontes" in data:
-                        data["fontes"] = re.sub(r"<[^>]+>", "", data["fontes"]).strip()
-
-                resultado = json.dumps(data, ensure_ascii=False)
-
-            except (json.JSONDecodeError, TypeError):
-                pass  # se não for JSON, html_lib.escape já trata na renderização
-
-        except Exception as e:
-            resultado = json.dumps({
-                "resposta": f"Ocorreu um erro ao processar sua pergunta: {e}",
-                "fontes": ""
-            })
-            
-    if st.session_state.i == 0:
-        print("Valor de i =", st.session_state.i)                    
-        protocolo = f"{randint(0, 999999):06d}"+datetime.now().strftime("%d%m%Y")
-        st.session_state.protocolo = protocolo
-        st.session_state.historico.append({"role": "assistant", "content": protocolo})
-            
-    st.session_state.historico.append({"role": "assistant", "content": resultado})
     
-    st.rerun()
+    with st.spinner("🔍 Consultando base de conhecimento…"):
+            
+            try:
+                agente = st.session_state.agente
+                resultado = agente.query(ultima["content"])           
 
+                # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
+                import re           
+
+                try:
+                    data = json.loads(resultado) # Tenta parsear a resposta como JSON para limpar as tags HTML dos campos "resposta" e "fontes", 
+                                                 # sem afetar o restante da estrutura.
+
+                    if "resposta" in data:
+                            data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
+                    if "fontes" in data:
+                            data["fontes"] = re.sub(r"<[^>]+>", "", data["fontes"]).strip()
+
+                    resultado = json.dumps(data, ensure_ascii=False)
+
+                except (json.JSONDecodeError, TypeError):
+                    pass  # se não for JSON, html_lib.escape já trata na renderização
+
+            except Exception as e:
+                resultado = json.dumps({
+                    "resposta": f"Ocorreu um erro ao processar sua pergunta: {e}",
+                    "fontes": ""
+                })
+                
+    st.session_state.historico.append({"role": "assistant", "content": resultado}) # AQUI, CONTENT É A RESPOSTA DO AGENTE COM OS CAMPOS "resposta" E "fontes".
+    st.rerun() # Recarrega o app para mostrar a resposta do agente.
+    
 # ──────────────────────────────────────────────
-# INPUT DO USUÁRIO
+# 4 - INPUT DO USUÁRIO
 # ──────────────────────────────────────────────
 st.divider()
 
@@ -284,8 +282,9 @@ with st.form(key="chat_form", clear_on_submit=True):
     with col2:
         enviar = st.form_submit_button("Enviar", use_container_width=True)
 
+# 5 - QUANDO O USUÁRIO ENVIA A PERGUNTA, ELA É ADICIONADA AO HISTÓRICO E O APP É RECARREGADO
 if enviar and pergunta.strip():
-    st.session_state.historico.append({"role": "user", "content": pergunta.strip()})
+    st.session_state.historico.append({"role": "user", "content": pergunta.strip()}) # AQUI, CONTENT É A PERGUNTA DO USUÁRIO.
     st.rerun()
 
 # Botão para limpar conversa
