@@ -160,38 +160,40 @@ class AgenteChatbotSeguro:
                         api_key=getenv("API_KEY_OPENROUTER"),
                         #api_key=getenv("API_KEY")                        
                         base_url="https://openrouter.ai/api/v1",
-                        reasoning_effort="high", # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
-                        temperature=0                  
+                        reasoning_effort="high"#, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
+                        #temperature=0                  
                     )
     
     db_path_name = "faiss_index"
 
     db = VectorDB(db_path_name).db()
-    
+    print("Índice de busca carregado com sucesso!\n")
+
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
                     
                     Seus conhecimentos estão baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
-                    que podem conter informações relevantes para responder às perguntas dos usuários.                    
+                    que podem conter informações relevantes para responder às perguntas dos usuários. 
+
+                    Ao ler os documentos fornecidos no CONTEXTO, entenda que o termo 'veículo' e o termo 'carro' devem ser tratados como sinônimos exatos, assim como
+                    para outros sinônimos. Responda à pergunta do usuário baseando-se nessa premissa.                   
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
                     PERGUNTA:                    
-                    --------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         {question}
-                    --------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                     CONTEXTO:                    
-                    --------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         {context}
-                    --------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                        - De acordo com o bem presente na PERGUNTA {question} *SEMPRE** pesquisar nos documentos que sejam relacionados ao bem ou que possuam o mesmo significado
-                        deste bem. 
-                        Ex: Se o bem informado for celular, pesquisar nos documentos que sejam relacionados a este bem. Se o bem for smartphone, que possui o mesmo significado que 
-                        celular, pesquisar nos documentos que sejam relacionados a este bem. Caso o bem ou seu signifciado não estejam relacionados aos documentos, **SEMPRE** 
+                        - De acordo com o bem presente na PERGUNTA {question} *SEMPRE** pesquisar nos documentos que sejam relacionados ao bem. 
+                        Ex: Se o bem informado for celular, pesquisar nos documentos que sejam relacionados a este bem. Caso o bem não esteja relacionado aos documentos, **SEMPRE** 
                         responda "Desculpe, não tenho informações suficientes para responder a essa pergunta. Entre em contato com um especialista por meio de email, informe no 
                         assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe ajudar." e nada mais.
 
