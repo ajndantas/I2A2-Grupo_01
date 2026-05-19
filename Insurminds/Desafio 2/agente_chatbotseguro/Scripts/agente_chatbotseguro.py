@@ -190,7 +190,8 @@ class AgenteChatbotSeguro:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         - De acordo com o bem presente na PERGUNTA {question} *SEMPRE** pesquisar nos documentos que sejam relacionados ao bem ou que possuam o mesmo significado
                         deste bem. 
-                        Ex: Se o bem informado for celular, pesquisar nos documentos que sejam relacionados a este bem. Caso o bem não esteja relacionado aos documentos, **SEMPRE** 
+                        Ex: Se o bem informado for celular, pesquisar nos documentos que sejam relacionados a este bem. Se o bem for smartphone, que possui o mesmo significado que 
+                        celular, pesquisar nos documentos que sejam relacionados a este bem. Caso o bem ou seu signifciado não estejam relacionados aos documentos, **SEMPRE** 
                         responda "Desculpe, não tenho informações suficientes para responder a essa pergunta. Entre em contato com um especialista por meio de email, informe no 
                         assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe ajudar." e nada mais.
 
