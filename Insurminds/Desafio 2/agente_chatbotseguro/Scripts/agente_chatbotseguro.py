@@ -171,7 +171,7 @@ class AgenteChatbotSeguro:
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
                     
-                    Seus conhecimentos estao baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
+                    Seus conhecimentos estão baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
                     que podem conter informações relevantes para responder às perguntas dos usuários.                    
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
@@ -189,7 +189,7 @@ class AgenteChatbotSeguro:
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados. 
-                        a celular. Caso o bem informado não esteja relacionado aos documentos, **SEMPRE** responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
+                        a celular, ou significado do bem. Ex: carro é o mesmo que automóvel. Caso o bem ou significado do bem informado, não esteja relacionado aos documentos, **SEMPRE** responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
                         Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe 
                         ajudar." e nada mais.
 
@@ -240,9 +240,20 @@ class AgenteChatbotSeguro:
             result = json.loads(output['result'])
 
       except json.JSONDecodeError as e:
-            result = re.search(r"\{.*?\}", str(output['result'])).group().strip() # TENTA EXTRAIR O JSON DE DENTRO DA RESPOSTA USANDO EXPRESSÃO REGULAR. 
-                                                                                  # ISSO É NECESSÁRIO, PORQUE ÀS VEZES O LLM INJETA TEXTO ADICIONAL JUNTO COM O JSON, 
-                                                                                  # O QUE CAUSA ERROS NA HORA DE FAZER O PARSE DO JSON.
+            # TENTA EXTRAIR O JSON DE DENTRO DA RESPOSTA USANDO EXPRESSÃO REGULAR
+            match = re.search(r"\{.*?\}", str(output['result']), re.DOTALL) # A FLAG re.DOTALL 
+                                                                            # PERMITE QUE O PONTO (.) NA EXPRESSÃO REGULAR 
+                                                                            # CORRESPONDA A QUALQUER CARACTERE, INCLUINDO 
+                                                                            # QUEBRAS DE LINHA, O QUE É ÚTIL PARA EXTRAIR JSONS 
+                                                                            # MULTILINHA.
+            if match:
+                  result = json.loads(match.group().strip())
+            else:
+                  # SE NÃO ENCONTRAR JSON, CRIA UMA ESTRUTURA PADRÃO
+                  result = {
+                        "pergunta": question,
+                        "resposta": str(output['result'])
+                  }
 
       
       # EXTRAÇÃO DAS FONTES DOS DOCUMENTOS RETORNADOS PELO RETRIEVER PARA INCLUIR NA RESPOSTA DO AGENTE. 

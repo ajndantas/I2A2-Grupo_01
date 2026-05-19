@@ -1,8 +1,8 @@
+from time import sleep
 import streamlit as st
 import json
 import html as html_lib
-
-from torch import rand
+import re
 from agente_chatbotseguro import AgenteChatbotSeguro
 from random import randint
 from datetime import datetime
@@ -161,7 +161,7 @@ if "agente" not in st.session_state:
     agente = carregar_agente()
     st.session_state.isprotocolo = False # Condição inicial para controle de geração do protocolo de atendimento.
     st.session_state.agente = agente
-
+    
 # ──────────────────────────────────────────────
 # 2 - HISTÓRICO DE MENSAGENS
 # ──────────────────────────────────────────────
@@ -193,6 +193,8 @@ with chat_container:
 
     for msg in st.session_state.historico:
 
+        #print("Mensagem do histórico:", msg) # DEBUG: VERIFICA AS MENSAGENS QUE ESTÃO SENDO RENDERIZADAS DO HISTÓRICO
+
         if msg["role"] == "user":
             texto_usuario = html_lib.escape(msg["content"]) 
             st.markdown(f"""
@@ -220,7 +222,9 @@ with chat_container:
             # VERIFICA SE O PROTOCOLO JÁ FOI GERADO (isprotocolo) PARA DECIDIR SE EXIBE AS FONTES OU NÃO.
             fontes_html = f'<div class="fontes"><strong>📄 Fontes:</strong> {fontes}</div>' if fontes else ""
 
-            if st.session_state.isprotocolo: # EXIBE AS FONTES APENAS SE O PROTOCOLO JÁ FOI GERADO, PARA SIMULAR O FLUXO DE UM ATENDIMENTO REAL.
+            #print("Valor de isprotocolo:", st.session_state.isprotocolo) # DEBUG: VERIFICA O VALOR DE isprotocolo PARA ENTENDER POR QUE AS FONTES NÃO ESTÃO APARECENDO.
+
+            if st.session_state.isprotocolo and msg != st.session_state.historico[0]: # EXIBE AS FONTES APENAS SE O PROTOCOLO JÁ FOI GERADO, PARA SIMULAR O FLUXO DE UM ATENDIMENTO REAL.
                 st.markdown(f"""
                         <div class="msg-bot">
                             <div class="avatar avatar-bot">🛡️</div>
@@ -235,9 +239,9 @@ with chat_container:
                         <div class="msg-bot">
                             <div class="avatar avatar-bot">🛡️</div>
                             <div class="bubble-bot">
-                                <div class="resposta">{resposta}</div>
+                                <div class="resposta">Protocolo de atendimento: {resposta}</div>
                             </div>
-                        </div>""", unsafe_allow_html=True)
+                        </div>""", unsafe_allow_html=True)               
 
 
 # ───────────────────────────────────────────────────
@@ -245,37 +249,35 @@ with chat_container:
 # ───────────────────────────────────────────────────
 ultima = st.session_state.historico[-1] if st.session_state.historico else None
 
-if (ultima and ultima["role"] == "user") or ((ultima and ultima["role"] == "assistant") and not st.session_state.isprotocolo): # SE A ÚLTIMA MENSAGEM FOR DO USUÁRIO E O PROTOCOLO AINDA NÃO FOI GERADO, PROCESSA A PERGUNTA PENDENTE PARA GERAR O PROTOCOLO.
+if (ultima and ultima["role"] == "user"): # SE A ÚLTIMA MENSAGEM FOR DO USUÁRIO E O PROTOCOLO AINDA NÃO FOI GERADO, PROCESSA A PERGUNTA PENDENTE PARA GERAR O PROTOCOLO.
     
     with st.spinner("🔍 Consultando base de conhecimento…"):
             st.session_state.isprotocolo = True
 
             try:
-                agente = st.session_state.agente
-                resultado = agente.query(ultima["content"])           
+                    agente = st.session_state.agente
+                    resultado = agente.query(ultima["content"])           
 
-                # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
-                import re           
+                    try:
+                        data = json.loads(resultado) # Tenta parsear a resposta como JSON para limpar as tags HTML dos campos "resposta" e "fontes", 
+                                                    # sem afetar o restante da estrutura.
 
-                try:
-                    data = json.loads(resultado) # Tenta parsear a resposta como JSON para limpar as tags HTML dos campos "resposta" e "fontes", 
-                                                 # sem afetar o restante da estrutura.
+                        if "resposta" in data:
+                                data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
+                        if "fontes" in data:
+                                data["fontes"] = re.sub(r"<[^>]+>", "", data["fontes"]).strip()
 
-                    if "resposta" in data:
-                            data["resposta"] = re.sub(r"<[^>]+>", "", data["resposta"]).strip()
-                    if "fontes" in data:
-                            data["fontes"] = re.sub(r"<[^>]+>", "", data["fontes"]).strip()
+                        resultado = json.dumps(data, ensure_ascii=False)                        
 
-                    resultado = json.dumps(data, ensure_ascii=False)
+                    except (json.JSONDecodeError, TypeError):
+                        pass  # se não for JSON, html_lib.escape já trata na renderização
 
-                except (json.JSONDecodeError, TypeError):
-                    pass  # se não for JSON, html_lib.escape já trata na renderização
 
             except Exception as e:
-                resultado = json.dumps({
-                    "resposta": f"Ocorreu um erro ao processar sua pergunta: {e}",
-                    "fontes": ""
-                })
+                    resultado = json.dumps({
+                        "resposta": f"Ocorreu um erro ao processar sua pergunta: {e}",
+                        "fontes": ""
+                    })
                 
     st.session_state.historico.append({"role": "assistant", "content": resultado})
     st.rerun() # Recarrega o app para mostrar a resposta do agente.
