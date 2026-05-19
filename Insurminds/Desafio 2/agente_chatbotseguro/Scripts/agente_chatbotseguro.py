@@ -188,17 +188,18 @@ class AgenteChatbotSeguro:
 
                     DIRETRIZES:
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                        - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem informado na pergunta. Ex: Celular, pesquisar nos documentos que sejam relacionados. 
-                        a celular, ou significado do bem. Ex: carro é o mesmo que automóvel. Caso o bem ou significado do bem informado, não esteja relacionado aos documentos, **SEMPRE** responda "Desculpe, não tenho informações suficientes para responder a essa pergunta.
-                        Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe 
-                        ajudar." e nada mais.
+                        - **SEMPRE** pesquisar nos documentos que sejam relacionados ao bem ou bem de mesmo significado que este bem informado na pergunta. 
+                        Ex: Se o bem informado for celular, pesquisar nos documentos que sejam relacionados a este bem, o mesmo sendo aplicado para bens que tenham o mesmo 
+                        significado que este bem (Ex: smartphone). Caso o bem ou para bens que tenha o mesmo significado que este bem, não esteja relacionado aos documentos, **SEMPRE** responda "Desculpe, não tenho informações 
+                        suficientes para responder a essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o 
+                        protocolo gerado, para que ele possa lhe ajudar." e nada mais.
 
-                        - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para responder a 
-                        essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para que ele 
-                        possa lhe ajudar." e nada mais. 
+                        - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para
+                        responder a essa pergunta. Entre em contato com um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para 
+                        que ele possa lhe ajudar." e nada mais. 
 
-                        - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso nas 
-                        suas respostas. Realize todas as correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
+                        - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso nas suas respostas. Realize todas as 
+                        correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
                     **SEMPRE** utilizar o seguinte formato para a saída.
