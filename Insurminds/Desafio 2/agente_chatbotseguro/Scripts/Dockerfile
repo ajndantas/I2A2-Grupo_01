@@ -97,6 +97,6 @@ COPY --from=builder /root/.local /root/.local
 COPY --from=builder /app /app
 
 # Garante que o Python do Distroless enxergue os pacotes copiados
-ENV PYTHONPATH=/root/.local/lib/python3.11/site-packages
+ENV PYTHONPATH=/root/.local/lib/python3.13/site-packages
 ENV PYTHONUNBUFFERED=1
 ENV API_KEY_OPENROUTER=$API_KEY_OPENROUTER
