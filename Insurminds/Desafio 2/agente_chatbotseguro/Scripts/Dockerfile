@@ -1,10 +1,5 @@
 # Use uma imagem Python oficial e leve como base
-#
-# Estágio 1: Builder (Usa slim apenas para instalar as coisas)
-#
-# A imagem builder é responsável por instalar as dependências e preparar o ambiente, mas não é a imagem final que será usada para rodar a aplicação.
-# Isso ajuda a manter a imagem final mais leve, pois não inclui ferramentas de desenvolvimento ou arquivos temporários usados durante a construção. [cite: 2]
-FROM python:3.13-slim AS builder
+FROM python:3.13-slim
 
 # Defina variáveis de ambiente para evitar prompts interativos durante a instalação
 ENV DEBIAN_FRONTEND=noninteractive
@@ -36,31 +31,3 @@ RUN python huggingface_models_download.py
 ARG API_KEY_OPENROUTER
 ENV API_KEY_OPENROUTER=$API_KEY_OPENROUTER
 RUN python agente_chatbotseguro.py
-
-
-# Estágio 2: Imagem Final (Distroless - Ultra leve e segura)
-#
-# A imagem final é baseada em uma imagem distroless, que é extremamente leve e segura, pois não inclui um shell ou outras ferramentas de desenvolvimento.
-FROM gcr.io/distroless/python3-debian13 
-
-WORKDIR /app
-
-# ---- ALTERAÇÃO: Copiar dependências do libmagic para o Distroless ----
-# Copia as bibliotecas compartilhadas do libmagic
-COPY --from=builder /usr/lib/x86_64-linux-gnu/libmagic.so* /usr/lib/x86_64-linux-gnu/
-# Copia os arquivos de dados do magic (definições de tipos de arquivos)
-COPY --from=builder /usr/share/file /usr/share/file
-
-# ---- ALTERAÇÃO CRUCIAL DA SOLUÇÃO 2 ----
-# Copia a pasta global de pacotes (site-packages) do builder para o Distroless, garantindo que as extensões C/Rust sejam corretamente vinculadas e funcionem no ambiente final.
-COPY --from=builder /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
-
-# Copia os arquivos da aplicação e os modelos baixados que geramos no builder
-COPY --from=builder /app /app
-
-# Garante que o Python do Distroless enxergue os pacotes copiados da pasta global
-ENV PYTHONPATH=/usr/local/lib/python3.13/site-packages
-ENV PATH="/usr/local/bin:${PATH}"
-ENV PYTHONUNBUFFERED=1
-ENV API_KEY_OPENROUTER=$API_KEY_OPENROUTER
