@@ -1,5 +1,10 @@
 # Use uma imagem Python oficial e leve como base
-FROM python:3.13-slim
+#
+# Estágio 1: Builder (Usa slim apenas para instalar as coisas)
+#
+# A imagem builder é responsável por instalar as dependências e preparar o ambiente, mas não é a imagem final que será usada para rodar a aplicação. 
+# Isso ajuda a manter a imagem final mais leve, pois não inclui ferramentas de desenvolvimento ou arquivos temporários usados durante a construção.
+FROM python:3.13-slim AS builder 
 
 # Defina variáveis de ambiente para evitar prompts interativos durante a instalação
 ENV DEBIAN_FRONTEND=noninteractive
@@ -12,8 +17,7 @@ WORKDIR /app
 # É assumido que um arquivo requirements.txt existe no seu projeto
 COPY requirements.txt .
 
-COPY agente_chatbotseguro.py .
-COPY app.py .
+COPY agente_chatbotseguro.py app.py .
 
 # Copie os arquivos de dados para o contêiner.
 COPY rag_docs/ ./rag_docs/
@@ -65,3 +69,23 @@ RUN python agente_chatbotseguro.py
 
 # import os
 # os.getenv("API_KEY")
+
+# Estágio 2: Imagem Final (Distroless - Ultra leve e segura)
+#
+# A imagem final é baseada em uma imagem distroless, que é extremamente leve e segura, pois não inclui um shell ou outras ferramentas de desenvolvimento.
+FROM gcr.io/distroless/python3-debian12
+
+WORKDIR /app
+
+# Copia os pacotes instalados no estágio anterior
+#
+# O diretório /root/.local é onde o pip instala os pacotes quando não tem permissão para instalar globalmente.
+COPY --from=builder /root/.local /root/.local
+
+# Copia os arquivos da aplicação e os modelos baixados
+COPY --from=builder /app /app
+
+# Garante que o Python do Distroless enxergue os pacotes copiados
+ENV PYTHONPATH=/root/.local/lib/python3.11/site-packages
+ENV PYTHONUNBUFFERED=1
+ENV API_KEY_OPENROUTER=$API_KEY_OPENROUTER

@@ -52,16 +52,13 @@ jobs:
             cd ~/agentes
 
             echo "Parando container"
-            docker compose down  
+            docker compose down agemte_chatbotseguro nginx_ia
 
             echo "Removendo imagem antiga"
             docker image rm -f ghcr.io/ajndantas/agente_chatbotseguro || true
 
             echo "Subindo container atualizado"
-            docker compose up -d agente_chatbotseguro
-            docker compose up -d agente_eda
-            docker compose up -d agente_nfe
-            docker compose up -d nginx_ia
-
+            docker compose up -d agente_chatbotseguro nginx_ia
+            
             echo "Deploy finalizado com sucesso"
       
