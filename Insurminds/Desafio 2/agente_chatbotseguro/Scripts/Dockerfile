@@ -13,17 +13,6 @@ ENV PYTHONUNBUFFERED=1
 # Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# ---- ALTERAÇÃO CRUCIAL AQUI ----
-# Instalamos o gcc e ferramentas de build necessárias para compilar extensões binárias (como pydantic_core).
-# Elas serão descartadas no Estágio 2, mantendo a imagem final leve. [cite: 4]
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    gcc \
-    libmagic1 \
-    file \
-    && rm -rf /var/lib/apt/lists/* 
-# --------------------------------
-
 # Copie o arquivo de dependências Python para o diretório de trabalho
 # É assumido que um arquivo requirements.txt existe no seu projeto
 COPY requirements.txt .
@@ -34,6 +23,7 @@ COPY rag_docs/ ./rag_docs/
 
 # Instale os pacotes Python globalmente no builder (REMOVIDO O --user)
 # Sem o --user, o pip compila e vincula corretamente as extensões C/Rust (como _pydantic_core)
+# AGORA NÃO PRECISAMOS MAIS DO PYTHONPATH, POIS AS EXTENSÕES C/RUST ESTARÃO CORRETAMENTE VINCULADAS NA PASTA GLOBAL DE PACOTES DO PYTHON (site-packages) DO BUILDER.
 RUN pip install --no-cache-dir -r requirements.txt
 
 # DOWNLOAD DO MODELO DE EMBEDDING LOCALMENTE
@@ -51,7 +41,7 @@ RUN python agente_chatbotseguro.py
 # Estágio 2: Imagem Final (Distroless - Ultra leve e segura)
 #
 # A imagem final é baseada em uma imagem distroless, que é extremamente leve e segura, pois não inclui um shell ou outras ferramentas de desenvolvimento.
-FROM gcr.io/distroless/python3-debian12 
+FROM gcr.io/distroless/python3-debian13 
 
 WORKDIR /app
 
@@ -62,7 +52,7 @@ COPY --from=builder /usr/lib/x86_64-linux-gnu/libmagic.so* /usr/lib/x86_64-linux
 COPY --from=builder /usr/share/file /usr/share/file
 
 # ---- ALTERAÇÃO CRUCIAL DA SOLUÇÃO 2 ----
-# Copia a pasta global de pacotes (site-packages) onde o _pydantic_core foi compilado com sucesso
+# Copia a pasta global de pacotes (site-packages) do builder para o Distroless, garantindo que as extensões C/Rust sejam corretamente vinculadas e funcionem no ambiente final.
 COPY --from=builder /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin
 
