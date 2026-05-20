@@ -23,7 +23,11 @@ COPY agente_chatbotseguro.py app.py .
 COPY rag_docs/ ./rag_docs/
 
 # Instale os pacotes Python
-RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt
+#
+# Instala os pacotes em uma pasta local do container, para depois copiar apenas os pacotes instalados para a imagem final no estágio 2, 
+# mantendo a imagem final mais leve.
+RUN pip install --no-cache-dir --user -r requirements.txt
 
 # DOWNLOAD DO MODELO DE EMBEDDING LOCALMENTE
 #
