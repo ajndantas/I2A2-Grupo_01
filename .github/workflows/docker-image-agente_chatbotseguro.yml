@@ -41,7 +41,9 @@ jobs:
           timeout: 60s         # Aumenta o tempo limite para a conexão inicial
           
           envs: 
-            API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH         
+            API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH
+          
+          # PARA TENTAR GANHAR MEMÓRIA, DERRUBOU-SE O CONTAINER agente_eda TAMBÉM         
           script: |
             # Exporte a variável para que o Docker Compose consiga visualizá-la
             export API_KEY_OPENROUTER=$API_KEY_OPENROUTER
@@ -50,13 +52,14 @@ jobs:
             cd ~/agentes
 
             echo "Parando container"
-            docker compose down agente_chatbotseguro nginx_ia
+            docker compose down agente_chatbotseguro agente_eda nginx_ia 
 
             echo "Removendo imagem antiga"
             docker image rm -f ghcr.io/ajndantas/agente_chatbotseguro || true
 
             echo "Subindo container atualizado"
             docker compose up -d agente_chatbotseguro nginx_ia
+            docker compose up -d agente_eda
 
             echo "Deploy finalizado com sucesso"
       
