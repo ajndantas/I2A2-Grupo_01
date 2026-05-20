@@ -27,6 +27,9 @@ COPY rag_docs/ ./rag_docs/
 #
 # Instala os pacotes em uma pasta local do container, para depois copiar apenas os pacotes instalados para a imagem final no estágio 2, 
 # mantendo a imagem final mais leve.
+#
+# O --user é necessário porque a imagem distroless não tem permissão para acessar os arquivos instalados globalmente, 
+# então os pacotes são instalados na pasta do usuário.
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 # DOWNLOAD DO MODELO DE EMBEDDING LOCALMENTE
