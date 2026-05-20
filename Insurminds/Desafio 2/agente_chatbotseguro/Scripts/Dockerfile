@@ -22,6 +22,13 @@ COPY agente_chatbotseguro.py app.py .
 # Copie os arquivos de dados para o contêiner.
 COPY rag_docs/ ./rag_docs/
 
+# O PATH é atualizado para incluir a pasta local de binários onde os pacotes foram instalados, garantindo que o Python consiga encontrar 
+# as dependências quando a aplicação for executada.
+ENV PATH="/root/.local/bin:${PATH}"
+
+# O PYTHONPATH é necessário para que o Python consiga encontrar os pacotes instalados na pasta local do usuário.
+ENV PYTHONPATH=/root/.local/lib/python3.13/site-packages
+
 # Instale os pacotes Python
 # RUN pip install --no-cache-dir -r requirements.txt
 #
@@ -32,18 +39,11 @@ COPY rag_docs/ ./rag_docs/
 # então os pacotes são instalados na pasta do usuário.
 RUN pip install --no-cache-dir --user -r requirements.txt
 
-# O PATH é atualizado para incluir a pasta local de binários onde os pacotes foram instalados, garantindo que o Python consiga encontrar 
-# as dependências quando a aplicação for executada.
-ENV PATH="/root/.local/bin:${PATH}"
-
 # DOWNLOAD DO MODELO DE EMBEDDING LOCALMENTE
 #
 # AS LINHAS ABAIXO TÊM A FUNÇÃO DE BAIXAR O MODELO DE EMBEDDING LOCALMENTE. FEZ-SE ISSO PARA EVITAR QUE O MODELO TENHA QUE SER BAIXADO TODA VEZ QUE O CONTÊINER FOR INICIADO E 
 # PELO FATO DE NÃO TER QUE ENVIAR O MODELO PARA O GITHUB POR SER MUITO GRANDE.
 COPY huggingface_models_download.py .
-
-# O PYTHONPATH é necessário para que o Python consiga encontrar os pacotes instalados na pasta local do usuário.
-ENV PYTHONPATH=/root/.local/lib/python3.13/site-packages
 
 RUN python huggingface_models_download.py
 
