@@ -13,6 +13,15 @@ ENV PYTHONUNBUFFERED=1
 # Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
+# ---- ALTERAÇÃO CRUCIAL AQUI ----
+# Instalamos o gcc e ferramentas de build necessárias para compilar extensões binárias (como pydantic_core).
+# Elas serão descartadas no Estágio 2, mantendo a imagem final leve.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+# --------------------------------
+
 # Copie o arquivo de dependências Python para o diretório de trabalho
 # É assumido que um arquivo requirements.txt existe no seu projeto
 COPY requirements.txt .
