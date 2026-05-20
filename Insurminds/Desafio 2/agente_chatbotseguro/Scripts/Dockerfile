@@ -32,6 +32,10 @@ COPY rag_docs/ ./rag_docs/
 # então os pacotes são instalados na pasta do usuário.
 RUN pip install --no-cache-dir --user -r requirements.txt
 
+# O PATH é atualizado para incluir a pasta local de binários onde os pacotes foram instalados, garantindo que o Python consiga encontrar 
+# as dependências quando a aplicação for executada.
+ENV PATH="/root/.local/bin:${PATH}"
+
 # DOWNLOAD DO MODELO DE EMBEDDING LOCALMENTE
 #
 # AS LINHAS ABAIXO TÊM A FUNÇÃO DE BAIXAR O MODELO DE EMBEDDING LOCALMENTE. FEZ-SE ISSO PARA EVITAR QUE O MODELO TENHA QUE SER BAIXADO TODA VEZ QUE O CONTÊINER FOR INICIADO E 
@@ -98,5 +102,6 @@ COPY --from=builder /app /app
 
 # Garante que o Python do Distroless enxergue os pacotes copiados
 ENV PYTHONPATH=/root/.local/lib/python3.13/site-packages
+ENV PATH="/root/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1
 ENV API_KEY_OPENROUTER=$API_KEY_OPENROUTER
