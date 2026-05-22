@@ -301,8 +301,11 @@ with st.form(key="chat_form", clear_on_submit=True):
 # 5 - QUANDO O USUÁRIO ENVIA A PERGUNTA, ELA É ADICIONADA AO HISTÓRICO E O APP É RECARREGADO
 if enviar and pergunta.strip():
     if not st.session_state.isprotocolo: # GERA O PROTOCOLO APENAS NA PRIMEIRA PERGUNTA DA CONVERSA, PARA SIMULAR O INÍCIO DE UM ATENDIMENTO.
-        protocolo = randint(1, 999999) # Gera um número de protocolo aleatório para a conversa.
-        protocolo = f"{protocolo:06d}" # Formata o número do protocolo com zeros à esquerda (ex: 000123).
+        protocolo = randint(1, 9999) # Gera um número de protocolo aleatório para a conversa.
+        data = datetime.now().strftime("%d%m%y") # Obtém a data atual no formato dia, mês e ano (ex: 120624 para 12 de junho de 2024).
+        protocolo = f"{protocolo:04d}{data}" # Formata o número do protocolo com zeros à esquerda e adiciona a data (ex: 0423120624). Sendo aqui 
+                                             # a data do dia 12 de junho de 2024 e o número aleatório 423.    
+        
         resultado = json.dumps({
                     "resposta": protocolo
                 })
