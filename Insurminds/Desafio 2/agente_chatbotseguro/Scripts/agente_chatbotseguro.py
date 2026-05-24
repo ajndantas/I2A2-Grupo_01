@@ -10,8 +10,6 @@
 
 from dotenv import load_dotenv
 from os import getenv, path
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
 from langchain_core.globals import set_debug, set_llm_cache, set_verbose
 from langchain_core.caches import InMemoryCache
 from time import time
@@ -31,7 +29,8 @@ set_llm_cache(InMemoryCache())
 class Loader:
 
     def __init__(self):        
-
+        
+        # Importação local para acelerar a inicialização do script
         from langchain_community.document_loaders import TextLoader, DirectoryLoader, BSHTMLLoader
 
         # CRIAÇÃO - ARQUIVOS TEXTO (CSV, HTML, JSON, ETC) - CARREGADORES 
@@ -95,7 +94,10 @@ class SearchIndex:
         return self.chunked_docs 
     
     # 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS E SEUS RESPECTIVOS VETORES DE EMBEDDING. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS NOS DOCUMENTOS FRAGMENTADOS.
-    def indexer(self) -> HuggingFaceEmbeddings:        
+    def indexer(self):        
+
+        # Mapeia o HuggingFaceEmbeddings apenas quando necessário
+        from langchain_community.embeddings import HuggingFaceEmbeddings
 
         self.embeddings = HuggingFaceEmbeddings(
                     model_name="./cache/all-MiniLM-L6-v2",
@@ -116,8 +118,10 @@ class VectorDB:
 
         self.embeddings = SearchIndex().indexer() # PASSO 2.2 - CRIAÇÃO DO INDEXADOR
 
-    def db(self) -> FAISS:
+    def db(self):
 
+        from langchain_community.vectorstores import FAISS
+        
         #---------------------------------------------------------
         #  MANEIRA RÁPIDA DE IMPLEMENTAR O RAG 
         #
