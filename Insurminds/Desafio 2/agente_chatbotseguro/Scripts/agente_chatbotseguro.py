@@ -8,21 +8,14 @@
 # 2.3 - ARMAZENANDO OS ÍNDICES EM UM BANCO VETORIAL NA MEMÓRIA
 # 3 - EXECUTANDO A PESQUISA
 
-from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv, path
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
 from langchain_core.globals import set_debug, set_llm_cache, set_verbose
 from langchain_core.caches import InMemoryCache
-from langchain_community.document_loaders import TextLoader, DirectoryLoader, BSHTMLLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA
-from langchain_core.prompts import PromptTemplate
 from time import time
 import re
-import json
-
 
 #set_debug(True)
 set_verbose(True)
@@ -38,6 +31,8 @@ set_llm_cache(InMemoryCache())
 class Loader:
 
     def __init__(self):        
+
+        from langchain_community.document_loaders import TextLoader, DirectoryLoader, BSHTMLLoader
 
         # CRIAÇÃO - ARQUIVOS TEXTO (CSV, HTML, JSON, ETC) - CARREGADORES 
         loader_cls_map = {
@@ -66,9 +61,11 @@ class Loader:
 #
 # Para isso, será necessário, primeiramente, realizar a quebra (splitter) em trechos, para que a IA possa indexá-los.
 class SearchIndex:
-
+    
     # 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self, chunk_size: int, chunk_overlap: int, documents: list) -> list:
+        
+        from langchain_text_splitters import RecursiveCharacterTextSplitter
 
         splittered_docs = RecursiveCharacterTextSplitter(                                                    
                                                             chunk_size=chunk_size, 
@@ -98,7 +95,7 @@ class SearchIndex:
         return self.chunked_docs 
     
     # 2 - CRIAR UM ÍNDICE DE BUSCA PARA OS CHUNKS GERADOS E SEUS RESPECTIVOS VETORES DE EMBEDDING. ESSE ÍNDICE VAI PERMITIR REALIZAR BUSCAS NOS DOCUMENTOS FRAGMENTADOS.
-    def indexer(self) -> HuggingFaceEmbeddings:
+    def indexer(self) -> HuggingFaceEmbeddings:        
 
         self.embeddings = HuggingFaceEmbeddings(
                     model_name="./cache/all-MiniLM-L6-v2",
@@ -152,7 +149,12 @@ class VectorDB:
 
 class AgenteChatbotSeguro:
 
-  def __init__(self):
+  def __init__(self): 
+
+    # TÉCNICA DE LAZY IMPORT PARA CARREGAR AS DEPENDÊNCIAS APENAS QUANDO FOR NECESSÁRIO, O QUE PODE MELHORAR A PERFORMANCE DO PROGRAMA.
+    from langchain_openai import ChatOpenAI 
+    from langchain_core.prompts import PromptTemplate
+    from langchain.chains import RetrievalQA
 
     llm = ChatOpenAI(
                         model="openrouter/free",
@@ -232,6 +234,8 @@ class AgenteChatbotSeguro:
     
   def query(self, question: str) -> str:
       
+      import json
+
       output = self.qa_chain.invoke({"query": question}) 
       print("Saída: \n",output)
       
@@ -287,6 +291,6 @@ if __name__ == "__main__":
     #print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n") """
 
     # WARMUP PARA CRIAR O BANCO DE DADOS VETORIAL
-    print(agente.query("Quem descobriu o Brasil ?"))
+    print(agente.query("Como posso acionar o seguro ?"))
     fim = time() # Marca o tempo final
     print(f"\nTempo total de execução: {fim - inicio:.2f} segundos\n")
