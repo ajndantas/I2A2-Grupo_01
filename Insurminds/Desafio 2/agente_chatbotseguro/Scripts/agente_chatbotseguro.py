@@ -98,7 +98,8 @@ class SearchIndex:
     def indexer(self):        
 
         # Mapeia o HuggingFaceEmbeddings apenas quando necessário
-        from langchain_community.embeddings import HuggingFaceEmbeddings
+        #from langchain_community.embeddings import HuggingFaceEmbeddings
+        from langchain_huggingface import HuggingFaceEmbeddings
 
         self.embeddings = HuggingFaceEmbeddings(
                     model_name="./cache/all-MiniLM-L6-v2",
