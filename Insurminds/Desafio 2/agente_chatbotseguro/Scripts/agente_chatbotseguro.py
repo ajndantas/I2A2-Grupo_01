@@ -30,7 +30,7 @@ class Loader:
 
     def __init__(self):        
         
-        # Importação local para acelerar a inicialização do script
+        # Importação local para acelerar a inicialização do script. LAZY IMPORTING
         from langchain_community.document_loaders import TextLoader, DirectoryLoader, BSHTMLLoader
 
         # CRIAÇÃO - ARQUIVOS TEXTO (CSV, HTML, JSON, ETC) - CARREGADORES 
@@ -64,6 +64,7 @@ class SearchIndex:
     # 1 - DIVIDIR OS DOCUMENTOS EM CHUNKS (FRAGMENTOS) DE TEXTO PARA FACILITAR O PROCESSAMENTO PELA LLM. O CHUNK_SIZE VAI DETERMINAR O TAMANHO DE CADA FRAGMENTO.
     def splitter(self, chunk_size: int, chunk_overlap: int, documents: list) -> list:
         
+        # LAZY IMPORTING
         from langchain_text_splitters import RecursiveCharacterTextSplitter
 
         splittered_docs = RecursiveCharacterTextSplitter(                                                    
@@ -120,6 +121,7 @@ class VectorDB:
 
     def db(self):
 
+        # LAZY IMPORTING
         from langchain_community.vectorstores import FAISS
         
         #---------------------------------------------------------
@@ -142,6 +144,7 @@ class VectorDB:
 
         # LAZY LOADING
         documents = Loader().load() # PASSO 1 - CARGA NO CARREGADOR
+
         # LAZY SPLITTING
         chunked_documents = SearchIndex().splitter(chunk_size=800, chunk_overlap=500, documents=documents) # PASSO 2.1 - DIVISÃO DOS DOCUMENTOS
 
@@ -155,7 +158,7 @@ class AgenteChatbotSeguro:
 
   def __init__(self): 
 
-    # TÉCNICA DE LAZY IMPORT PARA CARREGAR AS DEPENDÊNCIAS APENAS QUANDO FOR NECESSÁRIO, O QUE PODE MELHORAR A PERFORMANCE DO PROGRAMA.
+    # TÉCNICA DE LAZY IMPORTING PARA CARREGAR AS DEPENDÊNCIAS APENAS QUANDO FOR NECESSÁRIO, O QUE PODE MELHORAR A PERFORMANCE DO PROGRAMA.
     from langchain_openai import ChatOpenAI 
     from langchain_core.prompts import PromptTemplate
     from langchain.chains import RetrievalQA
