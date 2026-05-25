@@ -8,6 +8,8 @@ on:
 
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
+  PORT: 8002                          # Porta onde a aplicação vai rodar dentro do container. 
+                                      # que é a porta padrão de entrada do Cloud Run. 
   REGION: us-central1                 # Região do GCP (ex: São Paulo ou us-central1)
   SERVICE_NAME: agente-chatbotseguro  # Nome que o serviço terá no Cloud Run
   REPO_NAME: agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
@@ -60,6 +62,7 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --port=${{ env.PORT }} \
             --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:latest" \
             --region=${{ env.REGION }} \
             --platform=managed \

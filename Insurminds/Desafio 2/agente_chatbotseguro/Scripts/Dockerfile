@@ -22,7 +22,7 @@ COPY rag_docs/ ./rag_docs/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # DOWNLOAD DO MODELO DE EMBEDDING LOCALMENTE
-# AS LINHAS ABAIXO TÊM A FUNÇÃO DE BAIXAR O MODELO DE EMBEDDING LOCALMENTE. [cite: 12]
+# AS LINHAS ABAIXO TÊM A FUNÇÃO DE BAIXAR O MODELO DE EMBEDDING LOCALMENTE.
 COPY huggingface_models_download.py . 
 
 RUN python huggingface_models_download.py
@@ -31,3 +31,7 @@ RUN python huggingface_models_download.py
 ARG API_KEY_OPENROUTER
 ENV API_KEY_OPENROUTER=$API_KEY_OPENROUTER
 RUN python agente_chatbotseguro.py
+
+EXPOSE 8002
+
+CMD ["streamlit", "run", "app.py", "--server.port", "8002", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
