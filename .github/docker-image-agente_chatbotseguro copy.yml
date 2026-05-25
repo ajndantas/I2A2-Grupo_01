@@ -1,0 +1,64 @@
+name: Docker Image CI agente_chatbotseguro
+
+on:
+  push:
+    branches: [ "master" ]
+    paths: 
+      - 'Insurminds/Desafio 2/agente_chatbotseguro/**'        
+
+env:
+  API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
+  
+jobs:
+
+  build:
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build the Docker image
+        run: |
+          # github.repository_owner = ajndantas
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro
+          #IMAGE_ID=agente_nfe
+          #TAG=$(date +%Y%m%d%H%M%S)
+          TAG=latest
+          docker build --build-arg API_KEY_OPENROUTER=$API_KEY_OPENROUTER -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker push $IMAGE_ID:$TAG 
+
+      - name: Executar comandos via SSH na VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_VM_HOST }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          command_timeout: 30m # Aumenta o tempo limite para execução
+          timeout: 60s         # Aumenta o tempo limite para a conexão inicial
+          
+          envs: 
+            API_KEY_OPENROUTER # EXPORTA A VARIÁVEL DE AMBIENTE PARA O COMANDO SSH
+          
+          # PARA TENTAR GANHAR MEMÓRIA, DERRUBOU-SE TODOS OS CONTAINERS TAMBÉM         
+          script: |
+            # Exporte a variável para que o Docker Compose consiga visualizá-la
+            export API_KEY_OPENROUTER=$API_KEY_OPENROUTER
+            
+            echo "Entrando no diretório do projeto"
+            cd ~/agentes
+
+            echo "Parando container"
+            docker compose down agente_chatbotseguro nginx_ia
+
+            echo "Removendo imagem antiga"
+            docker image rm -f ghcr.io/ajndantas/agente_chatbotseguro || true
+
+            echo "Subindo container atualizado"
+            docker compose up -d agente_chatbotseguro nginx_ia
+            
+            echo "Deploy finalizado com sucesso"
+      
