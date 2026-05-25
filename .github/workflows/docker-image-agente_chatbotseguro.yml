@@ -48,7 +48,7 @@ jobs:
           #IMAGE_ID=agente_nfe
           
           # O padrão do Artifact Registry é: REGIAO-docker.pkg.dev/PROJECT_ID/REPO_NAME/IMAGE_NAME:TAG
-          IMAGE_ID="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:latest"
+          IMAGE_ID="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}"
           
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
