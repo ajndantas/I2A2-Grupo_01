@@ -10,7 +10,7 @@ env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
   REGION: us-central1                 # Região do GCP (ex: São Paulo ou us-central1)
   SERVICE_NAME: agente-chatbotseguro  # Nome que o serviço terá no Cloud Run
-  REPO_NAME:agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
+  REPO_NAME: agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   
 jobs:
