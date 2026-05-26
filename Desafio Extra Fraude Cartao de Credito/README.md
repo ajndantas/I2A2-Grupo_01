@@ -19,7 +19,7 @@ O sistema ajuda a:
 ## 🖥️ Demo Online
 
 Não quer instalar nada? A gente tem uma versão de testes hospedada aqui 👉
-[🔗 Acesse a demo](https://antoniodantasia.ddns.net/agenteeda)
+[🔗 Acesse a demo](https://agente-eda-574973424283.us-central1.run.app)
 
 ---
 

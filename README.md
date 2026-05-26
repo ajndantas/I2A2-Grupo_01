@@ -31,9 +31,9 @@ Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights int
 
 **🧠 Tecnologias:** Python, Streamlit, LangChain, Deepseek-R1t2-chimera (LLM), Plotly, Pandas, SQLAlchemy.
 
-**🌐 Demonstração:** [https://antoniodantasia.ddns.net/agenteeda](https://antoniodantasia.ddns.net/agenteeda)
+**🌐 Demonstração:** [https://agente-eda-574973424283.us-central1.run.app](https://antoniodantasia.ddns.net/agenteeda)
 
-**📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/README.md)
+**📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme "https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme")
 
 ## 🧠 Foco do Portfólio
 
