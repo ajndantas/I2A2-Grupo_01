@@ -118,7 +118,15 @@ class VectorDB:
                                     # O OBJETIVO DE ARMAZENAR O ÍNDICE EM UM ARQUIVO É PERMITIR QUE ELE SEJA REUTILIZADO 
                                     # EM VEZ DE SER RECRIADO TODA VEZ QUE O PROGRAMA FOR EXECUTADO AUMENTANDO ASSIM A PERFORMANCE.
 
-        self.embeddings = SearchIndex().indexer() # PASSO 2.2 - CRIAÇÃO DO INDEXADOR
+    @property # O DECORADOR @PROPERTY PERMITE QUE O MÉTODO SEJA ACESSADO COMO UM ATRIBUTO, O QUE PODE MELHORAR A LEGIBILIDADE DO CÓDIGO.
+    def embeddings(self):        
+        if self._embeddings == None: # Visibilidade de atributo privado, 
+                                     # para garantir que os embeddings só sejam criados quando forem realmente necessários, 
+                                     # evitando assim o consumo desnecessário de recursos.
+
+           self._embeddings = SearchIndex().indexer()
+
+        return self._embeddings
 
     def db(self):
 
@@ -133,9 +141,15 @@ class VectorDB:
         # 3 - CRIAÇÃO DO BANCO VETORIAL SÓ QUANDO FOR NECESSÁRIO.
         #---------------------------------------------------------
 
+        # 3 - CRIAÇÃO DO BANCO VETORIAL SÓ QUANDO FOR NECESSÁRIO. SE O ÍNDICE DE BUSCA JÁ EXISTIR, ELE VAI SER CARREGADO A PARTIR DO ARQUIVO SALVO, 
+        # O QUE É MAIS RÁPIDO DO QUE CRIAR UM NOVO ÍNDICE DE BUSCA A CADA EXECUÇÃO DO PROGRAMA.
+        
         # ...se existir, carrega
         if path.exists(self.db_path):
             print("Índice de busca encontrado. Carregando o índice existente...\n")
+            
+            # O self.embeddings VAI SER CRIADO APENAS SE O MÉTODO EMBEDDINGS FOR CHAMADO, 
+            # O QUE SÓ ACONTECE SE O ÍNDICE DE BUSCA EXISTIR, POIS O MÉTODO DB SÓ CHAMA O MÉTODO EMBEDDINGS SE O ÍNDICE EXISTIR.
             return FAISS.load_local(self.db_path, self.embeddings, allow_dangerous_deserialization=True) # O MÉTODO LOAD_LOCAL VAI CARREGAR O ÍNDICE DE BUSCA A PARTIR DO ARQUIVO SALVO. 
                                                                                                          # O PARÂMETRO ALLOW_DANGEROUS_DESERIALIZATION É NECESSÁRIO PARA PERMITIR 
                                                                                                          # QUE O FAISS CARREGUE O ÍNDICE DE BUSCA A PARTIR DO ARQUIVO        
