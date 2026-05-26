@@ -5,7 +5,7 @@ Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas
 ## 🖥️ Quer só testar?
 
 Sem instalar nada:
-👉 [Acesse a versão online](https://antoniodantasia.ddns.net/agentenfe)
+👉 [Acesse a versão online](https://agente-nfs-574973424283.us-central1.run.app)
 
 ---
 
@@ -51,8 +51,8 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 2. Abra o Docker
 3. No terminal (como admin), rode:
    ```bash
-   docker pull ghcr.io/ajndantas/agente_nfe
-   docker run -d -p 8000:8000 ghcr.io/ajndantas/agente_nfe
+   docker pull us-central1-docker.pkg.dev/n8n-meus-ensinamentos/agente-nfs/agente-nfs:latest
+   docker run -d -p 8000:8000 us-central1-docker.pkg.dev/n8n-meus-ensinamentos/agente-nfs/agente-nfs:latest
    ```
 4. Pronto! Acesse [http://localhost:8000](http://localhost:8000)
 

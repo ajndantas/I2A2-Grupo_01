@@ -16,7 +16,7 @@ Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas so
 
 **🧠 Tecnologias:** Python, Pandas, Streamlit, LangChain, Docker, LLM [Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503), Tesseract, OpenCV, SQLAlchemy.
 
-**🌐 Demonstração:** [https://antoniodantasia.ddns.net/agentenfe](https://antoniodantasia.ddns.net/agentenfe)
+**🌐 Demonstração:** [https://agente-nfs-574973424283.us-central1.run.app](https://agente-nfs-574973424283.us-central1.run.app)
 
 **📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)
 

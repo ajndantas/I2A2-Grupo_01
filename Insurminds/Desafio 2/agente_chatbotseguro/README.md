@@ -8,7 +8,7 @@ Este projeto utiliza **Inteligência Artificial (LLMs)** e **RAG (Retrieval-Augm
 
 O projeto está implantado e disponível para testes em tempo real na infraestrutura da **Google Cloud Platform (GCP)**:
 
-🔗 **[Acessar Demo do Agente Chatbot Seguro](https://antoniodantasn8n.ddns.net/agentechatbotseguro)**
+🔗 **[Acessar Demo do Agente Chatbot Seguro](https://agente-chatbotseguro-574973424283.us-central1.run.app)**
 
 ---
 
@@ -97,7 +97,6 @@ Crie e ative um ambiente virtual:
 python -m venv .venv
 source .venv/bin/activate
 ```
-
 
 ### Windows
 
