@@ -14,6 +14,7 @@ env:
   SERVICE_NAME: agente-chatbotseguro  # Nome que o serviço terá no Cloud Run
   REPO_NAME: agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
+  API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   
 jobs:
 
@@ -55,7 +56,7 @@ jobs:
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
           
-          docker build --build-arg API_KEY_OPENROUTER=$API_KEY_OPENROUTER -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker build --build-arg API_KEY_OPENROUTER=$API_KEY_OPENROUTER --build-arg API_KEY=$API_KEY -t $IMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
           docker push $IMAGE_ID:$TAG 
 
       # 5. Deploy da imagem Docker para o Cloud Run
@@ -67,7 +68,7 @@ jobs:
             --region=${{ env.REGION }} \
             --platform=managed \
             --allow-unauthenticated \
-            --set-env-vars=API_KEY_OPENROUTER=$API_KEY_OPENROUTER \
+            --set-env-vars=API_KEY_OPENROUTER=$API_KEY_OPENROUTER,API_KEY=$API_KEY \
             --memory=2Gi
 
      
