@@ -232,7 +232,7 @@ class AgenteChatbotSeguro:
 
                     {{
                         "pergunta": "Pergunta do usuário",     
-                        "resposta": "A resposta para a pergunta. Se for informar o bem, não é necessário informar seus sinonimos."
+                        "resposta": "A resposta para a pergunta. Se for informar o bem, não é necessário informar seus sinonimos. Se a resposta contiver a expressão 'canais de atendimento', solicitar envio de email e número do protocolo.",
                     }}
                 """    
 
