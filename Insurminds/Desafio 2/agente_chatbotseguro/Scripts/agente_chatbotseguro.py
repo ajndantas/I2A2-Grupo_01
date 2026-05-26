@@ -177,14 +177,14 @@ class AgenteChatbotSeguro:
         # -------------------------------------------------------
         # Apaga cache nativo do LangChain (InMemoryCache)
         # -------------------------------------------------------
+        print("Nova conversa iniciada. Cache do LangChain desativado para iniciar uma nova conversa sem histórico.\n")
         set_llm_cache(None)  # DESATIVA O CACHE DO LANGCHAIN PARA INICIAR UMA NOVA CONVERSA SEM HISTÓRICO
-
-    else:      
-      # -------------------------------------------------------
-      # Cache nativo do LangChain (InMemoryCache)
-      # -------------------------------------------------------
-      set_llm_cache(InMemoryCache())  
-
+              
+    # -------------------------------------------------------
+    # Cache nativo do LangChain (InMemoryCache)
+    # -------------------------------------------------------
+    print("Cache do LangChain ativado para acelerar as respostas.\n")
+    set_llm_cache(InMemoryCache())
 
     # TÉCNICA DE LAZY IMPORTING PARA CARREGAR AS DEPENDÊNCIAS APENAS QUANDO FOR NECESSÁRIO, O QUE PODE MELHORAR A PERFORMANCE DO PROGRAMA.
     from langchain_openai import ChatOpenAI 
