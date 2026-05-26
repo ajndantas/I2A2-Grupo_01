@@ -125,6 +125,8 @@ class VectorDB:
         if self._embeddings == None: # Visibilidade de atributo privado, 
                                      # para garantir que os embeddings só sejam criados quando forem realmente necessários, 
                                      # evitando assim o consumo desnecessário de recursos.
+           
+           print("Criando os embeddings...\n")
 
            self._embeddings = SearchIndex().indexer()
 
@@ -181,11 +183,11 @@ class AgenteChatbotSeguro:
     from langchain.chains import RetrievalQA
 
     llm = ChatOpenAI(
-                        #model="openrouter/free",
-                        model="gpt-5-mini",                   
-                        #api_key=getenv("API_KEY_OPENROUTER"),
-                        api_key=getenv("API_KEY"),                        
-                        #base_url="https://openrouter.ai/api/v1",
+                        model="openrouter/free",
+                        #model="gpt-5-mini",                   
+                        api_key=getenv("API_KEY_OPENROUTER"),
+                        #api_key=getenv("API_KEY"),                        
+                        base_url="https://openrouter.ai/api/v1",
                         reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
                         temperature=0                  
                     )
