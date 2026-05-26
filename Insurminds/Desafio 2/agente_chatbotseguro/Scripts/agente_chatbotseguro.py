@@ -112,11 +112,13 @@ class SearchIndex:
 # PASSO 3 - CRIAÇÃO DO BANCO VETORIAL
 class VectorDB:
  
-    def __init__(self, db_path_name: str):
+    def __init__(self, db_path_name: str): 
 
         self.db_path = db_path_name # O CAMINHO ONDE O ÍNDICE DE BUSCA VAI SER ARMAZENADO. 
                                     # O OBJETIVO DE ARMAZENAR O ÍNDICE EM UM ARQUIVO É PERMITIR QUE ELE SEJA REUTILIZADO 
                                     # EM VEZ DE SER RECRIADO TODA VEZ QUE O PROGRAMA FOR EXECUTADO AUMENTANDO ASSIM A PERFORMANCE.
+        
+        self._embeddings = None  # Lazy loading do embedding
 
     @property # O DECORADOR @PROPERTY PERMITE QUE O MÉTODO SEJA ACESSADO COMO UM ATRIBUTO, O QUE PODE MELHORAR A LEGIBILIDADE DO CÓDIGO.
     def embeddings(self):        

@@ -116,10 +116,10 @@ pip install -r requirements.txt
 
 ### Windows
 
+[requirements_windows.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/requirements_windows.txt "https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/requirements_windows.txt")
 
 ```
-pip install -r requirements_windows.txt
-
+1     pip install -r requirements_windows.txt
 ```
 
 ---
