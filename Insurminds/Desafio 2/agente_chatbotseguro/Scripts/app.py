@@ -154,7 +154,8 @@ st.markdown("""
 @st.cache_resource(show_spinner="⚙️ Carregando base de conhecimento…")
 def carregar_agente():
     
-    return AgenteChatbotSeguro()
+    return AgenteChatbotSeguro(newconversation = st.session_state.newconversation if "newconversation" in st.session_state else False) # PASSA O VALOR DE newconversation PARA O AGENTE PARA CONTROLAR 
+                                                                                                                     # SE O CACHE DO LANGCHAIN DEVE SER LIMPO OU NÃO.
 
 if "agente" not in st.session_state:
     print("Criando o agente pela primeira vez...")
@@ -320,6 +321,7 @@ if st.session_state.historico:
     if st.button("🗑️ Nova conversa", type="secondary"):
         st.session_state.historico = []
         st.session_state.isprotocolo = False
+        st.session_state.newconversation = True
         st.rerun()
 
 # ──────────────────────────────────────────────

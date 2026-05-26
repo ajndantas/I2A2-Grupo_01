@@ -20,10 +20,6 @@ set_verbose(True)
 
 load_dotenv() # CARREGANDO O ARQUIVO COM A API_KEY_OPENROUTER
 
-# -------------------------------------------------------
-# Cache nativo do LangChain (InMemoryCache)
-# -------------------------------------------------------
-set_llm_cache(InMemoryCache())
 
 # PASSO 1 - CARGA NO CARREGADOR
 class Loader:
@@ -175,7 +171,20 @@ class VectorDB:
 
 class AgenteChatbotSeguro:
 
-  def __init__(self): 
+  def __init__(self, newconversation: bool): 
+
+    if newconversation:
+        # -------------------------------------------------------
+        # Apaga cache nativo do LangChain (InMemoryCache)
+        # -------------------------------------------------------
+        set_llm_cache(None)  # DESATIVA O CACHE DO LANGCHAIN PARA INICIAR UMA NOVA CONVERSA SEM HISTÓRICO
+
+    else:      
+      # -------------------------------------------------------
+      # Cache nativo do LangChain (InMemoryCache)
+      # -------------------------------------------------------
+      set_llm_cache(InMemoryCache())  
+
 
     # TÉCNICA DE LAZY IMPORTING PARA CARREGAR AS DEPENDÊNCIAS APENAS QUANDO FOR NECESSÁRIO, O QUE PODE MELHORAR A PERFORMANCE DO PROGRAMA.
     from langchain_openai import ChatOpenAI 
