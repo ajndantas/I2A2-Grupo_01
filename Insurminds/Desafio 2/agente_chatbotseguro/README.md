@@ -69,10 +69,9 @@ A chave sensível (`API_KEY_OPENROUTER`) é armazenada nos **GitHub Secrets**. D
 * 🧩 **LangChain** – Orquestração de RAG e memória conversacional.
 * 🤖 **OpenRouter** – Acesso aos modelos de linguagem (LLMs).
 * 🧱 **Streamlit** – Interface web interativa para o usuário.
-* 🐳 **Docker & Docker Compose** – Containerização e orquestração de serviços.
-* 🛡️ **Nginx** – Gateway de segurança e gerenciamento de subdomínios.
+* 🐳 **Docker** – Containerização e orquestração de serviços.
 * 🐙 **GitHub** – Hospedagem do código-fonte e automação de CI/CD.
-* ☁️ **GCP (Google Cloud Platform)** – Infraestrutura de nuvem e hospedagem em VM.
+* ☁️ **GCP (Google Cloud Platform)** **e CloudRun** – Infraestrutura de nuvem e hospedagem de serviço
 
 ---
 
@@ -87,7 +86,7 @@ Antes de iniciar, certifique-se de possuir instalado:
 - Python 3.13
 - Conta com acesso à API utilizada pelo OpenRouter
 
-## 📦 Instalação das Dependências (Execução Local sem Docker)
+## 📦 1 - Instalação das Dependências (Execução Local sem Docker)
 
 Crie e ative um ambiente virtual:
 
@@ -107,13 +106,25 @@ python -m venv .venv
 
 Instale as dependências:
 
+### Linux / macOS
+
+[requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/requirements.txt "https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/requirements.txt")
+
 ```bash
 pip install -r requirements.txt
 ```
 
+### Windows
+
+
+```
+pip install -r requirements_windows.txt
+
+```
+
 ---
 
-## 🔐 Configuração das Variáveis de Ambiente
+## 🔐 2 - Configuração das Variáveis de Ambiente
 
 Crie um arquivo `.env` dentro do diretório Scripts do ambiente virtual, contendo as variáveis necessárias:
 
