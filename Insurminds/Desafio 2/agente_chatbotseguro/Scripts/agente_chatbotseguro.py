@@ -197,8 +197,8 @@ class AgenteChatbotSeguro:
                         api_key=getenv("API_KEY_OPENROUTER"),
                         #api_key=getenv("API_KEY"),                        
                         base_url="https://openrouter.ai/api/v1",
-                        reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
-                        temperature=0                  
+                        #reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
+                        temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
                     )
     
     db_path_name = "faiss_index"
