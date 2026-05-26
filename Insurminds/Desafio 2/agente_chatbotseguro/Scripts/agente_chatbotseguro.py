@@ -313,7 +313,7 @@ if __name__ == "__main__":
 
     inicio = time() # Marca o tempo inicial
 
-    agente = AgenteChatbotSeguro()
+    agente = AgenteChatbotSeguro(newconversation = False) # INICIA O AGENTE COM O CACHE ATIVO PARA APROVEITAR O BANCO DE DADOS VETORIAL JÁ CRIADO. SE O CACHE ESTIVER DESATIVADO, O BANCO DE DADOS VETORIAL VAI SER RECRIADO DO ZERO, O QUE PODE DEMORAR MUITO MAIS PARA RESPONDER A PRIMEIRA PERGUNTA.
 
     # PERGUNTAS PARA TESTAR O AGENTE
     """     print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"),"\n")
