@@ -170,21 +170,13 @@ class VectorDB:
         return db_instance
 
 class AgenteChatbotSeguro:
-
-  def __init__(self, newconversation: bool): 
-
-    if newconversation:
-        # -------------------------------------------------------
-        # Apaga cache nativo do LangChain (InMemoryCache)
-        # -------------------------------------------------------
-        print("Nova conversa iniciada. Cache do LangChain desativado para iniciar uma nova conversa sem histórico.\n")
-        set_llm_cache(None)  # DESATIVA O CACHE DO LANGCHAIN PARA INICIAR UMA NOVA CONVERSA SEM HISTÓRICO
-              
+  
+  def __init__(self):
+                  
     # -------------------------------------------------------
     # Cache nativo do LangChain (InMemoryCache)
     # -------------------------------------------------------
-    print("Cache do LangChain ativado para acelerar as respostas.\n")
-    set_llm_cache(InMemoryCache())
+    self._set_memory() # ATIVA O CACHE DO LANGCHAIN
 
     # TÉCNICA DE LAZY IMPORTING PARA CARREGAR AS DEPENDÊNCIAS APENAS QUANDO FOR NECESSÁRIO, O QUE PODE MELHORAR A PERFORMANCE DO PROGRAMA.
     from langchain_openai import ChatOpenAI 
@@ -311,6 +303,17 @@ class AgenteChatbotSeguro:
       print("JSON\n",self.json)    
 
       return self.json 
+  
+  def reset_memory(self):
+      
+      set_llm_cache(None) 
+      print("Memória limpa. Cache do LangChain desativado para iniciar uma nova conversa sem histórico.\n")
+      self._set_memory() # REATIVA O CACHE DO LANGCHAIN PARA APROVEITAR O BANCO DE DADOS VETORIAL JÁ CRIADO NA PRÓXIMA CONVERSA.
+  
+  def _set_memory(self):
+      
+      set_llm_cache(InMemoryCache()) 
+      print("Memória personalizada ativada para iniciar uma nova conversa com um histórico específico.\n")
 
 
 # CÓDIGO PARA WARM UP PARA CRIAR O BANCO DE DADOS VETORIAL 
@@ -318,7 +321,7 @@ if __name__ == "__main__":
 
     inicio = time() # Marca o tempo inicial
 
-    agente = AgenteChatbotSeguro(newconversation = False) # INICIA O AGENTE COM O CACHE ATIVO PARA APROVEITAR O BANCO DE DADOS VETORIAL JÁ CRIADO. SE O CACHE ESTIVER DESATIVADO, O BANCO DE DADOS VETORIAL VAI SER RECRIADO DO ZERO, O QUE PODE DEMORAR MUITO MAIS PARA RESPONDER A PRIMEIRA PERGUNTA.
+    agente = AgenteChatbotSeguro() # INICIA O AGENTE COM O CACHE ATIVO PARA APROVEITAR O BANCO DE DADOS VETORIAL JÁ CRIADO. SE O CACHE ESTIVER DESATIVADO, O BANCO DE DADOS VETORIAL VAI SER RECRIADO DO ZERO, O QUE PODE DEMORAR MUITO MAIS PARA RESPONDER A PRIMEIRA PERGUNTA.
 
     # PERGUNTAS PARA TESTAR O AGENTE
     """     print(agente.query("Não encontrei um seguro que eu contratei. O que fazer?"),"\n")

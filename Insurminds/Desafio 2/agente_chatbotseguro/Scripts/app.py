@@ -321,7 +321,7 @@ if st.session_state.historico:
     if st.button("🗑️ Nova conversa", type="secondary"):
         st.session_state.historico = []
         st.session_state.isprotocolo = False
-        st.session_state.newconversation = True
+        st.session_state.agente.reset_memory() # LIMPA A MEMÓRIA DO AGENTE PARA INICIAR UMA NOVA CONVERSA SEM HISTÓRICO.
         st.rerun()
 
 # ──────────────────────────────────────────────
