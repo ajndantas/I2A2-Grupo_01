@@ -235,13 +235,18 @@ class AgenteChatbotSeguro:
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso nas suas respostas. Realize todas as 
                         correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
+
+                        - Se a resposta contiver a expressão 'canais de atendimento', solicitar envio de email e número do protocolo. 
+
+                        - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta. Entre em contato com um especialista por meio de email, 
+                        informe no assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe ajudar." e nada mais.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
                     **SEMPRE** utilizar o seguinte formato para a saída.
 
                     {{
                         "pergunta": "Pergunta do usuário",     
-                        "resposta": "A resposta para a pergunta. Se for informar o bem, não é necessário informar seus sinonimos. Se a resposta contiver a expressão 'canais de atendimento', solicitar envio de email e número do protocolo.",
+                        "resposta": "A resposta para a pergunta. Se for informar o bem, não é necessário informar seus sinônimos." 
                     }}
                 """    
 
