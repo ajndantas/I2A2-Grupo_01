@@ -246,7 +246,7 @@ class AgenteChatbotSeguro:
 
                     {{
                         "pergunta": "Pergunta do usuário",     
-                        "resposta": "A resposta para a pergunta. Se for informar o bem, não é necessário informar seus sinônimos." 
+                        "resposta": "A resposta para a pergunta. **NUNCA** informar os sinônimos do bem, apenas o bem informando na pergunta" 
                     }}
                 """    
 
