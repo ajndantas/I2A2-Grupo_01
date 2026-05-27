@@ -238,8 +238,8 @@ class AgenteChatbotSeguro:
 
                         - Se a resposta contiver a expressão 'canais de atendimento', solicitar envio de email e número do protocolo. 
 
-                        - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta. Entre em contato com um especialista por meio de email, 
-                        informe no assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe ajudar." e nada mais.
+                        - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta. Entre em contato com 
+                        um especialista por meio de email, informe no assunto um resumo do problema e também o protocolo gerado, para que ele possa lhe ajudar." e nada mais.
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
                     **SEMPRE** utilizar o seguinte formato para a saída.
