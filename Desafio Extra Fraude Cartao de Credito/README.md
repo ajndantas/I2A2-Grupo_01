@@ -82,7 +82,7 @@ Rode a aplicação:
 streamlit run agente_fraudecredito.py
 ```
 
-Arquivo exemplo com os dados para a análise -> [creditcard.zip](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip)
+Arquivo exemplo com os dados para a análise -> [creditcard_reduzido_30mb.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip")
 
 ---
 
