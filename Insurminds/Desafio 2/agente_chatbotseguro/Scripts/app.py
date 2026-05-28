@@ -177,7 +177,7 @@ if not st.session_state.historico: # SE O HISTÓRICO ESTIVER VAZIO, MOSTRA AS SU
 
     st.markdown("**💡 Perguntas frequentes:**")
     st.markdown(" - Como posso acionar o seguro ?")
-    st.markdown(" - O que cobre o seguro ?")
+    st.markdown(" - Qual é a cobertura do seguro ?")
     st.markdown(" - Como devo proceder caso tenha meu celular roubado ?")
     st.markdown(" - Quem descobriu o Brasil ?")
     
