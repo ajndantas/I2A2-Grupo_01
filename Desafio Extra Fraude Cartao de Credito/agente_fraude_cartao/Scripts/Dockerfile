@@ -35,7 +35,8 @@ EXPOSE 8001
 
 # Defina o comando para executar a aplicação
 # Adicionadas flags para lidar com CORS e XSRF, comuns ao rodar em contêineres
-CMD ["streamlit", "run", "agente_eda.py", "--server.port", "8001", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
+# maxUploadSize aumentada para 200MB para permitir uploads maiores, se necessário
+CMD ["streamlit", "run", "agente_eda.py", "--server.port", "8001", "--server.enableCORS", "false", "--server.maxUploadSize", "200" ,"--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
 # Para baixar do GITHUB -> docker pull ghcr.io/ajndantas/agente_nfs:latest
