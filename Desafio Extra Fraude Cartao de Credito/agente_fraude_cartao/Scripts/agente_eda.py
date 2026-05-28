@@ -360,7 +360,8 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
                         8.3 - **SEMPRE INFORME NOS EIXOS DOS GRÁFICOS SEUS NOMES**.
                         8.4 - **SEMPRE** acima do gráfico, não para tabelas, informe seu título no formato "NOME DO EIXO HORIZONTAL X NOME DO EIXO VERTICAL", informados no item 8.3
                         8.5 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
-                        8.6 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
+                        8.6 - Abaixo de cada gráfico, adicione uma curta conclusão sobre a análise dele.
+                        8.7 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
                         sem os dados, somente com seus títulos informados no passo 8.4 ou somente com suas legendas, retorne para o passo 8
                         9 - Se necessário, incorpore tabelas (com a formatação condicional do passo 5) para melhor visualização.
                         10 - **SEMPRE** adicione ao final do código HTML, uma seção chamada CONCLUSÕES, incluíndo a resposta a PERGUNTA 
@@ -496,7 +497,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
     if 'conclusoes_done' not in st.session_state:
         st.session_state['conclusoes_done'] = conclusoes
                
-    st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip" target="_blank">Ex: Arquivo de dados</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip target="_blank">Ex: Arquivo de dados</a>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados ou zip", type=["csv","zip"])        
     default_index = 0
     
