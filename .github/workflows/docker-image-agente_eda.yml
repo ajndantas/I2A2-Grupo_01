@@ -60,6 +60,9 @@ jobs:
           docker push $IMAGE_ID:$TAG 
 
       # 5. Deploy da imagem Docker para o Cloud Run
+      #
+      # --use-http2 ->  Garante que o serviço use HTTP/2, para aumentar o tamanho máximo permitido de payloads, para evitar erros de "413 Payload Too Large"
+      # que podem ocorrer para o http1.1, mesmo com o maxUploadSize aumentado no Streamlit.
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
@@ -69,7 +72,7 @@ jobs:
             --platform=managed \
             --allow-unauthenticated \
             --set-env-vars=API_KEY=$API_KEY,API_KEY_OPENROUTER=$API_KEY_OPENROUTER \
-            --use-http2 \ # HABILITA HTTP/2, PARA AUMENTAR O TAMANHO MÁXIMO DE REQUISIÇÕES E MELHORAR PERFORMANCE
+            --use-http2 \ 
             --memory=3Gi
 
      
