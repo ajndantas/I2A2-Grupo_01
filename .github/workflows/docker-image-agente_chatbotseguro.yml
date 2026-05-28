@@ -69,6 +69,7 @@ jobs:
             --platform=managed \
             --allow-unauthenticated \
             --set-env-vars=API_KEY_OPENROUTER=$API_KEY_OPENROUTER,API_KEY=$API_KEY \
+            --use-http2 \ # HABILITA HTTP/2, PARA AUMENTAR O TAMANHO MÁXIMO DE REQUISIÇÕES E MELHORAR PERFORMANCE
             --memory=2Gi
 
      
