@@ -51,8 +51,9 @@ def agente3(llm:ChatOpenAI, conclusoes:List[Dict[str,str]]) -> Dict:
                         5.3 - **SEMPRE INFORME NOS EIXOS DOS GRÁFICOS SEUS NOMES**.
                         5.4 - **SEMPRE** acima do gráfico, não para tabelas, informe seu título no formato "NOME DO EIXO HORIZONTAL X NOME DO EIXO VERTICAL", 
                         informados no item 5.3
-                        5.5 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
-                        5.6 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
+                        5.5 - Abaixo de cada gráfico, adicione uma curta conclusão sobre a análise dele.
+                        5.6 - Os gráficos **SEMPRE DEVEM POSSUIR DADOS, NÃO SOMENTE SEUS TÍTULOS OU LEGENDAS**
+                        5.7 - **SEMPRE** simule o que aconteceria com a carga do código HTML e produza a saida no console, se os gráficos estiverem 
                         sem os dados, somente com seus títulos obtidos no passo 5.4 ou somente com suas legendas, retorne para o passo 5
                         6 - Se necessário, incorpore tabelas (com a formatação condicional do passo 5) para melhor visualização.
                         7 - **SEMPRE** simule o que aconteceria com a leitura do JSON em {formatacao_saida}, e produza a saída no console, se o JSON não for 
