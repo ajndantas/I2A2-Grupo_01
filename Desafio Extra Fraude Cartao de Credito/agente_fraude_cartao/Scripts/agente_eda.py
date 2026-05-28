@@ -6,28 +6,20 @@
 # [markdown]
 # ### IMPORTS
 
-from os import getenv
 from os.path import splitext
+from os import getenv
+from dotenv import load_dotenv
 from time import sleep
-from pydantic import BaseModel, Field
 from typing import Dict, List, Any
 from pandas import DataFrame, read_csv, read_sql
 from sqlalchemy import create_engine, text, Engine
-from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI 
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from langchain_openai import ChatOpenAI
-from langchain_community.cache import InMemoryCache
-from langchain.globals import set_debug, set_llm_cache
-import streamlit as st
-import streamlit.components.v1 as components
+from pydantic import BaseModel, Field
 from streamlit.runtime.uploaded_file_manager import UploadedFile
-from transformers import AutoTokenizer
-import requests
 from re import findall,sub
 import io, zipfile
-
-set_debug(True)
 
 
 class ErroProcessamento(Exception):
@@ -125,6 +117,8 @@ def num_tokens_from_string(df:DataFrame) -> int:
     
     # pip3 install transformers
     # python3 deepseek_tokenizer.py
+
+    from transformers import AutoTokenizer
     
     print('Verificando a quantidade de tokens...')
     
@@ -143,6 +137,8 @@ def num_tokens_from_string(df:DataFrame) -> int:
 
 def obter_context_window_size(llm):
     
+    import requests
+
     headers = {
         "Authorization": f"Bearer {getenv('API_KEY_OPENROUTER')}"
     }
@@ -474,6 +470,10 @@ def agente2(pergunta:str, arquivo:UploadedFile, llm:ChatOpenAI, engine:Engine, c
 
 def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_tokens,taxa_reducao:float): # FRONTEND
 
+    import streamlit as st
+    import streamlit.components.v1 as components
+    
+    
     print("Executando o agente 1...")
     
     st.set_page_config(page_title="Agente EDA AI", layout="centered")
@@ -684,6 +684,11 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
 
 if __name__ == "__main__":    
     
+    from langchain_community.cache import InMemoryCache
+    from langchain.globals import set_debug, set_llm_cache
+
+    set_debug(True)
+       
     # INICIALIZAÇÃO DO BANCO DE DADOS
     engine = create_engine('sqlite:///./dados.db', echo=False)
     
