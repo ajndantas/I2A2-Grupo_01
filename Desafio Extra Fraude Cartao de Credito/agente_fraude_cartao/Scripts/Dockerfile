@@ -37,7 +37,7 @@ EXPOSE 8001
 # Adicionadas flags para lidar com CORS e XSRF, comuns ao rodar em contêineres
 #
 # Exemplo de como deve ficar a linha no seu Dockerfile:
-CMD ["streamlit", "run", "agente_eda.py", "--server.port", "8001", "--server.address", "0.0.0.0", "--server.maxUploadSize", "250", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
+CMD ["streamlit", "run", "agente_eda.py", "--server.port", "8001", "--server.address", "0.0.0.0", "--server.maxUploadSize", "200", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
 # Para baixar do GITHUB -> docker pull ghcr.io/ajndantas/agente_nfs:latest
