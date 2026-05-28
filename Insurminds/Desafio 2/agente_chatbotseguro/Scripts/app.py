@@ -20,6 +20,7 @@ st.set_page_config(
     page_title="Chatbot Seguro · InsurMinds",
     page_icon="🛡️",
     layout="centered",
+    menu_items=None # Remove a maioria das opções de dev do menu de 3 pontinhos
 )
 
 # ──────────────────────────────────────────────
