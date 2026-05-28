@@ -204,7 +204,7 @@ class AgenteChatbotSeguro:
                     Seus conhecimentos estão baseados em um conjunto de documentos relacionados a seguros, CONTEXTO,
                     que podem conter informações relevantes para responder às perguntas dos usuários. 
 
-                    Reescreva a pergunta do usuário para incluir **TODOS** os sinônimos importantes do bem informado. Ex: Se a pergunta mencionar 'carro', certifique-se de incluir 
+                    Considerando a língua portuguesa, reescreva a pergunta do usuário para incluir **TODOS** os sinônimos importantes do bem informado. Ex: Se a pergunta mencionar 'carro', certifique-se de incluir 
                     'veículo' na busca.                  
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
