@@ -176,7 +176,7 @@ if "historico" not in st.session_state: # INICIALIZA O HISTÓRICO DE MENSAGENS C
 if not st.session_state.historico: # SE O HISTÓRICO ESTIVER VAZIO, MOSTRA AS SUGESTÕES
 
     st.markdown("**💡 Perguntas frequentes:**")
-    st.markdown(" - Como posso acionar o seguro ?")
+    st.markdown(" - O que é uma apólice de seguro ?")
     st.markdown(" - Qual é a cobertura do seguro ?")
     st.markdown(" - Como devo proceder caso tenha meu celular roubado ?")
     st.markdown(" - Quem descobriu o Brasil ?")
