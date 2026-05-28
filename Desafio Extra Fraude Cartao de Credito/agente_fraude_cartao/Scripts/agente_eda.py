@@ -477,7 +477,12 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
     
     print("Executando o agente 1...")
     
-    st.set_page_config(page_title="Agente EDA AI", layout="centered")
+    st.set_page_config(
+                        page_title="Agente EDA AI", 
+                        layout="centered",
+                        menu_items=None # Remove a maioria das opções de dev do menu de 3 pontinhos
+                      ) 
+    
     st.title("Agente EDA AI")
         
     # Inicializa session_state para os combos
