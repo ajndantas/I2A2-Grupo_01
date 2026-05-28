@@ -497,7 +497,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
         st.session_state['conclusoes_done'] = conclusoes
                
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard.zip" target="_blank">Ex: Arquivo de dados</a>', unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados ou zip", type=["csv","zip"],max_upload_size=250)        
+    uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados ou zip", type=["csv","zip"])        
     default_index = 0
     
     if uploaded_file: 
