@@ -40,7 +40,11 @@ class Loader:
                                         "rag_docs", # O DIRETÓRIO ONDE ESTÃO OS ARQUIVOS QUE QUERO CARREGAR
                                         #glob="*.html", # O PADRÃO DE NOME DOS ARQUIVOS
                                         glob=["*.html","*.csv","*.txt"],
-                                        loader_kwargs={"encoding": "utf-8","language": "pt"}                        
+                                        loader_kwargs={"encoding": "utf-8","language": "pt"},
+                                        
+                                        use_multithreading=True, # <--- ATIVE ESTA FLAG
+                                        max_concurrency=4        # Número de workers paralelos (ajuste conforme sua CPU)
+
                                      ) # PARA CARREGAR VÁRIOS ARQUIVOS DE UMA SÓ VEZ. O GLOB 
                                        # É UM CURINGA PARA SELECIONAR VÁRIOS ARQUIVOS COM O MESMO PADRÃO. NESSE CASO, 
                                        # TODOS OS ARQUIVOS COM EXTENSÃO .CSV DENTRO DA PASTA ../rag_docs/
@@ -104,7 +108,8 @@ class SearchIndex:
                                                            # O QUE PODE SER PROBLEMÁTICO QUANDO SE TRATA DE UM GRANDE VOLUME DE DOCUMENTOS.
 
                     model_kwargs={'device': 'cpu'}, # Força o uso do seu processador
-                    encode_kwargs={'normalize_embeddings': True} # Normaliza os vetores de embedding para melhorar a precisão da busca.                                            
+                    #encode_kwargs={'normalize_embeddings': True} # Normaliza os vetores de embedding para melhorar a precisão da busca.
+                    encode_kwargs={'normalize_embeddings': False} # Mudar para False reduz o cálculo matemático na busca de similaridade.                                            
         )
         
         return self.embeddings
