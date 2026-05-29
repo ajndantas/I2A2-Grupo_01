@@ -35,7 +35,14 @@ hide_menu_style = """
                 display: none !important;
             }
 
-            .stAppToolbar {
+            /* Esconde completamente a barra de ferramentas superior (onde fica o Stop e os 3 pontos) */
+            .stAppToolbar, [data-testid="stAppToolbar"] {
+                display: none !important;
+                background-color: transparent !important;
+            }
+            
+            /* Remove qualquer elemento de status de carregamento decorativo do topo */
+            [data-testid="stStatusWidget"] {
                 display: none !important;
             }
         </style>
