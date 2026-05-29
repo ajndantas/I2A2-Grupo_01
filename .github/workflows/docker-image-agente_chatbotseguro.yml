@@ -60,6 +60,9 @@ jobs:
           docker push $IMAGE_ID:$TAG 
 
       # 5. Deploy da imagem Docker para o Cloud Run
+      # 
+      # Mudança recente na quantidade de recursos alocados para o serviço, agora são 2GB de RAM e 2 CPUs, 
+      # para garantir que o serviço permita multiplas requisições simultâneas sem travar por falta de recursos.
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
@@ -70,6 +73,7 @@ jobs:
             --allow-unauthenticated \
             --set-env-vars=API_KEY_OPENROUTER=$API_KEY_OPENROUTER,API_KEY=$API_KEY \
             --memory=2Gi
+            --cpu=2
 
      
       

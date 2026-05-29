@@ -42,7 +42,7 @@ class Loader:
                                         glob=["*.html","*.csv","*.txt"],
                                         loader_kwargs={"encoding": "utf-8","language": "pt"},
                                         
-                                        use_multithreading=True, # <--- ATIVE ESTA FLAG
+                                        use_multithreading=True, # <-- ATIVA O USO DE MULTITHREADING PARA CARREGAR VÁRIOS ARQUIVOS EM PARALELO.
                                         max_concurrency=4        # Número de workers paralelos (ajuste conforme sua CPU)
 
                                      ) # PARA CARREGAR VÁRIOS ARQUIVOS DE UMA SÓ VEZ. O GLOB 
