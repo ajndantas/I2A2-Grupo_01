@@ -29,12 +29,10 @@ hide_menu_style = """
         <style>
             MainMenu {visibility: hidden;}
             header {visibility: hidden;}
-
             /* Remove a barra preta do Streamlit Community Cloud (Stop / Deploy) */
             div[data-testid="stAppDeployDropdown"] {
                 display: none !important;
             }
-
             /* Esconde completamente a barra de ferramentas superior (onde fica o Stop e os 3 pontos) */
             .stAppToolbar, [data-testid="stAppToolbar"] {
                 display: none !important;
