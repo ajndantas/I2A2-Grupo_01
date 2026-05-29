@@ -108,8 +108,8 @@ class SearchIndex:
                                                            # O QUE PODE SER PROBLEMÁTICO QUANDO SE TRATA DE UM GRANDE VOLUME DE DOCUMENTOS.
 
                     model_kwargs={'device': 'cpu'}, # Força o uso do seu processador
-                    #encode_kwargs={'normalize_embeddings': True} # Normaliza os vetores de embedding para melhorar a precisão da busca.
-                    encode_kwargs={'normalize_embeddings': False} # Mudar para False reduz o cálculo matemático na busca de similaridade.                                            
+                    encode_kwargs={'normalize_embeddings': True} # Normaliza os vetores de embedding para melhorar a precisão da busca.
+                    #encode_kwargs={'normalize_embeddings': False} # Mudar para False reduz o cálculo matemático na busca de similaridade.                                            
         )
         
         return self.embeddings
