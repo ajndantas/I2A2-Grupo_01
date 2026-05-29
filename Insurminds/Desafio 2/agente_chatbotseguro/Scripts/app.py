@@ -19,9 +19,28 @@ from zoneinfo import ZoneInfo
 st.set_page_config(
     page_title="Chatbot Seguro · InsurMinds",
     page_icon="🛡️",
-    layout="centered",
-    menu_items=None # Remove a maioria das opções de dev do menu de 3 pontinhos
+    layout="centered"
 )
+
+# ──────────────────────────────────────────────
+# CSS para esconder o menu (MainMenu)
+# ──────────────────────────────────────────────
+hide_menu_style = """
+        <style>
+            MainMenu {visibility: hidden;}
+            header {visibility: hidden;}
+
+            /* Remove a barra preta do Streamlit Community Cloud (Stop / Deploy) */
+            div[data-testid="stAppDeployDropdown"] {
+                display: none !important;
+            }
+
+            .stAppToolbar {
+                display: none !important;
+            }
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ──────────────────────────────────────────────
 # CSS CUSTOMIZADO
@@ -155,8 +174,8 @@ st.markdown("""
 @st.cache_resource(show_spinner="⚙️ Carregando base de conhecimento…")
 def carregar_agente():
     
-    return AgenteChatbotSeguro() # PASSA O VALOR DE newconversation PARA O AGENTE PARA CONTROLAR 
-                                                                                                                     # SE O CACHE DO LANGCHAIN DEVE SER LIMPO OU NÃO.
+    return AgenteChatbotSeguro() 
+
 
 if "agente" not in st.session_state:
     print("Criando o agente pela primeira vez...")
@@ -164,7 +183,7 @@ if "agente" not in st.session_state:
     agente = carregar_agente()
     st.session_state.isprotocolo = False # Condição inicial para controle de geração do protocolo de atendimento.
     st.session_state.agente = agente
-    
+
 # ──────────────────────────────────────────────
 # 2 - HISTÓRICO DE MENSAGENS
 # ──────────────────────────────────────────────

@@ -94,11 +94,15 @@ class SearchIndex:
     def indexer(self):        
 
         # Mapeia o HuggingFaceEmbeddings apenas quando necessário
-        #from langchain_community.embeddings import HuggingFaceEmbeddings
+        # from langchain_community.embeddings import HuggingFaceEmbeddings
         from langchain_huggingface import HuggingFaceEmbeddings
 
         self.embeddings = HuggingFaceEmbeddings(
                     model_name="./cache/all-MiniLM-L6-v2",
+                    #model_name="./cache/all-MiniLM-L3-v2", # MODELO DE EMBEDDING MENOR PARA REDUZIR O TEMPO DE CRIAÇÃO DO ÍNDICE DE BUSCA. 
+                                                           # O MODELO ALL-MINILM-L6-V2 É MAIS PRECISO, MAS TAMBÉM É MAIS LENTO PARA CRIAR O ÍNDICE DE BUSCA, 
+                                                           # O QUE PODE SER PROBLEMÁTICO QUANDO SE TRATA DE UM GRANDE VOLUME DE DOCUMENTOS.
+
                     model_kwargs={'device': 'cpu'}, # Força o uso do seu processador
                     encode_kwargs={'normalize_embeddings': True} # Normaliza os vetores de embedding para melhorar a precisão da busca.                                            
         )
@@ -182,13 +186,15 @@ class AgenteChatbotSeguro:
     from langchain_openai import ChatOpenAI 
     from langchain_core.prompts import PromptTemplate
     from langchain.chains import RetrievalQA
+    from langchain_core.output_parsers import JsonOutputParser
+    from pydantic import BaseModel, Field
 
     llm = ChatOpenAI(
-                        model="openrouter/free",
-                        #model="gpt-5-mini",                   
-                        api_key=getenv("API_KEY_OPENROUTER"),
-                        #api_key=getenv("API_KEY"),                        
-                        base_url="https://openrouter.ai/api/v1",
+                        #model="openrouter/free",
+                        model="gpt-5.4-mini",                   
+                        #api_key=getenv("API_KEY_OPENROUTER"),
+                        api_key=getenv("API_KEY"),                        
+                        #base_url="https://openrouter.ai/api/v1",
                         #reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
                         temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
                     )
@@ -197,6 +203,14 @@ class AgenteChatbotSeguro:
 
     db = VectorDB(db_path_name).db()
     print("Índice de busca carregado com sucesso!\n")
+
+    class OutputSchema(BaseModel):
+        pergunta: str = Field(description="A pergunta do usuário")
+        resposta: str = Field(description="A resposta para a pergunta. **NUNCA** informar os sinônimos do bem, apenas o bem informando na pergunta")
+        fontes: str = Field(description="As fontes dos documentos utilizados para responder a pergunta. Se não houver fontes, informar 'Nenhuma fonte encontrada'. Se todas as fontes forem utilizadas, informar 'Todas'.")
+
+
+    parseador = JsonOutputParser(pydantic_object=OutputSchema)
 
     template = """
                     Você é um assistente de perguntas e respostas especializado em seguros.
@@ -236,15 +250,14 @@ class AgenteChatbotSeguro:
                     
                     **SEMPRE** utilizar o seguinte formato para a saída.
 
-                    {{
-                        "pergunta": "Pergunta do usuário",     
-                        "resposta": "A resposta para a pergunta. **NUNCA** informar os sinônimos do bem, apenas o bem informando na pergunta" 
-                    }}
+                    {formatador da saida}
+                    
                 """    
 
     prompt_template = PromptTemplate(
                                         template=template,
-                                        input_variables=["context", "question"]                                                                          
+                                        input_variables=["context", "question"],
+                                        partial_variables={"formatador da saida":  parseador.get_format_instructions()} # O PARSEADOR VAI SER INJETADO NO PROMPT TEMPLATE PARA SER USADO DENTRO DO TEMPLATE DE PROMPT, O QUE PERMITE QUE O LLM FORMATE A RESPOSTA DE ACORDO COM O ESQUEMA DEFINIDO PELO PARSEADOR.                                                                          
                                     )    
     
 
