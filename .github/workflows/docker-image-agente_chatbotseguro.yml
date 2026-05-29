@@ -72,8 +72,7 @@ jobs:
             --platform=managed \
             --allow-unauthenticated \
             --set-env-vars=API_KEY_OPENROUTER=$API_KEY_OPENROUTER,API_KEY=$API_KEY \
-            --memory=2Gi \
-            --cpu=2
+            --memory=2Gi
 
      
       
