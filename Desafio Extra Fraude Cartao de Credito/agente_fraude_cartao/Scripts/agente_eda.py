@@ -474,10 +474,36 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
 
     import streamlit as st
     import streamlit.components.v1 as components
-    
-    
+
     print("Executando o agente 1...")
-    
+
+    # ──────────────────────────────────────────────
+    # CSS para esconder o menu
+    # ──────────────────────────────────────────────
+    hide_menu_style = """
+            <style>
+                MainMenu {visibility: hidden;}
+                header {visibility: hidden;}
+
+                /* Remove a barra preta do Streamlit Community Cloud (Stop / Deploy) */
+                div[data-testid="stAppDeployDropdown"] {
+                    display: none !important;
+                }
+
+                /* Esconde completamente a barra de ferramentas superior (onde fica o Stop e os 3 pontos) */
+                .stAppToolbar, [data-testid="stAppToolbar"] {
+                    display: none !important;
+                    background-color: transparent !important;
+                }
+                
+                /* Remove qualquer elemento de status de carregamento decorativo do topo */
+                [data-testid="stStatusWidget"] {
+                    display: none !important;
+                }
+            </style>
+            """
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
+
     st.set_page_config(
                         page_title="Agente EDA AI", 
                         layout="centered",

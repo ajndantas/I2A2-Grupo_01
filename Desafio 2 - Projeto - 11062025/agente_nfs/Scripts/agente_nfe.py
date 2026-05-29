@@ -48,7 +48,6 @@ def consultallmdocfiscal(texto,llm,tipo):
             significado: str
             valor : str            
             
-
         class DocFiscal1(BaseModel):
             tipo: str = Field(description="Responda apenas com a sigla do tipo")
             campos: list = Field(description='campos. **SOMENTE** os campos de CONTEUDO, com correção ortográfica, tendo como referência REFERENCIA, **NUNCA** os valores.')
@@ -59,8 +58,6 @@ def consultallmdocfiscal(texto,llm,tipo):
             modelo: str = Field(description="modelo. Se nulo, verificar se não se aplica, se sim, responder com N/A, se não, continuar buscando a versão até encontrar")            
                     
         parseador = JsonOutputParser(pydantic_object=DocFiscal1) 
-
-        print()
             
         template = """Aja como um analista de contabilidade, aonde o seu objetivo é obter as informações de PASSOS, utlizando como referência de consulta
         REFERENCIA, a respeito do CONTEUDO do documento fiscal.
@@ -382,7 +379,6 @@ def agente2(pergunta,arquivo,engine):
         api_key=getenv("API_KEY")        
     )
     
-    
     ocr = NotaFiscalOCR() # INSTÂNCIA DO MOTOR OCR
     
     tipo = from_buffer(arquivo.getvalue(),mime=True)
@@ -468,6 +464,7 @@ def agente2(pergunta,arquivo,engine):
         with engine.connect() as con:
             dfsql = read_sql(query, con)                        
             dfresposta = dfsql  
+            
         
         lista_df = []
         lista_df.append(dfdocfiscal)
@@ -491,6 +488,34 @@ def agente2(pergunta,arquivo,engine):
 # <ul><li>Organização e catalogação dos arquivos recebidos</li></ul>
 
 def css():
+
+    # ──────────────────────────────────────────────
+    # CSS para esconder o menu (MainMenu)
+    # ──────────────────────────────────────────────
+    hide_menu_style = """
+            <style>
+                MainMenu {visibility: hidden;}
+                header {visibility: hidden;}
+
+                /* Remove a barra preta do Streamlit Community Cloud (Stop / Deploy) */
+                div[data-testid="stAppDeployDropdown"] {
+                    display: none !important;
+                }
+
+                /* Esconde completamente a barra de ferramentas superior (onde fica o Stop e os 3 pontos) */
+                .stAppToolbar, [data-testid="stAppToolbar"] {
+                    display: none !important;
+                    background-color: transparent !important;
+                }
+                
+                /* Remove qualquer elemento de status de carregamento decorativo do topo */
+                [data-testid="stStatusWidget"] {
+                    display: none !important;
+                }
+            </style>
+            """
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
+
     st.markdown("""
         <style>
         /* Fundo geral */

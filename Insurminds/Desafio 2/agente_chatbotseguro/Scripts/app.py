@@ -23,7 +23,7 @@ st.set_page_config(
 )
 
 # ──────────────────────────────────────────────
-# CSS para esconder o menu (MainMenu)
+# CSS para esconder o menu
 # ──────────────────────────────────────────────
 hide_menu_style = """
         <style>
