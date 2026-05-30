@@ -42,7 +42,7 @@ RUN pip install --no-cache-dir -r requirements_linux.txt
 
 EXPOSE 8000
 
-CMD ["streamlit", "run", "agente_nfe.py", "--server.port", "8000", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
+CMD ["streamlit", "run", "agente_nfe.py", "--server.port", "8000", "--server.maxUploadSize", "30", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 
 # EXECUTAR O DOCKER COM: 
 # Para baixar do GITHUB -> docker pull ghcr.io/ajndantas/agente_nfs:latest
