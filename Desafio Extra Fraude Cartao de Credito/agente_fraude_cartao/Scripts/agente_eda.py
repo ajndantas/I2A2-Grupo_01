@@ -506,8 +506,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
 
     st.set_page_config(
                         page_title="Agente EDA AI", 
-                        layout="centered",
-                        menu_items=None # Remove a maioria das opções de dev do menu de 3 pontinhos
+                        layout="centered"
                       ) 
     
     st.title("Agente EDA AI")
