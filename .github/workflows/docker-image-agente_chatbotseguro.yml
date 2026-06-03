@@ -15,7 +15,7 @@ env:
   REPO_NAME: agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
-  github.repository_owner: ajndantas
+  
 
 jobs:
 
@@ -26,6 +26,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Log de login no GHCR para poder fazer o push da imagem
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -36,9 +37,10 @@ jobs:
           #TAG=$(date +%Y%m%d%H%M%S)
           TAG=latest
 
-          docker build --build-arg API_KEY_OPENROUTER=$API_KEY_OPENROUTER -t $GHIMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t $GHIMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
           docker push $GHIMAGE_ID:$TAG 
       
+      # Autenticação no GCP para poder comandar o Cloud Run
       - name: Google Auth
         id: auth
         uses: google-github-actions/auth@v2
@@ -52,7 +54,7 @@ jobs:
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --port=${{ env.PORT }} \
-            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.github.repository_owner }}/${{ env.SERVICE_NAME }}:latest" \
+            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:latest" \
             --region=${{ env.REGION }} \
             --platform=managed \
             --allow-unauthenticated \
