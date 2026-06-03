@@ -14,8 +14,8 @@
 * 🤖 **OpenRouter** – Acesso aos modelos de linguagem (LLMs).
 * 🧱 **Streamlit** – Interface web interativa para o usuário.
 * 🐳 **Docker** – Containerização e orquestração de serviços.
-* 🐙 **GitHub** **(CI/CD)**– Hospedagem do código-fonte, automação de CI/CD para Artifact Registry (Imagens Docker) e deploy na Cloud Run na GCP
-* ☁️ **GCP (Google Cloud Platform)** -> **CloudRun** e **Artifact Registry** – Deploy e Armazenamento de imagens Docker em Infraestrutura de nuvem.
+* 🐙 **GitHub** **(CI/CD)**– Hospedagem do código-fonte, automação de CI/CD para GHCR (GitHub Container Registry -> Repositório de Imagens Docker) e deploy na Cloud Run na GCP
+* ☁️ **GCP (Google Cloud Platform)** -> **CloudRun** – Deploy das Imagens Docker em Infraestrutura de nuvem.
 
 ---
 
@@ -40,10 +40,10 @@ O núcleo lógico do chatbot, incluindo a orquestração do LangChain e a interf
 
 O projeto foi desenhado para rodar de forma escalável na **Google Cloud Platform (GCP)**, utilizando uma arquitetura de containers orquestrada via GitHub Actions.
 
-* **Hospedagem:** Implementado em uma **CloudRun com imagens da Artifact Registry, tudo na GCP**
+* **Hospedagem:** Implementado em uma **CloudRun na GCP**
 * **Rede e Segurança:**
   * Suporte a SSL.
-* **CI/CD:** Pipeline automatizado (GitHub Actions) que realiza o build da imagem, envia para o Artifact Registry e executa o deploy na CloudRun.
+* **CI/CD:** Pipeline automatizado (GitHub Actions) que realiza o build da imagem para a GHCR e executa o deploy na CloudRun.
 
 ---
 
@@ -69,7 +69,6 @@ A chave sensível (`API_KEY_OPENROUTER`) é armazenada nos **GitHub Secrets**. D
 * `API_KEY_OPENROUTER`: Comunicação com LLMs.
 
 ---
-
 
 # 💻 Implantação Local
 

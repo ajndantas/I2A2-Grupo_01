@@ -1,4 +1,4 @@
-name: GHCR Docker Image & Cloud Run Deploy agente_chatbotseguro
+name: Docker Image & Cloud Run Deploy agente_chatbotseguro
 
 on:
   push:
@@ -12,12 +12,11 @@ env:
                                       # que é a porta padrão de entrada do Cloud Run. 
   REGION: us-central1                 # Região do GCP (ex: São Paulo ou us-central1)
   SERVICE_NAME: agente-chatbotseguro  # Nome que o serviço terá no Cloud Run
+  REPO_NAME: agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
-  # github.repository_owner = ajndantas. Variável nativa do GitHub Actions que retorna o nome do dono do repositório, usada para construir o caminho da imagem no GHCR.
-  TAG: latest # Tag da imagem Docker, pode ser "latest" ou uma tag específica como "v1.0" ou data/hora para versionamento. TAG=$(date +%Y%m%d%H%M%S)
-  IMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro # Imagem que será publicada no GitHub Container Registry (GHCR)
-  
+  github.repository_owner: ajndantas
+
 jobs:
 
   deploy:
@@ -27,45 +26,37 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1. Build e Push da imagem Docker para o GHCR
-      #
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build and Push the Docker image
+      - name: Build the Docker image
         run: |
-          
-          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t ${{ env.IMAGE_ID }}:${{ env.TAG }} "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
-          docker push ${{ env.IMAGE_ID }}:${{ env.TAG }}
+          # github.repository_owner = ajndantas
+          GHIMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro
+          #TAG=$(date +%Y%m%d%H%M%S)
+          TAG=latest
 
-      # 2. Autenticar no Google Cloud via Service Account
+          docker build --build-arg API_KEY_OPENROUTER=$API_KEY_OPENROUTER -t $GHIMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker push $GHIMAGE_ID:$TAG 
+      
       - name: Google Auth
         id: auth
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }} # Crie esse Secret no GitHub com o JSON da sua Service Account
 
-      # 3. Configurar o gcloud CLI no runner
-      - name: Set up Cloud SDK
+      - name: Set up Cloud SDK - gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
-      # 4. Deploy da imagem Docker para o Cloud Run
-      #
-      # O repositório do GHCR é público.
-      # 
-      # ⚠️ Nota importante de segurança: Para que o Cloud Run consiga puxar a imagem diretamente do seu repositório privado no GHCR, 
-      # a Service Account do GCP usada no deploy precisa ter permissão de leitura no seu pacote do GitHub, ou você precisará configurar 
-      # uma credencial de repositório no Cloud Run. Se o seu repositório/pacote no GHCR for público, o Cloud Run puxará a imagem sem problemas.
-      #      
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --port=${{ env.PORT }} \
-            --image="${{ env.IMAGE_ID }}:${{ env.TAG }}" \
+            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.github.repository_owner }}/${{ env.SERVICE_NAME }}:latest" \
             --region=${{ env.REGION }} \
             --platform=managed \
             --allow-unauthenticated \
-            --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
+            --set-env-vars=API_KEY_OPENROUTER=$API_KEY_OPENROUTER,API_KEY=$API_KEY \
             --memory=1Gi
 
      
