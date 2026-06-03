@@ -1,0 +1,75 @@
+name: Docker Image & Cloud Run Deploy agente_eda
+
+on:
+  push:
+    branches: [ "master" ]
+    paths: 
+      - 'Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/**'     
+
+env:
+  PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
+  PORT: 8001                          # Porta onde a aplicação vai rodar dentro do container. 
+                                      # que é a porta padrão de entrada do Cloud Run. 
+  REGION: us-central1                 # Região do GCP (ex: São Paulo ou us-central1)
+  SERVICE_NAME: agente-eda            # Nome que o serviço terá no Cloud Run
+  REPO_NAME: agente-eda               # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
+  API_KEY: ${{ secrets.API_KEY }}     # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
+  API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES PARA A LLM E SERÁ USADA PELO DOCKER COMPOSE E COMANDOS SSH
+  
+jobs:
+
+  deploy:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 1. Autenticar no Google Cloud via Service Account
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }} # Crie esse Secret no GitHub com o JSON da sua Service Account
+
+      # 2. Configurar o gcloud CLI no runner
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 3. Autenticar o Docker para conseguir dar Push no Artifact Registry do GCP
+      - name: Configure Docker for GCP
+        run: |
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      # 4. Build e Push da imagem Docker para o Artifact Registry do GCP
+      #
+      # NÃO EXECUTA MAIS COMANDOS NA MÁQUINA VIRTUAL, APENAS FAZ O BUILD E PUSH DA IMAGEM PARA O REGISTRY. 
+      - name: Build and Push the Docker image to Artifact Registry
+        run: |
+          # github.repository_owner = ajndantas
+          #IMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro
+          #IMAGE_ID=agente_nfe
+          
+          # O padrão do Artifact Registry é: REGIAO-docker.pkg.dev/PROJECT_ID/REPO_NAME/IMAGE_NAME:TAG
+          IMAGE_ID="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}"
+          
+          #TAG=$(date +%Y%m%d%H%M%S)
+          TAG=latest
+          
+          docker build --build-arg API_KEY=$API_KEY --build-arg API_KEY_OPENROUTER=$API_KEY_OPENROUTER -t $IMAGE_ID:$TAG "Desafio Extra Fraude Cartao de Credito/agente_fraude_cartao/Scripts" # PEGA O DOCKERFILE AQUI
+          docker push $IMAGE_ID:$TAG 
+
+      # 5. Deploy da imagem Docker para o Cloud Run
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --port=${{ env.PORT }} \
+            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:latest" \
+            --region=${{ env.REGION }} \
+            --platform=managed \
+            --allow-unauthenticated \
+            --set-env-vars=API_KEY=$API_KEY,API_KEY_OPENROUTER=$API_KEY_OPENROUTER \
+            --memory=3Gi
+
+     
+      
