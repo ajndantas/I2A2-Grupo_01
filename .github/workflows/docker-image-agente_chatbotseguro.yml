@@ -16,7 +16,7 @@ env:
   API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   TAG: latest # Tag da imagem Docker, pode ser "latest" ou uma tag específica como "v1.0" ou data/hora para versionamento. TAG=$(date +%Y%m%d%H%M%S)
   # github.repository_owner = ajndantas. Variável nativa do GitHub Actions que retorna o nome do dono do repositório, usada para construir o caminho da imagem no GHCR.
-  IMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro:${{ env.TAG }} # Imagem que será publicada no GitHub Container Registry (GHCR)
+  IMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro:$TAG # Imagem que será publicada no GitHub Container Registry (GHCR)
   
 jobs:
 
