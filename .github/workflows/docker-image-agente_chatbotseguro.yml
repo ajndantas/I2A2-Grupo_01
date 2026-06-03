@@ -15,7 +15,7 @@ env:
   REPO_NAME: agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
-  GHIMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro
+  GHIMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente-chatbotseguro
   TAG: latest #TAG=$(date +%Y%m%d%H%M%S)
 
 
