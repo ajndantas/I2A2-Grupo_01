@@ -15,7 +15,9 @@ env:
   REPO_NAME: agente-chatbotseguro      # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
-  
+  GHIMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro
+  TAG: latest #TAG=$(date +%Y%m%d%H%M%S)
+
 
 jobs:
 
@@ -32,13 +34,8 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          # github.repository_owner = ajndantas
-          GHIMAGE_ID=ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro
-          #TAG=$(date +%Y%m%d%H%M%S)
-          TAG=latest
-
-          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t $GHIMAGE_ID:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
-          docker push $GHIMAGE_ID:$TAG 
+          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t ${{ env.GHIMAGE_ID }}:${{ env.TAG }} "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker push ${{ env.GHIMAGE_ID }}:${{ env.TAG }}
       
       # Autenticação no GCP para poder comandar o Cloud Run
       - name: Google Auth
@@ -50,15 +47,15 @@ jobs:
       - name: Set up Cloud SDK - gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Deploy to Cloud Run
+      - name: Deploy to Cloud Run from Artifact Registry GHCR Proxy
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --port=${{ env.PORT }} \
-            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:latest" \
+            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.TAG }}" \
             --region=${{ env.REGION }} \
             --platform=managed \
             --allow-unauthenticated \
-            --set-env-vars=API_KEY_OPENROUTER=$API_KEY_OPENROUTER,API_KEY=$API_KEY \
+            --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
             --memory=1Gi
 
      
