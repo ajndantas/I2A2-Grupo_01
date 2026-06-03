@@ -15,6 +15,7 @@ env:
   API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
   # github.repository_owner = ajndantas. Variável nativa do GitHub Actions que retorna o nome do dono do repositório, usada para construir o caminho da imagem no GHCR.
+  TAG: latest # Tag da imagem Docker, pode ser "latest" ou uma tag específica como "v1.0" ou data/hora para versionamento. TAG=$(date +%Y%m%d%H%M%S)
   IMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente_chatbotseguro # Imagem que será publicada no GitHub Container Registry (GHCR)
   
 jobs:
@@ -33,10 +34,9 @@ jobs:
 
       - name: Build and Push the Docker image
         run: |
-          TAG=latest # Tag da imagem Docker, pode ser "latest" ou uma tag específica como "v1.0" ou data/hora para versionamento. TAG=$(date +%Y%m%d%H%M%S)
-
-          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t ${{ env.IMAGE_ID }}:$TAG "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
-          docker push ${{ env.IMAGE_ID }}:$TAG
+          
+          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t ${{ env.IMAGE_ID }}:${{ env.TAG }} "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker push ${{ env.IMAGE_ID }}:${{ env.TAG }}
 
       # 2. Autenticar no Google Cloud via Service Account
       - name: Google Auth
@@ -61,7 +61,7 @@ jobs:
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --port=${{ env.PORT }} \
-            --image="${{ env.IMAGE_ID }}:$TAG" \
+            --image="${{ env.IMAGE_ID }}:${{ env.TAG }}" \
             --region=${{ env.REGION }} \
             --platform=managed \
             --allow-unauthenticated \
