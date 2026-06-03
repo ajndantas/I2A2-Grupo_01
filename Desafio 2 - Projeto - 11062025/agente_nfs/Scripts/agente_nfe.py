@@ -375,7 +375,7 @@ def agente2(pergunta,arquivo,engine):
         #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
-        reasoning_effort="high",        
+        reasoning_effort="medium",        
         api_key=getenv("API_KEY")        
     )
     
