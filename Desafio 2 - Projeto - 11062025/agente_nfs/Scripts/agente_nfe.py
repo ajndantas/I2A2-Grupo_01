@@ -163,6 +163,7 @@ def llm_gera_query(llm,engine,pergunta):
         
         - **NUNCA** fazer comentários
         - **NUNCA** fazer questionamentos 
+        - **NUNCA** repetir os nomes das colunas
         
         PASSOS:
         ###############################################################################################################################################
