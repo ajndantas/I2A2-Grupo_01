@@ -15,23 +15,16 @@
 # [markdown]
 # ### IMPORTS
 
-from os import getenv
 from time import sleep
+import streamlit as st
 from os.path import exists
 from pandas import read_csv, read_sql, DataFrame
 from sqlalchemy import create_engine, text
-from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
-from typing_extensions import List, TypedDict
-from langchain_openai import ChatOpenAI
 from langchain.globals import set_debug, set_llm_cache
-from langchain_community.cache import InMemoryCache
-from motor_ocr_otimizado import NotaFiscalOCR
-import streamlit as st
 from magic import from_buffer
-import xml.etree.ElementTree as ET
 
 set_debug(True)
 
@@ -39,6 +32,8 @@ class SemResposta(Exception):
     pass
 
 def consultallmdocfiscal(texto,llm,tipo):
+
+    from typing_extensions import List, TypedDict
     
     if tipo not in ['text/plain','text/csv']:
         
@@ -286,6 +281,8 @@ def agente3(pergunta,arquivo,engine):
 
 def read_tags_values_xml_file(arquivo, llm):
     
+    import xml.etree.ElementTree as ET
+    
     print("READ TAGS XML...")
     
     conteudo_bytes = arquivo.read()  # ARQUIVO É UM UPLOADEDFILE DO STREAMLIT  
@@ -363,6 +360,12 @@ def read_tags_values_xml_file(arquivo, llm):
 
 def agente2(pergunta,arquivo,engine):
 
+    from dotenv import load_dotenv
+    from langchain_community.cache import InMemoryCache
+    from langchain_openai import ChatOpenAI
+    from os import getenv
+    from motor_ocr_otimizado import NotaFiscalOCR
+    
     print('\nExecutando agente 2...')
     
     # INTEGRAÇÃO COM A LLM
@@ -490,31 +493,37 @@ def agente2(pergunta,arquivo,engine):
 
 def css():
 
-    # ──────────────────────────────────────────────
-    # CSS para esconder o menu (MainMenu)
-    # ──────────────────────────────────────────────
     hide_menu_style = """
-            <style>
-                MainMenu {visibility: hidden;}
-                header {visibility: hidden;}
+    <style>
+        /* Streamlit >= 1.35 — seletor correto da toolbar */
+        [data-testid="stAppToolbar"] {
+            display: none !important;
+        }
 
-                /* Remove a barra preta do Streamlit Community Cloud (Stop / Deploy) */
-                div[data-testid="stAppDeployDropdown"] {
-                    display: none !important;
-                }
+        /* Fallback para versões anteriores */
+        header[data-testid="stHeader"] {
+            display: none !important;
+        }
+        .stToolbar {
+            display: none !important;
+        }
+        [data-testid="stToolbar"] {
+            display: none !important;
+        }
 
-                /* Esconde completamente a barra de ferramentas superior (onde fica o Stop e os 3 pontos) */
-                .stAppToolbar, [data-testid="stAppToolbar"] {
-                    display: none !important;
-                    background-color: transparent !important;
-                }
-                
-                /* Remove qualquer elemento de status de carregamento decorativo do topo */
-                [data-testid="stStatusWidget"] {
-                    display: none !important;
-                }
-            </style>
-            """
+        /* Esconde o botão "Stop" e os três pontinhos especificamente */
+        [data-testid="stStatusWidget"] {
+            display: none !important;
+        }
+        [data-testid="stDecoration"] {
+            display: none !important;
+        }
+        #MainMenu {
+            visibility: hidden !important;
+        }
+    </style>
+    """
+
     st.markdown(hide_menu_style, unsafe_allow_html=True)
 
     st.markdown("""
@@ -599,7 +608,7 @@ def agente1(engine): # FRONTEND
 
     print("Executando o agente 1...")
     
-    st.set_page_config(page_title="Agente NFe", layout="centered")
+    st.set_page_config(page_title="Agente NFe", layout="centered", menu_items=None, page_icon="🤖")
     st.title("🤖 Agente NFe")
     
     css()
@@ -609,7 +618,8 @@ def agente1(engine): # FRONTEND
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip" target="_blank">Arquivo CSV, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://drive.google.com/open?id=1SR3gJB0NWX_JGMb_QOQmagRtbUeOWVRi&usp=drive_fs" target="_blank">Arquivo XML </a>', unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])  
+    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])
+    #uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])    
            
     pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
     

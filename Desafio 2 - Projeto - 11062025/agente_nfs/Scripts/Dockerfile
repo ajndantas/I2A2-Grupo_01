@@ -40,6 +40,10 @@ COPY motor_ocr_otimizado.py .
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements_linux.txt
 
+# ARQUIVO DE CONFIGURAÇÃO DO STREAMLIT
+RUN mkdir .streamlit
+COPY .streamlit/config.toml ./.streamlit
+
 EXPOSE 8000
 
 CMD ["streamlit", "run", "agente_nfe.py", "--server.port", "8000", "--server.maxUploadSize", "30", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
