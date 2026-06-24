@@ -551,30 +551,37 @@ def css():
             font-weight: bold;
         }
 
-        /* Centralizar o botão */
+        /* 1. Container do botão: Ocupa a largura total e centraliza o flex */
         div.stButton {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-top: 25px !important;
+            margin-bottom: 25px !important;
         }
 
-        /* Botão principal */
-        div.stButton > button:first-child {
-            background: linear-gradient(90deg, #028090, #00C2CB);
-            color: white;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            padding: 0.6em 1.4em;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+        /* 2. O botão em si: Estilização direta sem depender de :first-child */
+        div.stButton > button {
+            background: linear-gradient(90deg, #028090, #00C2CB) !important;
+            color: white !important;
+            font-weight: 600 !important;
+            border: none !important;
+            border-radius: 10px !important;
+            padding: 0.6em 1.4em !important;
+            transition: all 0.3s ease-in-out !important;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.3) !important;
+            
+            /* Reseta comportamentos de bloco e margens que o Streamlit impõe */
+            display: inline-block !important;
+            margin: 0 auto !important;
         }
 
-        /* Hover do botão */
+        /* 3. Efeito Hover no botão */
         div.stButton > button:hover {
-            background: linear-gradient(90deg, #00C2CB, #028090);
-            transform: scale(1.05);
+            background: linear-gradient(90deg, #00C2CB, #028090) !important;
+            transform: scale(1.05) !important;
+            border: none !important;
         }
 
         /* Caixas de resultado */
@@ -603,7 +610,6 @@ def css():
         </style>
     """, unsafe_allow_html=True)
 
-
 def agente1(engine): # FRONTEND
 
     print("Executando o agente 1...")
@@ -623,7 +629,13 @@ def agente1(engine): # FRONTEND
            
     pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
     
-    if st.button("🔍 Consultar"):
+    col1, col2, col3 = st.columns([2, 1, 2])
+
+    with col2:
+        # O botão agora é criado isolado na coluna centralizada
+        botao_consultar = st.button("🔍 Consultar", use_container_width=True)
+
+    if botao_consultar:
         if not uploaded_file:
             st.error("Você precisa fazer o upload de um arquivo CSV, PDF, imagem PNG ou XML.")
             
