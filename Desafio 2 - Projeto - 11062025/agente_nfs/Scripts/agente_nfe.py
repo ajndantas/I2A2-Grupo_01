@@ -288,7 +288,7 @@ def read_tags_values_xml_file(arquivo, llm):
     conteudo_bytes = arquivo.read()  # ARQUIVO É UM UPLOADEDFILE DO STREAMLIT  
     conteudo = conteudo_bytes.decode('utf-8')
         
-    template = """Aja como um analista de contabilidade, e para CONTEUDO, utilize REFERENCIA para executar ITENS no contexto dos documentos 
+    template = """Aja como um analista de contabilidade, e para CONTEUDO, utilize REFERENCIA para executar PASSOS no contexto dos documentos 
     fiscais brasileiros   
     
     CONTEUDO:
@@ -301,7 +301,7 @@ def read_tags_values_xml_file(arquivo, llm):
     d) Sobre impostos, consultar o item b) e c)    
                             
     ##########################################
-    ITENS:
+    PASSOS:
     
     Os valores das tags **NUNCA** devem ser alterados, **APENAS** os nomes das tags.
     
@@ -343,7 +343,7 @@ def read_tags_values_xml_file(arquivo, llm):
         tag_name = elem.tag.split('}')[-1]  # TAGS. Remove o namespace do nome pegando o último elemento [-1]
         tag_value = elem.text.strip() if elem.text else None # VALUES #if elem.text else '' # VALUES
         
-        #print('Tag name: ',tag_name, ' Tag value: ', tag_value)
+        print('Tag name: ',tag_name, ' Tag value: ', tag_value)
                 
         if tag_value: # SE O VALOR NÃO FOR NULO    
             dict_xml[tag_name] = tag_value
@@ -622,10 +622,10 @@ def agente1(engine): # FRONTEND
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip" target="_blank">Ex: Arquivo PDF, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip" target="_blank">Arquivo PNG, </a>', unsafe_allow_html=True)
     st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip" target="_blank">Arquivo CSV, </a>', unsafe_allow_html=True)
-    st.markdown('<a href="https://drive.google.com/open?id=1SR3gJB0NWX_JGMb_QOQmagRtbUeOWVRi&usp=drive_fs" target="_blank">Arquivo XML </a>', unsafe_allow_html=True)
+    #st.markdown('<a href="https://drive.google.com/open?id=1SR3gJB0NWX_JGMb_QOQmagRtbUeOWVRi&usp=drive_fs" target="_blank">Arquivo XML </a>', unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])
-    #uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])    
+    #uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF, PNG ou XML", type=["csv","pdf","png","xml"])
+    uploaded_file = st.file_uploader("📂 Envie um documento fiscal no formato CSV, PDF ou PNG", type=["csv","pdf","png"])    
            
     pergunta = st.text_input("📝 Digite sua pergunta sobre os dados:")
     
