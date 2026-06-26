@@ -4,6 +4,10 @@ Fala, dev! 👋
 Esse projeto é um **sistema inteligente para realizar análise exploratória de dados, a partir de um dataset disponibilizado**.
 A ideia é simples: você faz o upload dos seus dados (CSV), escolhe perguntas já pré-configuradas ou faz novas análises, e a IA devolve gráficos, tabelas e até uma conclusão geral sobre os padrões encontrados nos dados.
 
+<a href="https://www.linkedin.com/in/antoniodantasia/" target="_blank">
+  <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
+</a>
+
 ---
 
 ## 🎯 Objetivo
@@ -41,6 +45,7 @@ Ele é dividido em **3 agentes** principais:
 * Streamlit 💻
 * LangChain + [Deepseek-R1t2-chimera](https://huggingface.co/tngtech/DeepSeek-TNG-R1T2-Chimera) LLM 🤯
 * Pandas, SQLAlchemy e [Plotly](https://plotly.com/javascript/)📊
+* **Google Cloud Platform** – Infraestrutura em nuvem ☁️
 
 ---
 

@@ -2,6 +2,10 @@
 
 Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), arquivos CSV ou XMLs**.
 
+<a href="https://www.linkedin.com/in/antoniodantasia/" target="_blank">
+  <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
+</a>
+
 ## 🖥️ Quer só testar?
 
 Sem instalar nada:
@@ -131,6 +135,7 @@ Acesse: [http://localhost:8000](http://localhost:8000)
 - 📊 **Pandas** – Manipulação de dados
 - 🔐 **Python-dotenv** – Variáveis de ambiente.
 - 🐳 **Docker** – Application Container
+- ☁️ **Google Cloud Platform** – Infraestrutura em nuvem
 
 ---
 

@@ -14,7 +14,7 @@ Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas so
 
 **🎯 Objetivo:** Automatizar a leitura e análise de notas fiscais com IA.
 
-**🧠 Tecnologias:** Python, Pandas, Streamlit, LangChain, Docker, LLM [Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503), Tesseract, OpenCV, SQLAlchemy.
+**🧠 Tecnologias:** Python, Pandas, Streamlit, LangChain, Docker, Google Cloud Platform, LLM [Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503), Tesseract, OpenCV, SQLAlchemy.
 
 **🌐 Demonstração:** [https://agente-nfs-574973424283.us-central1.run.app](https://agente-nfs-574973424283.us-central1.run.app)
 
@@ -29,7 +29,7 @@ Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights int
 
 **🎯 Objetivo:** Identificar padrões, outliers e relações entre variáveis usando LLMs.
 
-**🧠 Tecnologias:** Python, Streamlit, LangChain, Deepseek-R1t2-chimera (LLM), Plotly, Pandas, SQLAlchemy.
+**🧠 Tecnologias:** Python, Streamlit, LangChain, Docker, Google Cloud Platform, Deepseek-R1t2-chimera (LLM), Plotly, Pandas, SQLAlchemy.
 
 **🌐 Demonstração:** [https://agente-eda-574973424283.us-central1.run.app](https://agente-eda-574973424283.us-central1.run.app)
 
