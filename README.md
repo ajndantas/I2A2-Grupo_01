@@ -1,48 +1,53 @@
-# 🚀 Portfólio de Projetos Pessoais com Inteligência Artificial
+# <center>🚀 Portfólio de Inteligência Artificial</center>
 
-Bem-vindo(a)! Sou analista de sistemas e desenvolvedor com foco em **aplicações práticas de IA e análise de dados**.
-Aqui você encontra alguns dos meus projetos que unem **LLMs, OCR e automação** — com foco em resolver problemas reais.
+Bem-vindo(a)! Sou Analista de Sistemas Sênior focado no desenvolvimento de **aplicações práticas de IA, Engenharia de Dados e Automação de Workflows**. Aqui você encontrará soluções prontas para produção que unem **LLMs, Sistemas de Agentes e Visão Computacional** para resolver desafios reais de negócios.
 
-<a href="https://www.linkedin.com/in/antoniodantastitelecom/" target="_blank">
-  <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
-</a>
+Querendo entrar em contato, fique à vontade para se conectar comigo no Linkedin.
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/antoniodantasia/)
+
+---
+
+## 🛠️ Projetos em Destaque
+
+| Projeto                                   | Solução Prática                                                      | Stack Principal                  | Links                                                                                                                                                                                        |
+| :---------------------------------------- | :---------------------------------------------------------------------- | :------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🧾 Agente de Documentos Fiscais** | OCR e LLM para extração e consulta de NF-e via linguagem natural.     | Python, LangChain, Docker, GCP   | [Demonstração](https://agente-nfs-574973424283.us-central1.run.app) \| [Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)         |
+| **🤖 Agente EDA AI**                | Análise exploratória de dados automatizada com geração de insights. | Python, Streamlit, DeepSeek, GCP | [Demonstração](https://agente-eda-574973424283.us-central1.run.app) \| [Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme) |
+
+---
 
 ## 🧾 Agente de Documentos Fiscais (NF-e)
 
-Aplicação que combina **OCR e LLMs** para interpretar **notas fiscais** em PDF, imagem ou CSV.
-Permite fazer **perguntas em linguagem natural** e obter respostas detalhadas sobre os dados extraídos.
+Aplicação inteligente que combina **OCR e Modelos de Linguagem (LLMs)** para interpretar e estruturar dados de notas fiscais complexas disponibilizadas em formato PDF, imagem ou CSV. O sistema permite auditorias rápidas através de perguntas em linguagem natural diretamente sobre os dados extraídos.
 
-**🎯 Objetivo:** Automatizar a leitura e análise de notas fiscais com IA.
+* **🎯 Impacto:** Redução do tempo de conferência manual de notas fiscais através de extração automatizada de dados com alta tolerância a falhas de formatação.
+* **🏗️ Arquitetura:** Pipeline de ingestão -> Extração de texto (Tesseract/OpenCV) -> Orquestração de contexto RAG (LangChain) -> Deploy em container gerenciado.
+* **🧠 Tecnologias:** ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat-square&logo=google-cloud&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white) `LangChain`, `Mistral-Small-3.1`, `Tesseract OCR`, `SQLAlchemy`, `Pandas`.
 
-**🧠 Tecnologias:** Python, Pandas, Streamlit, LangChain, Docker, Google Cloud Platform, LLM [Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503), Tesseract, OpenCV, SQLAlchemy.
-
-**🌐 Demonstração:** [https://agente-nfs-574973424283.us-central1.run.app](https://agente-nfs-574973424283.us-central1.run.app)
-
-**📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)
+🌐 **[Acesse a Demonstração Ativa](https://agente-nfs-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)**
 
 ---
 
 ## 🤖 Agente EDA AI — Análise Exploratória Inteligente de Dados
 
-Sistema de IA que realiza **análise exploratória automatizada (EDA)** a partir de datasets em CSV.
-Basta enviar seus dados e a aplicação gera **gráficos, tabelas e insights inteligentes**.
+Interface analítica que abstrai a complexidade do tratamento inicial de dados. Ao fazer o upload de qualquer dataset padronizado (CSV), um agente autônomo baseado em IA analisa o comportamento das variáveis, gerando gráficos iterativos e relatórios preditivos de forma imediata.
 
-**🎯 Objetivo:** Identificar padrões, outliers e relações entre variáveis usando LLMs.
+* **🎯 Impacto:** Automação de pipelines de Analytics para tomada de decisão ágil, identificando anomalias e padrões de fraude sem a necessidade de codificação manual de scripts de visualização.
+* **🧠 Tecnologias:** ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat-square&logo=google-cloud&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white) `DeepSeek-R1`, `Plotly`, `Pandas`, `LangChain RAG`, `Docker`.
 
-**🧠 Tecnologias:** Python, Streamlit, LangChain, Docker, Google Cloud Platform, Deepseek-R1t2-chimera (LLM), Plotly, Pandas, SQLAlchemy.
-
-**🌐 Demonstração:** [https://agente-eda-574973424283.us-central1.run.app](https://agente-eda-574973424283.us-central1.run.app)
-
-**📂 Repositório:** [Ver no GitHub](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme "https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme")
-
-## 🧠 Foco do Portfólio
-
-Esses projetos foram criados com o objetivo de:
-
-- Mostrar o potencial das **LLMs aplicadas a problemas de dados reais**;
-- Explorar **autonomia de agentes inteligentes**;
-- Integrar **IA generativa com ferramentas de análise de dados e OCR**.
+🌐 **[Acesse a Demonstração Ativa](https://agente-eda-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme)**
 
 ---
 
-> 💡 *Feito com Python, IA e muitas xícaras de café ☕*
+## 🧠 Diretrizes do Portfólio
+
+O desenvolvimento destes projetos é focado em engenharia rigorosa para resolver gargalos corporativos de dados:
+
+- **Produção e Escalabilidade:** Infraestrutura moderna em nuvem com isolamento em containers e deploys resilientes.
+- **Autonomia de Agentes:** Implementação de ferramentas onde a IA atua ativamente na tomada de decisão sobre os fluxos de dados.
+- **Raciocínio Avançado:** Integração de modelos de fronteira focados em extração estruturada (JSON Output) e lógica analítica complexa.
+
+---
+
+*Construído com Python, Inteligência Artificial e foco em automação avançada. ☕*
