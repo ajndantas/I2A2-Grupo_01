@@ -71,7 +71,7 @@ class SearchIndex:
         splittered_docs = RecursiveCharacterTextSplitter(                                                    
                                                             chunk_size=chunk_size, 
                                                             chunk_overlap=chunk_overlap,                                                                                                                
-                                                            separators=["<h1>","<h2>","<h3>","<h4>","<h5>","\n\n", "\n", " ", ""] # OS SEPARADORES VÃO DETERMINAR ONDE O 
+                                                            separators=["<h1>","<h2>","<h3>","<h4>","<h5>","\n\n", "\n", " ", ""]       # OS SEPARADORES VÃO DETERMINAR ONDE O 
                                                                                                                                         # SPLITTER VAI TENTAR QUEBRAR O TEXTO. 
                                                                                                                                         # ELE VAI TENTAR QUEBRAR PRIMEIRO 
                                                                                                                                         # PELO SEPARADOR MAIS PRIORITÁRIO, 
