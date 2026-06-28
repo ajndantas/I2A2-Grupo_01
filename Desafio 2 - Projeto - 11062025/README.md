@@ -1,3 +1,4 @@
+
 # <center>🤖 Agente de Documentos Fiscais</center>
 
 Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **OpenAI/ChatGPT**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
@@ -49,18 +50,7 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 
 ---
 
-## 🐳 Instalação com Docker (modo fácil)
-
-1. Instale o [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-2. Abra o Docker
-3. No terminal (como admin), rode:
-   ```bash
-   docker pull us-central1-docker.pkg.dev/n8n-meus-ensinamentos/agente-nfs/agente-nfs:latest
-   docker run -d -p 8000:8000 us-central1-docker.pkg.dev/n8n-meus-ensinamentos/agente-nfs/agente-nfs:latest
-   ```
-4. Pronto! Acesse [http://localhost:8000](http://localhost:8000)
-
-🧾 Arquivos de teste:
+## 🧾 Arquivos de teste:
 
 - [PDFs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)
 - [Imagens PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
