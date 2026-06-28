@@ -1,6 +1,6 @@
-# <center>🤖 Agente Inteligente de Documentos Fiscais</center>
+# <center>🤖 Agente de Documentos Fiscais</center>
 
-Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
+Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **OpenAI**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
 
 <a href="https://www.linkedin.com/in/antoniodantasia/" target="_blank">
   <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
@@ -127,7 +127,7 @@ Acesse: [http://localhost:8000](http://localhost:8000)
 
 - 🧱 **Streamlit** – Interface web
 - 🧩 **LangChain** – Orquestração de LLMs
-- 🤖 **[Mistral-Small-3.1-24B-Instruct-2506](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503) **– O cérebro por trás das respostas
+- 🤖 **OpenAI/ChatGPT** **– O cérebro por trás das respostas
 - 🔍 **Tesseract** – OCR pra ler notas
 - 🎥 **OpenCV** – Processamento de imagem
 - 🗄️ **SQLAlchemy + SQLite** – Banco de dados
