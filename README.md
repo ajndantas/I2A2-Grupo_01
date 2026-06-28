@@ -1,3 +1,5 @@
+# <center>🚀 Portfólio de Inteligência Artificial</center>
+
 Bem-vindo(a)! Sou Antonio Dantas, Analista de Sistemas Sênior focado no desenvolvimento de **aplicações práticas de IA, Engenharia de Dados e Automação de Workflows**. Aqui você encontrará soluções prontas para produção que unem **LLMs, Sistemas de Agentes e Visão Computacional** para resolver desafios reais de negócios.
 
 Querendo entrar em contato, fique à vontade para se conectar comigo no Linkedin.
@@ -8,8 +10,9 @@ Querendo entrar em contato, fique à vontade para se conectar comigo no Linkedin
 
 ## 🛠️ Projetos em Destaque
 
-| Projeto                                   | Solução Prática                                                      | Stack Principal                  | Links                                                                                                                                                                                        |
-| :---------------------------------------- | :---------------------------------------------------------------------- | :------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+
+| Projeto                             | Solução Prática                                                      | Stack Principal                  | Links                                                                                                                                                                                              |
+| :------------------------------------ | :------------------------------------------------------------------------ | :--------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **🧾 Agente de Documentos Fiscais** | OCR e LLM para extração e consulta de NF-e via linguagem natural.     | Python, LangChain, Docker, GCP   | [Demonstração](https://agente-nfs-574973424283.us-central1.run.app) \| [Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)         |
 | **🤖 Agente EDA AI**                | Análise exploratória de dados automatizada com geração de insights. | Python, Streamlit, DeepSeek, GCP | [Demonstração](https://agente-eda-574973424283.us-central1.run.app) \| [Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme) |
 
