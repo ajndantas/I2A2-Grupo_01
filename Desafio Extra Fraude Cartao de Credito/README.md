@@ -1,4 +1,4 @@
-# 
+# <center>🤖 Agente EDA AI</center>
 
 **Sistema inteligente para realizar análise exploratória de dados, a partir de um dataset disponibilizado**.
 A ideia é simples: você faz o upload dos seus dados (CSV), escolhe perguntas já pré-configuradas ou faz novas análises, e a IA devolve gráficos, tabelas e até uma conclusão geral sobre os padrões encontrados nos dados.
