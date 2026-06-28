@@ -1,6 +1,6 @@
-# 🤖 Agente Inteligente de Documentos Fiscais
+# <center>🤖 Agente Inteligente de Documentos Fiscais</center>
 
-Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), arquivos CSV ou XMLs**.
+Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
 
 <a href="https://www.linkedin.com/in/antoniodantasia/" target="_blank">
   <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
@@ -35,7 +35,7 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 
 ## 🖥️ Interface Web (Streamlit)
 
-- Suba seus arquivos (PDF, PNG, CSV ou XML) direto pelo navegador.
+- Suba seus arquivos (PDF, PNG ou CSV) direto pelo navegador.
 - Faça perguntas em **linguagem natural** (“Qual o valor total da nota?”, por exemplo).
 - Veja os resultados em uma **tabela interativa**.
 - E, se algo der errado, receba um feedback simpático em vez de um erro indecifrável.
@@ -65,7 +65,6 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 - [PDFs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)
 - [Imagens PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
 - [CSVs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip)
-- [XMLs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Docs%20Fiscais%20XML.zip)
 
 ---
 
