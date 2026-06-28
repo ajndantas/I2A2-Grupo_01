@@ -1,4 +1,4 @@
-# 
+# <center>🤖 Agente de Documentos Fiscais</center>
 
 Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **OpenAI/ChatGPT**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
 
