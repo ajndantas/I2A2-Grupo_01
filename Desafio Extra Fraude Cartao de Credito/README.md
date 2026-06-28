@@ -1,4 +1,4 @@
-# <center>🤖 Agente EDA AI</center>
+# 
 
 Fala, dev! 👋 Esse projeto é um **sistema inteligente para realizar análise exploratória de dados, a partir de um dataset disponibilizado**.
 A ideia é simples: você faz o upload dos seus dados (CSV), escolhe perguntas já pré-configuradas ou faz novas análises, e a IA devolve gráficos, tabelas e até uma conclusão geral sobre os padrões encontrados nos dados.
@@ -42,7 +42,7 @@ Ele é dividido em **3 agentes** principais:
 
 * Python 🐍
 * Streamlit 💻
-* LangChain + [Deepseek-R1t2-chimera](https://huggingface.co/tngtech/DeepSeek-TNG-R1T2-Chimera) LLM 🤯
+* LangChain + LLM OpenAI/ChatGPT🤯
 * Pandas, SQLAlchemy e [Plotly](https://plotly.com/javascript/)📊
 * **Google Cloud Platform** – Infraestrutura em nuvem ☁️
 
@@ -74,7 +74,7 @@ Instale as dependências:
 pip install -r requirements.txt
 ```
 
-Crie o arquivo `.env` com sua chave de API gerada no provedor [Openrouter](https://openrouter.ai/):
+Crie o arquivo `.env` com sua chave de API gerada na OpenAI:
 
 ```ini
 API_KEY="sua_chave_aqui"

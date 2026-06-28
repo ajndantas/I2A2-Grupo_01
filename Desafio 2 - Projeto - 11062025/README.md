@@ -1,6 +1,6 @@
-# <center>🤖 Agente de Documentos Fiscais</center>
+# 
 
-Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **OpenAI**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
+Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **OpenAI/ChatGPT**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
 
 <a href="https://www.linkedin.com/in/antoniodantasia/" target="_blank">
   <img src="https://img.shields.io/badge/LinkedIn-Seguir-blue?logo=linkedin&style=for-the-badge">
@@ -45,7 +45,7 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 ## 🧩 Requisitos
 
 - **Python 3.10+**
-- **Chave de API** do [OpenRouter](https://openrouter.ai/) (coloque no arquivo `.env`, dentro da pasta Scripts, se for rodar localmente).
+- **Chave de API** do OpenAI/ChatGPT (coloque no arquivo `.env`, dentro da pasta Scripts, se for rodar localmente).
 
 ---
 
