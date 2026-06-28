@@ -49,7 +49,8 @@ class Loader:
                                        # É UM CURINGA PARA SELECIONAR VÁRIOS ARQUIVOS COM O MESMO PADRÃO. NESSE CASO, 
                                        # TODOS OS ARQUIVOS COM EXTENSÃO .CSV DENTRO DA PASTA ../rag_docs/
 
-        self.loader.loader_cls_map = loader_cls_map # PARA USAR NO MÉTODO LOAD  
+        self.loader.loader_cls_map = loader_cls_map # ESTÁ DEFININDO A PROPRIEDADE LOADER_CLS_MAP DO OBJETO LOADER 
+                                                    # PARA SER USADA NO MÉTODO LOAD, COM O OBJETIVO DE IDENTIFICAR O TIPO DE ARQUIVO 
         
     # O MÉTODO LOAD VAI SER RESPONSÁVEL POR CHAMAR O MÉTODO LOAD DO CARREGADOR PARA LER OS ARQUIVOS E DEVOLVER UM ARRAY DE DOCUMENTOS.
     def load(self) -> list:
