@@ -614,8 +614,8 @@ def agente1(engine): # FRONTEND
 
     print("Executando o agente 1...")
     
-    st.set_page_config(page_title="Agente NFe", layout="centered", menu_items=None, page_icon="🤖")
-    st.title("🤖 Agente NFe")
+    st.set_page_config(page_title="Agente Documentos Fiscais", layout="centered", menu_items=None, page_icon="🤖")
+    st.title("🤖 Agente Documentos Fiscais")
     
     css()
     

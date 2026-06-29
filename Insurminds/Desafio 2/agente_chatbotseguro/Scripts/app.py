@@ -17,7 +17,7 @@ from zoneinfo import ZoneInfo
 # CONFIGURAÇÃO DA PÁGINA
 # ──────────────────────────────────────────────
 st.set_page_config(
-    page_title="Chatbot Seguro · InsurMinds",
+    page_title="Chatbot Seguro",
     page_icon="🛡️",
     layout="centered"
 )
