@@ -167,7 +167,7 @@ st.markdown("""
 <div class="header">
     <div class="header-icon">🛡️</div>
     <div>
-        <p class="header-title">Chatbot Assistente de Seguros</p>
+        <p class="header-title">Chatbot Seguro</p>
         <p class="header-sub">Powered by IA</p>
     </div>
 </div>
