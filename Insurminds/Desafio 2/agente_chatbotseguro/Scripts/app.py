@@ -168,7 +168,7 @@ st.markdown("""
     <div class="header-icon">🛡️</div>
     <div>
         <p class="header-title">Assistente de Seguros</p>
-        <p class="header-sub">Powered by IA · InsurMinds · I2A2</p>
+        <p class="header-sub">Powered by IA</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -354,7 +354,6 @@ if st.session_state.historico:
 # ──────────────────────────────────────────────
 st.markdown("""
 <div class="footer">
-    InsurMinds · Grupo Sintoni-IA · I2A2 Academy · 2026<br>
     As respostas são baseadas nos documentos da base de conhecimento. Consulte sempre um especialista.
 </div>
 """, unsafe_allow_html=True)
