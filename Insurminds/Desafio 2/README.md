@@ -10,6 +10,8 @@
 
 * 🧩 **LangChain** – Orquestração de RAG e memória conversacional.
 * 🤖 **OpenAI/ChatGPT** – Acesso ao modelo de linguagem (LLMs).
+* 🔍 **RAG *(Retrieval-Augmented Generation)*** – Técnica de recuperação de contexto para enriquecer as respostas do LLM com informações dos documentos carregados.
+* 📦 **FAISS *(Facebook AI Similarity Search)*** – Indexação e busca vetorial eficiente para recuperação semântica dos chunks de documentos.
 * 🧱 **Streamlit** – Interface web interativa para o usuário.
 * 🐳 **Docker** – Containerização e orquestração de serviços.
 * 🐙 **GitHub** **(CI/CD)**– Hospedagem do código-fonte, automação de CI/CD para GHCR (GitHub Container Registry -> Repositório de Imagens Docker) e deploy na Cloud Run na GCP
