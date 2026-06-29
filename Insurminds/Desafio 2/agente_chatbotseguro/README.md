@@ -2,9 +2,7 @@
 
 ## 🛠️ O que este projeto faz
 
-* **Automação de FAQ:** Responde a perguntas frequentes de segurados de forma instantânea.
-* **Inteligência Contextual (RAG):** Utiliza documentos técnicos localizados em [/rag_docs](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/rag_docs) (como manuais e termos de apólices) para garantir que a IA forneça informações baseadas em dados reais.
-* **Processamento de Intenções:** Diferencia tipos de consultas e direciona fluxos conversacionais específicos.
+* **Automação de FAQ:** Responde a perguntas frequentes de segurados de forma instantânea, por meio de **Inteligência Contextual (RAG) :** fazendo uso de documentos técnicos localizados em [/rag_docs](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202/agente_chatbotseguro/Scripts/rag_docs) (como manuais e termos de apólices) para garantir que a IA forneça informações baseadas em dados reais.
 
 ---
 
