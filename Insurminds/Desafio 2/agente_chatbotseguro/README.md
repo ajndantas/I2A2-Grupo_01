@@ -79,7 +79,7 @@ Antes de iniciar, certifique-se de possuir instalado:
 - Python 3.13
 - Chave API da OpenAI do ChatGPT
 
-## 📦 1 - Instalação das Dependências (Execução Local sem Docker)
+## 📦 1 - Instalação das Dependências
 
 Crie e ative um ambiente virtual:
 
@@ -186,7 +186,6 @@ http://localhost:8501
 
 ## 🛠️ Observações Importantes
 
-- Certifique-se de que a porta  `443` estejam disponíveis.
 - O primeiro carregamento dos modelos pode demorar alguns minutos.
 
 ## 📃 Licença
