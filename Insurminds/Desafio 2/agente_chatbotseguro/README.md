@@ -11,7 +11,7 @@
 ## Tecnologias Utilizadas
 
 * 🧩 **LangChain** – Orquestração de RAG e memória conversacional.
-* 🤖 **OpenRouter** – Acesso aos modelos de linguagem (LLMs).
+* 🤖 **OpenAI/ChatGPT** – Acesso ao modelo de linguagem (LLMs).
 * 🧱 **Streamlit** – Interface web interativa para o usuário.
 * 🐳 **Docker** – Containerização e orquestração de serviços.
 * 🐙 **GitHub** **(CI/CD)**– Hospedagem do código-fonte, automação de CI/CD para GHCR (GitHub Container Registry -> Repositório de Imagens Docker) e deploy na Cloud Run na GCP
@@ -53,7 +53,7 @@ As variáveis de ambiente são geridas de forma segura e persistente através de
 
 ### GitHub Secrets (CI/CD)
 
-A chave sensível (`API_KEY_OPENROUTER`) é armazenada nos **GitHub Secrets**. Durante o build, é passada como `--build-arg`.
+A chave sensível (`API_KEY`) é armazenada nos **GitHub Secrets**. Durante o build, é passada como `--build-arg`.
 
 ---
 
@@ -66,7 +66,7 @@ A chave sensível (`API_KEY_OPENROUTER`) é armazenada nos **GitHub Secrets**. D
 
 ### 2️⃣ Variáveis Necessárias
 
-* `API_KEY_OPENROUTER`: Comunicação com LLMs.
+* `API_KEY`: Comunicação com LLMs.
 
 ---
 
@@ -79,7 +79,7 @@ Caso deseje executar o projeto localmente para fins de desenvolvimento, testes o
 Antes de iniciar, certifique-se de possuir instalado:
 
 - Python 3.13
-- Conta com acesso à API utilizada pelo OpenRouter
+- Chave API da OpenAI do ChatGPT
 
 ## 📦 1 - Instalação das Dependências (Execução Local sem Docker)
 
@@ -128,7 +128,7 @@ cd .venv\Scripts
 ```
 
 ```env
-API_KEY_OPENROUTER=SEU_TOKEN
+API_KEY=CHAVE_OPENAI_CHATGPT
 ```
 
 ## 📥 3 - Instalando os códigos
