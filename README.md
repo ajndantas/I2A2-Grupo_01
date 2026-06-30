@@ -27,7 +27,7 @@ Aplicação de FAQ inteligente voltada para segurados, que responde perguntas fr
 * **🏗️ Arquitetura:** Ingestão de documentos (PDF/manuais) -> Embeddings locais (HuggingFace `all-MiniLM-L6-v2`) -> Orquestração RAG (LangChain + FAISS) -> Interface Streamlit -> Deploy containerizado na Cloud Run.
 * **🧠 Tecnologias:** ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-1C3C3A?style=flat-square&logo=langchain&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white) ![RAG](https://img.shields.io/badge/RAG-black?style=flat&logo=databricks&logoColor=white) ![FAISS](https://img.shields.io/badge/FAISS-blue?style=flat&logo=meta&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat-square&logo=google-cloud&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white) , `HuggingFace`.
 
-🌐 **[Acesse a Demonstração Ativa](https://agente-chatbotseguro-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202/agente_chatbotseguro)**
+🌐 **[Acesse a Demonstração Ativa](https://agente-chatbotseguro-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202#-agente-inteligente-chatbot-seguro)**
 
 ---
 
