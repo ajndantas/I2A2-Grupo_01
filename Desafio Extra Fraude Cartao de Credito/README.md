@@ -44,6 +44,7 @@ Ele é dividido em **3 agentes** principais:
 * Streamlit 💻
 * LangChain + LLM OpenAI/ChatGPT🤯
 * Pandas, SQLAlchemy e [Plotly](https://plotly.com/javascript/)📊
+* GitHub Actions (CI/CD) (Arquivo [YAML ](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/.github/workflows/docker-image-agente_eda.yml)de CI/CD com GCP)
 * **Google Cloud Platform** – Infraestrutura em nuvem ☁️
 
 ---
@@ -52,13 +53,13 @@ Ele é dividido em **3 agentes** principais:
 
 Faça o download do código, do arquivo requirements.txt, do script plotly.js para geração de gráficos e dos arquivos do tokenizers para contagem de tokens:
 
-[Script agente_eda.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/agente_eda.py)
+[Script agente_eda.py](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/agente_eda.py>)
 
-[Arquivo requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/requirements.txt)
+[Arquivo requirements.txt](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/requirements.txt>)
 
-[tokenizer.json](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer.json)
+[tokenizer.json](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer.json>)
 
-[tokenizer_config.json](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer_config.json)
+[tokenizer_config.json](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/tokenizer_config.json>)
 
 Crie um ambiente virtual e ative:
 
@@ -86,7 +87,7 @@ Rode a aplicação:
 streamlit run agente_fraudecredito.py
 ```
 
-Arquivo exemplo com os dados para a análise -> [creditcard_reduzido_30mb.zip](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip")
+Arquivo exemplo com os dados para a análise -> [creditcard_reduzido_30mb.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip">)
 
 ---
 

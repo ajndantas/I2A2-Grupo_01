@@ -1,4 +1,3 @@
-
 # 🤖 Agente de Documentos Fiscais
 
 Este projeto usa **Inteligência Artificial (LLMs)** com **LangChain**, **OpenAI/ChatGPT**, **Pandas**, **Streamlit**, **Docker**, **Tesseract**, **OpenCV** e **SQLAlchemy** pra analisar, extrair e responder perguntas sobre **Documentos fiscais** — direto de **PDFs, imagens (PNG), ou arquivos CSV**.
@@ -13,6 +12,20 @@ Sem instalar nada:
 👉 [Acesse a versão online](https://agente-nfs-574973424283.us-central1.run.app)
 
 ---
+
+## ⚙️ Tecnologias que dão vida a tudo isso
+
+- 🧱 **Streamlit** – Interface web
+- 🧩 **LangChain** – Orquestração de LLMs
+- 🤖 **OpenAI/ChatGPT** **– O cérebro por trás das respostas
+- 🔍 **Tesseract** – OCR pra ler notas
+- 🎥 **OpenCV** – Processamento de imagem
+- 🗄️ **SQLAlchemy + SQLite** – Banco de dados
+- 📊 **Pandas** – Manipulação de dados
+- 🔐 **Python-dotenv** – Variáveis de ambiente.
+- 🐳 **Docker** – Application Container
+- ⚙️ **GitHub Actions** (CI/CD))
+- ☁️ **Google Cloud Platform** – Infraestrutura em nuvem
 
 ## 🚀 O que esse projeto faz
 
@@ -34,15 +47,6 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 
 ---
 
-## 🖥️ Interface Web (Streamlit)
-
-- Suba seus arquivos (PDF, PNG ou CSV) direto pelo navegador.
-- Faça perguntas em **linguagem natural** (“Qual o valor total da nota?”, por exemplo).
-- Veja os resultados em uma **tabela interativa**.
-- E, se algo der errado, receba um feedback simpático em vez de um erro indecifrável.
-
----
-
 ## 🧩 Requisitos
 
 - **Python 3.10+**
@@ -52,9 +56,9 @@ Conecta-se a um modelo de linguagem e responde perguntas sobre os dados extraíd
 
 ## 🧾 Arquivos de teste:
 
-- [PDFs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip)
-- [Imagens PNG](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip)
-- [CSVs](https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip)
+- [PDFs](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/PDFs%20Docfiscais.zip>)
+- [Imagens PNG](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Imagens%20Docfiscais.zip>)
+- [CSVs](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/CSVs%20Docfiscais.zip>)
 
 ---
 
@@ -82,11 +86,11 @@ venv\Scripts\activate   # Windows
 
 Baixe os arquivos necessários e jogue tudo na pasta `Scripts`.
 
-**1 - Dependências**: [requirements.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/requirements.txt) (Para Windows), [requirements_linux.txt](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt) (Para Linux)
+**1 - Dependências**: [requirements.txt](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/requirements.txt>) (Para Windows), [requirements_linux.txt](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/requirements_linux.txt>) (Para Linux)
 
-**2 - Script Python**: [agente_nfe.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfe.py)
+**2 - Script Python**: [agente_nfe.py](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/agente_nfe.py>)
 
-**3 - Script OCR**: [motor_ocr_otimizado.py](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py)
+**3 - Script OCR**: [motor_ocr_otimizado.py](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Desafio%202%20-%20Projeto%20-%2011062025/agente_nfs/Scripts/motor_ocr_otimizado.py>)
 
 Depois, instale as dependências:
 
