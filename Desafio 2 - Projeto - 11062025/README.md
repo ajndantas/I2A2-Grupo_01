@@ -24,7 +24,7 @@ Sem instalar nada:
 - 📊 **Pandas** – Manipulação de dados
 - 🔐 **Python-dotenv** – Variáveis de ambiente.
 - 🐳 **Docker** – Application Container
-- ⚙️ **GitHub Actions** (CI/CD))
+- ⚙️ **GitHub Actions** (CI/CD) - ([YAML ](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/.github/workflows/docker-image-agente_nfs.yml)que implementa a integraçãa com a GCP)
 - ☁️ **Google Cloud Platform** – Infraestrutura em nuvem
 
 ## 🚀 O que esse projeto faz
@@ -114,21 +114,6 @@ Acesse: [http://localhost:8000](http://localhost:8000)
 - “Qual o valor total?”
 - “Quais os produtos ou serviços listados?”
 - “Quem descobriu o Brasil?” (Sim, ele vai saber que isso não tem nada a ver 😅)
-
----
-
-## ⚙️ Tecnologias que dão vida a tudo isso
-
-- 🧱 **Streamlit** – Interface web
-- 🧩 **LangChain** – Orquestração de LLMs
-- 🤖 **OpenAI/ChatGPT** **– O cérebro por trás das respostas
-- 🔍 **Tesseract** – OCR pra ler notas
-- 🎥 **OpenCV** – Processamento de imagem
-- 🗄️ **SQLAlchemy + SQLite** – Banco de dados
-- 📊 **Pandas** – Manipulação de dados
-- 🔐 **Python-dotenv** – Variáveis de ambiente.
-- 🐳 **Docker** – Application Container
-- ☁️ **Google Cloud Platform** – Infraestrutura em nuvem
 
 ---
 
