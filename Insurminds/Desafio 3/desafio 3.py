@@ -41,7 +41,8 @@ df_train.tail(10)
 #     <li><b>Porcentagem de valores nulos</b></li>
 #     <li><b>Lidando com duplicatas, valores nulos e colunas bagunçadas (Padronizar colunas com valores categóricos)</b></li>
 #     <li><b>Modificando nomes de colunas</b></li>
-#     <li><b>Eliminando variáveis desnecessárias</b></li>
+#     <li><b>Criação de novas variáveis para substituir outras de menor relevância</b></li>
+#     <li><b>Eliminando variáveis desnecessárias</b></li>    
 # </ul>
 
 # [markdown]
@@ -173,11 +174,23 @@ df_train.rename(columns={'pclass':'passenger_class','parch':'parents_children','
 df_train
 
 # [markdown]
+# <b>Criação de novas variáveis para substituir outras de menor relevância</b>
+
+# [markdown]
+# <ul>
+#     <li>family_size = parents_children + siblings</li>
+# </ul>
+
+df_train['family_size'] = df_train['parents_children'] + df_train['siblings']
+df_train = df_train.drop(columns=['parents_children', 'siblings'], axis=1)
+df_train
+
+# [markdown]
 # <b>Eliminando variáveis desnecessárias</b>
 
 df_train.columns
 
-df_train = df_train.drop(columns=['ticket','passengerid'],errors='ignore')
+df_train = df_train.drop(columns=['ticket','fare','embarked'],errors='ignore')
 df_train
 
 # [markdown]
@@ -197,29 +210,6 @@ df_test.tail(10)
 
 # [markdown]
 # ## <b>DATA CLEANING</b>
-
-# [markdown]
-# <ul>
-#     <li><b>Detectando valores faltantes, tipos de dados, quantidade de linhas e colunas</b></li>
-#     <li><b>Normalizando os nomes das colunas</b></li>
-#     <li><b>Porcentagem de valores nulos</b></li>
-#     <li><b>Lidando com duplicatas, valores nulos e colunas bagunçadas (Padronizar colunas com valores categóricos)</b></li>
-# </ul>
-
-# [markdown]
-# <ul>
-#     <ul>
-#         <li>Cheque a quantidade de duplicatas antes de remover. Para remover, use df.drop_duplicates()</li>
-#         <li>Os valores nulos de colunas de valores numéricos, devem ser preenchidos com a média da coluna</li>
-#         <li>Os valores nulos de colunas categóricas, devem ser preenchidas como "desconhecido"</li>
-#         <li>'Capitalize' colunas com valores categóricos (Não é o caso deste dataframe)</li>
-#         <li>Retirar símbolo de moedas de colunas com valores monetários, vírgulas ou pontos.</li>    
-#         <li>Desconfie de colunas do tipo object</li>
-#         <li>Utilize a lógica para outros tipos de colunas. Ex: coluna de quantidade com valores negativos</li>
-#     </ul>
-#     <li><b>Modificando nomes de colunas</b></li>
-#     <li><b>Eliminando variáveis desnecessárias</b></li>
-# </ul>
 
 # [markdown]
 # <b>Detectando valores faltantes, tipos de dados, quantidade de linhas e colunas</b>
@@ -307,11 +297,23 @@ df_test.rename(columns={'pclass':'passenger_class','parch':'parents_children','s
 df_test
 
 # [markdown]
+# <b>Criação de novas variáveis para substituir outras de menor relevância</b>
+
+# [markdown]
+# <ul>
+#     <li>family_size = parents_children + siblings + 1 (Por causa do valor 0)</li>
+# </ul>
+
+df_test['family_size'] = df_test['parents_children'] + df_test['siblings']
+df_test = df_test.drop(columns=['parents_children', 'siblings'], axis=1)
+df_test
+
+# [markdown]
 # <b>Eliminando variáveis desnecessárias</b>
 
 df_test.columns
 
-df_test = df_test.drop(columns=['ticket','passengerid'],errors='ignore')
+df_test = df_test.drop(columns=['ticket','fare','embarked'],errors='ignore')
 df_test
 
 # [markdown]
@@ -383,10 +385,12 @@ plt.show()
 # [markdown]
 # <b>Taxa de sobrevivência x Sexo</b>
 
-df_total = df_train.groupby('sex')['name'].count().reset_index()
-df_survived_sex = df_train.loc[df_train['survived'] == 1].groupby('sex')['name'].count().reset_index()
+df_survived_sex = df_train.groupby('sex').agg(
+                                                total=('survived', 'count'), total_survived=('survived', 'sum')
+                                            ).reset_index() 
 
-df_survived_sex['percentage'] = ((df_survived_sex['name'] / df_total['name']) * 100).round(2)
+df_survived_sex['percentage'] = ((df_survived_sex['total_survived'] / df_survived_sex['total']) * 100).round(2)
+
 df_survived_sex
 
 # Exemplo 1 - Gráfico de barras simples
@@ -412,47 +416,77 @@ plt.show()
 # [markdown]
 # <b>Taxa de sobrevivência x Idades</b>
 
-df_total = df_train.groupby('age')['name'].count().reset_index()
+# [markdown]
+# <ul>
+#     <li>Para calcular a taxa de sobrevivência por faixa etária no seu script, a melhor abordagem é agrupar os dados contínuos de idade em intervalos (bins) usando a função pd.cut() do Pandas.</li><br/>
+#     <li>Trabalhar com idades individuais (0, 1, 2, ..., 80 anos) costuma gerar um gráfico "poluído" e com ruído, enquanto a criação de faixas etárias (ex: Criancas, Jovens, Adultos, Idosos) permite identificar padrões claros de sobrevivência.</li>
+# </ul>
 
-df_survived_ages = df_train.loc[df_train['survived'] == 1].groupby('age')['name'].count().reset_index()
-df_survived_ages['percentage'] = ((df_survived_ages['name'] / df_total['name']) * 100).round(2)
+from pandas import cut
 
-df_survived_ages
+# 1. Definir os limites dos intervalos e os rótulos de cada faixa etária
+bins = [0, 12, 18, 35, 60, 100]
+labels = ['Crianças (0-12)', 'Adolescentes (13-18)', 'Jovens Adultos (19-35)', 'Adultos (36-60)', 'Idosos (60+)']
+
+# 2. Criar uma nova coluna temporária com a faixa etária
+df_train['faixa_etaria'] = cut(df_train['age'], bins=bins, labels=labels)
+
+# Definindo como categoria
+df_train['faixa_etaria'] = df_train['faixa_etaria'].astype('category')
+df_train
+
+# 3. Calcular o total de pessoas e os sobreviventes por faixa etária
+df_faixas = df_train.groupby('faixa_etaria', observed=False).agg(
+    total=('survived', 'count'),
+    sobreviventes=('survived', 'sum')
+).reset_index()
+
+# 4. Calcular a taxa de sobrevivência (%)
+df_faixas['taxa_sobrevivencia'] = ((df_faixas['sobreviventes'] / df_faixas['total']) * 100).round(2)
+
+df_faixas
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-plt.plot(df_survived_ages['age'], df_survived_ages['percentage'])
+# 5. Plotar o gráfico de barras
+plt.figure(figsize=(10, 5))
+bars = plt.bar(df_faixas['faixa_etaria'], df_faixas['taxa_sobrevivencia'], color='#1f77b4')
 
-# 2. Calculando a linha de tendência (Regressão Linear)
+# Adicionar os rótulos de porcentagem no topo de cada barra
+plt.bar_label(bars, fmt='%.1f%%', padding=3)
+
+plt.xlabel('Faixa Etária')
+plt.ylabel('Taxa de Sobrevivência (%)')
+
+plt.title('Taxa de Sobrevivência x Faixa Etária')
+plt.ylim(0, max(df_faixas['taxa_sobrevivencia']) * 1.15)
+
+plt.xticks(rotation=15) # O rotation representa a inclinação dos rótulos no eixo
+
+# Calculando a linha de tendência (Regressão Linear)
 # O número 1 indica que queremos uma linha reta (polinômio de grau 1)
 # O que faz p np.polyfit e o polyid ?
-coeficientes = np.polyfit(df_survived_ages['age'], df_survived_ages['percentage'],2) # Calcula a matemática por trás da curva, 
+df_faixas['faixa_etaria'] = df_faixas['faixa_etaria'].astype('category') # Convertendo para poder ser usado na plotagem do gráfico
+
+coeficientes = np.polyfit(df_faixas['faixa_etaria'].cat.codes, df_faixas['taxa_sobrevivencia'],2) # Calcula a matemática por trás da curva, 
 funcao_tendencia = np.poly1d(coeficientes) # e o np.poly1d transforma essa matemática em uma função prática que você pode usar para desenhar a linha ou prever valores.
 
 # 3. Plotando a linha de tendência
-plt.plot(df_survived_ages['age'], funcao_tendencia(df_survived_ages['age']), 
+plt.plot(df_faixas['faixa_etaria'], funcao_tendencia(df_faixas['faixa_etaria'].cat.codes), 
          color='red', linestyle='-', linewidth=2, label='Tendência')
 
-plt.xlabel('idades')
-plt.ylabel('Taxa de Sobrevivência (%)')
-plt.title('Taxa de Sobrevivência x Idades')
-plt.show()
-
+plt.tight_layout() # O tight_layout ajusta automaticamente os elementos no gráfico
 
 # [markdown]
-# Concluímos que taxa de sobrevivência veio diminuindo até os 30 anos para depois aumentar a partir dos 40. Ou seja, as menores idades e as maiores idades foram privilegiadas.
+# Concluímos que taxa de sobrevivência veio diminuindo com o avanço da idade.
 
 # [markdown]
 # <b>Taxa de Sobrevivência x Classe do Passageiro</b>
 
-df_total = df_train.groupby('passenger_class')['name'].count().reset_index()
-
-df_survived_class = df_train.loc[df_train['survived'] == 1].groupby('passenger_class')['name'].count().reset_index()
-
-df_survived_class['percentage'] = ((df_survived_class['name'] / df_total['name']) * 100).round(2)
+df_survived_class = df_train.groupby('passenger_class').agg(total=('survived', 'count'), total_survived=('survived', 'sum')).reset_index()
+df_survived_class['percentage'] = ((df_survived_class['total_survived'] / df_survived_class['total']) * 100).round(2)
 df_survived_class
-
 
 data = {'classes': df_survived_class['passenger_class'].to_list(), 'Taxa de sobrevivência': df_survived_class['percentage'].to_list()}
 
@@ -463,6 +497,7 @@ bars = plt.bar(data['classes'], data['Taxa de sobrevivência'], color='#1f77b4')
 # O parâmetro fmt='%.1f%%' formata o número com uma casa decimal e o símbolo de %
 plt.bar_label(bars, fmt='%.1f%%', padding=1) 
 
+plt.xticks(df_survived_class['passenger_class'])
 plt.xlabel('Classe do Passageiro')
 plt.ylabel('Taxa de Sobrevivência(%)')
 plt.title('Taxa de Sobrevivência x Classe do Passageiro')
@@ -476,23 +511,17 @@ plt.show()
 # [markdown]
 # <b>Taxa de Sobrevivencia x Tamanho da Família (Pais, filhos e parentes)</b>
 
-# [markdown]
-# Foi necessária a criação de uma nova variável chamada tamanho de família
+df_family_size = df_train[['family_size']]
+df_family_size = df_family_size.groupby(['family_size']).agg(total=('family_size','count')).reset_index()
 
-df_total = df_train[['name','parents_children', 'siblings']]
-df_total = df_total.groupby(['parents_children','siblings'])['name'].count().reset_index()
-df_total['size'] = df_total['parents_children'] + df_total['siblings']
-df_total = df_total.groupby('size')['name'].sum().reset_index()
-df_total
+df_family_size
 
-df_survived_familysize = df_train.loc[df_train['survived'] == 1][['name','parents_children', 'siblings']]
-df_survived_familysize = df_survived_familysize.groupby(['parents_children','siblings'])['name'].count().reset_index()
-df_survived_familysize['size'] = df_survived_familysize['parents_children'] + df_survived_familysize['siblings']
-df_survived_familysize = df_survived_familysize.groupby('size')['name'].sum().reset_index()
-df_survived_familysize['percentage'] = ((df_survived_familysize['name'] / df_total['name']) * 100).round(2)
+df_survived_familysize = df_train.loc[df_train['survived'] == 1].groupby(['family_size']).agg(total=('family_size','count')).reset_index()
+df_survived_familysize['percentage'] = ((df_survived_familysize['total'] / df_family_size['total']) * 100).round(2)
+
 df_survived_familysize
 
-data = {'tamanho': df_survived_familysize['size'].to_list(), 'Taxa de sobrevivência': df_survived_familysize['percentage'].to_list()}
+data = {'tamanho': df_survived_familysize['family_size'].to_list(), 'Taxa de sobrevivência': df_survived_familysize['percentage'].to_list()}
 
 bars = plt.bar(data['tamanho'], data['Taxa de sobrevivência'])
 
@@ -500,11 +529,11 @@ plt.bar_label(bars, fmt='%.1f%%', padding=1)
 
 # 2. Calculando a linha de tendência (Regressão Linear)
 # O número 1 indica que queremos uma linha reta (polinômio de grau 1)
-coeficientes = np.polyfit(df_survived_familysize['size'], df_survived_familysize['percentage'], 2) 
+coeficientes = np.polyfit(df_survived_familysize['family_size'], df_survived_familysize['percentage'], 2) 
 funcao_tendencia = np.poly1d(coeficientes)
 
 # 3. Plotando a linha de tendência
-plt.plot(df_survived_familysize['size'], funcao_tendencia(df_survived_familysize['size']), 
+plt.plot(df_survived_familysize['family_size'], funcao_tendencia(df_survived_familysize['family_size']), 
          color='red', linestyle='-', linewidth=2, label='Tendência')
 
 plt.xlabel('Tamanho da Família')
@@ -521,7 +550,7 @@ plt.show()
 # 1. Carregar o arquivo no DataFrame df_train
 
 # 2. Calcular a matriz de correlação (apenas para colunas numéricas)
-df_correlacao = df_train.corr(numeric_only=True).round(2)
+df_correlacao = df_train.drop(columns='passengerid').corr(numeric_only=True).round(2)
 
 # Exibir a matriz no terminal
 df_correlacao
@@ -543,6 +572,7 @@ sns.heatmap(df_correlacao, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.
                                                                                    # annot=True usando a sintaxe de formatação do Python.
                                                                                    # O que significa ".2f":
                                                                                    # .2 = Exibe exatamente 2 casas decimais, f = Trata o número como ponto flutuante.
+                                                                                   #
                                                                                    # 5. linewidths=0.5 (Linhas Divisórias)
                                                                                    # O que faz: Define a espessura das linhas brancas que separam cada célula do 
                                                                                    # mapa de calor.
@@ -555,9 +585,179 @@ plt.show()
 # [markdown]
 # <b>Conclusões da Correlação não ligadas as sobrevivência</b>
 # <ul>
-#     <li><b>Relação entre Classe e Tarifa (passenger_class vs fare = -0.55):</b> Esta é a correlação negativa mais forte do conjunto. Faz total sentido prático: quanto menor o número da classe (1ª classe), significativamente maior o preço cobrado pela passagem.</li><br/>
 #     <li><b>Estrutura Familiar Integrada (siblings vs parents_children = +0.41):</b>Correlação positiva moderada. Passageiros que viajavam com irmãos/cônjuges (siblings) frequentemente também estavam acompanhados de pais/filhos (parents_children), indicando grupos familiares maiores a bordo.</li><br/>
 #     <li><b>Idade e Classe (age vs passenger_class = -0.34):</b>Correlação negativa moderada. Passageiros mais velhos tendiam a ocupar classes superiores (1ª classe), enquanto os passageiros mais jovens estavam predominantemente na 3ª classe.</li><br/>
-#     <li><b>Idade e Acompanhantes (age vs siblings = -0.23 / parents_children = -0.18):</b>Relação negativa leve: passageiros mais jovens tendiam a viajar com mais familiares/irmãos do que pessoas mais velhas.</li>
+#     <li><b>age vs. family_size ( -0.25 ):</b> Relação negativa fraca a moderada. Contexto: Passageiros mais velhos tendiam a viajar sozinhos ou em casais (menor family_size), enquanto famílias com maior número de membros eram compostas por pais mais jovens e crianças.</li>
 # <ul>
+
+# [markdown]
+# ## <center><b>APRENDIZADO DE MÁQUINA E PREVISÕES</b></center>
+
+# [markdown]
+# ## <center><b>Dataset de Teste</b></center>
+
+# [markdown]
+# #### <b>MODELO ESCOLHIDO COMO BASELINE</b>
+
+# [markdown]
+# O primeiro modelo escolhido foi o Linear SVC, por possuir características de ser um baseline rápido, com uma fronteira de decisão linear simples, antes de explorar interações complexas baseadas em árvore
+
+# [markdown]
+# <b>Etapas:</b>
+#
+# 1 - Carga dos Dados<br/>
+# 2 - Definição das colunas<br/>
+# 3 - Definição do Pipeline<br/>
+# 4 - Definição do Modelo<br/>
+# 5 - Acurácia<br/>
+# 6 - Treinamento do Modelo<br/>
+# 7 - Previsões
+
+# [markdown]
+# <b>Pré Requisitos para os dados</b>
+
+# [markdown]
+# <ul>
+#     <li><b>Os dados numéricos, se possuirem grande variação, devem ser padronizados (Utilizar StandardScaler), pois a máquina associa que grandes valores têm maior peso na decisão</b></li><br/>
+#     <li><b>Os dados categóricos devem ser transformados em dados numéricos (Isso pode ser feito por meio de OneHotEncoder), pois algoritmos de Álgebra linear são cegos para letras</b></li>
+# </ul>
+
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.svm import LinearSVC
+
+# [markdown]
+# <b>1 - Carga dos Dados</b>
+
+# [markdown]
+# <ul>
+#     1 - Calculando a faixa etária para o dataframe test e eliminando a coluna age<br/>
+#     2 - Eliminando a coluna age do dataframe train<br/>
+# </ul>
+
+# 1. Definir os limites dos intervalos e os rótulos de cada faixa etária
+bins = [0, 12, 18, 35, 60, 100]
+labels = ['Crianças (0-12)', 'Adolescentes (13-18)', 'Jovens Adultos (19-35)', 'Adultos (36-60)', 'Idosos (60+)']
+
+# 2. Criando uma nova coluna com a faixa etária
+df_test['faixa_etaria'] = cut(df_test['age'], bins=bins, labels=labels).astype('category')
+df_test.drop(columns='age', errors='ignore', inplace=True)
+df_test
+
+df_train.drop(columns='age', errors='ignore', inplace=True)
+df_train
+
+# 1. Carga dos dados
+train = df_train
+test = df_test
+
+X_train = train.drop(columns='survived') # axis=1, representa as colunas. Dados
+y_train = train['survived'] # Classes
+
+
+# [markdown]
+# <b>2 - Definição das colunas</b>
+
+# 2. Definição das colunas
+num_cols = ['passenger_class', 'family_size']
+cat_cols = ['sex','faixa_etaria']
+
+# [markdown]
+# <b>3 - Pipeline de Pré-processamento</b>
+
+# [markdown]
+# <ul>
+#     <li><b>drop=first</b><br/><br/>
+#     Ao definir drop='first', a primeira coluna one-hot é descartada, deixando apenas as colunas one-hot para os valores restantes. Isso é útil quando você deseja evitar a inclusão redundante de uma coluna que representa o valor original.
+#
+#     Por exemplo, se você tem uma coluna "sexo" com os valores "masculino" e "feminino", a codificação one-hot resultante terá duas colunas: "sexo_masculino" e "sexo_feminino". Se você não definir drop='first', terá três colunas: "sexo_masculino", "sexo_feminino" e "sexo" (que é igual ao valor original). Ao definir drop='first', você remove a coluna "sexo" redundante e mantém apenas "sexo_masculino" e "sexo_feminino".</li>
+# </ul>
+
+# 3. Pipeline de Pré-processamento
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', StandardScaler(), num_cols),
+        ('cat', OneHotEncoder(drop='first'), cat_cols),
+    ]
+)
+
+
+# [markdown]
+# <b>4 - Modelo</b>
+
+# [markdown]
+# <ul>
+#     <li><b>dual = False</b></li>
+#     <li>Quando o número de passageiros, supera largamente o número de colunas, a otimização Primal é mais eficiente</li>   
+# </ul>
+
+# [markdown]
+# ![image.png](attachment:image.png)
+
+# [markdown]
+# <ul>
+#     <li><b>randon_state = 42</b><br/><br/>
+#     No contexto de Aprendizado de Máquina (Machine Learning) e da biblioteca Scikit-Learn em Python, o parâmetro random_state = 42 é utilizado para definir a semente (seed) do gerador de números pseudoaleatórios.<br/><br/>
+#     Muitos algoritmos envolvem processos aleatórios (como a divisão de dados em treino/teste, inicialização de pesos ou a criação de árvores em uma Random Forest), definir o random_state com um número fixo garante que toda vez que o código for executado, os dados serão divididos/gerados exatamente da mesma forma. Isso é crucial para:<br/><br/></li>
+#     <ul>
+#         <li>Comparar o desempenho de diferentes modelos sob as mesmas condições.</li>
+#         <li>Permitir que outros colegas ou revisores executem o seu notebook e obtenham os mesmos resultados.</li>
+#         <li>Por que o número 42 especificamente?<br/><br/>
+#         A escolha do número 42 é uma convenção cultural / piada interna muito famosa no mundo da programação e ciência de dados.<br/>
+#         Ele é uma referência direta ao livro "O Guia do Mochileiro das Galáxias" (The Hitchhiker's Guide to the Galaxy), de Douglas Adams, no qual o número 42 é revelado como "A Resposta para a Pergunta Fundamental sobre a Vida, o Universo e Tudo Mais".<br/><br/>
+#         Nota: Tecnicamente, qualquer outro número inteiro (ex: random_state=0, random_state=1 ou random_state=123) funcionaria rigorosamente da mesma forma. O 42 tornou-se apenas o padrão não oficial mais popular na comunidade.</li>
+#     </ul>
+#     </li>
+# </ul>
+
+# 4. Modelo
+model = Pipeline(
+    steps=[
+        ('preprocessor', preprocessor),
+        ('classifier', LinearSVC(dual=False, random_state=42)),
+    ]
+)
+
+# [markdown]
+# <b>5 - Accurácia</b>
+
+# [markdown]
+# <b>Validação Cruzada (Cross-Validation)</b><br/><br/>
+# É a melhor prática para datasets pequenos como o Titanic, pois avalia o modelo em múltiplos pedaços dos dados de treino sem perder dados.
+
+# [markdown]
+# <b>cv=5 -></b> O número de divisões (conhecido como folds ou "dobras"). <br/><br/>O número 5 significa que o algoritmo vai aplicar o método K-Fold com K=5. 
+# <ul>
+#     <li>Divide o X_train em 5 partes iguais.</li><br/>
+#     <li>Em cada rodada, 4 partes são usadas para treinar o modelo e 1 parte é usada exclusivamente para testar. Isso se repete 5 vezes, de modo que cada uma das 5 partes seja usada exatamente uma vez como conjunto de teste/validação.</li><br/>
+#     <li><b>scoring='accuracy':</b> A métrica de avaliação que você quer calcular em cada rodada. Nesse caso, a Acurácia (porcentagem de acertos = (previsões corretas / total de previsões).</li>
+# </ul>
+
+from sklearn.model_selection import cross_val_score
+
+# Usando todo o df_train para validar em 5 subconjuntos (folds)
+scores = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy')
+
+print(f'Acurácia Média (Cross-Validation): {scores.mean() * 100:.2f}%')
+
+# [markdown]
+# <b>6 - Treinamento</b>
+
+# 5. Treinamento 
+model.fit(X_train, y_train)
+
+# [markdown]
+# <b>7 - Predição</b>
+
+# 6. Predição
+predictions = model.predict(test)
+
+df_predictions = test
+df_predictions.drop(columns='age',errors='ignore',inplace=True)
+df_predictions.insert(loc=1, column='survived', value=predictions)
+
+df_predictions = df_predictions.sort_values(by=['survived','passenger_class','faixa_etaria'],ascending=[False,True,True])
+
+df_predictions
 
