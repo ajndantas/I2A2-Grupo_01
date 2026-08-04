@@ -61,7 +61,8 @@ df_train.info()
 df_train.columns = (
                         df_train.columns.
                         str.lower().
-                        str.strip()
+                        str.strip().
+                        str.replace(' ','_')
                     )
 
 df_train.columns
@@ -742,6 +743,62 @@ scores = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy')
 print(f'Acurácia Média (Cross-Validation): {scores.mean() * 100:.2f}%')
 
 # [markdown]
+# #### <b>MODELO RANDOM FOREST</b>
+
+# [markdown]
+# O modelo combina centenas de análises independentes, em vez de confiar em uma unica árvore de decisão.
+
+# [markdown]
+# <ul>
+#     <li>Classificação: Votação Majoritária</li>
+#     <li>Regressão: Média Matemática</li>
+# </ul>
+
+# [markdown]
+# ![image.png](attachment:image.png)
+
+# [markdown]
+# <ul>
+#     <li>Adequação do Modelo</li>
+# </ul>
+
+# [markdown]
+# ![image.png](attachment:image.png)
+
+# [markdown]
+# <b>3 - Pipeline de Pré-processamento</b>
+
+# [markdown]
+# ![image.png](attachment:image.png)
+
+# 3. Pipeline de Pré-processamento
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('cat', OneHotEncoder(drop='first'), cat_cols)
+    ]
+)
+
+
+# [markdown]
+# <b>4 - Modelo</b>
+
+# 4. Modelo
+from sklearn.ensemble import RandomForestClassifier
+
+model = Pipeline(
+    steps=[
+        ('preprocessor', preprocessor),
+        ('classifier', RandomForestClassifier(random_state=42))
+    ]
+)
+
+# [markdown]
+# <b>5 - Accurácia</b>
+
+
+
+# [markdown]
 # <b>6 - Treinamento</b>
 
 # 5. Treinamento 
@@ -754,10 +811,18 @@ model.fit(X_train, y_train)
 predictions = model.predict(test)
 
 df_predictions = test
-df_predictions.drop(columns='age',errors='ignore',inplace=True)
 df_predictions.insert(loc=1, column='survived', value=predictions)
 
-df_predictions = df_predictions.sort_values(by=['survived','passenger_class','faixa_etaria'],ascending=[False,True,True])
-
 df_predictions
+
+# [markdown]
+# <b>Preparando o Envio para o Kaggle
+
+from pandas import DataFrame
+
+df_envio = DataFrame(columns=['PassengerId', 'Survived'])  # Criar o DataFrame vazio
+df_envio['PassengerId'] = df_predictions['passengerid']
+df_envio['Survived'] = df_predictions['survived']
+df_envio.to_csv('submission.csv', index=False)
+df_envio
 
