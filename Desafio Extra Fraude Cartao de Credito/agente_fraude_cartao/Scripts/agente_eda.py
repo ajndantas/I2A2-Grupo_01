@@ -7,8 +7,6 @@
 # ### IMPORTS
 
 from os.path import splitext
-from os import getenv
-from dotenv import load_dotenv
 from time import sleep
 from typing import Dict, List, Any
 from pandas import DataFrame, read_csv, read_sql
@@ -528,7 +526,7 @@ def agente1(llm:ChatOpenAI, engine:Engine, conclusoes:List[Dict[str,str]],qtd_to
     if 'conclusoes_done' not in st.session_state:
         st.session_state['conclusoes_done'] = conclusoes
                
-    st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/creditcard_reduzido_30mb.zip" target="_blank">Ex: Arquivo de dados</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito/agente_fraude_cartao/Scripts/train.csv.zip" target="_blank">Ex: Arquivo de dados</a>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("📂 Carregue o arquivo csv de dados ou zip", type=["csv","zip"])        
     default_index = 0
     
@@ -718,6 +716,9 @@ if __name__ == "__main__":
     
     from langchain_community.cache import InMemoryCache
     from langchain.globals import set_debug, set_llm_cache
+    from langchain_openai import ChatOpenAI 
+    from os import getenv
+    from dotenv import load_dotenv
 
     set_debug(True)
        
