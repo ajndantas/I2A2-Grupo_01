@@ -598,10 +598,11 @@ plt.show()
 # ## <center><b>Dataset de Teste</b></center>
 
 # [markdown]
-# #### <b>MODELO ESCOLHIDO COMO BASELINE</b>
+# #### <b>MODELO LinearSVC ESCOLHIDO COMO BASELINE</b>
 
 # [markdown]
-# O primeiro modelo escolhido foi o Linear SVC, por possuir características de ser um baseline rápido, com uma fronteira de decisão linear simples, antes de explorar interações complexas baseadas em árvore
+# 1 - O primeiro modelo escolhido foi o Linear SVC, por possuir características de ser um baseline rápido para datasets gigantescos, com uma fronteira de decisão linear simples, antes de explorar interações complexas baseadas em árvore.<br/><br/>
+# 2 - Adequado para muitas features e poucas amostras<br/>
 
 # [markdown]
 # <b>Etapas:</b>
