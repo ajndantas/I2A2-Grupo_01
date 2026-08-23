@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consulte dados de notas fiscais em linguagem natural.">
+  <title>FiscalMind | Análise inteligente de notas fiscais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script type="module" src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="FiscalMind - início">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span><strong>FiscalMind</strong><small>Inteligência sobre seus dados</small></span>
+    </a>
+    <div class="system-status"><span class="status-dot"></span><span>Agente disponível</span></div>
+  </header>
+
+  <main>
+    <section id="uploadView" class="upload-view">
+      <div class="hero-copy">
+        <span class="eyebrow">ANÁLISE FISCAL COM IA</span>
+        <h1>Transforme arquivos fiscais em respostas claras.</h1>
+        <p>Envie o arquivo de um documento fiscal e converse com seus dados sem fórmulas, SQL ou planilhas complexas.</p>
+        <ul class="benefits" aria-label="Benefícios">
+          <li><span>✓</span> Respostas para perguntas em linguagem natural</li>
+          <!--<li><span>✓</span> Respostas em texto, tabelas e gráficos</li>-->
+          <li><span>✓</span> Análise automática de fornecedores e produtos</li>
+        </ul>
+      </div>
+
+      <div class="upload-card">
+        <div class="step-label"><span>1</span> Carregue os dados</div>
+        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-describedby="uploadHint">
+          <input id="fileInput" type="file" accept=".csv, .pdf, image/*, text/csv, text/plain, application/pdf" hidden>
+          <div class="upload-icon" aria-hidden="true">⇧</div>
+          <h2>Arraste seu arquivo aqui</h2>
+          <p>ou <button id="selectFileButton" class="link-button" type="button">selecione no computador</button></p>
+          <small id="uploadHint">CSV, Texto, PDF ou imagem. Limite recomendado: 500 MB.</small>
+        </div>
+
+        <div id="filePreview" class="file-preview hidden" aria-live="polite">
+          <div id="fileType" class="file-type">ARQUIVO</div>
+          <div><strong id="fileName"></strong><small id="fileSize"></small></div>
+          <button id="removeFileButton" class="icon-button" type="button" aria-label="Remover arquivo">×</button>
+        </div>
+
+        <div id="uploadError" class="alert error hidden" role="alert"></div>
+        <button id="processButton" class="primary-button" type="button" disabled>
+          <span>Processar arquivo</span><span aria-hidden="true">→</span>
+        </button>
+        <p class="privacy-note">Seus dados são usados somente durante esta análise.</p>
+      </div>
+    </section>
+
+    <section id="processingView" class="processing-view hidden" aria-live="polite">
+      <div class="loader"></div>
+      <h1>Preparando sua análise</h1>
+      <p id="processingMessage">Enviando o arquivo com segurança...</p>
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      <small>Arquivos maiores podem levar alguns minutos.</small>
+    </section>
+
+    <section id="workspaceView" class="workspace hidden">
+      <aside class="dataset-panel">
+        <div class="panel-heading">
+          <div><span class="eyebrow">BASE ATIVA</span><h2 id="datasetName">Dados fiscais</h2></div>
+          <button id="newAnalysisButton" class="secondary-button" type="button">Nova análise</button>
+        </div>
+        <!-- <div class="summary-grid">
+          <article><span>Notas fiscais</span><strong id="invoiceCount">—</strong></article>
+          <article><span>Itens</span><strong id="itemCount">—</strong></article>
+          <article><span>Arquivo</span><strong id="csvCount">—</strong></article>
+          <article><span>Período</span><strong id="datasetPeriod">—</strong></article>
+        </div>
+        <div class="data-health">
+          <div><span>Qualidade da base</span><strong id="qualityScore">—</strong></div>
+          <div class="quality-track"><span id="qualityBar"></span></div>
+          <p id="qualityMessage">Análise concluída.</p>
+        </div>
+        <div class="file-list-wrap">
+          <h3>Arquivos identificados</h3>
+          <ul id="detectedFiles" class="detected-files"></ul>
+        </div>-->
+      </aside>
+
+      <section class="chat-panel">
+        <div class="chat-heading">
+          <div><span class="agent-avatar">F</span></div>
+          <div><h1>Converse com seus dados</h1><p>Faça perguntas sobre valores, fornecedores, produtos, CFOPs ou localidades.</p></div>
+        </div>
+        <div id="suggestions" class="suggestions" aria-label="Perguntas sugeridas"></div>
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <form id="questionForm" class="composer">
+          <label class="sr-only" for="questionInput">Digite uma pergunta sobre os dados</label>
+          <textarea id="questionInput" rows="1" placeholder="Ex.: Quem é o fornecedor do serviço ?" required></textarea>
+          <button id="sendButton" type="submit" aria-label="Enviar pergunta">➜</button>
+        </form>
+        <small class="composer-hint">Enter para enviar · Shift + Enter para nova linha</small>
+      </section>
+    </section>
+  </main>
+
+  <template id="assistantMessageTemplate">
+    <article class="message assistant-message">
+      <span class="message-avatar">F</span>
+      <div class="message-content"><div class="answer-text"></div><div class="answer-visual"></div></div>
+    </article>
+  </template>
+</body>
+</html>
