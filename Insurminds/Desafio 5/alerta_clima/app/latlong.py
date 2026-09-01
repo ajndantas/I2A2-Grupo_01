@@ -43,8 +43,8 @@ class LatLong:
             template=template,
             input_variables=["cidade"],
             partial_variables={"formatação de saída": self.parser.get_format_instructions()},            
-        ) 
-
+        )
+        
 
     def getLatLong(self,city):
 

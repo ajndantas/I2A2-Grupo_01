@@ -1,10 +1,9 @@
-from fastapi import Body, HTTPException, APIRouter
+from fastapi import Body, HTTPException, APIRouter, Request
 from app.request import CurrentRequest, ForecastRequest, AlertRequest
 from app.modelos.current import Current
 from app.latlong import LatLong
 from app.modelos.forecast import Forecast
 from app.modelos.alert import Alert
-from app.modelos.weather import Weather
 from typing import List
 
 router = APIRouter(
@@ -13,30 +12,26 @@ router = APIRouter(
 
 latlong = LatLong()
 
-@router.post("/current", response_model=Current, summary="Obter informações atuais do clima", 
-openapi_extra={
-        "requestBody": {
-            "description": "Nome da cidade",
-            "required": True,
-            "content": {
-                "text/plain" : {
-                    "schema": {
-                        "type": "string",
-                        "example": "Rio de Janeiro"
-                    }
-                }
-            }           
-        }
-})
-async def getCurrent(city: str = Body(..., media_type="text/plain")) -> Current: # O media_type indica que o corpo da requisição deve ser do tipo text/plain
-                                                                                 # No swagger, o combo vai indicar que o corpo da requisição deve ser do tipo text/plain 
-
-    latlong_obj = latlong.getLatLong(city) 
-
-    latitude = latlong_obj["latitude"]
-    longitude = latlong_obj["longitude"]
+@router.get(
+    "/current",
+    response_model=Current,
+    summary="Obter informações atuais do clima",
+    description="Retorna a previsão meteorológica atual para a cidade informada."
+)
+async def getCurrent(request: Request) -> Current:   
 
     try:
+
+        city = request.session.get('city', None)
+
+        if city is None: 
+            raise HTTPException(status_code=404, detail="Nenhuma cidade informada")
+        
+        latlong_obj = latlong.getLatLong(city) 
+        
+        latitude = latlong_obj["latitude"]
+        longitude = latlong_obj["longitude"]
+        
         current = CurrentRequest(latitude = latitude, longitude = longitude).getCurrent()
 
         return current
@@ -44,30 +39,25 @@ async def getCurrent(city: str = Body(..., media_type="text/plain")) -> Current:
     except HTTPException as e:
         raise HTTPException(status_code=e.status_code, detail=e.detail)
 
-@router.post("/forecast", response_model=List[Forecast], summary="Obter previsão de 7 dias do clima", 
-openapi_extra={
-        "requestBody": {
-            "description": "Nome da cidade",
-            "required": True,
-            "content": {
-                "text/plain" : {
-                    "schema": {
-                        "type": "string",
-                        "example": "Rio de Janeiro"
-                    }
-                }
-            }           
-        }
-})
-async def getForecast(city: str = Body(..., media_type="text/plain")) -> List[Forecast]: # O media_type indica que o corpo da requisição deve ser do tipo text/plain
-                                                                                         # No swagger, o combo vai indicar que o corpo da requisição deve ser do tipo text/plain
-
-    latlong_obj = latlong.getLatLong(city)
-
-    latitude = latlong_obj["latitude"]
-    longitude = latlong_obj["longitude"]
+@router.get(
+    "/forecast",
+    response_model=List[Forecast],
+    summary="Obter previsão de 7 dias do clima",
+    description="Retorna a previsão do tempo para os próximos 7 dias da cidade informada."
+)
+async def getForecast(request: Request) -> List[Forecast]: 
 
     try:
+        city = request.session.get('city', None)
+
+        if city is None: 
+            raise HTTPException(status_code=404, detail="Nenhuma cidade informada")
+
+        latlong_obj = latlong.getLatLong(city)
+
+        latitude = latlong_obj["latitude"]
+        longitude = latlong_obj["longitude"]
+    
         forecast = ForecastRequest(latitude = latitude, longitude = longitude).getForecast()
 
         return forecast
@@ -76,33 +66,56 @@ async def getForecast(city: str = Body(..., media_type="text/plain")) -> List[Fo
         raise HTTPException(status_code=e.status_code, detail=e.detail)
 
 
-@router.post("/alert", response_model=Alert, summary="Obter alerta de clima", 
-openapi_extra={
-        "requestBody": {
-            "description": "Nome da cidade",
-            "required": True,
-            "content": {
-                "text/plain" : {
-                    "schema": {
-                        "type": "string",
-                        "example": "Rio de Janeiro"
-                    }
-                }
-            }           
-        }        
-})
-async def getAlert(city: str = Body(..., media_type="text/plain")) -> Alert: # O media_type indica que o corpo da requisição deve ser do tipo text/plain
-                                                                             # No swagger, o combo vai indicar que o corpo da requisição deve ser do tipo text/plain
-
-    latlong = LatLong().getLatLong(city)
-
-    latitude = latlong["latitude"]
-    longitude = latlong["longitude"]
+@router.get(
+    "/alert",
+    response_model=Alert,
+    summary="Obter alerta de clima",
+    description="Retorna os alertas meteorológicos relevantes para a cidade informada."    
+)
+async def getAlert(request: Request) -> Alert:
 
     try:
+        city = request.session.get('city', None)
+
+        if city is None: 
+            raise HTTPException(status_code=404, detail="Nenhuma cidade informada")
+        
+        latlong_obj = latlong.getLatLong(city)
+
+        latitude = latlong_obj["latitude"]
+        longitude = latlong_obj["longitude"]
+    
         alert = AlertRequest(latitude = latitude, longitude = longitude).getAlert()
 
         return alert
 
     except HTTPException as e:
         raise HTTPException(status_code=e.status_code, detail=e.detail)
+
+@router.post(
+    "/city",
+    summary="Rota para obter a cidade",
+    description="Armazena a cidade informada na sessão do usuário para que as próximas interações da aplicação utilizem esse valor.",
+    openapi_extra={
+        "requestBody": {
+            "required": True,
+            "content": {
+                "text/plain": {
+                    "schema": {"type": "string"},
+                    "example": "Rio de Janeiro"
+                }
+            }
+        }
+    }    
+)
+async def setCity(request: Request, city: str = Body(..., media_type="text/plain")) -> str: # O media_type no Body, indica que o 
+                                                                                            # corpo da requisição deve ser do tipo 
+                                                                                            # text/plain
+                                                                                            #
+                                                                                            # No swagger, o combo vai indicar que 
+                                                                                            # o corpo da requisição deve ser do 
+                                                                                            # tipo text/plain 
+
+    request.session['city'] = city
+
+    return f"Cidade armazenada: {city}"

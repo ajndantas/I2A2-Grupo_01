@@ -1,0 +1,333 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Alerta de clima",
+    "description": "API de alerta de clima",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/api/v1/current": {
+      "get": {
+        "summary": "Obter informações atuais do clima",
+        "description": "Retorna a previsão meteorológica atual para a cidade informada.",
+        "operationId": "getCurrent_api_v1_current_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Current"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecast": {
+      "get": {
+        "summary": "Obter previsão de 7 dias do clima",
+        "description": "Retorna a previsão do tempo para os próximos 7 dias da cidade informada.",
+        "operationId": "getForecast_api_v1_forecast_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Forecast"
+                  },
+                  "type": "array",
+                  "title": "Response Getforecast Api V1 Forecast Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alert": {
+      "get": {
+        "summary": "Obter alerta de clima",
+        "description": "Retorna os alertas meteorológicos relevantes para a cidade informada.",
+        "operationId": "getAlert_api_v1_alert_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alert"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/city": {
+      "post": {
+        "summary": "Rota para obter a cidade",
+        "description": "Armazena a cidade informada na sessão do usuário para que as próximas interações da aplicação utilizem esse valor.",
+        "operationId": "setCity_api_v1_city_post",
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "title": "City"
+              },
+              "example": "Rio de Janeiro"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Setcity Api V1 City Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Rota para acessar a página HTML",
+        "description": "Rota para acessar a página HTML do frontend. Solicita a cidade ao usuário. O usuário informa a cidade, a aplicação executa a rota /api/v1/city e, em seguida, exibe o menu com as opções:\n\n1. Previsão atual — chama /api/v1/current e exibe a previsão atual. Ao final, carrega o menu com essas opções\n2. Previsão dos próximos 7 dias — chama /api/v1/forecast e mostra a previsão semanal. Ao final, carrega o menu com essas opções\n3. Trocar cidade — digita nova cidade e chama /api/v1/city. Ao final, carrega o menu com essas opções\n4. Sair — limpa o chat e recarrega a página para informar a cidade novamente.",
+        "operationId": "frontend__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alert": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "weather_code": {
+            "type": "integer",
+            "title": "Weather Code"
+          },
+          "weather_icon": {
+            "type": "string",
+            "title": "Weather Icon"
+          }
+        },
+        "type": "object",
+        "required": [
+          "description",
+          "weather_code",
+          "weather_icon"
+        ],
+        "title": "Alert"
+      },
+      "Current": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "weather_code": {
+            "type": "integer",
+            "title": "Weather Code"
+          },
+          "weather_icon": {
+            "type": "string",
+            "title": "Weather Icon"
+          },
+          "temp_max": {
+            "type": "string",
+            "title": "Temp Max"
+          },
+          "temp_min": {
+            "type": "string",
+            "title": "Temp Min"
+          },
+          "sunrise": {
+            "type": "string",
+            "title": "Sunrise"
+          },
+          "sunset": {
+            "type": "string",
+            "title": "Sunset"
+          },
+          "precip_prob": {
+            "type": "string",
+            "title": "Precip Prob"
+          },
+          "precip": {
+            "type": "string",
+            "title": "Precip"
+          },
+          "wind_gusts": {
+            "type": "string",
+            "title": "Wind Gusts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "description",
+          "weather_code",
+          "weather_icon",
+          "temp_max",
+          "temp_min",
+          "sunrise",
+          "sunset",
+          "precip_prob",
+          "precip",
+          "wind_gusts"
+        ],
+        "title": "Current"
+      },
+      "Forecast": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "weather_code": {
+            "type": "integer",
+            "title": "Weather Code"
+          },
+          "weather_icon": {
+            "type": "string",
+            "title": "Weather Icon"
+          },
+          "temp_max": {
+            "type": "string",
+            "title": "Temp Max"
+          },
+          "temp_min": {
+            "type": "string",
+            "title": "Temp Min"
+          },
+          "sunrise": {
+            "type": "string",
+            "title": "Sunrise"
+          },
+          "sunset": {
+            "type": "string",
+            "title": "Sunset"
+          },
+          "precip_prob": {
+            "type": "string",
+            "title": "Precip Prob"
+          },
+          "precip": {
+            "type": "string",
+            "title": "Precip"
+          },
+          "wind_gusts": {
+            "type": "string",
+            "title": "Wind Gusts"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "description",
+          "weather_code",
+          "weather_icon",
+          "temp_max",
+          "temp_min",
+          "sunrise",
+          "sunset",
+          "precip_prob",
+          "precip",
+          "wind_gusts",
+          "date"
+        ],
+        "title": "Forecast"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
