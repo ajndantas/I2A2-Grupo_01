@@ -1,4 +1,3 @@
-from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
@@ -7,25 +6,13 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.globals import set_debug, set_llm_cache
 from langchain_core.exceptions import OutputParserException
 from langchain_core.caches import InMemoryCache
-from typing import List
+from app.modelos.tipsandcities import TipsandCities
 
 set_debug(True)
 
 load_dotenv()
 
-class Tips(BaseModel):
-    temp: List[str] = Field(description="lista de 5 dicas relacionadas a variação de temperatura")
-    rain: List[str] = Field(description="lista de 5 dicas relacionadas a chuva")
-    wind: List[str] = Field(description="lista de 5 dicas relacionadas a rajadas de vento")
-    humidity: List[str] = Field(description="lista de 5 dicas relacionadas a umidade relativa")
-    eye: List[str] = Field(description="lista de 5 dicas relacionadas a saúde ocular")
-    
-class Cities(BaseModel):
-    brcities: List[str] = Field(description="lista das cidades brasileiras. Primeira palavra e a última em maiuscula")
-    worldcities: List[str] = Field(description="lista das cidades do mundo. Primeira palavra e a última em maiuscula")
-
-
-class TipsCities():
+class TipsandCities():
     def __init__(self):
 
         llm = ChatOpenAI(
@@ -60,7 +47,7 @@ class TipsCities():
                         {formatação de saída}
                         ----------------------------------------------------------------------------
                    """
-        parser = JsonOutputParser(pydantic_object=TipsCitiesModel)        
+        parser = JsonOutputParser(pydantic_object=TipsandCities)        
                 
         prompt_template = PromptTemplate(
             template=template,
@@ -84,8 +71,26 @@ class TipsCities():
         finally:
             return qa_chain['result']
 
+    def getTips(self):
+
+        try:
+            qa_chain = self.prompt_template | self.llm | self.parser
+            qa_chain = qa_chain.invoke()
+
+        except OutputParserException: 
+            qa_chain = self.prompt_template | self.llm | self.parser
+            qa_chain = qa_chain.invoke()
+
+        finally:
+            return qa_chain
+
 
 # TESTE
 if __name__ == "__main__":
-    tipscities = TipsCities().getTips()
+    cities = TipsandCities().getCities()
+    tips = TipsandCities().getTips()
+
+    print(cities)
+    print(tips)
+
     
