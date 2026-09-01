@@ -23,7 +23,7 @@ class Tips(BaseModel):
 class Cities(BaseModel):
     brcities: List[str] = Field(description="lista das cidades brasileiras. Primeira palavra e a última em maiuscula")
     worldcities: List[str] = Field(description="lista das cidades do mundo. Primeira palavra e a última em maiuscula")
-    
+
 
 class TipsCities():
     def __init__(self):
@@ -50,7 +50,7 @@ class TipsCities():
                         3. Forneça dicas relacionadas a rajadas de vento, 
                         4. Forneça dicas relacionadas a umidade relativa e 
                         5. Forneça dicas relacionadas a saude ocular.
-                        6. Forneça 5 cidades, aonde o somatório das quantidades é 5, sendo que a 
+                        6. Forneça 5 cidades, aonde o somatório das quantidades é 7, sendo que a 
                         maior quantidade deve ser das principais cidades brasileiras, e a menor, 
                         das principais cidades do mundo.
                         ----------------------------------------------------------------------------
