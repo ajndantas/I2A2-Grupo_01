@@ -1,0 +1,40 @@
+Considerando a documentação em json do swagger e o arquivo index.html.
+
+Modifique o index.html, de forma que ao se executá-lo, ele obtenha as cidades e suas respsctivas badges, por meio do endpoint /api/v1/cities da seguinte forma:
+
+
+CIDADES(CITIES) - Painel Direito
+---------------------------------------------------------------------------------------------------------------------------------
+1 - A lista de cidades e sua respectiva badge(Chave badge do JSON obtido do endpoint), localizados no painel direito, devem ser 
+obtida por meio do endpoint /api/v1/cities
+2 - Pelo menos uma cidade, e sua respectiva badgem das sete, deve ser modificada ao se executar novamente a aplicação.
+3 - As cidades modificadas, e suas respectivas badges, são obtidas da lista informada pelo endpoint
+4 - Caso não hajam mais cidades a serem obtidas da lista do endpoint, uma nova requisição deverá
+ser feita ao endpoint.
+---------------------------------------------------------------------------------------------------------------------------------
+
+Ao final, disponibilizar o novo index.html
+
+
+
+
+
+Considerando a documentação em json do swagger e o arquivo index.html.
+
+Modifique o index.html, de forma que ao se executá-lo, ele obtenha as dicas por meio do endpoint /api/v1/tips da seguinte forma:
+
+
+DICAS(TIPS) - Painel Esquerdo
+-----------------------------------------------------------------------------------------------------------------------
+1 - Cada tipo de dica do index.html, corresponde a chave de mesmo nome do JSON retornado pelo endpoint.
+
+2 - A dica para um tipo, deve ser obtida de forma aleatória da lista retornada pelo endpoint, para esse mesmo tipo.
+
+3 -  A cada nova execução, pelo menos um tipo deve ter sua dica trocada por outra da lista retornada pelo endpoint, 
+para esse mesmo tipo.
+
+4 - Quando não houverem mais dicas a serem obtidas da lista do endpoint, para todos os tipos de dicas, acessar, 
+novamente, o endpoint /api/v1/tips para obter novas dicas
+-----------------------------------------------------------------------------------------------------------------------
+
+Ao final, disponibilizar o novo index.html

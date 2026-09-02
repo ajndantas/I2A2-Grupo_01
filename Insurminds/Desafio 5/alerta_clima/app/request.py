@@ -8,40 +8,14 @@ from app.modelos.forecast import Forecast
 from app.modelos.alert import Alert
 from typing import List
 
-class CurrentRequest(): # Request para previsão de 7 dias
+class WeatherRequest:
     def __init__(self, latitude: float, longitude: float):
+        self.latitude = latitude
+        self.longitude = longitude
 
         self._URL = "https://api.open-meteo.com/v1/forecast"
 
-        current_params = {
-            "latitude": latitude,
-            "longitude": longitude,
-            "models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
-            "current": ["precipitation", "precipitation_probability", "weather_code", "wind_gusts_10m"],
-            "timezone": "America/Sao_Paulo"            
-        }
-
-        daily_params = {
-            "latitude": latitude,
-            "longitude": longitude,
-            "models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
-            "daily": ["sunrise", "sunset", "temperature_2m_max","temperature_2m_min"],
-            "timezone": "America/Sao_Paulo"            
-        }
-
-        daily_response = requests.get(url=self._URL, params=daily_params)
-        current_response = requests.get(url=self._URL, params=current_params)
-
-        if daily_response.status_code != 200:
-            raise HTTPException(status_code=404, detail=daily_response.json()) 
-
-        elif current_response.status_code != 200:
-            raise HTTPException(status_code=404, detail=current_response.json())
-        
-        self.__daily_json = daily_response.json()['daily'] # Primeiro dia da previsão, que será o dia atual 
-        self._current_json = current_response.json()['current']
-        
-        self.__WMO_CODES = {
+        self._WMO_CODES = {
                                 0: {"descricao": "Céu limpo", "icone": "☀️"},
                                 1: {"descricao": "Predominantemente limpo", "icone": "🌤️"},
                                 2: {"descricao": "Parcialmente nublado", "icone": "⛅"},
@@ -71,13 +45,45 @@ class CurrentRequest(): # Request para previsão de 7 dias
                                 96: {"descricao": "Tempestade com granizo leve", "icone": "⚡🧊"},
                                 99: {"descricao": "Tempestade com granizo forte", "icone": "⚡🧊"}
                             }
-
-    
+        
     def _getDescriptions(self, weather_code: int):
-        return self.__WMO_CODES.get(weather_code)['descricao']
+        return self._WMO_CODES.get(weather_code)['descricao']
 
     def _getIcons(self, weather_code: int):
-        return self.__WMO_CODES.get(weather_code)['icone'] 
+        return self._WMO_CODES.get(weather_code)['icone'] 
+
+class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
+    def __init__(self, latitude: float, longitude: float):
+        super().__init__(latitude, longitude)
+        
+        current_params = {
+            "latitude": latitude,
+            "longitude": longitude,
+            "models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
+            "current": ["precipitation", "precipitation_probability", "weather_code", "wind_gusts_10m"],
+            "timezone": "America/Sao_Paulo"            
+        }
+
+        daily_params = {
+            "latitude": latitude,
+            "longitude": longitude,
+            "models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
+            "daily": ["sunrise", "sunset", "temperature_2m_max","temperature_2m_min"],
+            "timezone": "America/Sao_Paulo"            
+        }
+
+        daily_response = requests.get(url=self._URL, params=daily_params)
+        current_response = requests.get(url=self._URL, params=current_params)
+
+        if daily_response.status_code != 200:
+            raise HTTPException(status_code=404, detail=daily_response.json()) 
+
+        elif current_response.status_code != 200:
+            raise HTTPException(status_code=404, detail=current_response.json())
+        
+        self.__daily_json = daily_response.json()['daily'] # Primeiro dia da previsão, que será o dia atual 
+        self._current_json = current_response.json()['current']
+
     
     def getCurrent(self) -> Current:
 
@@ -98,12 +104,12 @@ class CurrentRequest(): # Request para previsão de 7 dias
                         sunset = f'{sunset_hour} no horário de Brasília',
                         temp_max = f'{self.__daily_json["temperature_2m_max"][0]}°C',
                         temp_min = f'{self.__daily_json["temperature_2m_min"][0]}°C', 
-                        precip = f'{self._current_json['precipitation']} mm',                        
-                        precip_prob = f'{self._current_json['precipitation_probability']}%',
-                        wind_gusts = f'{round(self._current_json['wind_gusts_10m']*3.6, 2)} km/h',
-                        weather_code = self._current_json['weather_code'],
-                        description = self._getDescriptions(self._current_json['weather_code']),
-                        weather_icon = self._getIcons(self._current_json['weather_code'])
+                        precip = f'{self._current_json["precipitation"]} mm',                        
+                        precip_prob = f'{self._current_json["precipitation_probability"]}%',
+                        wind_gusts = f'{round(self._current_json["wind_gusts_10m"]*3.6, 2)} km/h',
+                        weather_code = self._current_json["weather_code"],
+                        description = self._getDescriptions(self._current_json["weather_code"]),
+                        weather_icon = self._getIcons(self._current_json["weather_code"])
                      )
                 
     
@@ -171,13 +177,13 @@ class ForecastRequest(CurrentRequest):
                                     description = self._getDescriptions(days[i]['weather_code']),
                                     sunrise = days[i]['sunrise'],
                                     sunset = days[i]['sunset'],
-                                    temp_max = f'{days[i]['temp_max']}°C',
-                                    temp_min = f'{days[i]['temp_min']}°C', 
+                                    temp_max = f'{days[i]["temp_max"]}°C',
+                                    temp_min = f'{days[i]["temp_min"]}°C', 
                                     precip = f'{days[i]["precipitation_sum"]} mm',
                                     precip_prob = f'{days[i]["precipitation_probability_max"]}%',
-                                    wind_gusts = f'{round(days[i]['wind_gusts_10m_max'], 2)} km/h',
-                                    weather_code = days[i]['weather_code'],
-                                    weather_icon = self._getIcons(days[i]['weather_code'])            
+                                    wind_gusts = f'{round(days[i]["wind_gusts_10m_max"], 2)} km/h',
+                                    weather_code = days[i]["weather_code"],
+                                    weather_icon = self._getIcons(days[i]["weather_code"])            
                             ) for i in range(len(days))
                     ]       
     
