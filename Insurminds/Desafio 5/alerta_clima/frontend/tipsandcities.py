@@ -13,16 +13,16 @@ class TipsandCities:
 
                         PASSOS:
                         ------------------------------------------------------------------------------
-                        1. Forneça dicas relacionadas a variação de temperatura,
-                        2. Forneça dicas relacionadas a tempestades, 
-                        3. Forneça dicas relacionadas a chuva, 
-                        4. Forneça dicas relacionadas a rajadas de vento, 
-                        5. Forneça dicas relacionadas a umidade relativa.
-                        6. Forneça dicas relacionadas a raios ultravioleta
-                        7. Forneça dicas relacionadas a saúde ocular
-                        8. Forneça dicas relacionadas a neblina
-                        9. Forneça dicas relacionadas a frio
-                        10. Forneça dicas relacionadas a inundação 
+                        1. Forneça 3 dicas do tipo variação de temperatura,
+                        2. Forneça 3 dicas do tipo tempestades, 
+                        3. Forneça 3 dicas do tipo chuva, 
+                        4. Forneça 3 dicas do tipo rajadas de vento, 
+                        5. Forneça 3 dicas do tipo umidade relativa.
+                        6. Forneça 3 dicas do tipo raios ultravioleta
+                        7. Forneça 3 dicas do tipo saúde ocular
+                        8. Forneça 3 dicas do tipo neblina
+                        9. Forneça 3 dicas do tipo frio
+                        10. Forneça 3 dicas do tipo inundação 
                         11. Forneça o nome de 14 cidades e as respectivas siglas de seus 
                         estados, sendo que a maior quantidade deve ser das principais cidades 
                         brasileiras, e a menor, das principais cidades do mundo, mas SEMPRE deve
