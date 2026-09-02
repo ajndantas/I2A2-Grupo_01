@@ -9,7 +9,12 @@ async def getTips() -> Tips:
 
     return tipsandcities.getTips()    
 
-@router.get("/cities", response_model=Cities, summary="Obtem cidades", response_description="Lista de cidades")
+@router.get(
+        "/cities", 
+        response_model=Cities, 
+        summary="Obtém cidades e suas siglas de estado", 
+        response_description="Lista de cidades e suas respectivas siglas de estado"        
+)
 async def getCities() -> Cities:
 
     tipsandcities = TipsandCities()

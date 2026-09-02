@@ -34,17 +34,17 @@ class TipsandCities:
                         ------------------------------------------------------------------------------
                         1. Forneça dicas relacionadas a variação de temperatura,
                         2. Forneça dicas relacionadas a tempestades, 
-                        2. Forneça dicas relacionadas a chuva, 
-                        3. Forneça dicas relacionadas a rajadas de vento, 
-                        4. Forneça dicas relacionadas a umidade relativa.
-                        4. Forneça dicas relacionadas a raios ultravioleta
-                        5. Forneça dicas relacionadas a saúde ocular
-                        6. Forneça dicas relacionadas a neblina
-                        7. Forneça dicas relacionadas a frio
-                        8. Forneça dicas relacionadas a inundação 
-                        9. Forneça o nome de 14 cidades e suas respectivas siglas, sendo que a maior 
-                        quantidade deve ser das principais cidades brasileiras, e a menor, das 
-                        principais cidades do mundo.
+                        3. Forneça dicas relacionadas a chuva, 
+                        4. Forneça dicas relacionadas a rajadas de vento, 
+                        5. Forneça dicas relacionadas a umidade relativa.
+                        6. Forneça dicas relacionadas a raios ultravioleta
+                        7. Forneça dicas relacionadas a saúde ocular
+                        8. Forneça dicas relacionadas a neblina
+                        9. Forneça dicas relacionadas a frio
+                        10. Forneça dicas relacionadas a inundação 
+                        11. Forneça o nome de 14 cidades e as respectivas siglas de seus 
+                        estados, sendo que a maior quantidade deve ser das principais cidades 
+                        brasileiras, e a menor, das principais cidades do mundo.
 
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
                         -----------------------------------------------------------------------------

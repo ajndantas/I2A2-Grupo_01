@@ -109,6 +109,42 @@
         }
       }
     },
+    "/api/v1/tips": {
+      "get": {
+        "summary": "Obtém dicas de clima",
+        "operationId": "getTips_api_v1_tips_get",
+        "responses": {
+          "200": {
+            "description": "5 dicas de clima para cada tipo de dica",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tips"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cities": {
+      "get": {
+        "summary": "Obtém cidades e suas siglas de estado",
+        "operationId": "getCities_api_v1_cities_get",
+        "responses": {
+          "200": {
+            "description": "Lista de cidades e suas respectivas siglas de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cities"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/": {
       "get": {
         "summary": "Rota para acessar a página HTML",
@@ -153,6 +189,38 @@
           "weather_icon"
         ],
         "title": "Alert"
+      },
+      "Cities": {
+        "properties": {
+          "cities_badges": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Cities Badges",
+            "description": "lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla de seu estado, estado em maiuscula. Primeira letra da primeira e da última palavra da cidade em maiuscula"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cities_badges"
+        ],
+        "title": "Cities",
+        "examples": [
+          {
+            "cities_badges": [
+              {
+                "Rio de Janeiro": "RJ"
+              },
+              {
+                "São Paulo": "SP"
+              }
+            ]
+          }
+        ]
       },
       "Current": {
         "properties": {
@@ -287,6 +355,104 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "Tips": {
+        "properties": {
+          "temp": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Temp",
+            "description": "lista de 5 dicas relacionadas a variação de temperatura"
+          },
+          "tempest": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tempest",
+            "description": "lista de 5 dicas relacionadas a tempestades"
+          },
+          "rain": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Rain",
+            "description": "lista de 5 dicas relacionadas a chuva"
+          },
+          "wind": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Wind",
+            "description": "lista de 5 dicas relacionadas a rajadas de vento"
+          },
+          "humidity": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Humidity",
+            "description": "lista de 5 dicas relacionadas a umidade relativa"
+          },
+          "uv": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uv",
+            "description": "lista de 5 dicas relacionadas a raios ultravioleta"
+          },
+          "eye": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Eye",
+            "description": "lista de 5 dicas relacionadas a saúde ocular"
+          },
+          "fog": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Fog",
+            "description": "lista de 5 dicas relacionadas a neblina"
+          },
+          "cold": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cold",
+            "description": "lista de 5 dicas relacionadas a frio"
+          },
+          "flood": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Flood",
+            "description": "lista de 5 dicas relacionadas a inundação"
+          }
+        },
+        "type": "object",
+        "required": [
+          "temp",
+          "tempest",
+          "rain",
+          "wind",
+          "humidity",
+          "uv",
+          "eye",
+          "fog",
+          "cold",
+          "flood"
+        ],
+        "title": "Tips"
       },
       "ValidationError": {
         "properties": {

@@ -449,8 +449,35 @@
     <h2 class="title-right">🏙️ Cidades Rápidas</h2>
     <p style="font-size: 0.8rem; color: #94a3b8; margin-top: -10px;">Clique para consultar instantaneamente:</p>
     
-    <div class="city-shortcuts" id="cityShortcuts">
-      <p style="font-size: 0.8rem; color: #64748b;">Carregando cidades...</p>
+    <div class="city-shortcuts">
+      <button class="city-btn" onclick="quickSelectCity('Rio de Janeiro')">
+        <span>📍 Rio de Janeiro</span>
+        <span class="badge">RJ</span>
+      </button>
+      <button class="city-btn" onclick="quickSelectCity('São Paulo')">
+        <span>📍 São Paulo</span>
+        <span class="badge">SP</span>
+      </button>
+      <button class="city-btn" onclick="quickSelectCity('Petrópolis')">
+        <span>📍 Petrópolis</span>
+        <span class="badge">RJ</span>
+      </button>
+      <button class="city-btn" onclick="quickSelectCity('Belo Horizonte')">
+        <span>📍 Belo Horizonte</span>
+        <span class="badge">MG</span>
+      </button>
+      <button class="city-btn" onclick="quickSelectCity('Curitiba')">
+        <span>📍 Curitiba</span>
+        <span class="badge">PR</span>
+      </button>
+      <button class="city-btn" onclick="quickSelectCity('Salvador')">
+        <span>📍 Salvador</span>
+        <span class="badge">BA</span>
+      </button>
+      <button class="city-btn" onclick="quickSelectCity('Brasília')">
+        <span>📍 Brasília</span>
+        <span class="badge">DF</span>
+      </button>
     </div>
   </aside>
 
@@ -471,10 +498,10 @@
     { type: 'temp', title: '🌡️ Variação Térmica', text: 'Vestir-se em camadas ajuda a adaptar-se ao frio matinal e ao calor da tarde.' },
     { type: 'humidity', title: '💧 Umidade Relativa', text: 'Em dias secos, mantenha umidificadores ligados e consuma bastante água.' },
     { type: 'cold', title: '❄️ Frio Intenso', text: 'Mantenha o corpo aquecido e proteja as extremidades (mãos e pés) no frio.' },
-    { type: 'temp', title: '⚡ Riscos de Tempestade', text: 'Evite áreas abertas e não se abrigue debaixo de árvores isoladas durante raios.' },
-    { type: 'humidity', title: '🚗 Visibilidade e Neblina', text: 'Reduza a velocidade e acenda os faróis baixos ao trafegar em locais com neblina.' },
-    { type: 'uv', title: '🕶️ Saúde Ocular', text: 'Use óculos de sol com proteção UV para evitar fadiga ocular em dias ensolarados.' },
-    { type: 'rain', title: '🏠 Cuidado com Alagamentos', text: 'Em caso de chuva forte repentina, evite pontos baixos e vias com histórico de alagamento.' }
+    { type: 'tempest', title: '⚡ Riscos de Tempestade', text: 'Evite áreas abertas e não se abrigue debaixo de árvores isoladas durante raios.' },
+    { type: 'fog', title: '🚗 Visibilidade e Neblina', text: 'Reduza a velocidade e acenda os faróis baixos ao trafegar em locais com neblina.' },
+    { type: 'eye', title: '🕶️ Saúde Ocular', text: 'Use óculos de sol com proteção UV para evitar fadiga ocular em dias ensolarados.' },
+    { type: 'flood', title: '🏠 Cuidado com Alagamentos', text: 'Em caso de chuva forte repentina, evite pontos baixos e vias com histórico de alagamento.' }
   ];
 
   // Função para sortear e renderizar exatamente 5 dicas
@@ -499,114 +526,8 @@
     });
   }
 
-  // ==========================================================
-  // Cidades Rápidas (Painel Direito) — obtidas via /api/v1/cities
-  // ==========================================================
-  const CITY_QUEUE_STORAGE_KEY = 'weatherApp_cityQueue';
-  const CITY_SHORTCUTS_COUNT = 7;
-
-  // Embaralha um array (Fisher-Yates), sem alterar o original
-  function shuffleArray(array) {
-    const result = [...array];
-    for (let i = result.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [result[i], result[j]] = [result[j], result[i]];
-    }
-    return result;
-  }
-
-  // Escapa texto antes de inserir no innerHTML
-  function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  // Busca a lista de cidades e badges no endpoint /api/v1/cities
-  // Formato de resposta: { cities_badges: [ { "Rio de Janeiro": "RJ" }, ... ] }
-  async function fetchCitiesFromApi() {
-    const res = await fetch('/api/v1/cities');
-    if (!res.ok) {
-      throw new Error('Falha ao obter cidades do endpoint.');
-    }
-    const data = await res.json();
-    const citiesBadges = data.cities_badges || [];
-
-    return citiesBadges.map(entry => {
-      const name = Object.keys(entry)[0];
-      return { name, badge: entry[name] };
-    });
-  }
-
-  function loadCityQueue() {
-    try {
-      const raw = localStorage.getItem(CITY_QUEUE_STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch (err) {
-      return [];
-    }
-  }
-
-  function saveCityQueue(queue) {
-    try {
-      localStorage.setItem(CITY_QUEUE_STORAGE_KEY, JSON.stringify(queue));
-    } catch (err) {
-      // Armazenamento indisponível: a rotação de cidades simplesmente não persistirá entre execuções.
-    }
-  }
-
-  // Retorna as próximas CITY_SHORTCUTS_COUNT cidades a exibir, consumindo-as de uma
-  // fila local embaralhada. Quando a fila não tem cidades suficientes, uma nova
-  // requisição é feita ao endpoint /api/v1/cities para reabastecê-la.
-  async function getNextCities() {
-    let queue = loadCityQueue();
-
-    if (queue.length < CITY_SHORTCUTS_COUNT) {
-      const freshCities = await fetchCitiesFromApi();
-      queue = shuffleArray(freshCities);
-    }
-
-    const selected = queue.slice(0, CITY_SHORTCUTS_COUNT);
-    const remaining = queue.slice(CITY_SHORTCUTS_COUNT);
-    saveCityQueue(remaining);
-
-    return selected;
-  }
-
-  function renderCityButtons(cities) {
-    const container = document.getElementById('cityShortcuts');
-    container.innerHTML = '';
-
-    cities.forEach(city => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'city-btn';
-      btn.innerHTML = `
-        <span>📍 ${escapeHtml(city.name)}</span>
-        <span class="badge">${escapeHtml(city.badge)}</span>
-      `;
-      btn.addEventListener('click', () => quickSelectCity(city.name));
-      container.appendChild(btn);
-    });
-  }
-
-  async function loadCityShortcuts() {
-    const container = document.getElementById('cityShortcuts');
-    try {
-      const cities = await getNextCities();
-      if (cities.length === 0) {
-        container.innerHTML = '<p style="font-size: 0.8rem; color: #94a3b8;">Nenhuma cidade disponível no momento.</p>';
-        return;
-      }
-      renderCityButtons(cities);
-    } catch (err) {
-      container.innerHTML = '<p style="font-size: 0.8rem; color: #94a3b8;">Não foi possível carregar as cidades. Tente recarregar a página.</p>';
-    }
-  }
-
   window.onload = () => {
     loadRandomTips();
-    loadCityShortcuts();
     addBotMessage("Olá! 👋 Bem-vindo ao <b>Alerta de Clima</b>.<br>Por favor, informe o nome da cidade ou escolha uma das opções na barra lateral:");
   };
 
