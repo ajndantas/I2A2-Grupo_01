@@ -1,9 +1,8 @@
-from llm import LLM
 from pydantic import BaseModel, Field
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
-from llm import LLM
+from app.llm import LLM
 
 
 class LatLongModel(BaseModel):

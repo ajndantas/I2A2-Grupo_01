@@ -1,8 +1,7 @@
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from app.modelos.tipsandcities import TipsandCities as TipsandCitiesModel
-from llm import LLM
+from app.llm import LLM
 
 class TipsandCities:
     def __init__(self):
