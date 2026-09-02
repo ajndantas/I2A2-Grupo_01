@@ -11,7 +11,7 @@ async def getTips() -> Tips:
 
         return tipsandcities.getTips()
     
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=500, detail="Não foi possível obter as dicas de clima. Reinicie a aplicação")
     
 
@@ -22,12 +22,12 @@ async def getTips() -> Tips:
         response_description="Lista de cidades e suas respectivas siglas de estado"        
 )
 async def getCities() -> Cities:
-    
+
     try:
         tipsandcities = TipsandCities()
 
         return tipsandcities.getCities()
     
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=500, detail="Não foi possível obter as cidades. Reinicie a aplicação")
     
