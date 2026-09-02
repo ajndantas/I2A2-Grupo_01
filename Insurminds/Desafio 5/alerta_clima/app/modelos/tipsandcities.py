@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Dict
 
 class Tips(BaseModel):
     temp: List[str] = Field(description="lista de 5 dicas relacionadas a variação de temperatura")
@@ -14,8 +14,8 @@ class Tips(BaseModel):
     flood: List[str] = Field(description="lista de 5 dicas relacionadas a inundação")
     
 class Cities(BaseModel):
-    cities: List[Dict[str, str]] = Field(description="lista das cidades e suas respectivas siglas, sendo as siglas em maiuscula. SOMENTE o nome da cidade e sua respectiva sigla. Primeira letra da primeira e da última palavra da cidade em maiuscula")
+    cities_badges: List[Dict[str,str]] = Field(description="lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla de seu estado, estado em maiuscula. Primeira letra da primeira e da última palavra da cidade em maiuscula")
     
 class TipsandCities(BaseModel):
     tips: Tips = Field(description="O dicionário de dicas, com cada dica e suas respectivas listas")
-    cities: Cities = Field(description="cities")
+    cities_badges: Cities = Field(description="A lista de cidades e suas respectivas badges")

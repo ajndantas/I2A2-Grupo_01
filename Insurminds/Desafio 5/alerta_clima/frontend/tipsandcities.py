@@ -15,13 +15,13 @@ class TipsandCities:
     def __init__(self):
 
         llm = ChatOpenAI(
-                                model_name="openrouter/free",
-                                base_url="https://openrouter.ai/api/v1",
+                                #model_name="openrouter/free",
+                                #base_url="https://openrouter.ai/api/v1",
 
-                                #model_name="gpt-5.6-luna", 
-                                #api_key=getenv("API_KEY"),
-                                api_key=getenv("API_KEY_OPENROUTER"),
-                                reasoning_effort="high",
+                                model_name="gpt-5.6-luna", 
+                                api_key=getenv("API_KEY"),
+                                #api_key=getenv("API_KEY_OPENROUTER"),
+                                #reasoning_effort="high",
                                 temperature=0                            
                          )        
 
@@ -74,7 +74,8 @@ class TipsandCities:
         
     def getCities(self):
 
-        return self.__qa_chain['cities']
+        return self.__qa_chain['cities_badges']
+    
 
     def getTips(self):
 
