@@ -1,0 +1,63 @@
+name: Docker Image & Cloud Run Deploy alerta-clima
+
+on:
+  push:
+    branches: [ "master" ]
+    paths: 
+      - 'Insurminds/Desafio 5/alerta_clima/**'        
+
+env:
+  PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
+  PORT: 8002                          # Porta onde a aplicação vai rodar dentro do container. 
+                                      # que é a porta padrão de entrada do Cloud Run. 
+  REGION: us-central1                 # Região do GCP (ex: São Paulo ou us-central1)
+  SERVICE_NAME: alerta-clima          # Nome que o serviço terá no Cloud Run
+  REPO_NAME: alerta-clima             # Nome do seu repositório no Artifact Registry. Deve ser criado previamente no GCP.
+  API_KEY_OPENROUTER: ${{ secrets.API_KEY_OPENROUTER }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
+  API_KEY: ${{ secrets.API_KEY }} # DEFINA SUA API KEY AQUI, ELA VAI SER USADA PARA AUTENTICAR AS REQUISIÇÕES AO SERVIÇO PYTHON
+  GHIMAGE_ID: ghcr.io/${{ github.repository_owner }}/alerta-clima
+  TAG: latest #TAG=$(date +%Y%m%d%H%M%S)
+
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Log de login no GHCR para poder fazer o push da imagem
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build the Docker image
+        run: |
+          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t ${{ env.GHIMAGE_ID }}:${{ env.TAG }} "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker push ${{ env.GHIMAGE_ID }}:${{ env.TAG }}
+      
+      # Autenticação no GCP para poder comandar o Cloud Run
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }} # Crie esse Secret no GitHub com o JSON da sua Service Account
+
+      - name: Set up Cloud SDK - gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      # Necessário que o Repositório Artifact Registry já esteja criado
+      - name: Deploy to Cloud Run from Artifact Registry GHCR Proxy
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --port=${{ env.PORT }} \
+            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.TAG }}" \
+            --region=${{ env.REGION }} \
+            --platform=managed \
+            --allow-unauthenticated \
+            --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
+            --memory=1Gi
+
+     
+      
