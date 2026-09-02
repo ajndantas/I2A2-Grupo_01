@@ -1,13 +1,19 @@
 from app.modelos.tipsandcities import Tips, Cities
 from frontend.tipsandcities import TipsandCities
 from app.rotas.request import router
+from fastapi.exceptions import HTTPException
 
 @router.get("/tips", response_model=Tips, summary="Obtém dicas de clima", response_description="5 dicas de clima para cada tipo de dica")
 async def getTips() -> Tips:
 
-    tipsandcities = TipsandCities()
+    try:
+        tipsandcities = TipsandCities()
 
-    return tipsandcities.getTips()    
+        return tipsandcities.getTips()
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Não foi possível obter as dicas de clima. Reinicie a aplicação")
+    
 
 @router.get(
         "/cities", 
@@ -16,8 +22,12 @@ async def getTips() -> Tips:
         response_description="Lista de cidades e suas respectivas siglas de estado"        
 )
 async def getCities() -> Cities:
+    
+    try:
+        tipsandcities = TipsandCities()
 
-    tipsandcities = TipsandCities()
-
-    return tipsandcities.getCities()
+        return tipsandcities.getCities()
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Não foi possível obter as cidades. Reinicie a aplicação")
     

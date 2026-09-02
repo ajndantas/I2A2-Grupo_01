@@ -25,7 +25,7 @@ async def getCurrent(request: Request) -> Current:
         city = request.session.get('city', None)
 
         if city is None: 
-            raise HTTPException(status_code=404, detail="Nenhuma cidade informada")
+            raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
         
         latlong_obj = latlong.getLatLong(city) 
         
@@ -51,7 +51,7 @@ async def getForecast(request: Request) -> List[Forecast]:
         city = request.session.get('city', None)
 
         if city is None: 
-            raise HTTPException(status_code=404, detail="Nenhuma cidade informada")
+            raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
 
         latlong_obj = latlong.getLatLong(city)
 
@@ -78,7 +78,7 @@ async def getAlert(request: Request) -> Alert:
         city = request.session.get('city', None)
 
         if city is None: 
-            raise HTTPException(status_code=404, detail="Nenhuma cidade informada")
+            raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
         
         latlong_obj = latlong.getLatLong(city)
 

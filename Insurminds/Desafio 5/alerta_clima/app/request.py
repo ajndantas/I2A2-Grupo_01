@@ -76,10 +76,10 @@ class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
         current_response = requests.get(url=self._URL, params=current_params)
 
         if daily_response.status_code != 200:
-            raise HTTPException(status_code=404, detail=daily_response.json()) 
+            raise HTTPException(status_code=500, detail=daily_response.json()) 
 
         elif current_response.status_code != 200:
-            raise HTTPException(status_code=404, detail=current_response.json())
+            raise HTTPException(status_code=500, detail=current_response.json())
         
         self.__daily_json = daily_response.json()['daily'] # Primeiro dia da previsão, que será o dia atual 
         self._current_json = current_response.json()['current']
@@ -128,7 +128,7 @@ class ForecastRequest(CurrentRequest):
         response = requests.get(self._URL, params=daily_params)
 
         if response.status_code != 200:
-            raise HTTPException(status_code=404, detail=response.json())
+            raise HTTPException(status_code=500, detail=response.json())
         
         self.__json = response.json()['daily']
         
@@ -209,7 +209,7 @@ class AlertRequest(CurrentRequest):
                         )
         
         else:
-            raise HTTPException(status_code=404, detail=(f"Clima: {current.description} - Nenhum alerta encontrado"))
+            raise HTTPException(status_code=500, detail=(f"Clima: {current.description} - Nenhum alerta encontrado"))
             
 
 # TESTE
