@@ -23,7 +23,7 @@ ARG API_KEY
 ENV API_KEY=${API_KEY}
 
 # Exponha a porta 8002 para o acesso externo
-EXPOSE 8002
+EXPOSE 8003
 
 # Inicie o servidor FastAPI
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8002"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003"]
