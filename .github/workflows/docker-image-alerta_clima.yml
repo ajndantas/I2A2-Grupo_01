@@ -8,7 +8,7 @@ on:
 
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
-  PORT: 8002                          # Porta onde a aplicação vai rodar dentro do container. 
+  PORT: 8003                          # Porta onde a aplicação vai rodar dentro do container. 
                                       # que é a porta padrão de entrada do Cloud Run. 
   REGION: us-central1                 # Região do GCP (ex: São Paulo ou us-central1)
   SERVICE_NAME: alerta-clima          # Nome que o serviço terá no Cloud Run
@@ -34,7 +34,7 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t ${{ env.GHIMAGE_ID }}:${{ env.TAG }} "Insurminds/Desafio 2/agente_chatbotseguro/Scripts/" # PEGA O DOCKERFILE AQUI
+          docker build --build-arg API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }} --build-arg API_KEY=${{ env.API_KEY }} -t ${{ env.GHIMAGE_ID }}:${{ env.TAG }} "Insurminds/Desafio 5/alerta_clima/" # PEGA O DOCKERFILE AQUI
           docker push ${{ env.GHIMAGE_ID }}:${{ env.TAG }}
       
       # Autenticação no GCP para poder comandar o Cloud Run
