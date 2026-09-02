@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Body, Request
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from dotenv import load_dotenv
-from app.rotas import request
+from app.rotas import request, tipsandcities
 from starlette.middleware.sessions import SessionMiddleware
 
 
@@ -16,6 +16,7 @@ app = FastAPI(
 
 app.mount("/frontend", StaticFiles(directory="frontend"), name="alerta_clima")
 app.include_router(request.router)
+app.include_router(tipsandcities.router)
 
 app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
 
