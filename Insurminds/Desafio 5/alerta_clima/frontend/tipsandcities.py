@@ -23,9 +23,8 @@ class TipsandCities:
                         9. Forneça 3 dicas do tipo frio
                         10. Forneça 3 dicas do tipo inundação 
                         11. Forneça o nome de 14 cidades e as respectivas siglas de seus 
-                        estados, sendo que a maior quantidade deve ser das principais cidades 
-                        brasileiras, e a menor, das principais cidades do mundo, mas SEMPRE deve
-                        haver pelo menos 1 principal cidade do mundo.
+                        estados. SEMPRE pelo menos 3 delas de cidades do mundo, exceto do Brasil, 
+                        e o restante de cidades brasileiras. 
 
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
                         
