@@ -1,19 +1,20 @@
-Considerando a documentação em json do swagger e o arquivo index.html.
+Considerando a documentação em json do swagger e a pasta zipada frontend.
 
-Modifique o index.html, de forma que ao se executá-lo, ele obtenha as cidades e suas respsctivas badges, por meio do endpoint /api/v1/cities da seguinte forma:
+Modifique os arquivos dessa pasta da seguinte forma:
 
 
 CIDADES(CITIES) - Painel Direito
 ---------------------------------------------------------------------------------------------------------------------------------
-1 - A lista de cidades e sua respectiva badge(Chave badge do JSON obtido do endpoint), localizados no painel direito, devem ser 
-obtida por meio do endpoint /api/v1/cities
-2 - Pelo menos uma cidade, e sua respectiva badgem das sete, deve ser modificada ao se executar novamente a aplicação.
-3 - As cidades modificadas, e suas respectivas badges, são obtidas da lista informada pelo endpoint
+1 - A lista de cidades localizadas no painel direito, com seu nome, badge e tipo,deve ser obtida por meio do endpoint 
+/api/v1/cities
+2 - No painel devem haver um total de 7 cidades, sendo 4 brasileiras e 3 internacionais. Pelo menos uma cidade do painel, 
+deve ser modificada ao se executar novamente a aplicação.
+3 - As cidades modificadas devem ser obtidas da lista informada pelo endpoint
 4 - Caso não hajam mais cidades a serem obtidas da lista do endpoint, uma nova requisição deverá
-ser feita ao endpoint.
+ser feita a ele.
 ---------------------------------------------------------------------------------------------------------------------------------
 
-Ao final, disponibilizar o novo index.html
+Ao final, disponibilizar a nova pasta zipada e informe os arquivos que foram modificados.
 
 
 Considerando a documentação em json do swagger e os arquivos script.js, style.css e index.html anexados.
