@@ -14,7 +14,7 @@ class Tips(BaseModel):
     flood: List[str] = Field(description="lista de dicas relacionadas ao tipo inundação")
     
 class Cities(BaseModel):
-    cities_badges: List[Dict[str,str]] = Field(description="lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla de seu estado, estado em maiuscula. Primeira letra da primeira e da última palavra da cidade em maiuscula")
+    cities_badges: List[Dict[str,str,['brasileira','global']]] = Field(description="lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla e o seu tipo (brasileira ou global). Estado e sigla em maiusculas. Primeira letra da primeira e da última palavra da cidade em maiuscula")
 
     # MODIFICANDO O EXEMPLO DA RESPOSTA DO ENDPOINT NO SWAGGER
     model_config = {
@@ -22,8 +22,8 @@ class Cities(BaseModel):
             "examples": [
                 {
                     "cities_badges": [
-                        {"Rio de Janeiro": "RJ"},
-                        {"São Paulo": "SP"}
+                        {"Rio de Janeiro": "RJ", "tipo": "brasileira"},
+                        {"Los Angeles": "CA", "tipo": "global"},                        
                     ]
                 }
             ]            
@@ -32,4 +32,4 @@ class Cities(BaseModel):
 
 class TipsandCities(BaseModel):
     tips: Tips = Field(description="O dicionário de dicas, com cada tipo de dica e suas respectivas listas")
-    cities_badges: Cities = Field(description="A lista de cidades e suas respectivas badges")
+    cities_badges: Cities = Field(description="A lista de cidades, suas respectivas badges e tipos")
