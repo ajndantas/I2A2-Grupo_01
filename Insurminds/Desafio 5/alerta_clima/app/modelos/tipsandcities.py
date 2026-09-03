@@ -12,9 +12,12 @@ class Tips(BaseModel):
     fog: List[str] = Field(description="lista de dicas relacionadas ao tipo neblina")
     cold: List[str] = Field(description="lista de dicas relacionadas ao tipo frio")
     flood: List[str] = Field(description="lista de dicas relacionadas ao tipo inundação")
-    
+
+class CityType(BaseModel):
+    tipo: str = Field(description="O tipo de cidade, brasileira ou global") 
+
 class Cities(BaseModel):
-    cities_badges: List[Dict[str,str,['brasileira','global']]] = Field(description="lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla e o seu tipo (brasileira ou global). Estado e sigla em maiusculas. Primeira letra da primeira e da última palavra da cidade em maiuscula")
+    cities_badges: List[Dict[str, str, CityType]] = Field(description="lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla e o seu tipo (brasileira ou global). Estado e sigla em maiusculas. Primeira letra da primeira e da última palavra da cidade em maiuscula")
 
     # MODIFICANDO O EXEMPLO DA RESPOSTA DO ENDPOINT NO SWAGGER
     model_config = {
@@ -29,6 +32,7 @@ class Cities(BaseModel):
             ]            
         }
     }
+
 
 class TipsandCities(BaseModel):
     tips: Tips = Field(description="O dicionário de dicas, com cada tipo de dica e suas respectivas listas")
