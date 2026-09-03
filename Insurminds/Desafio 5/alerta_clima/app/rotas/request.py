@@ -1,4 +1,4 @@
-from fastapi import Body, HTTPException, APIRouter, Request
+from fastapi import Body, HTTPException, APIRouter, Request, Depends
 from app.request import CurrentRequest, ForecastRequest, AlertRequest
 from app.modelos.current import Current
 from app.latlong import LatLong
@@ -10,7 +10,7 @@ router = APIRouter(
     prefix="/api/v1"
 )
 
-latlong = LatLong()
+# latlong = LatLong() # TODA HORA QUE O PROGRAMA PRECISAR DE UMA ROTA, ELE VAI CHAMAR O LATLONG
 
 @router.get(
     "/current",
@@ -18,7 +18,7 @@ latlong = LatLong()
     summary="Obter informações atuais do clima",
     description="Retorna a previsão meteorológica atual para a cidade informada."
 )
-async def getCurrent(request: Request) -> Current:   
+async def getCurrent(request: Request, latlong: LatLong = Depends(LatLong)) -> Current:   
 
     try:
 
@@ -45,7 +45,7 @@ async def getCurrent(request: Request) -> Current:
     summary="Obter previsão de 7 dias do clima",
     description="Retorna a previsão do tempo para os próximos 7 dias da cidade informada."
 )
-async def getForecast(request: Request) -> List[Forecast]: 
+async def getForecast(request: Request, latlong: LatLong = Depends(LatLong)) -> List[Forecast]: 
 
     try:
         city = request.session.get('city', None)
@@ -72,7 +72,7 @@ async def getForecast(request: Request) -> List[Forecast]:
     summary="Obter alerta de clima",
     description="Retorna os alertas meteorológicos relevantes para a cidade informada."    
 )
-async def getAlert(request: Request) -> Alert:
+async def getAlert(request: Request, latlong: LatLong = Depends(LatLong)) -> Alert:
 
     try:
         city = request.session.get('city', None)
