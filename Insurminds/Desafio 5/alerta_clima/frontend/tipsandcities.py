@@ -25,7 +25,7 @@ class TipsandCities:
                         10. Forneça 3 dicas do tipo inundação 
                         11. Forneça o nome de 14 cidades e as respectivas siglas de seus 
                         estados. Caso não tenha estado, que seja do seu país, seus tipos, se brasileira, ou global, para cidades não brasileiras.
-                        SEMPRE pelo menos 3 delas de cidades do mundo, exceto do Brasil, e o restante de cidades brasileiras. 
+                        12. 4 cidades brasileiras e 3 globais.
 
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
                         

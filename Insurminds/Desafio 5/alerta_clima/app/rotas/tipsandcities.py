@@ -29,7 +29,7 @@ async def getTips(tipsandcities: TipsandCities = Depends(getTipsandCities)) -> T
             "/cities", 
             response_model=List[City], 
             summary="Obtém cidades e suas siglas de estado", 
-            response_description="Lista de cidades e suas respectivas siglas de estado"        
+            response_description="Lista de cidades e seus atributos"        
 )
 async def getCities(tipsandcities: TipsandCities = Depends(getTipsandCities)) -> List[City]:
 
