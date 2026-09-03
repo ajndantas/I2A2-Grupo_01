@@ -15,6 +15,9 @@ app = FastAPI(
 )
 
 app.mount("/frontend", StaticFiles(directory="frontend"), name="alerta_clima")
+app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
+app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
+
 app.include_router(request.router)
 app.include_router(tipsandcities.router)
 

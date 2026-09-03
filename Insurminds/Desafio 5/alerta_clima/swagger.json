@@ -115,7 +115,7 @@
         "operationId": "getTips_api_v1_tips_get",
         "responses": {
           "200": {
-            "description": "5 dicas de clima para cada tipo de dica",
+            "description": "3 dicas de clima para cada tipo de dica",
             "content": {
               "application/json": {
                 "schema": {
@@ -364,7 +364,7 @@
             },
             "type": "array",
             "title": "Temp",
-            "description": "lista de 5 dicas relacionadas a variação de temperatura"
+            "description": "lista de dicas relacionadas ao tipo variação de temperatura"
           },
           "tempest": {
             "items": {
@@ -372,7 +372,7 @@
             },
             "type": "array",
             "title": "Tempest",
-            "description": "lista de 5 dicas relacionadas a tempestades"
+            "description": "lista de dicas relacionadas ao tipo tempestades"
           },
           "rain": {
             "items": {
@@ -380,7 +380,7 @@
             },
             "type": "array",
             "title": "Rain",
-            "description": "lista de 5 dicas relacionadas a chuva"
+            "description": "lista de dicas relacionadas ao tipo chuva"
           },
           "wind": {
             "items": {
@@ -388,7 +388,7 @@
             },
             "type": "array",
             "title": "Wind",
-            "description": "lista de 5 dicas relacionadas a rajadas de vento"
+            "description": "lista de dicas relacionadas ao tipo rajadas de vento"
           },
           "humidity": {
             "items": {
@@ -396,7 +396,7 @@
             },
             "type": "array",
             "title": "Humidity",
-            "description": "lista de 5 dicas relacionadas a umidade relativa"
+            "description": "lista de dicas relacionadas ao tipo umidade relativa"
           },
           "uv": {
             "items": {
@@ -404,7 +404,7 @@
             },
             "type": "array",
             "title": "Uv",
-            "description": "lista de 5 dicas relacionadas a raios ultravioleta"
+            "description": "lista de dicas relacionadas ao tipo raios ultravioleta"
           },
           "eye": {
             "items": {
@@ -412,7 +412,7 @@
             },
             "type": "array",
             "title": "Eye",
-            "description": "lista de 5 dicas relacionadas a saúde ocular"
+            "description": "lista de dicas relacionadas ao tipo saúde ocular"
           },
           "fog": {
             "items": {
@@ -420,7 +420,7 @@
             },
             "type": "array",
             "title": "Fog",
-            "description": "lista de 5 dicas relacionadas a neblina"
+            "description": "lista de dicas relacionadas ao tipo neblina"
           },
           "cold": {
             "items": {
@@ -428,7 +428,7 @@
             },
             "type": "array",
             "title": "Cold",
-            "description": "lista de 5 dicas relacionadas a frio"
+            "description": "lista de dicas relacionadas ao tipo frio"
           },
           "flood": {
             "items": {
@@ -436,7 +436,7 @@
             },
             "type": "array",
             "title": "Flood",
-            "description": "lista de 5 dicas relacionadas a inundação"
+            "description": "lista de dicas relacionadas ao tipo inundação"
           }
         },
         "type": "object",

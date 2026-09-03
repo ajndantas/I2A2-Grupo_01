@@ -18,9 +18,11 @@ class LatLong:
         template = """
                         Qual é a latitude e a longitude da cidade {cidade} ?
 
-                        NUNCA fornecer um JSON incorreto
+                        ## SAÍDA
+                        - NUNCA fornecer um JSON incorreto
 
                         {formatação de saída}
+                        
                    """
         self.parser = JsonOutputParser(pydantic_object=LatLongModel)        
                 

@@ -1,0 +1,407 @@
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+    }
+
+    body { 
+      background: #090d16;
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      padding: 20px; 
+      color: #f1f5f9;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Glows de Fundo Vibrantes */
+    .glow-bg {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.45;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .glow-1 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #f43f5e, #8b5cf6);
+      top: -10%;
+      left: -5%;
+    }
+
+    .glow-2 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, #06b6d4, #3b82f6);
+      bottom: -10%;
+      right: -5%;
+    }
+
+    /* Layout Principal em Três Colunas */
+    .main-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+      max-width: 1280px;
+      z-index: 1;
+    }
+
+    /* Paineis Laterais Esquerdo e Direito */
+    .side-panel {
+      flex: 1;
+      max-width: 320px;
+      height: 88vh;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      overflow-y: auto;
+    }
+
+    .side-panel::-webkit-scrollbar {
+      width: 4px;
+    }
+    .side-panel::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .side-panel h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Títulos Vibrantes */
+    .title-left {
+      background: linear-gradient(90deg, #ff007a, #ff758c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-right {
+      background: linear-gradient(90deg, #00f2fe, #4facfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Cards Informativos (Lado Esquerdo) */
+    .info-card {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 14px;
+      border-left: 4px solid;
+      transition: all 0.3s ease;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .info-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .info-card.uv { border-color: #f59e0b; }
+    .info-card.rain { border-color: #3b82f6; }
+    .info-card.wind { border-color: #10b981; }
+    .info-card.temp { border-color: #ec4899; }
+    .info-card.humidity { border-color: #8b5cf6; }
+    .info-card.cold { border-color: #06b6d4; }
+    .info-card.tempest { border-color: #eab308; }
+    .info-card.fog { border-color: #64748b; }
+    .info-card.eye { border-color: #14b8a6; }
+    .info-card.flood { border-color: #0ea5e9; }
+
+    .info-card h3 {
+      font-size: 0.85rem;
+      color: #f8fafc;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card p {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+
+    /* Botões de Atalho de Cidades (Lado Direito) */
+    .city-shortcuts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .city-btn {
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
+      padding: 14px 16px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+
+    .city-btn:hover {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(129, 140, 248, 0.25) 100%);
+      border-color: #38bdf8;
+      transform: translateX(4px);
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+    }
+
+    .city-btn span.badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+    }
+
+    /* Container Central de Chat */
+    .chat-container { 
+      flex: 1;
+      max-width: 480px; 
+      background: rgba(15, 23, 42, 0.65); 
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px; 
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); 
+      display: flex; 
+      flex-direction: column; 
+      height: 88vh; 
+      overflow: hidden; 
+      position: relative;
+    }
+
+    /* Cabeçalho */
+    .header { 
+      background: rgba(255, 255, 255, 0.03);
+      padding: 20px 24px; 
+      text-align: center; 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #ff007a 0%, #7928ca 50%, #00dfd8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header p {
+      font-size: 0.825rem;
+      color: #94a3b8;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    /* Mensagens */
+    .messages { 
+      flex: 1; 
+      padding: 20px; 
+      overflow-y: auto; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 14px; 
+      scroll-behavior: smooth;
+    }
+
+    .messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    .messages::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .message { 
+      max-width: 85%; 
+      padding: 12px 18px; 
+      border-radius: 18px; 
+      line-height: 1.5; 
+      font-size: 0.9rem; 
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bot { 
+      background: rgba(255, 255, 255, 0.08); 
+      color: #f8fafc; 
+      align-self: flex-start; 
+      border-bottom-left-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .user { 
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); 
+      color: #ffffff; 
+      align-self: flex-end; 
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+      font-weight: 500;
+    }
+
+    /* Botões de Opções do Menu */
+    .options-container { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; 
+      margin-top: 10px; 
+      width: 100%;
+    }
+
+    .option-btn { 
+      background: rgba(255, 255, 255, 0.05); 
+      border: 1px solid rgba(255, 255, 255, 0.15); 
+      color: #e2e8f0; 
+      padding: 12px 16px; 
+      border-radius: 12px; 
+      cursor: pointer; 
+      font-weight: 500; 
+      font-size: 0.875rem;
+      transition: all 0.25s ease; 
+      text-align: left; 
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .option-btn:hover { 
+      background: linear-gradient(90deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2)); 
+      border-color: #ec4899; 
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    /* Campo de Entrada */
+    .input-container { 
+      padding: 16px; 
+      border-top: 1px solid rgba(255, 255, 255, 0.08); 
+      display: flex; 
+      gap: 10px; 
+      background: rgba(10, 15, 26, 0.6); 
+    }
+
+    input[type="text"] { 
+      flex: 1; 
+      padding: 12px 16px; 
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15); 
+      border-radius: 12px; 
+      outline: none; 
+      color: #fff;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    input[type="text"]::placeholder {
+      color: #64748b;
+    }
+
+    input[type="text"]:focus {
+      border-color: #ec4899;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 12px rgba(236, 72, 153, 0.2);
+    }
+
+    button.send-btn { 
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); 
+      color: #0f172a; 
+      border: none; 
+      padding: 12px 20px; 
+      border-radius: 12px; 
+      cursor: pointer; 
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+    }
+
+    button.send-btn:hover { 
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(79, 172, 254, 0.45);
+    }
+
+    /* Cards de previsão do tempo */
+    .weather-card { 
+      margin-top: 8px; 
+      padding-top: 8px; 
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .forecast-item {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Indicador de carregamento */
+    .loading-container { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      font-style: italic; 
+      color: #cbd5e1; 
+    }
+
+    .hourglass-icon {
+      display: inline-block;
+      font-size: 20px;
+      animation: flipHourglass 1.5s infinite ease-in-out;
+    }
+
+    @keyframes flipHourglass {
+      0% { transform: rotate(0deg); }
+      40% { transform: rotate(180deg); }
+      50% { transform: rotate(180deg); }
+      90% { transform: rotate(360deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+      .side-panel {
+        display: none;
+      }
+    }

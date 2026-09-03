@@ -7,7 +7,6 @@ from app.modelos.alert import Alert
 from typing import List
 from functools import lru_cache
 
-from httpx import get 
 
 router = APIRouter(
     prefix="/api/v1"

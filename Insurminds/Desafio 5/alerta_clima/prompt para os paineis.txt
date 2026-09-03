@@ -16,25 +16,21 @@ ser feita ao endpoint.
 Ao final, disponibilizar o novo index.html
 
 
+Considerando a documentação em json do swagger e os arquivos script.js, style.css e index.html anexados.
 
+Modifique o script.js, de forma que ao se executá-lo, ele obtenha as dicas por meio do endpoint /api/v1/tips da seguinte forma:
 
+## DICAS(TIPS) - Painel Esquerdo
+1 - Cada tipo de dica do script.js em anexo, corresponde a chave de mesmo nome do JSON retornado pelo endpoint informado no
+swagger em anexo
 
-Considerando a documentação em json do swagger e o arquivo index.html.
+2 - A dica para um tipo, deve ser obtida de forma aleatória da lista retornada pelo endpoint para esse mesmo tipo.
 
-Modifique o index.html, de forma que ao se executá-lo, ele obtenha as dicas por meio do endpoint /api/v1/tips da seguinte forma:
-
-
-DICAS(TIPS) - Painel Esquerdo
------------------------------------------------------------------------------------------------------------------------
-1 - Cada tipo de dica do index.html, corresponde a chave de mesmo nome do JSON retornado pelo endpoint.
-
-2 - A dica para um tipo, deve ser obtida de forma aleatória da lista retornada pelo endpoint, para esse mesmo tipo.
-
-3 -  A cada nova execução, pelo menos um tipo deve ter sua dica trocada por outra da lista retornada pelo endpoint, 
+3 -  A cada nova execução, pelo menos um tipo deve ter sua dica trocada por outra da lista retornada pelo endpoint 
 para esse mesmo tipo.
 
 4 - Quando não houverem mais dicas a serem obtidas da lista do endpoint, para todos os tipos de dicas, acessar, 
 novamente, o endpoint /api/v1/tips para obter novas dicas
------------------------------------------------------------------------------------------------------------------------
 
-Ao final, disponibilizar o novo index.html
+Ao final, disponibilizar o novo script.js, e se necessário, realizar modificações no style.css e index.html anexados. 
+Disponibilizar os 3 arquivos para download.

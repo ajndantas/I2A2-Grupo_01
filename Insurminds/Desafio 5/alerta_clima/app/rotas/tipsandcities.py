@@ -2,13 +2,22 @@ from app.modelos.tipsandcities import Tips, Cities
 from frontend.tipsandcities import TipsandCities
 from app.rotas.request import router
 from fastapi.exceptions import HTTPException
+from functools import lru_cache
+from fastapi import Depends
 
-@router.get("/tips", response_model=Tips, summary="Obtém dicas de clima", response_description="5 dicas de clima para cada tipo de dica")
-async def getTips() -> Tips:
+@lru_cache
+def getTipsandCities():
+    return TipsandCities()
+
+@router.get(
+                "/tips", 
+                response_model=Tips, 
+                summary="Obtém dicas de clima", 
+                response_description="3 dicas de clima para cada tipo de dica"                
+)
+async def getTips(tipsandcities: TipsandCities = Depends(getTipsandCities)) -> Tips:
 
     try:
-        tipsandcities = TipsandCities()
-
         return tipsandcities.getTips()
     
     except Exception:
@@ -16,16 +25,14 @@ async def getTips() -> Tips:
     
 
 @router.get(
-        "/cities", 
-        response_model=Cities, 
-        summary="Obtém cidades e suas siglas de estado", 
-        response_description="Lista de cidades e suas respectivas siglas de estado"        
+            "/cities", 
+            response_model=Cities, 
+            summary="Obtém cidades e suas siglas de estado", 
+            response_description="Lista de cidades e suas respectivas siglas de estado"        
 )
-async def getCities() -> Cities:
+async def getCities(tipsandcities: TipsandCities = Depends(getTipsandCities)) -> Cities:
 
     try:
-        tipsandcities = TipsandCities()
-
         return tipsandcities.getCities()
     
     except Exception:

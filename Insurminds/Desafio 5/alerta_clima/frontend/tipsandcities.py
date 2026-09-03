@@ -9,10 +9,9 @@ class TipsandCities:
         llm = LLM().getLLM() 
         
         template = """
-                        Aja como um especialistas de meteorologia e clima. e siga PASSOS abaixo:
+                        Aja como um especialista de meteorologia e clima. e siga PASSOS abaixo:
 
-                        PASSOS:
-                        ------------------------------------------------------------------------------
+                        ## PASSOS:
                         1. Forneça 3 dicas do tipo variação de temperatura,
                         2. Forneça 3 dicas do tipo tempestades, 
                         3. Forneça 3 dicas do tipo chuva, 
@@ -29,14 +28,12 @@ class TipsandCities:
                         haver pelo menos 1 principal cidade do mundo.
 
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
-                        -----------------------------------------------------------------------------
-
-                        SAÍDA
-                        -----------------------------------------------------------------------------
-                        NUNCA fornecer um JSON incorreto
                         
+                        ## SAÍDA
+                        NUNCA fornecer um JSON incorreto
+
                         {formatação de saída}
-                        -----------------------------------------------------------------------------
+                        
                    """
         parser = JsonOutputParser(pydantic_object=TipsandCitiesModel)       
                 
