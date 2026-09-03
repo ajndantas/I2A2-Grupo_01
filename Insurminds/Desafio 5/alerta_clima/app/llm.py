@@ -19,7 +19,7 @@ class LLM:
                                 model_name="gpt-5.6-luna", 
                                 api_key=getenv("API_KEY"),
                                 #api_key=getenv("API_KEY_OPENROUTER"),
-                                reasoning_effort="high",
+                                #reasoning_effort="high",
                                 temperature=0                            
                             )
 
