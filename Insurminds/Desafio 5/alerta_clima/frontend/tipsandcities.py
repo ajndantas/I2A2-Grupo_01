@@ -54,7 +54,7 @@ class TipsandCities:
         
     def getCities(self):
 
-        return self.__qa_chain['cities_badges']
+        return self.__qa_chain['cities']
     
 
     def getTips(self):
