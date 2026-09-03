@@ -1,6 +1,3 @@
-from dataclasses import field
-from unittest.mock import Base
-
 from pydantic import BaseModel, Field
 from typing import List
 
@@ -22,8 +19,8 @@ class City(BaseModel):
     badge: str = Field(description="A sigla")
     type: str = Field(description="O tipo de cidade, brasileira ou global")
 
-class Cities(City):
-    cities: List[City] = Field(description="lista das cidades")
+class Cities(BaseModel):
+    cities: List[City] = Field(description="lista de cidades e seus atributos")
 
     # MODIFICANDO O EXEMPLO DA RESPOSTA DO ENDPOINT NO SWAGGER
     model_config = {
