@@ -12,15 +12,15 @@ class TipsandCities:
                         Aja como um especialista de meteorologia e clima. e siga PASSOS abaixo:
 
                         ## PASSOS:
-                        1. Forneça 3 dicas do tipo variação de temperatura,
+                        1. Forneça 3 dicas do tipo variação de temperatura no contexto de clima,
                         2. Forneça 3 dicas do tipo tempestades, 
                         3. Forneça 3 dicas do tipo chuva, 
                         4. Forneça 3 dicas do tipo rajadas de vento, 
                         5. Forneça 3 dicas do tipo umidade relativa.
                         6. Forneça 3 dicas do tipo raios ultravioleta
-                        7. Forneça 3 dicas do tipo saúde ocular
+                        7. Forneça 3 dicas do tipo saúde ocular no contexto de clima
                         8. Forneça 3 dicas do tipo neblina
-                        9. Forneça 3 dicas do tipo frio
+                        9. Forneça 3 dicas do tipo frio no contexto de clima
                         10. Forneça 3 dicas do tipo inundação 
                         11. Forneça o nome de 14 cidades e as respectivas siglas de seus 
                         estados. SEMPRE pelo menos 3 delas de cidades do mundo, exceto do Brasil, 
