@@ -20,7 +20,7 @@ class City(BaseModel):
     type: str = Field(description="O tipo de cidade, brasileira ou global")
 
 class Cities(City):
-    cities: List[Dict[str, str]] = Field(description="lista dos dicionários de cidades")
+    cities: List[City] = Field(description="lista dos dicionários de cidades")
 
     # MODIFICANDO O EXEMPLO DA RESPOSTA DO ENDPOINT NO SWAGGER
     model_config = {
