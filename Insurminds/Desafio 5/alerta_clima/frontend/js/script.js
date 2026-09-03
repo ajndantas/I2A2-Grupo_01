@@ -164,8 +164,21 @@
   // ==========================================================
   // Cidades Rápidas (Painel Direito) — obtidas via /api/v1/cities
   // ==========================================================
-  const CITY_QUEUE_STORAGE_KEY = 'weatherApp_cityQueue';
-  const CITY_SHORTCUTS_COUNT = 7;
+  // Formato de resposta do endpoint (schema "Cities" do swagger):
+  // {
+  //   "cities": [
+  //     { "cidade": "Rio de Janeiro", "badge": "RJ", "type": "brasileira" },
+  //     { "cidade": "Londres",        "badge": "GB", "type": "global" },
+  //     ...
+  //   ]
+  // }
+  // "type" é "brasileira" para cidades do Brasil, ou "global" para cidades internacionais.
+  const CITY_QUEUE_BR_KEY = 'weatherApp_cityQueue_brasileira';
+  const CITY_QUEUE_GLOBAL_KEY = 'weatherApp_cityQueue_global';
+  const CITY_BR_COUNT = 4;
+  const CITY_GLOBAL_COUNT = 3;
+  const CITY_SHORTCUTS_COUNT = CITY_BR_COUNT + CITY_GLOBAL_COUNT; // 7 cidades no painel
+  const MAX_CITY_FETCH_ATTEMPTS = 5; // evita loop infinito caso o endpoint não traga cidades suficientes de algum tipo
 
   // Embaralha um array (Fisher-Yates), sem alterar o original
   function shuffleArray(array) {
@@ -184,55 +197,87 @@
     return div.innerHTML;
   }
 
-  // Busca a lista de cidades e badges no endpoint /api/v1/cities
-  // Formato de resposta: { cities_badges: [ { "Rio de Janeiro": "RJ" }, ... ] }
+  // Busca a lista de cidades no endpoint /api/v1/cities e já separa o
+  // resultado em duas listas, conforme o campo "type" de cada cidade:
+  // brasileiras e globais (internacionais).
   async function fetchCitiesFromApi() {
     const res = await fetch('/api/v1/cities');
     if (!res.ok) {
       throw new Error('Falha ao obter cidades do endpoint.');
     }
     const data = await res.json();
-    const citiesBadges = data.cities_badges || [];
+    const cities = Array.isArray(data.cities) ? data.cities : [];
 
-    return citiesBadges.map(entry => {
-      const name = Object.keys(entry)[0];
-      return { name, badge: entry[name] };
+    const brazilian = [];
+    const international = [];
+
+    cities.forEach(entry => {
+      const city = { name: entry.cidade, badge: entry.badge, type: entry.type };
+      if ((entry.type || '').toLowerCase() === 'brasileira') {
+        brazilian.push(city);
+      } else {
+        international.push(city);
+      }
     });
+
+    return { brazilian, international };
   }
 
-  function loadCityQueue() {
+  function loadCityQueues() {
     try {
-      const raw = localStorage.getItem(CITY_QUEUE_STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
+      const rawBr = localStorage.getItem(CITY_QUEUE_BR_KEY);
+      const rawGlobal = localStorage.getItem(CITY_QUEUE_GLOBAL_KEY);
+      return {
+        brazilian: rawBr ? JSON.parse(rawBr) : [],
+        international: rawGlobal ? JSON.parse(rawGlobal) : []
+      };
     } catch (err) {
-      return [];
+      return { brazilian: [], international: [] };
     }
   }
 
-  function saveCityQueue(queue) {
+  function saveCityQueues(queues) {
     try {
-      localStorage.setItem(CITY_QUEUE_STORAGE_KEY, JSON.stringify(queue));
+      localStorage.setItem(CITY_QUEUE_BR_KEY, JSON.stringify(queues.brazilian));
+      localStorage.setItem(CITY_QUEUE_GLOBAL_KEY, JSON.stringify(queues.international));
     } catch (err) {
       // Armazenamento indisponível: a rotação de cidades simplesmente não persistirá entre execuções.
     }
   }
 
-  // Retorna as próximas CITY_SHORTCUTS_COUNT cidades a exibir, consumindo-as de uma
-  // fila local embaralhada. Quando a fila não tem cidades suficientes, uma nova
-  // requisição é feita ao endpoint /api/v1/cities para reabastecê-la.
+  // Retorna as CITY_BR_COUNT cidades brasileiras + CITY_GLOBAL_COUNT cidades
+  // globais a exibir no painel (total de CITY_SHORTCUTS_COUNT = 7), consumindo-as
+  // das filas locais embaralhadas — nunca cidades inventadas no front-end.
+  //
+  // A cada execução da aplicação, os itens já exibidos são removidos das filas,
+  // então a próxima execução naturalmente exibe pelo menos uma cidade diferente
+  // (desde que ainda restem cidades daquele tipo na fila).
+  //
+  // Sempre que uma das filas (brasileiras ou globais) não tiver cidades
+  // suficientes para completar a próxima exibição, uma NOVA requisição é feita
+  // ao endpoint /api/v1/cities para reabastecê-la com mais cidades vindas dele.
   async function getNextCities() {
-    let queue = loadCityQueue();
+    let queues = loadCityQueues();
 
-    if (queue.length < CITY_SHORTCUTS_COUNT) {
-      const freshCities = await fetchCitiesFromApi();
-      queue = shuffleArray(freshCities);
+    let attempts = 0;
+    while (
+      (queues.brazilian.length < CITY_BR_COUNT || queues.international.length < CITY_GLOBAL_COUNT) &&
+      attempts < MAX_CITY_FETCH_ATTEMPTS
+    ) {
+      const fresh = await fetchCitiesFromApi();
+      queues.brazilian = shuffleArray(queues.brazilian.concat(fresh.brazilian));
+      queues.international = shuffleArray(queues.international.concat(fresh.international));
+      attempts++;
     }
 
-    const selected = queue.slice(0, CITY_SHORTCUTS_COUNT);
-    const remaining = queue.slice(CITY_SHORTCUTS_COUNT);
-    saveCityQueue(remaining);
+    const selectedBr = queues.brazilian.slice(0, CITY_BR_COUNT);
+    const selectedGlobal = queues.international.slice(0, CITY_GLOBAL_COUNT);
 
-    return selected;
+    queues.brazilian = queues.brazilian.slice(CITY_BR_COUNT);
+    queues.international = queues.international.slice(CITY_GLOBAL_COUNT);
+    saveCityQueues(queues);
+
+    return shuffleArray(selectedBr.concat(selectedGlobal));
   }
 
   function renderCityButtons(cities) {
@@ -240,12 +285,16 @@
     container.innerHTML = '';
 
     cities.forEach(city => {
+      const isBrazilian = (city.type || '').toLowerCase() === 'brasileira';
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'city-btn';
+      btn.className = `city-btn ${isBrazilian ? 'type-brasileira' : 'type-global'}`;
       btn.innerHTML = `
         <span>📍 ${escapeHtml(city.name)}</span>
-        <span class="badge">${escapeHtml(city.badge)}</span>
+        <span class="city-btn-meta">
+          <span class="type-tag">${isBrazilian ? '🇧🇷 Brasileira' : '🌍 Global'}</span>
+          <span class="badge">${escapeHtml(city.badge)}</span>
+        </span>
       `;
       btn.addEventListener('click', () => quickSelectCity(city.name));
       container.appendChild(btn);

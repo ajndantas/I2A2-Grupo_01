@@ -172,12 +172,36 @@
       box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
     }
 
+    .city-btn-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .city-btn span.badge {
       font-size: 0.75rem;
       padding: 3px 8px;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.1);
       color: #cbd5e1;
+    }
+
+    .city-btn span.type-tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .city-btn.type-brasileira span.type-tag {
+      background: rgba(16, 185, 129, 0.18);
+      color: #6ee7b7;
+    }
+
+    .city-btn.type-global span.type-tag {
+      background: rgba(56, 189, 248, 0.18);
+      color: #7dd3fc;
     }
 
     /* Container Central de Chat */
