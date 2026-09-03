@@ -5,12 +5,20 @@ from app.latlong import LatLong
 from app.modelos.forecast import Forecast
 from app.modelos.alert import Alert
 from typing import List
+from functools import lru_cache
+
+from httpx import get 
 
 router = APIRouter(
     prefix="/api/v1"
 )
 
-# latlong = LatLong() # TODA HORA QUE O PROGRAMA PRECISAR DE UMA ROTA, ELE VAI CHAMAR O LATLONG
+# latlong = LatLong() # TODA HORA QUE O PROGRAMA PRECISAR DE UMA ROTA, ELE VAI CHAMAR O LATLONG. ISSO ESTAVA QUEBRANDO O DEPLOY NA GCP
+
+@lru_cache # ISSO EVITA QUE O LATLONG SEJA CRIADO VÁRIAS VEZES. É COMO SE FOSSE UM SINGLETON
+           # LRU significa Least Recently Used
+def getLatLong():
+    return LatLong()
 
 @router.get(
     "/current",
@@ -18,8 +26,7 @@ router = APIRouter(
     summary="Obter informações atuais do clima",
     description="Retorna a previsão meteorológica atual para a cidade informada."
 )
-async def getCurrent(request: Request, latlong: LatLong = Depends(LatLong)) -> Current:   
-
+async def getCurrent(request: Request, latlong: LatLong = Depends(getLatLong)) -> Current: 
     try:
 
         city = request.session.get('city', None)
@@ -45,7 +52,7 @@ async def getCurrent(request: Request, latlong: LatLong = Depends(LatLong)) -> C
     summary="Obter previsão de 7 dias do clima",
     description="Retorna a previsão do tempo para os próximos 7 dias da cidade informada."
 )
-async def getForecast(request: Request, latlong: LatLong = Depends(LatLong)) -> List[Forecast]: 
+async def getForecast(request: Request, latlong: LatLong = Depends(getLatLong)) -> List[Forecast]: 
 
     try:
         city = request.session.get('city', None)
@@ -72,7 +79,7 @@ async def getForecast(request: Request, latlong: LatLong = Depends(LatLong)) -> 
     summary="Obter alerta de clima",
     description="Retorna os alertas meteorológicos relevantes para a cidade informada."    
 )
-async def getAlert(request: Request, latlong: LatLong = Depends(LatLong)) -> Alert:
+async def getAlert(request: Request, latlong: LatLong = Depends(getLatLong)) -> Alert:
 
     try:
         city = request.session.get('city', None)
