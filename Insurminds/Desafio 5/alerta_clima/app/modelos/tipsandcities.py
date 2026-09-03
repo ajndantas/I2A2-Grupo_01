@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Dict
+from typing import List
 
 class Tips(BaseModel):
     temp: List[str] = Field(description="lista de dicas relacionadas ao tipo variação de temperatura")
@@ -43,8 +43,3 @@ class Cities(City):
             ]            
         }
     }
-
-
-class TipsandCities(BaseModel):
-    tips: Tips = Field(description="O dicionário de dicas, com cada tipo de dica e suas respectivas listas")
-    cities: Cities = Field(description="A lista de dicionários de cidades")
