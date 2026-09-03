@@ -47,7 +47,7 @@ jobs:
       - name: Set up Cloud SDK - gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Deploy to Cloud Run from Artifact Registry GHCR Proxy
+      - name: Deploy to Cloud Run from GHCR to Artifact Registry Proxy
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --port=${{ env.PORT }} \
