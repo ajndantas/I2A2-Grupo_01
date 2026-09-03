@@ -56,6 +56,7 @@ jobs:
             --region=${{ env.REGION }} \
             --platform=managed \
             --allow-unauthenticated \
+            --cpu-boost \
             --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
             --memory=1Gi
 
