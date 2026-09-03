@@ -1,3 +1,5 @@
+from unittest.mock import Base
+
 from pydantic import BaseModel, Field
 from typing import List
 
@@ -43,3 +45,7 @@ class Cities(City):
             ]            
         }
     }
+
+    class TipsandCities(Base):
+        tips: Tips
+        cities: Cities
