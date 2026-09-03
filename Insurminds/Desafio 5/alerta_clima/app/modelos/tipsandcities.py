@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List
+from typing_extensions import TypedDict
 
 class Tips(BaseModel):
     temp: List[str] = Field(description="lista de dicas relacionadas ao tipo variação de temperatura")
