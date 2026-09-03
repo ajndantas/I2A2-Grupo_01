@@ -47,6 +47,7 @@ class Cities(City):
         }
     }
 
-    class TipsandCities(BaseModel):
-        tips: Tips = Field(description="lista de dicas para cada tipo")
-        cities: Cities = Field(description="lista das cidades e seus atributos") 
+
+class TipsandCities(BaseModel):
+    tips: Tips = Field(description="lista de dicas para cada tipo")
+    cities: Cities = Field(description="lista das cidades e seus atributos")
