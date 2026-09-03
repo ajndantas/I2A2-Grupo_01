@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List
-from typing_extensions import TypedDict
+from typing import List, TypedDict
 
 class Tips(BaseModel):
     temp: List[str] = Field(description="lista de dicas relacionadas ao tipo variação de temperatura")
@@ -31,12 +30,12 @@ class Cities(BaseModel):
                 {
                     "cities": [
                         {
-                            "cidade": "Rio de Janeiro",
+                            "city": "Rio de Janeiro",
                             "badge": "RJ",
                             "type": "brasileira"
                         },
                         {
-                            "cidade": "Londres",
+                            "city": "Londres",
                             "badge": "GB",
                             "type": "global"
                         }
@@ -49,4 +48,4 @@ class Cities(BaseModel):
 
 class TipsandCities(BaseModel):
     tips: Tips = Field(description="lista de dicas para cada tipo")
-    cities: Cities = Field(description="lista das cidades e seus atributos")
+    cities: List[City] = Field(description="lista das cidades e seus atributos")

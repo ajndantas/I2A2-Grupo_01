@@ -22,8 +22,8 @@ class TipsandCities:
                         8. Forneça 3 dicas do tipo neblina
                         9. Forneça 3 dicas do tipo frio no contexto de clima
                         10. Forneça 3 dicas do tipo inundação 
-                        11. Forneça o nome de 14 cidades e as respectivas siglas de seus 
-                        estados. Caso não tenha estado, que seja do seu país, seus tipos, se brasileira, ou global, para cidades não brasileiras.
+                        11. Forneça o nome de 14 cidades, as respectivas siglas de seus 
+                        estados e seus tipos, se brasileira ou global (não brasileira). Caso não tenha estado, que seja do seu país.
                         12. 4 cidades brasileiras e 3 globais.
 
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
@@ -52,7 +52,7 @@ class TipsandCities:
         finally:
             self.__qa_chain = qa_chain
         
-    def getCities(self) -> Cities:
+    def getCities(self) -> List[City]:
         
         return self.__qa_chain['cities']
     
