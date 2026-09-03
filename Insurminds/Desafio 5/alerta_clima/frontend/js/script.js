@@ -164,14 +164,12 @@
   // ==========================================================
   // Cidades Rápidas (Painel Direito) — obtidas via /api/v1/cities
   // ==========================================================
-  // Formato de resposta do endpoint (schema "Cities" do swagger):
-  // {
-  //   "cities": [
-  //     { "cidade": "Rio de Janeiro", "badge": "RJ", "type": "brasileira" },
-  //     { "cidade": "Londres",        "badge": "GB", "type": "global" },
-  //     ...
-  //   ]
-  // }
+  // Formato de resposta do endpoint (schema "City" do swagger):
+  // [
+  //   { "city": "Rio de Janeiro", "badge": "RJ", "type": "brasileira" },
+  //   { "city": "Londres",        "badge": "GB", "type": "global" },
+  //   ...
+  // ]
   // "type" é "brasileira" para cidades do Brasil, ou "global" para cidades internacionais.
   const CITY_QUEUE_BR_KEY = 'weatherApp_cityQueue_brasileira';
   const CITY_QUEUE_GLOBAL_KEY = 'weatherApp_cityQueue_global';
@@ -206,13 +204,16 @@
       throw new Error('Falha ao obter cidades do endpoint.');
     }
     const data = await res.json();
-    const cities = Array.isArray(data.cities) ? data.cities : [];
+    // CORRIGIDO: o endpoint /api/v1/cities retorna diretamente um ARRAY de
+    // cidades (List[City]), e não um objeto { cities: [...] }. Além disso,
+    // o schema "City" do backend usa a chave "city" (não "cidade").
+    const cities = Array.isArray(data) ? data : [];
 
     const brazilian = [];
     const international = [];
 
     cities.forEach(entry => {
-      const city = { name: entry.cidade, badge: entry.badge, type: entry.type };
+      const city = { name: entry.city, badge: entry.badge, type: entry.type };
       if ((entry.type || '').toLowerCase() === 'brasileira') {
         brazilian.push(city);
       } else {

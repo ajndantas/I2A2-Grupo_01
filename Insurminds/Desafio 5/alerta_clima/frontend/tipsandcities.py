@@ -10,7 +10,7 @@ class TipsandCities:
         llm = LLM().getLLM() 
         
         template = """
-                        Aja como um especialista de meteorologia e clima. e siga PASSOS abaixo:
+                        Aja como um especialista de meteorologia e clima e siga PASSOS abaixo:
 
                         ## PASSOS:
                         1. Forneça 3 dicas do tipo variação de temperatura no contexto de clima,
@@ -25,7 +25,7 @@ class TipsandCities:
                         10. Forneça 3 dicas do tipo inundação 
                         11. Forneça o nome de 14 cidades, as respectivas siglas de seus 
                         estados e seus tipos, se brasileira ou global (não brasileira). Caso não tenha estado, que seja do seu país.
-                        12. 4 cidades brasileiras e 3 globais.
+                        12. 8 cidades brasileiras e 6 globais.
 
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
                         

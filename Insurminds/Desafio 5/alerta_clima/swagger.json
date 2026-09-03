@@ -133,11 +133,15 @@
         "operationId": "getCities_api_v1_cities_get",
         "responses": {
           "200": {
-            "description": "Lista de cidades e suas respectivas siglas de estado",
+            "description": "Lista de cidades e seus atributos",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Cities"
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  },
+                  "type": "array",
+                  "title": "Response Getcities Api V1 Cities Get"
                 }
               }
             }
@@ -190,37 +194,28 @@
         ],
         "title": "Alert"
       },
-      "Cities": {
+      "City": {
         "properties": {
-          "cities_badges": {
-            "items": {
-              "additionalProperties": {
-                "type": "string"
-              },
-              "type": "object"
-            },
-            "type": "array",
-            "title": "Cities Badges",
-            "description": "lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla de seu estado, estado em maiuscula. Primeira letra da primeira e da última palavra da cidade em maiuscula"
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "badge": {
+            "type": "string",
+            "title": "Badge"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
           }
         },
         "type": "object",
         "required": [
-          "cities_badges"
+          "city",
+          "badge",
+          "type"
         ],
-        "title": "Cities",
-        "examples": [
-          {
-            "cities_badges": [
-              {
-                "Rio de Janeiro": "RJ"
-              },
-              {
-                "São Paulo": "SP"
-              }
-            ]
-          }
-        ]
+        "title": "City"
       },
       "Current": {
         "properties": {
