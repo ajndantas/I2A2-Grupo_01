@@ -59,7 +59,7 @@ class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
         current_params = {
             "latitude": latitude,
             "longitude": longitude,
-            "models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
+            #"models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
             "current": ["precipitation", "precipitation_probability", "weather_code", "wind_gusts_10m"],
             "timezone": "America/Sao_Paulo"            
         }
@@ -67,7 +67,7 @@ class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
         daily_params = {
             "latitude": latitude,
             "longitude": longitude,
-            "models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
+            #"models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
             "daily": ["sunrise", "sunset", "temperature_2m_max","temperature_2m_min"],
             "timezone": "America/Sao_Paulo"            
         }
@@ -120,7 +120,7 @@ class ForecastRequest(CurrentRequest):
         daily_params = {
                             "latitude": latitude,
                             "longitude": longitude,
-                            "models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
+                            #"models": "ncep_gfs_seamless", # Modelo de previsão do NCEP (National Center for Environmental Prediction)
                             "daily": ["sunrise", "sunset", "weather_code", "temperature_2m_max", "temperature_2m_min", "precipitation_probability_max", "wind_gusts_10m_max", "precipitation_sum"],
                             "timezone": "America/Sao_Paulo"            
                         }
