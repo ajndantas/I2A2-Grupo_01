@@ -1,4 +1,4 @@
-from app.modelos.tipsandcities import Tips, City
+from app.modelos.tipsandcities import Tips, Cities
 from frontend.tipsandcities import TipsandCities
 from app.rotas.request import router
 from fastapi.exceptions import HTTPException
@@ -27,11 +27,11 @@ async def getTips(tipsandcities: TipsandCities = Depends(getTipsandCities)) -> T
 
 @router.get(
             "/cities", 
-            response_model=List[City], 
+            response_model=Cities, 
             summary="Obtém cidades e suas siglas de estado", 
             response_description="Lista de cidades e seus atributos"        
 )
-async def getCities(tipsandcities: TipsandCities = Depends(getTipsandCities)) -> List[City]:
+async def getCities(tipsandcities: TipsandCities = Depends(getTipsandCities)) -> Cities:
 
     try:
         return tipsandcities.getCities()

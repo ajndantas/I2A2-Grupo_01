@@ -1,8 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from app.modelos.tipsandcities import Tips, TipsandCities as TipsandCitiesModel, City
+from app.modelos.tipsandcities import Tips, TipsandCities as TipsandCitiesModel, Cities
 from app.llm import LLM
-from typing import List
 
 class TipsandCities:
     def __init__(self):
@@ -53,9 +52,9 @@ class TipsandCities:
         finally:
             self.__qa_chain = qa_chain
         
-    def getCities(self) -> List[City]:
+    def getCities(self) -> Cities:
         
-        return self.__qa_chain['cities']['cities']
+        return self.__qa_chain['cities']
     
 
     def getTips(self) -> Tips:

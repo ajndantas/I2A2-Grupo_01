@@ -14,10 +14,11 @@ class Tips(BaseModel):
     flood: List[str] = Field(description="lista de dicas relacionadas ao tipo inundação")
 
 
-class City(BaseModel):
-    cidade: str = Field(description="O nome da cidade. Primeira letra da primeira e da última palavra da cidade em maiuscula")
-    badge: str = Field(description="A sigla")
-    type: str = Field(description="O tipo de cidade, brasileira ou global")
+#class City(BaseModel):
+class City(TypedDict): #class City(BaseModel):
+    city: str
+    badge: str
+    type: str
 
 class Cities(BaseModel):
     cities: List[City] = Field(description="lista de cidades e seus atributos")
