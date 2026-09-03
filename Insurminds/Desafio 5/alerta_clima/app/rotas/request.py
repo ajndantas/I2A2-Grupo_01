@@ -14,7 +14,7 @@ router = APIRouter(
 
 # latlong = LatLong() # TODA HORA QUE O PROGRAMA PRECISAR DE UMA ROTA, ELE VAI CHAMAR O LATLONG. ISSO ESTAVA QUEBRANDO O DEPLOY NA GCP
 
-@lru_cache # ISSO EVITA QUE O LATLONG SEJA CRIADO VÁRIAS VEZES. É COMO SE FOSSE UM SINGLETON
+@lru_cache # ISSO EVITA QUE O LATLONG SEJA CRIADO VÁRIAS VEZES. É COMO SE FOSSE UM SINGLETON. USADO EM ROTAS DO FASTAPI
            # LRU significa Least Recently Used
 def getLatLong():
     return LatLong()
@@ -95,7 +95,7 @@ async def getAlert(request: Request, latlong: LatLong = Depends(getLatLong)) -> 
 
         return alert
 
-    except HTTPException as e:
+    except HTTPException as e: # Retornará a mensagem de erro do HTTPException da classe AlertRequest
         raise HTTPException(status_code=e.status_code, detail=e.detail)
 
 @router.post(

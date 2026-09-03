@@ -106,7 +106,7 @@ class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
                         temp_min = f'{self.__daily_json["temperature_2m_min"][0]}°C', 
                         precip = f'{self._current_json["precipitation"]} mm',                        
                         precip_prob = f'{self._current_json["precipitation_probability"]}%',
-                        wind_gusts = f'{round(self._current_json["wind_gusts_10m"]*3.6, 2)} km/h',
+                        wind_gusts = f'{round(self._current_json["wind_gusts_10m"], 2)} km/h',
                         weather_code = self._current_json["weather_code"],
                         description = self._getDescriptions(self._current_json["weather_code"]),
                         weather_icon = self._getIcons(self._current_json["weather_code"])
@@ -190,8 +190,7 @@ class ForecastRequest(CurrentRequest):
 
 class AlertRequest(CurrentRequest):
     def __init__(self, latitude: float, longitude: float):
-        super().__init__(latitude, longitude)      
-             
+        super().__init__(latitude, longitude)            
 
     def getAlert(self) -> Alert:
 
