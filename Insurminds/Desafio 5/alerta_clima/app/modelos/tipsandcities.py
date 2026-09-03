@@ -13,20 +13,31 @@ class Tips(BaseModel):
     cold: List[str] = Field(description="lista de dicas relacionadas ao tipo frio")
     flood: List[str] = Field(description="lista de dicas relacionadas ao tipo inundação")
 
-class CityType(BaseModel):
-    tipo: str = Field(description="O tipo de cidade, brasileira ou global") 
 
-class Cities(BaseModel):
-    cities_badges: List[Dict[str, str, CityType]] = Field(description="lista das cidades, SOMENTE o nome da cidade, e a correspondente sigla e o seu tipo (brasileira ou global). Estado e sigla em maiusculas. Primeira letra da primeira e da última palavra da cidade em maiuscula")
+class City(BaseModel):
+    cidade: str = Field(description="O nome da cidade. Primeira letra da primeira e da última palavra da cidade em maiuscula")
+    badge: str = Field(description="A sigla")
+    type: str = Field(description="O tipo de cidade, brasileira ou global")
+
+class Cities(City):
+    cities: List[Dict[City]] = Field(description="lista dos dicionários de cidades")
 
     # MODIFICANDO O EXEMPLO DA RESPOSTA DO ENDPOINT NO SWAGGER
     model_config = {
         "json_schema_extra": {
             "examples": [
                 {
-                    "cities_badges": [
-                        {"Rio de Janeiro": "RJ", "tipo": "brasileira"},
-                        {"Los Angeles": "CA", "tipo": "global"},                        
+                    "cities": [
+                        {
+                            "cidade": "Rio de Janeiro",
+                            "badge": "RJ",
+                            "type": "brasileira"
+                        },
+                        {
+                            "cidade": "Londres",
+                            "badge": "GB",
+                            "type": "global"
+                        }
                     ]
                 }
             ]            
@@ -36,4 +47,4 @@ class Cities(BaseModel):
 
 class TipsandCities(BaseModel):
     tips: Tips = Field(description="O dicionário de dicas, com cada tipo de dica e suas respectivas listas")
-    cities_badges: Cities = Field(description="A lista de cidades, suas respectivas badges e tipos")
+    cities: Cities = Field(description="A lista de dicionários de cidades")
