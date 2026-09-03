@@ -1,3 +1,4 @@
+from dataclasses import field
 from unittest.mock import Base
 
 from pydantic import BaseModel, Field
@@ -46,6 +47,6 @@ class Cities(City):
         }
     }
 
-    class TipsandCities(Base):
-        tips: Tips
-        cities: Cities
+    class TipsandCities(BaseModel):
+        tips: Tips = Field(description="lista de dicas para cada tipo")
+        cities: Cities = Field(description="lista das cidades e seus atributos") 

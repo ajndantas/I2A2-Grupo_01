@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from app.modelos.tipsandcities import 
+from app.modelos.tipsandcities import TipsandCities as TipsandCitiesModel
 from app.llm import LLM
 
 class TipsandCities:
