@@ -33,7 +33,8 @@ app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
 1. Previsão atual — chama /api/v1/current e exibe a previsão atual. Ao final, carrega o menu com essas opções
 2. Previsão dos próximos 7 dias — chama /api/v1/forecast e mostra a previsão semanal. Ao final, carrega o menu com essas opções
 3. Trocar cidade — digita nova cidade e chama /api/v1/city. Ao final, carrega o menu com essas opções
-4. Sair — limpa o chat e recarrega a página para informar a cidade novamente."""
+4. Sair — limpa o chat e recarrega a página para informar a cidade novamente.
+ """
 )
 async def frontend():
     return HTMLResponse(content=open("frontend/index.html", "r", encoding="utf-8").read(), status_code=200)

@@ -1,9 +1,8 @@
 from fastapi import Body, HTTPException, APIRouter, Request, Depends
-from app.request import CurrentRequest, ForecastRequest, AlertRequest
+from app.request import CurrentRequest, ForecastRequest
 from app.modelos.current import Current
 from app.latlong import LatLong
 from app.modelos.forecast import Forecast
-from app.modelos.alert import Alert
 from typing import List
 from functools import lru_cache
 
@@ -71,32 +70,6 @@ async def getForecast(request: Request, latlong: LatLong = Depends(getLatLong)) 
     except HTTPException as e:
         raise HTTPException(status_code=e.status_code, detail=e.detail)
 
-
-@router.get(
-    "/alert",
-    response_model=Alert,
-    summary="Obter alerta de clima",
-    description="Retorna os alertas meteorológicos relevantes para a cidade informada."    
-)
-async def getAlert(request: Request, latlong: LatLong = Depends(getLatLong)) -> Alert:
-
-    try:
-        city = request.session.get('city', None)
-
-        if city is None: 
-            raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
-        
-        latlong_obj = latlong.getLatLong(city)
-
-        latitude = latlong_obj["latitude"]
-        longitude = latlong_obj["longitude"]
-    
-        alert = AlertRequest(latitude = latitude, longitude = longitude).getAlert()
-
-        return alert
-
-    except HTTPException as e: # Retornará a mensagem de erro do HTTPException da classe AlertRequest
-        raise HTTPException(status_code=e.status_code, detail=e.detail)
 
 @router.post(
     "/city",

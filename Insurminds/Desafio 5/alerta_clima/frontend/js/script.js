@@ -293,7 +293,6 @@
       btn.innerHTML = `
         <span>📍 ${escapeHtml(city.name)}</span>
         <span class="city-btn-meta">
-          <span class="type-tag">${isBrazilian ? '🇧🇷 Brasileira' : '🌍 Global'}</span>
           <span class="badge">${escapeHtml(city.badge)}</span>
         </span>
       `;

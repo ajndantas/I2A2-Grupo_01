@@ -1,61 +1,94 @@
-from app.modelos.current import Current
-from app.modelos.forecast import Forecast
-from fastapi import HTTPException
+from fastapi.exceptions import HTTPException
 import requests
 from datetime import datetime
-from app.modelos.current import Current 
+from app.modelos.current import Current
 from app.modelos.forecast import Forecast
 from app.modelos.alert import Alert
 from typing import List
+from abc import ABC, abstractmethod
+from app.advice import Advice
 
-class WeatherRequest:
-    def __init__(self, latitude: float, longitude: float):
-        self.latitude = latitude
-        self.longitude = longitude
+class WeatherRequest(ABC):
+
+    def __init__(self):
 
         self._URL = "https://api.open-meteo.com/v1/forecast"
-
-        self._WMO_CODES = {
-                                0: {"descricao": "Céu limpo", "icone": "☀️"},
-                                1: {"descricao": "Predominantemente limpo", "icone": "🌤️"},
-                                2: {"descricao": "Parcialmente nublado", "icone": "⛅"},
-                                3: {"descricao": "Encoberto", "icone": "☁️"},
-                                45: {"descricao": "Nevoeiro", "icone": "🌫️"},
-                                48: {"descricao": "Nevoeiro com geada", "icone": "🌫️❄️"},
-                                51: {"descricao": "Garoa leve", "icone": "🌦️"},
-                                53: {"descricao": "Garoa moderada", "icone": "🌦️"},
-                                55: {"descricao": "Garoa densa", "icone": "🌧️"},
-                                56: {"descricao": "Garoa congelante leve", "icone": "🥶🌧️"},
-                                57: {"descricao": "Garoa congelante densa", "icone": "🥶🌧️"},
-                                61: {"descricao": "Chuva leve", "icone": "🌧️"},
-                                63: {"descricao": "Chuva moderada", "icone": "🌧️"},
-                                65: {"descricao": "Chuva forte", "icone": "🌧️🌧️"},
-                                66: {"descricao": "Chuva congelante leve", "icone": "🧊🌧️"},
-                                67: {"descricao": "Chuva congelante forte", "icone": "🧊🌧️"},
-                                71: {"descricao": "Queda de neve leve", "icone": "🌨️"},
-                                73: {"descricao": "Queda de neve moderada", "icone": "🌨️"},
-                                75: {"descricao": "Queda de neve forte", "icone": "❄️❄️"},
-                                77: {"descricao": "Grãos de neve", "icone": "❄️"},
-                                80: {"descricao": "Pancadas de chuva leves", "icone": "🌦️"},
-                                81: {"descricao": "Pancadas de chuva moderadas", "icone": "🌧️"},
-                                82: {"descricao": "Pancadas de chuva violentas", "icone": "⛈️"},
-                                85: {"descricao": "Pancadas de neve leves", "icone": "🌨️"},
-                                86: {"descricao": "Pancadas de neve fortes", "icone": "❄️"},
-                                95: {"descricao": "Tempestade", "icone": "⚡"},
-                                96: {"descricao": "Tempestade com granizo leve", "icone": "⚡🧊"},
-                                99: {"descricao": "Tempestade com granizo forte", "icone": "⚡🧊"}
-                            }
         
-    def _getDescriptions(self, weather_code: int):
+        self._WMO_CODES = {
+                            0: {"descricao": "Céu limpo", "icone": "☀️"},
+                            1: {"descricao": "Predominantemente limpo", "icone": "🌤️"},
+                            2: {"descricao": "Parcialmente nublado", "icone": "⛅"},
+                            3: {"descricao": "Encoberto", "icone": "☁️"},
+                            45: {"descricao": "Nevoeiro", "icone": "🌫️"},
+                            48: {"descricao": "Nevoeiro com geada", "icone": "🌫️❄️"},
+                            51: {"descricao": "Garoa leve", "icone": "🌦️"},
+                            53: {"descricao": "Garoa moderada", "icone": "🌦️"},
+                            55: {"descricao": "Garoa densa", "icone": "🌧️"},
+                            56: {"descricao": "Garoa congelante leve", "icone": "🥶🌧️"},
+                            57: {"descricao": "Garoa congelante densa", "icone": "🥶🌧️"},
+                            61: {"descricao": "Chuva leve", "icone": "🌧️"},
+                            63: {"descricao": "Chuva moderada", "icone": "🌧️"},
+                            65: {"descricao": "Chuva forte", "icone": "🌧️🌧️"},
+                            66: {"descricao": "Chuva congelante leve", "icone": "🧊🌧️"},
+                            67: {"descricao": "Chuva congelante forte", "icone": "🧊🌧️"},
+                            71: {"descricao": "Queda de neve leve", "icone": "🌨️"},
+                            73: {"descricao": "Queda de neve moderada", "icone": "🌨️"},
+                            75: {"descricao": "Queda de neve forte", "icone": "❄️❄️"},
+                            77: {"descricao": "Grãos de neve", "icone": "❄️"},
+                            80: {"descricao": "Pancadas de chuva leves", "icone": "🌦️"},
+                            81: {"descricao": "Pancadas de chuva moderadas", "icone": "🌧️"},
+                            82: {"descricao": "Pancadas de chuva violentas", "icone": "⛈️"},
+                            85: {"descricao": "Pancadas de neve leves", "icone": "🌨️"},
+                            86: {"descricao": "Pancadas de neve fortes", "icone": "❄️"},
+                            95: {"descricao": "Tempestade", "icone": "⚡"},
+                            96: {"descricao": "Tempestade com granizo leve", "icone": "⚡🧊"},
+                            99: {"descricao": "Tempestade com granizo forte", "icone": "⚡🧊"}
+                        }
+
+    
+    def _setWeatherCode(self, weather_code: int):
+        self.__weather_code = weather_code
+
+    def _getWeatherCode(self) -> int:
+        return self.__weather_code
+    
+    def _getDescriptions(self, weather_code: int) -> str:
         return self._WMO_CODES.get(weather_code)['descricao']
 
     def _getIcons(self, weather_code: int):
-        return self._WMO_CODES.get(weather_code)['icone'] 
+        return self._WMO_CODES.get(weather_code)['icone']
+
+    @abstractmethod
+    def getAlert(self) -> Alert:
+        pass
+
+class AlertRequest(WeatherRequest):
+    def __init__(self):
+            super().__init__()        
+            
+    def getAlert(self) -> Alert:
+                    
+            if (
+                    self._getWeatherCode() in [45,48,56,57,65,66,67,71,73,75,77] 
+                    or self._getWeatherCode() > 82
+                ):
+    
+                description =  self._getDescriptions(self._getWeatherCode())
+                advice = Advice(description).getAdvice()
+                weather_icon = self._getIcons(self._getWeatherCode())
+    
+                message = f"{description} {weather_icon} - {advice}"
+    
+                return Alert(message = message)
+            
+            else:
+                return Alert(message = f"{self._getDescriptions(self._getWeatherCode())} {self._getIcons(self._getWeatherCode())}  - Nenhum alerta encontrado") 
+
 
 class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
     def __init__(self, latitude: float, longitude: float):
-        super().__init__(latitude, longitude)
-        
+        super().__init__()
+
         current_params = {
             "latitude": latitude,
             "longitude": longitude,
@@ -84,6 +117,13 @@ class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
         self.__daily_json = daily_response.json()['daily'] # Primeiro dia da previsão, que será o dia atual 
         self._current_json = current_response.json()['current']
 
+    def getAlert(self) -> Alert:
+
+        alert_request = AlertRequest()
+        alert_request._setWeatherCode(self._current_json["weather_code"])
+
+        return alert_request.getAlert()
+    
     
     def getCurrent(self) -> Current:
 
@@ -109,13 +149,14 @@ class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
                         wind_gusts = f'{round(self._current_json["wind_gusts_10m"], 2)} km/h',
                         weather_code = self._current_json["weather_code"],
                         description = self._getDescriptions(self._current_json["weather_code"]),
-                        weather_icon = self._getIcons(self._current_json["weather_code"])
+                        weather_icon = self._getIcons(self._current_json["weather_code"]),
+                        alert = self.getAlert()
                      )
                 
     
-class ForecastRequest(CurrentRequest):    
+class ForecastRequest(WeatherRequest):    
     def __init__(self, latitude: float, longitude: float):
-        super().__init__(latitude, longitude)
+        super().__init__()
 
         daily_params = {
                             "latitude": latitude,
@@ -133,10 +174,9 @@ class ForecastRequest(CurrentRequest):
         self.__json = response.json()['daily']
         
     def getForecast(self) -> List[Forecast]:            
-            
-            days = []
+        days = []
     
-            for r in zip(
+        for r in zip(
                          self.__json['time'],
                          self.__json['weather_code'], 
                          self.__json['sunrise'], 
@@ -148,16 +188,16 @@ class ForecastRequest(CurrentRequest):
                          self.__json['wind_gusts_10m_max']
                         ):
     
-                sunrise_hour = datetime.fromisoformat(r[2]).time()
-                sunset_hour = datetime.fromisoformat(r[3]).time()
+            sunrise_hour = datetime.fromisoformat(r[2]).time()
+            sunset_hour = datetime.fromisoformat(r[3]).time()
     
-                if sunrise_hour > sunset_hour:
-                    sunrise = f'{sunrise_hour} do dia anterior no horário de Brasília'
+            if sunrise_hour > sunset_hour:
+                sunrise = f'{sunrise_hour} do dia anterior no horário de Brasília'
     
-                else:
-                    sunrise = f'{sunrise_hour} no horário de Brasília'                
+            else:
+                sunrise = f'{sunrise_hour} no horário de Brasília'                
                 
-                d = {
+            d = {
                         "date": r[0],
                         "weather_code": r[1],
                         "sunrise": sunrise,
@@ -167,12 +207,12 @@ class ForecastRequest(CurrentRequest):
                         "precipitation_probability_max": r[6],
                         "precipitation_sum": r[7],
                         "wind_gusts_10m_max": r[8]
-                    }
+                }
     
-                days.append(d)
+            days.append(d)
     
     
-            return [Forecast(
+        return [Forecast(
                                     date = days[i]['date'],
                                     description = self._getDescriptions(days[i]['weather_code']),
                                     sunrise = days[i]['sunrise'],
@@ -184,34 +224,14 @@ class ForecastRequest(CurrentRequest):
                                     wind_gusts = f'{round(days[i]["wind_gusts_10m_max"], 2)} km/h',
                                     weather_code = days[i]["weather_code"],
                                     weather_icon = self._getIcons(days[i]["weather_code"])            
-                            ) for i in range(len(days))
-                    ]       
-    
-
-class AlertRequest(CurrentRequest):
-    def __init__(self, latitude: float, longitude: float):
-        super().__init__(latitude, longitude)            
+                        ) for i in range(len(days))
+                ]
 
     def getAlert(self) -> Alert:
+        pass
 
-        current = super().getCurrent()
-
-        if (
-                current.weather_code in [45,48,56,57,65,66,67,71,73,75,77] 
-                or current.weather_code > 82
-            ):
-
-            return Alert(
-                            description = current.description,
-                            weather_code = current.weather_code,
-                            weather_icon = current.weather_icon 
-                        )
-        
-        else:
-            raise HTTPException(status_code=500, detail=(f"Clima: {current.description} - Nenhum alerta encontrado"))
-            
 
 # TESTE
 if __name__ == "__main__":
-    request = AlertRequest(latitude = -22.9068, longitude = -43.1729) # Coordenadas 
-    print(request.getAlert())
+    request = CurrentRequest(latitude = -25.4284, longitude = -49.2733) # Coordenadas 
+    print(request.getCurrent().alert.message)

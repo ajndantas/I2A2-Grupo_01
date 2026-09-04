@@ -1,4 +1,4 @@
-from app.modelos.weather import Weather
+from pydantic import BaseModel, Field
 
-class Alert(Weather):
-        pass
+class Alert(BaseModel):
+        message: str
