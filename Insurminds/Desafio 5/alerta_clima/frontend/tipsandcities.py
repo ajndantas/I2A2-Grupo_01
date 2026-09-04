@@ -24,7 +24,7 @@ class TipsandCities:
                         9. Forneça 3 dicas do tipo frio no contexto de clima
                         10. Forneça 3 dicas do tipo inundação 
                         11. Forneça o nome de 14 cidades, as respectivas siglas de seus 
-                        estados e seus tipos, se brasileira ou global (não brasileira). Caso não tenha estado, que seja do seu país.
+                        estados, caso não tenha estado, que seja do seu país, e seus tipos, se brasileira ou global (não brasileira). 
                         12. 8 cidades brasileiras e 6 globais.
 
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
