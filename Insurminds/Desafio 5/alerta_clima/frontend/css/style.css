@@ -424,6 +424,22 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* Mensagens de alerta de clima */
+    .weather-alert {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      color: #fde68a;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .forecast-item .weather-alert {
+      margin-top: 6px;
+    }
+
     @media (max-width: 1024px) {
       .side-panel {
         display: none;

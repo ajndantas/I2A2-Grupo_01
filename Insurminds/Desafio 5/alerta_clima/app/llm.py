@@ -23,7 +23,7 @@ class LLM:
                                 temperature=0                            
                             )
 
-        set_llm_cache(InMemoryCache()) # Ativando memória personalizada
+        #set_llm_cache(InMemoryCache()) # Ativando memória personalizada
 
         return self.llm
 

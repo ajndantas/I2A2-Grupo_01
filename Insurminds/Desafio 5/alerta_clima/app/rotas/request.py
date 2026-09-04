@@ -6,7 +6,6 @@ from app.modelos.forecast import Forecast
 from typing import List
 from functools import lru_cache
 
-
 router = APIRouter(
     prefix="/api/v1"
 )
@@ -37,7 +36,7 @@ async def getCurrent(request: Request, latlong: LatLong = Depends(getLatLong)) -
         latitude = latlong_obj["latitude"]
         longitude = latlong_obj["longitude"]
         
-        current = CurrentRequest(latitude = latitude, longitude = longitude).getCurrent()
+        current = await CurrentRequest(latitude = latitude, longitude = longitude).getCurrent()
 
         return current
 
@@ -63,7 +62,7 @@ async def getForecast(request: Request, latlong: LatLong = Depends(getLatLong)) 
         latitude = latlong_obj["latitude"]
         longitude = latlong_obj["longitude"]
     
-        forecast = ForecastRequest(latitude = latitude, longitude = longitude).getForecast()
+        forecast = await ForecastRequest(latitude = latitude, longitude = longitude).getForecast()
 
         return forecast
 

@@ -8,6 +8,9 @@ from typing import List
 from abc import ABC, abstractmethod
 from app.advice import Advice
 
+import asyncio
+
+
 class WeatherRequest(ABC):
 
     def __init__(self):
@@ -62,27 +65,27 @@ class WeatherRequest(ABC):
     def getAlert(self) -> Alert:
         pass
 
+
 class AlertRequest(WeatherRequest):
     def __init__(self):
-            super().__init__()        
-            
+            super().__init__() 
+
     def getAlert(self) -> Alert:
-                    
+            description = self._getDescriptions(self._getWeatherCode())
+            advice = Advice(description).getAdvice()
+            weather_icon = self._getIcons(self._getWeatherCode())
+           
             if (
                     self._getWeatherCode() in [45,48,56,57,65,66,67,71,73,75,77] 
                     or self._getWeatherCode() > 82
                 ):
-    
-                description =  self._getDescriptions(self._getWeatherCode())
-                advice = Advice(description).getAdvice()
-                weather_icon = self._getIcons(self._getWeatherCode())
-    
+
                 message = f"{description} {weather_icon} - {advice}"
     
                 return Alert(message = message)
             
             else:
-                return Alert(message = f"{self._getDescriptions(self._getWeatherCode())} {self._getIcons(self._getWeatherCode())}  - Nenhum alerta encontrado") 
+                return Alert(message = f"{description} {weather_icon}  - Nenhum alerta encontrado") 
 
 
 class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
@@ -119,13 +122,13 @@ class CurrentRequest(WeatherRequest): # Request para previsão de 7 dias
 
     def getAlert(self) -> Alert:
 
-        alert_request = AlertRequest()
-        alert_request._setWeatherCode(self._current_json["weather_code"])
-
-        return alert_request.getAlert()
+            self.__alert_request = AlertRequest()
+            self.__alert_request._setWeatherCode(self._current_json['weather_code'])
+            
+            return self.__alert_request.getAlert()
     
     
-    def getCurrent(self) -> Current:
+    async def getCurrent(self) -> Current:
 
         sunrise = self.__daily_json['sunrise'][0] # Primeiro dia da previsão
         sunrise_hour = datetime.fromisoformat(sunrise).time()
@@ -172,8 +175,14 @@ class ForecastRequest(WeatherRequest):
             raise HTTPException(status_code=500, detail=response.json())
         
         self.__json = response.json()['daily']
-        
-    def getForecast(self) -> List[Forecast]:            
+
+        self.__alert_request = AlertRequest()
+
+    async def getAlert(self) -> Alert:        
+
+        return self.__alert_request.getAlert()
+    
+    async def getForecast(self) -> List[Forecast]:            
         days = []
     
         for r in zip(
@@ -196,7 +205,10 @@ class ForecastRequest(WeatherRequest):
     
             else:
                 sunrise = f'{sunrise_hour} no horário de Brasília'                
-                
+
+            
+            self.__alert_request._setWeatherCode(r[1])
+
             d = {
                         "date": r[0],
                         "weather_code": r[1],
@@ -206,32 +218,31 @@ class ForecastRequest(WeatherRequest):
                         "temp_min": r[5],
                         "precipitation_probability_max": r[6],
                         "precipitation_sum": r[7],
-                        "wind_gusts_10m_max": r[8]
+                        "wind_gusts_10m_max": r[8],
+                        "alert": await self.getAlert()
                 }
-    
+
             days.append(d)
-    
-    
+
         return [Forecast(
-                                    date = days[i]['date'],
-                                    description = self._getDescriptions(days[i]['weather_code']),
-                                    sunrise = days[i]['sunrise'],
-                                    sunset = days[i]['sunset'],
-                                    temp_max = f'{days[i]["temp_max"]}°C',
-                                    temp_min = f'{days[i]["temp_min"]}°C', 
-                                    precip = f'{days[i]["precipitation_sum"]} mm',
-                                    precip_prob = f'{days[i]["precipitation_probability_max"]}%',
-                                    wind_gusts = f'{round(days[i]["wind_gusts_10m_max"], 2)} km/h',
-                                    weather_code = days[i]["weather_code"],
-                                    weather_icon = self._getIcons(days[i]["weather_code"])            
+                            date = days[i]['date'],
+                            description = self._getDescriptions(days[i]['weather_code']),
+                            sunrise = days[i]['sunrise'],
+                            sunset = days[i]['sunset'],
+                            temp_max = f'{days[i]["temp_max"]}°C',
+                            temp_min = f'{days[i]["temp_min"]}°C', 
+                            precip = f'{days[i]["precipitation_sum"]} mm',
+                            precip_prob = f'{days[i]["precipitation_probability_max"]}%',
+                            wind_gusts = f'{round(days[i]["wind_gusts_10m_max"], 2)} km/h',
+                            weather_code = days[i]["weather_code"],
+                            weather_icon = self._getIcons(days[i]["weather_code"]),
+                            alert = days[i]["alert"]       
                         ) for i in range(len(days))
                 ]
-
-    def getAlert(self) -> Alert:
-        pass
-
+    
 
 # TESTE
 if __name__ == "__main__":
-    request = CurrentRequest(latitude = -25.4284, longitude = -49.2733) # Coordenadas 
-    print(request.getCurrent().alert.message)
+
+    request = ForecastRequest(latitude = -25.4284, longitude = -49.2733) # Coordenadas de Curitiba
+    print(asyncio.run(request.getForecast())) # Imprime os dias da previsão e alertas

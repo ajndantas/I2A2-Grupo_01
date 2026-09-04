@@ -456,6 +456,8 @@
       
       loadingMsg.remove();
 
+      const alertMessage = data.alert && data.alert.message ? data.alert.message : '';
+
       const content = `
         <div class="weather-card">
           <p>🌡️ <b>Condição:</b> ${data.weather_icon || ''} ${data.description}</p>
@@ -463,6 +465,7 @@
           <p>🌧️ <b>Chuva:</b> ${data.precip} (Prob: ${data.precip_prob})</p>
           <p>💨 <b>Vento:</b> ${data.wind_gusts}</p>
           <p>🌅 <b>Sol:</b> Nascer ${data.sunrise} | Pôr ${data.sunset}</p>
+          ${alertMessage ? `<div class="weather-alert">🚨 <b>Alerta:</b> ${escapeHtml(alertMessage)}</div>` : ''}
         </div>
       `;
       addBotMessage("Aqui estão as condições meteorológicas atuais:", content);
@@ -486,12 +489,15 @@
 
       let content = '<div class="weather-card">';
       dataList.forEach(item => {
+        const alertMessage = item.alert && item.alert.message ? item.alert.message : '';
+
         content += `
           <div class="forecast-item">
             <p>🗓️ <b>Data:</b> ${item.date}</p>
             <p>${item.weather_icon || ''} <b>${item.description}</b></p>
             <p>🌡️ Máx: ${item.temp_max} | Mín: ${item.temp_min}</p>
             <p>🌧️ Chuva: ${item.precip} (${item.precip_prob})</p>
+            ${alertMessage ? `<div class="weather-alert">🚨 <b>Alerta:</b> ${escapeHtml(alertMessage)}</div>` : ''}
           </div>
         `;
       });
