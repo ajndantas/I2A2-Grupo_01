@@ -50,6 +50,8 @@ class Advice:
 ## TESTE
 if __name__ == "__main__":
 
-    advice = Advice("Chuva com granizo")
+    descriptionlist = ["Chuva com granizo","Chuva com neve","Chuva com neve e granizo"]
+
+    advice = Advice(descriptionlist)
 
     print(advice.getAdvice())
