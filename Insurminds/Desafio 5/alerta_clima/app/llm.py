@@ -12,8 +12,7 @@ class LLM:
     def getLLM(self):
 
         self.llm = ChatOpenAI(
-                                model_name="minimax/minimax-m3:free",
-                                #model_name="openrouter/free",
+                                model_name="openrouter/free",
                                 base_url="https://openrouter.ai/api/v1",
 
                                 #model_name="gpt-5.6-luna",
