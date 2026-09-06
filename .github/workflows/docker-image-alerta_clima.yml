@@ -4,7 +4,8 @@ on:
   push:
     branches: [ "master" ]
     paths: 
-      - 'Insurminds/Desafio 5/alerta_clima/**'        
+      - 'Insurminds/Desafio 5/alerta_clima/app/**'
+      - 'Insurminds/Desafio 5/alerta_clima/frontend/**'        
 
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
