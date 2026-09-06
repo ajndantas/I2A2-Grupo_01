@@ -48,25 +48,6 @@
         }
       }
     },
-    "/api/v1/alert": {
-      "get": {
-        "summary": "Obter alerta de clima",
-        "description": "Retorna os alertas meteorológicos relevantes para a cidade informada.",
-        "operationId": "getAlert_api_v1_alert_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Alert"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/city": {
       "post": {
         "summary": "Rota para obter a cidade",
@@ -173,24 +154,14 @@
     "schemas": {
       "Alert": {
         "properties": {
-          "description": {
+          "message": {
             "type": "string",
-            "title": "Description"
-          },
-          "weather_code": {
-            "type": "integer",
-            "title": "Weather Code"
-          },
-          "weather_icon": {
-            "type": "string",
-            "title": "Weather Icon"
+            "title": "Message"
           }
         },
         "type": "object",
         "required": [
-          "description",
-          "weather_code",
-          "weather_icon"
+          "message"
         ],
         "title": "Alert"
       },
@@ -231,6 +202,9 @@
             "type": "string",
             "title": "Weather Icon"
           },
+          "alert": {
+            "$ref": "#/components/schemas/Alert"
+          },
           "temp_max": {
             "type": "string",
             "title": "Temp Max"
@@ -265,6 +239,7 @@
           "description",
           "weather_code",
           "weather_icon",
+          "alert",
           "temp_max",
           "temp_min",
           "sunrise",
@@ -288,6 +263,9 @@
           "weather_icon": {
             "type": "string",
             "title": "Weather Icon"
+          },
+          "alert": {
+            "$ref": "#/components/schemas/Alert"
           },
           "temp_max": {
             "type": "string",
@@ -327,6 +305,7 @@
           "description",
           "weather_code",
           "weather_icon",
+          "alert",
           "temp_max",
           "temp_min",
           "sunrise",

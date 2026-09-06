@@ -5,7 +5,9 @@ on:
     branches: [ "master" ]
     paths: 
       - 'Insurminds/Desafio 5/alerta_clima/app/**'
-      - 'Insurminds/Desafio 5/alerta_clima/frontend/**'        
+      - 'Insurminds/Desafio 5/alerta_clima/frontend/**'
+      - 'Insurminds/Desafio 5/alerta_clima/Dockerfile'
+      - 'Insurminds/Desafio 5/alerta_clima/requirements.txt'        
 
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
