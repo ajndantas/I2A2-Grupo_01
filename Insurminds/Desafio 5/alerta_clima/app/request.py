@@ -66,7 +66,8 @@ class WeatherRequest(ABC):
         pass
 
 
-class AlertRequest(WeatherRequest):
+class AlertRequest(WeatherRequest):    
+
     def __init__(self):
             super().__init__() 
 
@@ -195,7 +196,7 @@ class ForecastRequest(WeatherRequest):
                          self.__json['precipitation_probability_max'], 
                          self.__json['precipitation_sum'],
                          self.__json['wind_gusts_10m_max']
-                        ):
+                    ):
     
             sunrise_hour = datetime.fromisoformat(r[2]).time()
             sunset_hour = datetime.fromisoformat(r[3]).time()
@@ -222,7 +223,13 @@ class ForecastRequest(WeatherRequest):
                         "alert": await self.getAlert()
                 }
 
+            forecast_date = datetime.strptime(d['date'], '%Y-%m-%d')
+            weekday = {0: 'Seg', 1: 'Ter', 2: 'Qua', 3: 'Qui', 4: 'Sex', 5: 'Sáb', 6: 'Dom'}[forecast_date.weekday()]
+            
+            d['date'] = f'{forecast_date.strftime('%d/%m/%Y')} ({weekday})'
+
             days.append(d)
+
 
         return [Forecast(
                             date = days[i]['date'],

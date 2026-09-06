@@ -497,6 +497,8 @@
             <p>${item.weather_icon || ''} <b>${item.description}</b></p>
             <p>🌡️ Máx: ${item.temp_max} | Mín: ${item.temp_min}</p>
             <p>🌧️ Chuva: ${item.precip} (${item.precip_prob})</p>
+            <p>💨 Vento: ${item.wind_gusts}</p>
+            <p>🌅 Sol: Nascer ${item.sunrise} | Pôr ${item.sunset}</p>
             ${alertMessage ? `<div class="weather-alert">🚨 <b>Alerta:</b> ${escapeHtml(alertMessage)}</div>` : ''}
           </div>
         `;

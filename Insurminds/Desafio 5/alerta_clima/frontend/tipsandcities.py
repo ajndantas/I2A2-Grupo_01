@@ -3,6 +3,7 @@ from langchain_core.output_parsers import JsonOutputParser
 from app.modelos.tipsandcities import Tips, TipsandCities as TipsandCitiesModel, City
 from app.llm import LLM
 from typing import List
+import json
 
 class TipsandCities:
     def __init__(self):
@@ -10,7 +11,7 @@ class TipsandCities:
         llm = LLM().getLLM() 
         
         template = """
-                        Aja como um especialista de meteorologia e clima e siga PASSOS abaixo:
+                        Aja como um especialista de meteorologia e clima que fala Português do Brasil, e siga PASSOS abaixo:
 
                         ## PASSOS:
                         1. Forneça 3 dicas do tipo variação de temperatura no contexto de clima,
@@ -30,9 +31,9 @@ class TipsandCities:
                         NUNCA repetir TODAS as dicas e nem TODAS as cidades.
                         
                         ## SAÍDA
-                        NUNCA fornecer um JSON incorreto
-
                         {formatação de saída}
+
+                        NUNCA fornecer um JSON incorreto                       
                         
                    """
         parser = JsonOutputParser(pydantic_object=TipsandCitiesModel)       
@@ -42,16 +43,17 @@ class TipsandCities:
             partial_variables={"formatação de saída": parser.get_format_instructions()},            
         )        
 
-        qa_chain = prompt_template | llm | parser
-
+        qa_chain = prompt_template | llm | parser        
+        
         try:
-            qa_chain = qa_chain.invoke({})
+            json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)
+            qa_chain = json.loads(json_qa_chain)
 
         except Exception:
-            qa_chain = qa_chain.invoke({})        
+            json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)
+            qa_chain = json.loads(json_qa_chain)
         
-        finally:
-            self.__qa_chain = qa_chain
+        self.__qa_chain = qa_chain
         
     def getCities(self) -> List[City]:
         

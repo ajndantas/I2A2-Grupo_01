@@ -4,11 +4,11 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
 from app.llm import LLM
 
-
 class LatLongModel(BaseModel):
     cidade: str = Field(description="O nome da cidade")
     latitude: float = Field(description="Latitude da cidade")
     longitude: float = Field(description="Longitude da cidade")
+
 
 class LatLong:
     def __init__(self):
@@ -19,10 +19,9 @@ class LatLong:
                         Qual é a latitude e a longitude da cidade {cidade} ?
 
                         ## SAÍDA
-                        - NUNCA fornecer um JSON incorreto
-
                         {formatação de saída}
-                        
+
+                        - NUNCA fornecer um JSON incorreto                       
                    """
         self.parser = JsonOutputParser(pydantic_object=LatLongModel)        
                 
@@ -43,8 +42,7 @@ class LatLong:
             qa_chain = self.prompt_template | self.llm | self.parser
             qa_chain = qa_chain.invoke({"cidade": city})
 
-        finally:
-            return qa_chain
+        return qa_chain
 
 
 # TESTE
