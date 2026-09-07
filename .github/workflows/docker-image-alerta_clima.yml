@@ -41,26 +41,26 @@ jobs:
           docker push ${{ env.GHIMAGE_ID }}:${{ env.TAG }}
       
       # Autenticação no GCP para poder comandar o Cloud Run
-      - name: Google Auth
-        id: auth
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }} # Crie esse Secret no GitHub com o JSON da sua Service Account
+      # - name: Google Auth
+      #   id: auth
+      #   uses: google-github-actions/auth@v2
+      #   with:
+      #     credentials_json: ${{ secrets.GCP_SA_KEY }} # Crie esse Secret no GitHub com o JSON da sua Service Account
 
-      - name: Set up Cloud SDK - gcloud CLI
-        uses: google-github-actions/setup-gcloud@v2
+      # - name: Set up Cloud SDK - gcloud CLI
+      #   uses: google-github-actions/setup-gcloud@v2
 
-      # Necessário que o Repositório Artifact Registry já esteja criado
-      - name: Deploy to Cloud Run from GHCR to Artifact Registry Proxy
-        run: |
-          gcloud run deploy ${{ env.SERVICE_NAME }} \
-            --port=${{ env.PORT }} \
-            --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.TAG }}" \
-            --region=${{ env.REGION }} \
-            --platform=managed \
-            --allow-unauthenticated \
-            --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
-            --memory=1Gi
+      # # Necessário que o Repositório Artifact Registry já esteja criado
+      # - name: Deploy to Cloud Run from GHCR to Artifact Registry Proxy
+      #   run: |
+      #     gcloud run deploy ${{ env.SERVICE_NAME }} \
+      #       --port=${{ env.PORT }} \
+      #       --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.TAG }}" \
+      #       --region=${{ env.REGION }} \
+      #       --platform=managed \
+      #       --allow-unauthenticated \
+      #       --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
+      #       --memory=1Gi
 
      
       
