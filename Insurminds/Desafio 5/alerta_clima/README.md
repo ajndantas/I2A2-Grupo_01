@@ -72,35 +72,33 @@ A chave `API_KEY` é repassada como variável de ambiente do serviço no Cloud R
 
 ### 🛠️ 1 - Instalação dos códigos
 
-Crie uma pasta para o projeto e descompacte os arquivos app.zip e frontend.zip e dentro dela, resultando na estrutura mostrada em 🧩 **Arquitetura da Aplicação**
+Crie uma pasta para o projeto executando os comandos abaixo e descompacte os arquivos [app.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%205/alerta_clima/app.zip>) e [frontend.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%205/alerta_clima/frontend.zip>) dentro dela, isso resultará na estrutura mostrada em 🧩 **Arquitetura da Aplicação**
 
 ```bash
-python -m venv .venv 		# Criação do ambiente virtual
-source .venv/bin/activate  	# Ativação do ambiente    # Linux/macOS
-# .venv\Scripts\activate       						  # Windows
+python -m venv <pasta do projeto> 		# Criação da pasta do projetol
+source <pasta do projeto>/bin/activate  				# Ativação do ambiente    # Linux/macOS
+# .venv\Scripts\activate       			# Windows
 ```
 
 ### 📦 2 - Instalação das dependências
 
-Arquivo de dependências -> [requirements.txt](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%205/alerta_clima/requirements.txt>)
+Baixe o arquivo de dependências [requirements.txt](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%205/alerta_clima/requirements.txt>) e execute o comando
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate      # Linux/macOS
-# .venv\Scripts\activate       # Windows
-
 pip install -r requirements.txt
 ```
 
 ### 🔐 3 - Configuração das variáveis de ambiente
 
-Crie um arquivo `.env` na raiz do projeto:
+Crie um arquivo `.env` dentro da pasta do projeto:
 
 ```env
 API_KEY=SUACHAVE_API
 ```
 
 ### ▶️ 4 - Execução local
+
+Dentro da pasta do projeto, execute o comando a seguir
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload
