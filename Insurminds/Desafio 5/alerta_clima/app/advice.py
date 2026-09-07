@@ -1,11 +1,10 @@
 from app.llm import LLM
 from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
+from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.globals import set_debug
 from functools import lru_cache
 from typing import overload
 import json
-from re import findall, DOTALL
 from pydantic import BaseModel, Field
 
 @lru_cache
@@ -16,6 +15,9 @@ set_debug(True)
 
 class AdviceModel(BaseModel):
    conselho: str = Field(description="O conselho")
+
+class AdviceListModel(BaseModel):
+   conselhos: list = Field(description="O dicionario de conselhos. Cada chave corresponde a descrição do clima e o valor corresponde ao respectivo conselho")
 
    
 class Advice:
@@ -62,7 +64,7 @@ class Advice:
                           
         elif isinstance(description, list):
 
-            self.parser = StrOutputParser()
+            self.parser = JsonOutputParser(pydantic_object=AdviceListModel)
 
             template = """
                             Aja como um especialista de meteorologia e dê um conselho para cada um dos climas descritos na lista {descriptionlist}
@@ -71,29 +73,27 @@ class Advice:
                             NUNCA fornecer um JSON incorreto
 
                             {formatação de saída}                        
-                    """
-             
-            dictionary = {desc: "Qual é o conselho ?" for desc in description}
+                    """            
 
             self.prompt_template = PromptTemplate(
                 template=template,
                 input_variables=["descriptionlist"],
-                partial_variables={"formatação de saída": f'{{"conselhos": {json.dumps(dictionary, ensure_ascii=False)}}}'}                                             
+                partial_variables={"formatação de saída": self.parser.get_format_instructions()}
             )        
 
             qa_chain = self.prompt_template | self.llm | self.parser
 
             try:
-                json_conselho = findall(r"\{.*\}", qa_chain.invoke({"descriptionlist": description}), DOTALL)[0]
+                json_conselhos = qa_chain.invoke({"descriptionlist": description})
                 
-                conselho = json.loads(json_conselho)
+                conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))
                 
             except Exception:
-                json_conselho = findall(r"\{.*\}", qa_chain.invoke({"descriptionlist": description}), DOTALL)[0]
+                json_conselhos = qa_chain.invoke({"descriptionlist": description})
                                
-                conselho = json.loads(json_conselho)
+                conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))
                 
-            self.__conselho = conselho['conselhos']
+            self.__conselho = conselhos['conselhos']
 
 
     def getAdvice(self) -> str:
