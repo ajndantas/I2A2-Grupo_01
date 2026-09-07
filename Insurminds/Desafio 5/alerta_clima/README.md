@@ -52,7 +52,7 @@ A chave `API_KEY` é repassada como variável de ambiente do serviço no Cloud R
 ## 🧩 Arquitetura da Aplicação
 
 ```
-alerta_clima/
+<pasta do projeto>/
 ├── app/                      # Backend FastAPI
 │   ├── main.py                # Ponto de entrada da aplicação (rotas, static files, sessão)
 │   ├── llm.py                  # Configuração do modelo de linguagem (LLM)
@@ -68,21 +68,21 @@ alerta_clima/
 │   ├── css/style.css
 │   ├── js/script.js
 │   └── tipsandcities.py        # Geração de dicas e cidades sugeridas via LLM
-├── Dockerfile
-└── requirements.txt
 ```
 
 ### 🛠️ 1 - Instalação dos códigos
 
-```bash
-python -m venv .venv
-source .venv/bin/activate      # Linux/macOS
-# .venv\Scripts\activate       # Windows
+Crie uma pasta para o projeto e descompacte os arquivos app.zip e frontend.zip e dentro dela, resultando na estrutura mostrada em 🧩 **Arquitetura da Aplicação**
 
-pip install -r requirements.txt
+```bash
+python -m venv .venv 		# Criação do ambiente virtual
+source .venv/bin/activate  	# Ativação do ambiente    # Linux/macOS
+# .venv\Scripts\activate       						  # Windows
 ```
 
 ### 📦 2 - Instalação das dependências
+
+Arquivo de dependências -> [requirements.txt](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%205/alerta_clima/requirements.txt>)
 
 ```bash
 python -m venv .venv
