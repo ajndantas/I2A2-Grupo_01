@@ -15,6 +15,14 @@ Principais funcionalidades:
 
 ---
 
+## 🚀 Demonstração ao Vivo
+
+O projeto está implantado e disponível para testes em tempo real na infraestrutura da **Google Cloud Platform (GCP)**:
+
+🔗 **[Acessar Demo do Alerta Clima](https://alerta-clima-574973424283.us-central1.run.app/)**
+
+---
+
 ## Tecnologias Utilizadas
 
 * 🐍 **Python 3.13**
