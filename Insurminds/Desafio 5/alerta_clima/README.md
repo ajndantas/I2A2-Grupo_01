@@ -109,7 +109,7 @@ API_KEY=SUACHAVE_API
 Dentro da pasta do projeto, execute o comando a seguir
 
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload
+uvicorn app.main:app --host 0.0.0.0 --port 8003
 ```
 
 A aplicação ficará disponível em:
@@ -131,7 +131,7 @@ http://localhost:8003
 | GET     | `/api/v1/tips`     | Retorna dicas de clima geradas por IA, organizadas por categoria |
 | GET     | `/api/v1/cities`   | Retorna uma lista de cidades sugeridas (brasileiras e globais)   |
 
-A documentação interativa (Swagger) fica disponível em `/docs` após a aplicação estar em execução.
+A documentação interativa (Swagger) fica disponível em `a` após a aplicação estar em execução.
 
 ### 🔎 Detalhamento dos endpoints
 
