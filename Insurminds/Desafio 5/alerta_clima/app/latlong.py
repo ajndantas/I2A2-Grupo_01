@@ -1,8 +1,14 @@
+from functools import lru_cache
+
 from pydantic import BaseModel, Field
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
 from app.llm import LLM
+
+@lru_cache
+def getLLM():
+    return LLM().getLLM()
 
 class LatLongModel(BaseModel):
     cidade: str = Field(description="O nome da cidade")
@@ -13,7 +19,7 @@ class LatLongModel(BaseModel):
 class LatLong:
     def __init__(self):
 
-        self.llm = LLM().getLLM()
+        self.llm = getLLM()
         
         template = """
                         Qual é a latitude e a longitude da cidade {cidade} ?
@@ -39,6 +45,7 @@ class LatLong:
             qa_chain = qa_chain.invoke({"cidade": city})
 
         except OutputParserException: 
+            LLM.cache.clear()
             qa_chain = self.prompt_template | self.llm | self.parser
             qa_chain = qa_chain.invoke({"cidade": city})
 

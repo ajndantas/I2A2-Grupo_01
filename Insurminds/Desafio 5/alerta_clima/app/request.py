@@ -10,7 +10,6 @@ from app.advice import Advice
 
 import asyncio
 
-
 class WeatherRequest(ABC):
 
     def __init__(self):

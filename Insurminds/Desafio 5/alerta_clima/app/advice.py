@@ -28,7 +28,7 @@ class Advice:
     def __init__(self, description: str): ...    
     def __init__(self, description):
 
-        self.llm = LLM().getLLM()        
+        self.llm = getLLM()        
 
         if isinstance(description, str):
 
@@ -56,6 +56,7 @@ class Advice:
                 conselho = json_conselho
 
             except Exception:
+                LLM.cache.clear()
                 json_conselho = qa_chain.invoke({"description": description})
                 conselho = json_conselho
 
@@ -89,6 +90,7 @@ class Advice:
                 conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))
                 
             except Exception:
+                LLM.cache.clear()
                 json_conselhos = qa_chain.invoke({"descriptionlist": description})
                                
                 conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))

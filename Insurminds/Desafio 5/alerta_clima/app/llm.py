@@ -9,6 +9,10 @@ set_debug(True)
 load_dotenv()
 
 class LLM:
+
+    cache = InMemoryCache()
+    set_llm_cache(cache) # Ativando memória personalizada
+
     def getLLM(self):
 
         self.llm = ChatOpenAI(
@@ -21,9 +25,7 @@ class LLM:
                                 api_key=getenv("API_KEY_OPENROUTER"),
                                 #reasoning_effort="high",
                                 temperature=0                            
-                            )
-
-        #set_llm_cache(InMemoryCache()) # Ativando memória personalizada
+                            )       
 
         return self.llm
 

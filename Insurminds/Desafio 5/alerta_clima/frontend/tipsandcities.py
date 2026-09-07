@@ -8,6 +8,8 @@ import json
 class TipsandCities:
     def __init__(self):
 
+        LLM.cache.clear()
+
         llm = LLM().getLLM() 
         
         template = """
@@ -50,6 +52,7 @@ class TipsandCities:
             qa_chain = json.loads(json_qa_chain)
 
         except Exception:
+            LLM.cache.clear()
             json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)
             qa_chain = json.loads(json_qa_chain)
         
