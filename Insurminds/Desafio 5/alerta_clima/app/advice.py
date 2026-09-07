@@ -2,16 +2,16 @@ from app.llm import LLM
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.globals import set_debug
-from functools import lru_cache
 from typing import overload
 import json
 from pydantic import BaseModel, Field
+from functools import lru_cache
+
+set_debug(True)
 
 @lru_cache
 def getLLM():
     return LLM().getLLM()
-
-set_debug(True)
 
 class AdviceModel(BaseModel):
    conselho: str = Field(description="O conselho")

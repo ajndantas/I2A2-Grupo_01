@@ -4,13 +4,18 @@ from app.modelos.tipsandcities import Tips, TipsandCities as TipsandCitiesModel,
 from app.llm import LLM
 from typing import List
 import json
+from functools import lru_cache
+
+@lru_cache
+def getLLM():
+    return LLM().getLLM()
 
 class TipsandCities:
     def __init__(self):
 
         LLM.cache.clear()
 
-        llm = LLM().getLLM() 
+        llm = getLLM() 
         
         template = """
                         Aja como um especialista de meteorologia e clima que fala Português do Brasil, e siga PASSOS abaixo:
