@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from app.modelos.tipsandcities import Tips, TipsandCities as TipsandCitiesModel, City
+from app.modelos.tipsandcities import Tips, TipsandCities, City
 from app.llm import LLM
 from typing import List
 import json
@@ -29,7 +29,7 @@ class Tips:
                         {formatação de saída}                     
                         
                    """
-        parser = JsonOutputParser(pydantic_object=TipsandCitiesModel)
+        parser = JsonOutputParser(pydantic_object=TipsandCities)
 
         prompt_template = PromptTemplate(
             template=template,
@@ -67,7 +67,7 @@ class Cities:
                         {formatação de saída}                     
                         
                    """
-        parser = JsonOutputParser(pydantic_object=TipsandCitiesModel)
+        parser = JsonOutputParser(pydantic_object=TipsandCities)
 
         prompt_template = PromptTemplate(
             template=template,
