@@ -2,10 +2,13 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
+from langchain_core.globals import set_llm_cache
+from langchain_core.caches import InMemoryCache
 from langchain_core.exceptions import OutputParserException
-from langchain_core.globals import set_llm_cache, InMemoryCache
 from os import getenv
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class LatLongModel(BaseModel):
     cidade: str = Field(description="O nome da cidade")
@@ -16,14 +19,16 @@ class LatLongModel(BaseModel):
 class LatLong:
     def __init__(self):
 
+        cache = InMemoryCache()
+        set_llm_cache(cache)
+
         self.llm = ChatOpenAI(
                                 model_name="openrouter/free",
                                 base_url="https://openrouter.ai/api/v1",
                                 api_key=getenv("API_KEY_OPENROUTER"), 
                                 temperature=0
                               )
-        
-        set_llm_cache(InMemoryCache())
+
         
         template = """
                         Qual é a latitude e a longitude da cidade {cidade} ?
@@ -45,7 +50,11 @@ class LatLong:
     def getLatLong(self,city):
         
         qa_chain = self.prompt_template | self.llm | self.parser
-        qa_chain = qa_chain.invoke({"cidade": city})        
+
+        try:
+            qa_chain = qa_chain.invoke({"cidade": city})
+        except OutputParserException:
+            qa_chain = qa_chain.invoke({"cidade": city})        
 
         return qa_chain
 

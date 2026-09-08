@@ -1,7 +1,7 @@
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import getenv
-from langchain_core.globals import set_debug, set_llm_cache
+from langchain_core.globals import set_debug
 from functools import lru_cache
 
 set_debug(True)
