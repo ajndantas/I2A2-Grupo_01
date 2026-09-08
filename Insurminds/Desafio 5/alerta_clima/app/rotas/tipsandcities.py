@@ -4,9 +4,11 @@ from app.rotas.request import router
 from fastapi.exceptions import HTTPException
 from fastapi import Depends
 from typing import List
+from functools import lru_cache
 
-
+@lru_cache(maxsize=1)
 def getTipsandCities():
+    
     return TipsandCities()
 
 @router.get(

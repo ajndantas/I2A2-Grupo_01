@@ -17,8 +17,8 @@ class Tips(BaseModel):
 #class City(BaseModel):
 class City(TypedDict): #class City(BaseModel):
     city: str
-    badge: str = Field(description="sigla da cidade")
-    type: str
+    badge: str = Field(description="sigla")
+    type: str = Field(description="brasileira ou global. Em minúsculo")
 
 class Cities(BaseModel):
     cities: List[City] = Field(description="lista de cidades e seus atributos")
