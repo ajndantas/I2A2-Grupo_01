@@ -4,6 +4,7 @@ from app.modelos.tipsandcities import Tips, TipsandCities as TipsandCitiesModel,
 from app.llm import LLM
 from typing import List
 import json
+from fastapi import HTTPException
 
 
 class TipsandCities:
@@ -46,7 +47,8 @@ class TipsandCities:
             json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)            
 
         except Exception:
-            json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)
+            raise HTTPException(status_code=500, detail="Nao foi possivel obter as dicas e cidades. Reinicie a aplicação")
+        
             
         self.__qa_chain = json.loads(json_qa_chain)
 

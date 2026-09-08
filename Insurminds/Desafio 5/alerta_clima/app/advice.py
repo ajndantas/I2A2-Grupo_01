@@ -46,9 +46,9 @@ class Advice:
                 json_conselho = qa_chain.invoke({"description": description})
                 conselho = json_conselho
 
-            except Exception:
-                json_conselho = qa_chain.invoke({"description": description})
-                conselho = json_conselho
+            except Exception as e:
+                print(e)
+                                
 
             self.__conselho = conselho['conselho']
         

@@ -7,6 +7,7 @@ from langchain_core.caches import InMemoryCache
 from langchain_core.exceptions import OutputParserException
 from os import getenv
 from dotenv import load_dotenv
+from fastapi import HTTPException
 
 
 load_dotenv()
@@ -53,7 +54,7 @@ class LatLong:
         try:
             qa_chain = qa_chain.invoke({"cidade": city})
         except OutputParserException:
-            qa_chain = qa_chain.invoke({"cidade": city})        
+            raise HTTPException(status_code=500, detail="Cidade nao encontrada. Recarregue a pagina.")        
 
         return qa_chain
 
