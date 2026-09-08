@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from app.modelos.tipsandcities import Tips, TipsandCities, City
+from app.modelos.tipsandcities import Tips as TipsModel, TipsandCities, City
 from app.llm import LLM
 from typing import List
 import json
@@ -47,7 +47,7 @@ class Tips:
             
         self.__qa_chain = json.loads(json_qa_chain)
         
-    def getTips(self) -> Tips:
+    def getTips(self) -> TipsModel:
        self.__tips = self.__qa_chain['tips']
        return self.__tips
 
