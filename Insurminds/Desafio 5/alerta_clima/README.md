@@ -80,7 +80,7 @@ A chave `API_KEY` é repassada como variável de ambiente do serviço no Cloud R
 
 ### 🛠️ 1 - Instalação dos códigos
 
-Crie uma pasta para o projeto executando os comandos abaixo e descompacte os arquivos [app.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%205/alerta_clima/app.zip>) e [frontend.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%205/alerta_clima/frontend.zip>) dentro dela, isso resultará na estrutura mostrada em 🧩 **Arquitetura da Aplicação**
+Crie uma pasta para o projeto executando os comandos abaixo e descompacte os arquivos [app.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%205/alerta_clima/app/app.zip>) e [frontend.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%205/alerta_clima/frontend/frontend.zip>) dentro dela, isso resultará na estrutura mostrada em 🧩 **Arquitetura da Aplicação**
 
 ```bash
 python -m venv <pasta do projeto> 		# Criação da pasta do projetol
