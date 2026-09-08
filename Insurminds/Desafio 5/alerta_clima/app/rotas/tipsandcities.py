@@ -2,11 +2,10 @@ from app.modelos.tipsandcities import Tips, City
 from frontend.tipsandcities import TipsandCities
 from app.rotas.request import router
 from fastapi.exceptions import HTTPException
-from functools import lru_cache
 from fastapi import Depends
 from typing import List
 
-@lru_cache
+
 def getTipsandCities():
     return TipsandCities()
 
