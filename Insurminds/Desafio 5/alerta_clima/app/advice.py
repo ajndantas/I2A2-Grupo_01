@@ -5,13 +5,8 @@ from langchain_core.globals import set_debug
 from typing import overload
 import json
 from pydantic import BaseModel, Field
-from functools import lru_cache
 
 set_debug(True)
-
-@lru_cache
-def getLLM():
-    return LLM().getLLM()
 
 class AdviceModel(BaseModel):
    conselho: str = Field(description="O conselho")
@@ -28,11 +23,9 @@ class Advice:
     def __init__(self, description: str): ...    
     def __init__(self, description):
 
-        self.llm = getLLM()        
-
         if isinstance(description, str):
 
-            self.parser = JsonOutputParser(pydantic_object=AdviceModel)
+            parser = JsonOutputParser(pydantic_object=AdviceModel)
 
             template = """
                             Aja como um especialista de meteorologia e dê um conselho para o clima descrito como {description}
@@ -41,22 +34,21 @@ class Advice:
                             {formatação de saída}
 
                             SEMPRE forneça um JSON de acordo com {formatação de saída}                        
-                    """ 
+                        """ 
 
-            self.prompt_template = PromptTemplate(
+            prompt_template = PromptTemplate(
                 template=template,
                 input_variables=["description"],
-                partial_variables={"formatação de saída": self.parser.get_format_instructions()}            
+                partial_variables={"formatação de saída": parser.get_format_instructions()}            
             ) 
 
-            qa_chain = self.prompt_template | self.llm | self.parser
+            qa_chain = prompt_template | LLM.getLLM() | parser
 
             try:
                 json_conselho = qa_chain.invoke({"description": description})
                 conselho = json_conselho
 
             except Exception:
-                LLM.cache.clear()
                 json_conselho = qa_chain.invoke({"description": description})
                 conselho = json_conselho
 
@@ -65,7 +57,7 @@ class Advice:
                           
         elif isinstance(description, list):
 
-            self.parser = JsonOutputParser(pydantic_object=AdviceListModel)
+            parser = JsonOutputParser(pydantic_object=AdviceListModel)
 
             template = """
                             Aja como um especialista de meteorologia e dê um conselho para cada um dos climas descritos na lista {descriptionlist}
@@ -76,21 +68,21 @@ class Advice:
                             {formatação de saída}                        
                     """            
 
-            self.prompt_template = PromptTemplate(
+            prompt_template = PromptTemplate(
                 template=template,
                 input_variables=["descriptionlist"],
-                partial_variables={"formatação de saída": self.parser.get_format_instructions()}
+                partial_variables={"formatação de saída": parser.get_format_instructions()}
             )        
 
-            qa_chain = self.prompt_template | self.llm | self.parser
+            qa_chain = prompt_template | LLM.getLLM() | parser
 
             try:
                 json_conselhos = qa_chain.invoke({"descriptionlist": description})
                 
                 conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))
                 
-            except Exception:
-                LLM.cache.clear()
+            except Exception:                
+
                 json_conselhos = qa_chain.invoke({"descriptionlist": description})
                                
                 conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))

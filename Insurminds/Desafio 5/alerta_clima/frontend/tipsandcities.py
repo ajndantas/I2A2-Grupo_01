@@ -4,19 +4,12 @@ from app.modelos.tipsandcities import Tips, TipsandCities as TipsandCitiesModel,
 from app.llm import LLM
 from typing import List
 import json
-from functools import lru_cache
 
-@lru_cache
-def getLLM():
-    return LLM().getLLM()
 
 class TipsandCities:
-    def __init__(self):
 
-        LLM.cache.clear()
+    def __init__(self):             
 
-        llm = getLLM() 
-        
         template = """
                         Aja como um especialista de meteorologia e clima que fala Português do Brasil, e siga PASSOS abaixo:
 
@@ -35,42 +28,39 @@ class TipsandCities:
                         estados, caso não tenha estado, que seja do seu país, e seus tipos, se brasileira ou global (não brasileira). 
                         12. 8 cidades brasileiras e 6 globais.
 
-                        NUNCA repetir TODAS as dicas e nem TODAS as cidades.
-                        
+                                                
                         ## SAÍDA
                         {formatação de saída}
 
-                        NUNCA fornecer um JSON incorreto                       
+                        SEMPRE forneça um JSON de acordo com {formatação de saída}                          
                         
                    """
-        parser = JsonOutputParser(pydantic_object=TipsandCitiesModel)       
-                
+        parser = JsonOutputParser(pydantic_object=TipsandCitiesModel)
+
         prompt_template = PromptTemplate(
             template=template,
-            partial_variables={"formatação de saída": parser.get_format_instructions()},            
-        )        
-
-        qa_chain = prompt_template | llm | parser        
+            partial_variables={"formatação de saída": parser.get_format_instructions()},
+        )
+        
+        qa_chain = prompt_template | LLM.getLLM() | parser        
         
         try:
-            json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)
-            qa_chain = json.loads(json_qa_chain)
+            json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)            
 
         except Exception:
-            LLM.cache.clear()
             json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)
-            qa_chain = json.loads(json_qa_chain)
-        
-        self.__qa_chain = qa_chain
+            
+        self.__qa_chain = json.loads(json_qa_chain)
+
         
     def getCities(self) -> List[City]:
-        
-        return self.__qa_chain['cities']
+        self.__cities = self.__qa_chain['cities']
+        return self.__cities
     
 
     def getTips(self) -> Tips:
-
-       return self.__qa_chain['tips']
+       self.__tips = self.__qa_chain['tips']
+       return self.__tips
 
 
 # TESTE
