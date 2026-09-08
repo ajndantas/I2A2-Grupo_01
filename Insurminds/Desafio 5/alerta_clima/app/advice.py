@@ -31,9 +31,7 @@ class Advice:
                             Aja como um especialista de meteorologia e dê um conselho para o clima descrito como {description}
     
                             ## SAÍDA
-                            {formatação de saída}
-
-                            SEMPRE forneça um JSON de acordo com {formatação de saída}                        
+                            {formatação de saída}                        
                         """ 
 
             prompt_template = PromptTemplate(

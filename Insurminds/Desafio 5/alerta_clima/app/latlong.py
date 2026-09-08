@@ -2,13 +2,15 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from langchain_core.globals import set_llm_cache
+from langchain_core.globals import set_llm_cache, set_debug
 from langchain_core.caches import InMemoryCache
 from langchain_core.exceptions import OutputParserException
 from os import getenv
 from dotenv import load_dotenv
 
+
 load_dotenv()
+set_debug(True)
 
 class LatLongModel(BaseModel):
     cidade: str = Field(description="O nome da cidade")
@@ -19,8 +21,7 @@ class LatLongModel(BaseModel):
 class LatLong:
     def __init__(self):
 
-        cache = InMemoryCache()
-        set_llm_cache(cache)
+        set_llm_cache(InMemoryCache())
 
         self.llm = ChatOpenAI(
                                 model_name="openrouter/free",
@@ -34,9 +35,7 @@ class LatLong:
                         Qual é a latitude e a longitude da cidade {cidade} ?
 
                         ## SAÍDA
-                        {formatação de saída}
-
-                        - NUNCA fornecer um JSON incorreto                       
+                        {formatação de saída}           
                    """
         self.parser = JsonOutputParser(pydantic_object=LatLongModel)        
                 

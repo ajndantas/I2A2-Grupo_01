@@ -30,9 +30,7 @@ class TipsandCities:
 
                                                 
                         ## SAÍDA
-                        {formatação de saída}
-
-                        SEMPRE forneça um JSON de acordo com {formatação de saída}                          
+                        {formatação de saída}                     
                         
                    """
         parser = JsonOutputParser(pydantic_object=TipsandCitiesModel)
