@@ -1,4 +1,4 @@
-from app.modelos.tipsandcities import Tips, City
+from app.modelos.tipsandcities import Tips as TipsModel, City
 from frontend.tipsandcities import Tips, Cities
 from app.rotas.request import router
 from fastapi.exceptions import HTTPException
@@ -8,11 +8,11 @@ from typing import List
 
 @router.get(
                 "/tips", 
-                response_model=Tips, 
+                response_model=TipsModel, 
                 summary="Obtém dicas de clima", 
                 response_description="3 dicas de clima para cada tipo de dica"                
 )
-async def getTips(tips: Tips = Depends(Tips)) -> Tips:
+async def getTips(tips: Tips = Depends(Tips)) -> TipsModel:
 
     try:
         return tips.getTips()

@@ -93,10 +93,11 @@ class Cities:
 
 # TESTE
 if __name__ == "__main__":
-    tipsandcities = TipsandCities()
+    tips = Tips()
+    cities = Cities()
     
-    cities = tipsandcities.getCities()
-    tips = tipsandcities.getTips()
+    cities = cities.getCities()
+    tips = tips.getTips()
 
     print("Cities: \n", cities)
     print("Tips: \n", tips)
