@@ -26,7 +26,9 @@ class Tips:
                         10. Forneça 3 dicas do tipo inundação                        
                                                 
                         ## SAÍDA
-                        {formatação de saída}                     
+                        {formatação de saída}
+
+                        NUNCA repetir as dicas                     
                         
                    """
         parser = JsonOutputParser(pydantic_object=TipsandCities)
@@ -64,7 +66,9 @@ class Cities:
                         2. 10 cidades brasileiras e 8 globais.
                                                 
                         ## SAÍDA
-                        {formatação de saída}                     
+                        {formatação de saída}
+
+                        NUNCA repetir as cidades                     
                         
                    """
         parser = JsonOutputParser(pydantic_object=TipsandCities)
