@@ -10,12 +10,23 @@ Querendo entrar em contato, fique à vontade para se conectar comigo no Linkedin
 
 ## 🛠️ Projetos em Destaque
 
+| Projeto                                        | Solução Prática                                                                                                                     | Stack Principal                                           | Links                                                                                                                                                                                                              |
+| :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🌦️ Alerta Clima**                    | **Previsão meteorológica e alertas inteligentes via IA, e por meio de consumo de API**, para cidades informadas pelo usuário | **Python, FastAPI, LangChain, OpenAI, Docker, GCP** | [Demonstração](https://alerta-clima-574973424283.us-central1.run.app/) \| [Código](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%205/alerta_clima/README.md#%EF%B8%8F-alerta-clima>) |
+| **🤖 Agente Inteligente Chatbot Seguro** | **FAQ automatizado** para segurados **via RAG** com documentos técnicos de apólices e manuais.                           | **Python, LangChain, OpenAI, FAISS, Docker, GCP**   | [Demonstração](https://agente-chatbotseguro-574973424283.us-central1.run.app) \| [Código](<https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202#-agente-inteligente-chatbot-seguro>)     |
+| **🧾 Agente de Documentos Fiscais**      | **OCR e LLM para extração e consulta de NF-e** via linguagem natural.                                                          | **Python, LangChain, OpenAI, Docker, GCP**          | [Demonstração](https://agente-nfs-574973424283.us-central1.run.app) \| [Código](<https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme>)                         |
 
-| Projeto                                        | Solução Prática                                                                                           | Stack Principal                               | Links                                                                                                                                                                                                        |
-| :--------------------------------------------- | :----------------------------------------------------------------------------------------------------------- | :-------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **🤖 Agente Inteligente Chatbot Seguro** | **FAQ automatizado** para segurados **via RAG** com documentos técnicos de apólices e manuais. | Python, LangChain, OpenAI, FAISS, Docker, GCP | [Demonstração](https://agente-chatbotseguro-574973424283.us-central1.run.app) \| [Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202#-agente-inteligente-chatbot-seguro) |
-| **🧾 Agente de Documentos Fiscais**      | **OCR e LLM para extração e consulta de NF-e** via linguagem natural.                                | Python, LangChain, OpenAI, Docker, GCP        | [Demonstração](https://agente-nfs-574973424283.us-central1.run.app) \| [Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)                     |
-| **🤖 Agente EDA AI**                     | **Análise exploratória de dados automatizada** com geração de insights.                            | Python, LangChain, OpenAI, Docker, GCP        | [Demonstração](https://agente-eda-574973424283.us-central1.run.app) \| [Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme)             |
+---
+
+## 🌦️ Alerta Clima — Previsão do Tempo e Alertas Inteligentes
+
+Aplicação web que fornece **previsão meteorológica atual e dos próximos 7 dias, por meio de consumo de API**, para qualquer cidade informada pelo usuário. O sistema utiliza Inteligência Artificial para geocodificação direta e para a geração automatizada de **alertas inteligentes e conselhos contextuais** diante de condições climáticas adversas (tempestades, chuvas fortes, nevoeiro, neve, etc).
+
+* **🎯 Impacto:** Fornecimento instantâneo de dados meteorológicos com recomendações personalizadas geradas por IA, eliminando a dependência de APIs pagas de geocodificação e auxiliando na tomada de decisão rápida e prevenção de riscos.
+* **🏗️ Arquitetura:** Resolução de Lat/Long via LLM -> Consulta em tempo real à API pública Open-Meteo -> Análise de WMO Weather Code e geração de conselhos/dicas via LangChain -> Backend RESTful em FastAPI -> Interface web interativa (Chat) -> Deploy automatizado na GCP Cloud Run via CI/CD (GitHub Actions + GHCR + Artifact Registry).
+* **🧠 Tecnologias:** ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-1C3C3A?style=flat-square&logo=langchain&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat-square&logo=google-cloud&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white) , `Open-Meteo API`, `HTML5/CSS3/JS`.
+
+🌐 **[Acesse a Demonstração Ativa](https://alerta-clima-574973424283.us-central1.run.app/)** | 📂 **[Repositório do Código](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%205/alerta_clima/README.md#%EF%B8%8F-alerta-clima>)**
 
 ---
 
@@ -27,7 +38,7 @@ Aplicação de FAQ inteligente voltada para segurados, que responde perguntas fr
 * **🏗️ Arquitetura:** Ingestão de documentos (PDF/manuais) -> Embeddings locais (HuggingFace `all-MiniLM-L6-v2`) -> Orquestração RAG (LangChain + FAISS) -> Interface Streamlit -> Deploy containerizado na Cloud Run.
 * **🧠 Tecnologias:** ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-1C3C3A?style=flat-square&logo=langchain&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white) ![RAG](https://img.shields.io/badge/RAG-black?style=flat&logo=databricks&logoColor=white) ![FAISS](https://img.shields.io/badge/FAISS-blue?style=flat&logo=meta&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat-square&logo=google-cloud&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white) , `HuggingFace`.
 
-🌐 **[Acesse a Demonstração Ativa](https://agente-chatbotseguro-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202#-agente-inteligente-chatbot-seguro)**
+🌐 **[Acesse a Demonstração Ativa](https://agente-chatbotseguro-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](<https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Insurminds/Desafio%202#-agente-inteligente-chatbot-seguro>)**
 
 ---
 
@@ -39,20 +50,10 @@ Aplicação inteligente que combina **OCR e Modelos de Linguagem (LLMs)** para i
 * **🏗️ Arquitetura:** Pipeline de ingestão -> Extração de texto (Tesseract/OpenCV) -> Orquestração de contexto RAG (LangChain) -> Deploy em container gerenciado.
 * **🧠 Tecnologias:** ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-1C3C3A?style=flat-square&logo=langchain&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat-square&logo=google-cloud&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white) ,`Tesseract OCR`, `SQLAlchemy`, `Pandas`.
 
-🌐 **[Acesse a Demonstração Ativa](https://agente-nfs-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme)**
+🌐 **[Acesse a Demonstração Ativa](https://agente-nfs-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](<https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%202%20-%20Projeto%20-%2011062025#readme>)**
 
 ---
 
-## 🤖 Agente EDA AI — Análise Exploratória Inteligente de Dados
-
-Interface analítica que abstrai a complexidade do tratamento inicial de dados. Ao fazer o upload de qualquer dataset padronizado (CSV), um agente autônomo baseado em IA analisa o comportamento das variáveis, gerando gráficos iterativos e relatórios preditivos de forma imediata.
-
-* **🎯 Impacto:** Automação de pipelines de Analytics para tomada de decisão ágil, identificando anomalias e padrões de fraude sem a necessidade de codificação manual de scripts de visualização.
-* **🧠 Tecnologias:** ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-1C3C3A?style=flat-square&logo=langchain&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat-square&logo=google-cloud&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white) , `Plotly`, `Pandas`.
-
-🌐 **[Acesse a Demonstração Ativa](https://agente-eda-574973424283.us-central1.run.app)** | 📂 **[Repositório do Código](https://github.com/ajndantas/I2A2-Grupo_01/tree/master/Desafio%20Extra%20Fraude%20Cartao%20de%20Credito#readme)**
-
----
 
 ## 🧠 Diretrizes do Portfólio
 
