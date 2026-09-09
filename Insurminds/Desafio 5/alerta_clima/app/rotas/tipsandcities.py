@@ -15,7 +15,7 @@ from typing import List
 async def getTips(tips: TipsService = Depends(TipsService)) -> TipsModel:
 
     try:
-        return tips.getTips()
+        return await tips.getTips()
     
     except Exception:
         raise HTTPException(status_code=500, detail="Não foi possível obter as dicas de clima. Reinicie a aplicação")
@@ -30,7 +30,7 @@ async def getTips(tips: TipsService = Depends(TipsService)) -> TipsModel:
 async def getCities(cities: CitiesService = Depends(CitiesService)) -> List[City]:
 
     try:
-        return cities.getCities()
+        return await cities.getCities()
     
     except Exception:
         raise HTTPException(status_code=500, detail="Não foi possível obter as cidades. Reinicie a aplicação")

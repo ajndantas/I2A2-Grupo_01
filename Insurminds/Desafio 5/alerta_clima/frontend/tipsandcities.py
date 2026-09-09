@@ -8,8 +8,8 @@ from fastapi import HTTPException
 
 class Tips:
 
-    def __init__(self):             
-
+    def __init__(self):
+        
         template = """
                         Aja como um especialista de meteorologia e clima que fala Português do Brasil, e siga PASSOS abaixo:
 
@@ -49,21 +49,21 @@ class Tips:
             
         self.__qa_chain = json.loads(json_qa_chain)
         
-    def getTips(self) -> TipsModel:
+    async def getTips(self) -> TipsModel:
        self.__tips = self.__qa_chain['tips']
        return self.__tips
 
 class Cities:
 
-    def __init__(self):             
+    def __init__(self):   
 
         template = """
                         Aja como um especialista de meteorologia e clima que fala Português do Brasil, e siga PASSOS abaixo:
 
                         ## PASSOS:
-                        1. Forneça o nome de 18 cidades, as respectivas siglas de seus 
-                        estados, caso não tenha estado, que seja do seu país, e seus tipos, se brasileira ou global (não brasileira). 
-                        2. 10 cidades brasileiras e 8 globais.
+                        1. Forneça o nome de 42 cidades, as respectivas siglas de seus 
+                        estados, caso não tenha estado, que seja do seu país, e seus tipos, se "brasileira" (Pertence ao Brasil) ou "global" (não pertence ao Brasil). 
+                        2. 24 cidades brasileiras e 18 globais.
                                                 
                         ## SAÍDA
                         {formatação de saída}
@@ -89,7 +89,7 @@ class Cities:
             
         self.__qa_chain = json.loads(json_qa_chain)
         
-    def getCities(self) -> List[City]:
+    async def getCities(self) -> List[City]:
         self.__cities = self.__qa_chain['cities']
         return self.__cities
     
@@ -97,9 +97,10 @@ class Cities:
 
 # TESTE
 if __name__ == "__main__":
+    
     tips = Tips()
     cities = Cities()
-    
+
     cities = cities.getCities()
     tips = tips.getTips()
 

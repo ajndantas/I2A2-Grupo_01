@@ -25,5 +25,6 @@ ENV API_KEY=${API_KEY}
 # Exponha a porta 8002 para o acesso externo
 EXPOSE 8003
 
-# Inicie o servidor FastAPI
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003"]
+# Inicie o servidor FastAPI com workers configuráveis.
+# WORKERS pode ser definido no ambiente; 2 é um padrão seguro para este serviço.
+CMD ["uvicorn app.main:app --host 0.0.0.0 --port 8003 --workers 2"]

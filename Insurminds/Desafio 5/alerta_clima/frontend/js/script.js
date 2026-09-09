@@ -246,6 +246,40 @@
     }
   }
 
+  function normalizeCityName(name) {
+    return String(name || '').trim().toLocaleLowerCase();
+  }
+
+  function getDisplayedCityNames() {
+    const container = document.getElementById('cityShortcuts');
+    const displayedNames = new Set();
+
+    container.querySelectorAll('.city-btn span:first-child').forEach(element => {
+      const cityName = element.textContent.replace(/^📍\s*/, '');
+      displayedNames.add(normalizeCityName(cityName));
+    });
+
+    return displayedNames;
+  }
+
+  function takeUniqueCities(queue, count, usedNames) {
+    const selected = [];
+
+    while (queue.length > 0 && selected.length < count) {
+      const city = queue.shift();
+      const normalizedName = normalizeCityName(city.name);
+
+      if (!normalizedName || usedNames.has(normalizedName)) {
+        continue;
+      }
+
+      usedNames.add(normalizedName);
+      selected.push(city);
+    }
+
+    return selected;
+  }
+
   // Retorna as CITY_BR_COUNT cidades brasileiras + CITY_GLOBAL_COUNT cidades
   // globais a exibir no painel (total de CITY_SHORTCUTS_COUNT = 7), consumindo-as
   // das filas locais embaralhadas — nunca cidades inventadas no front-end.
@@ -259,23 +293,28 @@
   // ao endpoint /api/v1/cities para reabastecê-la com mais cidades vindas dele.
   async function getNextCities() {
     let queues = loadCityQueues();
+    const usedNames = getDisplayedCityNames();
+    const selectedBr = [];
+    const selectedGlobal = [];
 
     let attempts = 0;
     while (
-      (queues.brazilian.length < CITY_BR_COUNT || queues.international.length < CITY_GLOBAL_COUNT) &&
+      (selectedBr.length < CITY_BR_COUNT || selectedGlobal.length < CITY_GLOBAL_COUNT) &&
       attempts < MAX_CITY_FETCH_ATTEMPTS
     ) {
+      selectedBr.push(...takeUniqueCities(queues.brazilian, CITY_BR_COUNT - selectedBr.length, usedNames));
+      selectedGlobal.push(...takeUniqueCities(queues.international, CITY_GLOBAL_COUNT - selectedGlobal.length, usedNames));
+
+      if (selectedBr.length >= CITY_BR_COUNT && selectedGlobal.length >= CITY_GLOBAL_COUNT) {
+        break;
+      }
+
       const fresh = await fetchCitiesFromApi();
-      queues.brazilian = shuffleArray(queues.brazilian.concat(fresh.brazilian));
-      queues.international = shuffleArray(queues.international.concat(fresh.international));
+      queues.brazilian.push(...shuffleArray(fresh.brazilian));
+      queues.international.push(...shuffleArray(fresh.international));
       attempts++;
     }
 
-    const selectedBr = queues.brazilian.slice(0, CITY_BR_COUNT);
-    const selectedGlobal = queues.international.slice(0, CITY_GLOBAL_COUNT);
-
-    queues.brazilian = queues.brazilian.slice(CITY_BR_COUNT);
-    queues.international = queues.international.slice(CITY_GLOBAL_COUNT);
     saveCityQueues(queues);
 
     return shuffleArray(selectedBr.concat(selectedGlobal));

@@ -5,6 +5,7 @@ from app.latlong import LatLong
 from app.modelos.forecast import Forecast
 from typing import List
 from functools import lru_cache
+import asyncio
 
 router = APIRouter(
     prefix="/api/v1"
@@ -30,13 +31,17 @@ async def getCurrent(request: Request, latlong: LatLong = Depends(getLatLong)) -
 
         if city is None: 
             raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
-        
-        latlong_obj = latlong.getLatLong(city) 
+
+        # asyncio.to_thread -> Usado para executar uma tarefa assíncrona em um thread separada
+        latlong_obj = await asyncio.to_thread(latlong.getLatLong, city)
         
         latitude = latlong_obj["latitude"]
         longitude = latlong_obj["longitude"]
         
-        current = await CurrentRequest(latitude = latitude, longitude = longitude).getCurrent()
+        current_request = await asyncio.to_thread(
+            CurrentRequest, latitude=latitude, longitude=longitude
+        )
+        current = await current_request.getCurrent()
 
         return current
 
@@ -57,12 +62,16 @@ async def getForecast(request: Request, latlong: LatLong = Depends(getLatLong)) 
         if city is None: 
             raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
 
-        latlong_obj = latlong.getLatLong(city)
+        # asyncio.to_thread -> Usado para executar uma tarefa assíncrona em um thread separada
+        latlong_obj = await asyncio.to_thread(latlong.getLatLong, city)
 
         latitude = latlong_obj["latitude"]
         longitude = latlong_obj["longitude"]
     
-        forecast = await ForecastRequest(latitude = latitude, longitude = longitude).getForecast()
+        forecast_request = await asyncio.to_thread(
+            ForecastRequest, latitude=latitude, longitude=longitude
+        )
+        forecast = await forecast_request.getForecast()
 
         return forecast
 
