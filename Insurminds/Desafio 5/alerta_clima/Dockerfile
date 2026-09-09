@@ -22,9 +22,8 @@ ENV API_KEY_OPENROUTER=${API_KEY_OPENROUTER}
 ARG API_KEY
 ENV API_KEY=${API_KEY}
 
-# Exponha a porta 8002 para o acesso externo
+# Exponha a porta usada localmente; o Cloud Run injeta PORT em produção.
 EXPOSE 8003
 
-# Inicie o servidor FastAPI com workers configuráveis.
-# WORKERS pode ser definido no ambiente; 2 é um padrão seguro para este serviço.
+# Inicie o servidor usando a porta fornecida pelo ambiente ou 8003 localmente.
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003", "--workers", "2"]
