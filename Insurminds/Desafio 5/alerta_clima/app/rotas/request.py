@@ -33,14 +33,12 @@ async def getCurrent(request: Request, latlong: LatLong = Depends(getLatLong)) -
             raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
 
         # asyncio.to_thread -> Usado para executar uma tarefa assíncrona em um thread separada
-        latlong_obj = await asyncio.to_thread(latlong.getLatLong, city)
+        latlong_obj = await latlong.getLatLong(city)
         
         latitude = latlong_obj["latitude"]
         longitude = latlong_obj["longitude"]
         
-        current_request = await asyncio.to_thread(
-            CurrentRequest, latitude=latitude, longitude=longitude
-        )
+        current_request = CurrentRequest(latitude=latitude, longitude=longitude)
         current = await current_request.getCurrent()
 
         return current
@@ -63,14 +61,12 @@ async def getForecast(request: Request, latlong: LatLong = Depends(getLatLong)) 
             raise HTTPException(status_code=500, detail="Nenhuma cidade informada")
 
         # asyncio.to_thread -> Usado para executar uma tarefa assíncrona em um thread separada
-        latlong_obj = await asyncio.to_thread(latlong.getLatLong, city)
+        latlong_obj = await latlong.getLatLong(city)
 
         latitude = latlong_obj["latitude"]
         longitude = latlong_obj["longitude"]
     
-        forecast_request = await asyncio.to_thread(
-            ForecastRequest, latitude=latitude, longitude=longitude
-        )
+        forecast_request = ForecastRequest(latitude=latitude, longitude=longitude)
         forecast = await forecast_request.getForecast()
 
         return forecast

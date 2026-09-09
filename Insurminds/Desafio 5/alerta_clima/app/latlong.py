@@ -47,7 +47,7 @@ class LatLong:
         )
         
 
-    def getLatLong(self,city):
+    async def getLatLong(self,city):
         
         qa_chain = self.prompt_template | self.llm | self.parser
 
