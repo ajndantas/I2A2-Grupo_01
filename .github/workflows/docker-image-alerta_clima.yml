@@ -57,6 +57,8 @@ jobs:
             --port=${{ env.PORT }} \
             --image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.TAG }}" \
             --region=${{ env.REGION }} \
+            --clear-command \
+            --clear-args \
             --platform=managed \
             --allow-unauthenticated \
             --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \

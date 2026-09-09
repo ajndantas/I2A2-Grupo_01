@@ -25,5 +25,4 @@ ENV API_KEY=${API_KEY}
 # Exponha a porta usada localmente; o Cloud Run injeta PORT em produção.
 EXPOSE 8003
 
-# Inicie o servidor usando a porta fornecida pelo ambiente ou 8003 localmente.
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003"]
