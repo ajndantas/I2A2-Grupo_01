@@ -26,4 +26,4 @@ ENV API_KEY=${API_KEY}
 EXPOSE 8003
 
 # Inicie o servidor usando a porta fornecida pelo ambiente ou 8003 localmente.
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8003 --workers 2"]
+CMD ["sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port 8003 --workers 2"]
