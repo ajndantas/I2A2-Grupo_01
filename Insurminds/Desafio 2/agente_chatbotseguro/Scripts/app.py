@@ -204,7 +204,6 @@ if not st.session_state.historico: # SE O HISTÓRICO ESTIVER VAZIO, MOSTRA AS SU
     st.markdown(" - O que é uma apólice de seguro ?")
     st.markdown(" - Qual é a cobertura do seguro ?")
     st.markdown(" - Como devo proceder caso tenha meu celular roubado ?")
-    st.markdown(" - Quem descobriu o Brasil ?")
     
 # ──────────────────────────────────────────────────────────────────────────────
 # 6 - RENDERIZAR HISTÓRICO - 
