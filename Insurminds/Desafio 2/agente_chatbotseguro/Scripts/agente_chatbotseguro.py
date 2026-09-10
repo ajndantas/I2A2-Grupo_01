@@ -196,12 +196,11 @@ class AgenteChatbotSeguro:
     from pydantic import BaseModel, Field
 
     llm = ChatOpenAI(
-                        #model="openrouter/free",
-                        model_name="dots-studio/dots-3-note-preview:free",
+                        model="openrouter/free",
                         #model="gpt-5.4-mini",                   
                         api_key=getenv("API_KEY_OPENROUTER"),
-                        api_key=getenv("API_KEY"),                        
-                        #base_url="https://openrouter.ai/api/v1",
+                        #api_key=getenv("API_KEY"),                        
+                        base_url="https://openrouter.ai/api/v1",
                         #reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
                         temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
                     )
