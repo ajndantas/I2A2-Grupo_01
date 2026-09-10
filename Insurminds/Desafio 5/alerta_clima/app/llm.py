@@ -16,7 +16,7 @@ class LLM:
 
         llm = ChatOpenAI(
                                 #model_name="openrouter/free",
-                                model_name="nvidia/nemotron-3.5-lightning:free",
+                                model_name="dots-studio/dots-3-note-preview:free",
                                 base_url="https://openrouter.ai/api/v1",
 
                                 #model_name="gpt-5.4-mini", 
