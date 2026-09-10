@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, TypedDict
+from typing import List, TypedDict, Literal
 
 class Tips(BaseModel):
     temp: List[str] = Field(description="lista de dicas relacionadas ao tipo variação de temperatura")
@@ -18,7 +18,7 @@ class Tips(BaseModel):
 class City(TypedDict): #class City(BaseModel):
     city: str
     badge: str = Field(description="sigla")
-    type: str = Field(description='"brasileira" ou "global". TODAS as letras em minúsculo')
+    type: Literal["brasileira", "global"]
 
 class Cities(BaseModel):
     cities: List[City] = Field(description="lista de cidades e seus atributos")
