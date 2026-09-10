@@ -26,7 +26,7 @@ class LatLong:
 
         self.llm = ChatOpenAI(
                                 #model_name="gpt-5.4-mini",
-                                model_name="thinkingmachines/inkling:free",
+                                model_name="nvidia/nemotron-3.5-lightning:free",
                                 base_url="https://openrouter.ai/api/v1",
                                 api_key=getenv("API_KEY_OPENROUTER"), 
                                 #api_key=getenv("API_KEY"), 
