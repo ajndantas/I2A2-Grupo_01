@@ -25,9 +25,10 @@ class LatLong:
         set_llm_cache(InMemoryCache())
 
         self.llm = ChatOpenAI(
-                                model_name="openrouter/free",
-                                base_url="https://openrouter.ai/api/v1",
-                                api_key=getenv("API_KEY_OPENROUTER"), 
+                                model_name="gpt-5.4-mini",
+                                #base_url="https://openrouter.ai/api/v1",
+                                #api_key=getenv("API_KEY_OPENROUTER"), 
+                                api_key=getenv("API_KEY"), 
                                 temperature=0
                               )
 
