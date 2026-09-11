@@ -511,7 +511,7 @@
       showMenuOptions();
     } catch (err) {
       loadingMsg.remove();
-      addBotMessage("Erro ao obter a previsão atual.");
+      addBotMessage("Erro ao obter a previsão atual. Recarregue a página e tente novamente.");
       showMenuOptions();
     }
   }

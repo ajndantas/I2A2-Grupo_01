@@ -373,14 +373,14 @@ def agente2(pergunta,arquivo,engine):
 
     set_llm_cache(InMemoryCache())
     llm = ChatOpenAI( 
-        model="inclusionai/ling-3.0-flash-fin:free",
-        #model="gpt-5.4-mini",
-        base_url="https://openrouter.ai/api/v1",
+        #model="inclusionai/ling-3.0-flash-fin:free",
+        model="gpt-5.6-luna",
+        #base_url="https://openrouter.ai/api/v1",
         temperature=0,
         cache=True,      
         #reasoning_effort="medium",        
-        #api_key=getenv("API_KEY")
-        api_key=getenv("API_KEY_OPENROUTER")        
+        api_key=getenv("API_KEY")
+        #api_key=getenv("API_KEY_OPENROUTER")        
     )
     
     ocr = NotaFiscalOCR() # INSTÂNCIA DO MOTOR OCR
