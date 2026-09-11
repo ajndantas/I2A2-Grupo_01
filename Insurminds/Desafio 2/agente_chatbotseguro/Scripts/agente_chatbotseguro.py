@@ -196,7 +196,7 @@ class AgenteChatbotSeguro:
     from pydantic import BaseModel, Field
 
     llm = ChatOpenAI(
-                        model="openrouter/free",
+                        model="inclusionai/ling-3.0-flash-fin:free",
                         #model="gpt-5.4-mini",                   
                         api_key=getenv("API_KEY_OPENROUTER"),
                         #api_key=getenv("API_KEY"),                        
