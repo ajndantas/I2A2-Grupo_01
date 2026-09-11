@@ -548,7 +548,7 @@
       showMenuOptions();
     } catch (err) {
       loadingMsg.remove();
-      addBotMessage("Erro ao obter a previsão de 7 dias.");
+      addBotMessage("Erro ao obter a previsão de 7 dias. Recarregue a página e tente novamente.");
       showMenuOptions();
     }
   }
