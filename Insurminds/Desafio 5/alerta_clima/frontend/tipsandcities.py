@@ -5,6 +5,7 @@ from app.llm import LLM
 from typing import List
 import json
 from fastapi import HTTPException
+import asyncio
 
 class Tips:
 
@@ -101,8 +102,8 @@ if __name__ == "__main__":
     tips = Tips()
     cities = Cities()
 
-    cities = cities.getCities()
-    tips = tips.getTips()
+    cities = asyncio.run(cities.getCities())
+    tips = asyncio.run(tips.getTips())
 
     print("Cities: \n", cities)
     print("Tips: \n", tips)
