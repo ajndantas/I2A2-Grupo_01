@@ -16,14 +16,13 @@ class LLM:
 
         llm = ChatOpenAI(
                                 model_name="openrouter/free",
-                                #model_name="dots-studio/dots-3-note-preview:free",
                                 base_url="https://openrouter.ai/api/v1",
 
                                 #model_name="gpt-5.4-mini", 
                                 #api_key=getenv("API_KEY"),
                                 api_key=getenv("API_KEY_OPENROUTER"),
                                 cache=False,
-                                temperature=0.5,
+                                temperature=0.5
                                 #reasoning_effort="high",                            
                         ) 
 
