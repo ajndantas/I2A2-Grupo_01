@@ -63,7 +63,7 @@ class Cities:
 
                         ## PASSOS:
                         1. Forneça o nome de 42 cidades, as respectivas siglas de seus 
-                        estados(**SEMPRE** 2 letras, TODAS MAIÚSCULAS), caso não tenha estado, que seja do seu país (**SEMPRE**3 letras, TODAS MAIÚSCULAS), e seus tipos, se "brasileira" (Pertence ao Brasil) ou "global" (não pertence ao Brasil). 
+                        estados(**SEMPRE** 2 letras, TODAS MAIÚSCULAS), caso não tenha estado, que seja do seu país(**SEMPRE** 3 letras, TODAS MAIÚSCULAS), e seus tipos, se "brasileira" (Pertence ao Brasil) ou "global" (não pertence ao Brasil). 
                         2. 24 cidades brasileiras e 18 globais.
                                                 
                         ## SAÍDA
