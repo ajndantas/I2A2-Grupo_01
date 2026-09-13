@@ -71,8 +71,7 @@ class AlertRequest(WeatherRequest):
             super().__init__() 
 
     def getAlert(self) -> Alert:
-            description = self._getDescriptions(self._getWeatherCode())
-            advice = Advice(description).getAdvice()
+            description = self._getDescriptions(self._getWeatherCode())            
             weather_icon = self._getIcons(self._getWeatherCode())
            
             if (
@@ -80,6 +79,7 @@ class AlertRequest(WeatherRequest):
                     or self._getWeatherCode() > 82
                 ):
 
+                advice = Advice(description).getAdvice()
                 message = f"{description} {weather_icon} - {advice}"
     
                 return Alert(message = message)

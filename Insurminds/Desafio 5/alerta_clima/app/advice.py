@@ -5,6 +5,9 @@ from langchain_core.globals import set_debug
 from typing import overload
 import json
 from pydantic import BaseModel, Field
+from fastapi import HTTPException
+from langchain_core.exceptions import OutputParserException
+
 
 set_debug(True)
 
@@ -46,8 +49,8 @@ class Advice:
                 json_conselho = qa_chain.invoke({"description": description})
                 conselho = json_conselho
 
-            except Exception as e:
-                print(e)
+            except OutputParserException:
+                raise HTTPException(status_code=500, detail="Nao foi possivel obter o conselho. Reinicie a aplicação")
                                 
 
             self.__conselho = conselho['conselho']
@@ -79,11 +82,8 @@ class Advice:
                 
                 conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))
                 
-            except Exception:                
-
-                json_conselhos = qa_chain.invoke({"descriptionlist": description})
-                               
-                conselhos = json.loads(json.dumps(json_conselhos, ensure_ascii=False))
+            except OutputParserException:
+                raise HTTPException(status_code=500, detail="Nao foi possivel obter o conselho. Reinicie a aplicação")
                 
             self.__conselho = conselhos['conselhos']
 

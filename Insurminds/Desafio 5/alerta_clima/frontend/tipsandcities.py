@@ -79,20 +79,19 @@ class Cities:
             partial_variables={"formatação de saída": parser.get_format_instructions()},
         )
         
-        qa_chain = prompt_template | LLM.getLLM() | parser        
-        
-        try:
-            json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)            
-
-        except Exception:
-            raise HTTPException(status_code=500, detail="Nao foi possivel obter as cidades. Reinicie a aplicação")
-        
+        qa_chain = prompt_template | LLM.getLLM() | parser
+        json_qa_chain = json.dumps(qa_chain.invoke({}), ensure_ascii=False)         
             
         self.__qa_chain = json.loads(json_qa_chain)
         
     async def getCities(self) -> List[City]:
-        self.__cities = self.__qa_chain['cities']
-        return self.__cities
+
+        try:
+            self.__cities = self.__qa_chain['cities']
+            return self.__cities
+
+        except Exception:
+            raise HTTPException(status_code=500, detail="Nao foi possivel obter as cidades. Reinicie a aplicação")
     
 
 
