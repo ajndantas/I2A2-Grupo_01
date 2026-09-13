@@ -15,13 +15,12 @@ class LLM:
     def getLLM(cls):               
 
         llm = ChatOpenAI(
-                                #model_name="inclusionai/ling-3.0-flash-fin:free",
-                                #base_url="https://openrouter.ai/api/v1",
+                                model_name="openrouter/free",
+                                base_url="https://openrouter.ai/api/v1",
                                 
-                                #model_name="gpt-5.4-mini",
-                                model_name="gpt-5.6-luna",
-                                api_key=getenv("API_KEY"),
-                                #api_key=getenv("API_KEY_OPENROUTER"),
+                                #model_name="gpt-5.6-luna",
+                                #api_key=getenv("API_KEY"),
+                                api_key=getenv("API_KEY_OPENROUTER"),
                                 cache=False,
                                 temperature=0.5
                                 #reasoning_effort="high",                            
