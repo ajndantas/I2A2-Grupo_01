@@ -21,3 +21,9 @@ O projeto está implantado e disponível para testes em tempo real na infraestru
 * 🐍 **Python 3.13,**⚡ **FastAPI,**🦜 **LangChain, OpenAI,** 🌍 **Open-Meteo API,** 🧱 **HTML, CSS e JavaScript puro,** 🐳 **Docker,** 🐙 **GitHub Actions (CI/CD)** e ☁️ **GCP Cloud Run** – Hospedagem da aplicação em produção.
 
 ---
+
+Não é teoria — é código rodando em produção, aprendido na prática enquanto atuo profissionalmente e me especializo simultaneamente.
+
+🔗 [Portfólio completo no GitHub](https://github.com/ajndantas/I2A2-Grupo_01#-portf%C3%B3lio-de-intelig%C3%AAncia-artificial)
+
+📍 Rio de Janeiro | Aberto para contatos
