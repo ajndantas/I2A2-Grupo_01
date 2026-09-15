@@ -14,8 +14,6 @@ ENV_PATH = (
                 .resolve() # RESOLVE O CAMINHO ABSOLUTO
                 .parent # RETORNA O CAMINHO DA PASTA PAI DO ARQUIVO ATUAL
             )
-
-
             
 
 load_dotenv(dotenv_path=f"{ENV_PATH}/.env")  # CARREGANDO O ARQUIVO .env DA PASTA DO APP, pois antes só funcionaria se 
@@ -51,7 +49,7 @@ class AgenteRag:
 
     class OutputSchema(BaseModel):
         pergunta: str = Field(description="A pergunta do usuário")
-        resposta: str = Field(description="A resposta para a pergunta. **SEMPRE** colocar em formato de tabela")
+        resposta: str = Field(description="A resposta para a pergunta.")
         tipo: str = Field(description="O tipo da resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.")
                 
 
