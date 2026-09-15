@@ -6,6 +6,7 @@ from time import time
 import re
 from pathlib import Path
 
+
 set_debug(True)
 #set_verbose(True)
 
@@ -136,11 +137,11 @@ class AgenteRag:
       print("JSON\n",self.json)    
 
       return self.json
-
   
   def __set_memory(self):
-      
-      set_llm_cache(InMemoryCache()) 
+      cache = InMemoryCache()
+
+      set_llm_cache(cache) 
       print("Memória personalizada ativada para iniciar uma nova conversa com um histórico específico.\n")
 
 

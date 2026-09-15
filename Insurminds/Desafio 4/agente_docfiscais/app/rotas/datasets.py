@@ -9,6 +9,7 @@ from os import makedirs, listdir
 from pathlib import Path
 import shutil
 import json
+from functools import lru_cache
 
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL
@@ -17,6 +18,9 @@ ENV_PATH = (
                 .parent # RETORNA O CAMINHO DA PASTA PAI DO ARQUIVO ATUAL
             )
 
+@lru_cache
+def getAgenteRag():
+    return AgenteRag()
 
 #print("ENV_PATH: ", ENV_PATH)
 
@@ -70,7 +74,7 @@ async def upload(file: UploadFile = File(...), ocr = Depends(NotaFiscalOCR)):
             }        
     
 @router.post("/{dataset_id}/query")
-async def query_dataset(dataset_id: str, payload: DatasetQuery, ag = Depends(AgenteRag)): # O segundo parâmetro é o payload e não
+async def query_dataset(dataset_id: str, payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
                                                                                           # deve ser de tipo primitivo, porque o 
                                                                                           # frontend irá enviar no CORPO do JSON.
                                                                                           #
