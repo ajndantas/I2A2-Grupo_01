@@ -16,6 +16,7 @@ ENV_PATH = (
                 .parent # RETORNA O CAMINHO DA PASTA PAI DO ARQUIVO ATUAL
             )
 
+
 class NotaFiscalOCR:
     """
     Classe responsável por realizar OCR em notas fiscais eletrônicas,
@@ -38,6 +39,7 @@ class NotaFiscalOCR:
         if name == 'nt':
             self.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe" 
             self.poppler_path = f"{ENV_PATH}/poppler/poppler/poppler-24.08.0/Library/bin"
+            
         
         # PARA LINUX
         elif name == 'posix':

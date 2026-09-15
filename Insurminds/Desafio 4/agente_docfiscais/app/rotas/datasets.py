@@ -17,6 +17,7 @@ ENV_PATH = (
                 .parent # RETORNA O CAMINHO DA PASTA PAI DO ARQUIVO ATUAL
             )
 
+
 #print("ENV_PATH: ", ENV_PATH)
 
 router = APIRouter(

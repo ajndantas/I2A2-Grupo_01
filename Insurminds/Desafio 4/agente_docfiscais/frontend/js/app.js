@@ -18,8 +18,8 @@ const elements = {
 let selectedFile = null;
 let activeDataset = null;
 const chartInstances = [];
-const suggestionTexts = ["Quais foram os cinco maiores fornecedores?", "Qual produto teve o maior valor?", "Qual UF concentrou mais compras?", "Quais são os principais CFOPs?"];
-const acceptedExtensions = [".csv", ".pdf", ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tif", ".tiff"];
+const suggestionTexts = ["Quem é o tomador dos serviços ?", "Quem é o fornecedor dos serviços ?", "Qual é o serviço oferecido ?", "Qual é o endereço do tomador de serviços ?"];
+const acceptedExtensions = [".csv", ".txt", ".pdf", ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tif", ".tiff"];
 
 elements.selectFileButton.addEventListener("click", event => { event.stopPropagation(); elements.fileInput.click(); });
 elements.dropzone.addEventListener("click", () => elements.fileInput.click());

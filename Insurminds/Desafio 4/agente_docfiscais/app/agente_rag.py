@@ -14,6 +14,8 @@ ENV_PATH = (
                 .resolve() # RESOLVE O CAMINHO ABSOLUTO
                 .parent # RETORNA O CAMINHO DA PASTA PAI DO ARQUIVO ATUAL
             )
+
+
             
 
 load_dotenv(dotenv_path=f"{ENV_PATH}/.env")  # CARREGANDO O ARQUIVO .env DA PASTA DO APP, pois antes só funcionaria se 
@@ -37,9 +39,11 @@ class AgenteRag:
     from pydantic import BaseModel, Field
 
     llm = ChatOpenAI(
-                        model="gpt-5.4-mini", # MAIS RÁPIDO
+                        model_name="openrouter/free",
+                        base_url="https://openrouter.ai/api/v1",
                         #model="gpt-5.6-luna",                   
-                        api_key=getenv("API_KEY"),                        
+                        #api_key=getenv("API_KEY"),
+                        api_key=getenv("API_KEY_OPENROUTER"),                        
                         #reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
                         temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
                     )    
@@ -49,7 +53,7 @@ class AgenteRag:
         pergunta: str = Field(description="A pergunta do usuário")
         resposta: str = Field(description="A resposta para a pergunta.")
         tipo: str = Field(description="O tipo da resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.")
-        
+                
 
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
 

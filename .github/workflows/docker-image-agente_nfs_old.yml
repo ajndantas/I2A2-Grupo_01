@@ -4,11 +4,7 @@ on:
   push:
     branches: [ "master" ]
     paths: 
-      - 'Insurminds/Desafio 4/agente_docfiscais/app/**'
-      - 'Insurminds/Desafio 4/agente_docfiscais/frontend/**'
-      - 'Insurminds/Desafio 4/agente_docfiscais/requirements.txt'
-      - 'Insurminds/Desafio 4/agente_docfiscais/Dockerfile'
-      - 'Insurminds/Desafio 4/agente_docfiscais/Exemplos de documentos/**'     
+      - 'Desafio 2 - Projeto - 11062025/agente_nfs/**'     
 
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
