@@ -18,6 +18,17 @@ allow_origins=[
         "https://ENDERECO-PUBLICADO-DO-FRONTEND"
     ],"""
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "https://agente-nfs-574973424283.us-central1.run.app"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/", response_class=HTMLResponse)
 async def frontpage():
