@@ -5,9 +5,7 @@ from magic import from_buffer
 from app.modelos.datasetquery import DatasetQuery
 from app.agente_rag import AgenteRag
 from app.motor_ocr_otimizado import NotaFiscalOCR
-from os import makedirs, listdir
 from pathlib import Path
-import shutil
 import json
 from functools import lru_cache
 
@@ -31,6 +29,7 @@ router = APIRouter(
 
 
 datasets = {} # Dicionário para armazenar os datasets. Localizado aqui, para ser acessado em todas as rotas
+extracted_text = {}
 
 class DatasetQuery(BaseModel):
     question: str
@@ -51,21 +50,19 @@ async def upload(file: UploadFile = File(...), ocr = Depends(NotaFiscalOCR)):
     file_type = from_buffer(uploaded_file, mime=True)
     print("Filetype: ",file_type)    
 
-    if "rag_docs" in listdir(f"{ENV_PATH}"):
-        shutil.rmtree(f"{ENV_PATH}/rag_docs")
+    #if "rag_docs" in listdir(f"{ENV_PATH}"):
+    #    shutil.rmtree(f"{ENV_PATH}/rag_docs")
 
-    makedirs(f"{ENV_PATH}/rag_docs", exist_ok=True)
-
-    extracted_text = ""
+    #makedirs(f"{ENV_PATH}/rag_docs", exist_ok=True)
 
     if file_type not in ["text/plain", "text/csv"]: # Se o arquivo for PDF ou imagem, o OCR irá extrair o texto
-        extracted_text = ocr.main(uploaded_file)        
+        extracted_text[dataset_id] = ocr.main(uploaded_file)        
 
     else: # Se o arquivo for CSV ou TXT, o texto é lido diretamente da memória
-        extracted_text = uploaded_file.decode("utf-8")
+        extracted_text[dataset_id] = uploaded_file.decode("utf-8")
 
-    with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "w", encoding="utf-8") as f: # Grava o texto extraído no arquivo
-                f.write(extracted_text)
+    #with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "w", encoding="utf-8") as f: # Grava o texto extraído no arquivo
+    #            f.write(extracted_text)
 
     # Fornece o dataset_id para o frontend e para preparar a proxima rota
     return {
@@ -82,7 +79,7 @@ async def query_dataset(dataset_id: str, payload: DatasetQuery, ag = Depends(get
                                                                                           # Também poderia ser question: str = Body[...]        
     
 
-    answer = json.loads(ag.query(payload.question))
+    answer = json.loads(ag.query(question=payload.question, context=extracted_text[dataset_id]))    
     
     print("Pergunta: ", payload.question, "Resposta: ", answer['resposta'])
 

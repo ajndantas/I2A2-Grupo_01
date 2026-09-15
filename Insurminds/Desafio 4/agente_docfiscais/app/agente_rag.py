@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
 from os import getenv
-from langchain_core.globals import set_debug, set_llm_cache, set_verbose
+from langchain_core.globals import set_debug, set_llm_cache
 from langchain_core.caches import InMemoryCache
 from time import time
 import re
 from pathlib import Path
-from functools import lru_cache
 
 
 set_debug(True)
@@ -99,12 +98,12 @@ class AgenteRag:
     self.__qa_chain = prompt_template | llm | parseador
 
     
-  def query(self, question: str) -> str:      
+  def query(self, question: str, context: str) -> str:      
       
       import json
 
-      with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "r", encoding="utf-8") as f:
-          context = f.read()
+      #with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "r", encoding="utf-8") as f:
+      #    context = f.read()
       
       output = self.__qa_chain.invoke({"question": question, "context": context}) 
       print("Saída: \n",output)
