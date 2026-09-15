@@ -61,6 +61,16 @@ button { cursor: pointer; }
 .privacy-note { margin: 15px 0 0; color: #899392; text-align: center; font-size: 11px; }
 .alert { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: 13px; }
 .alert.error { color: var(--danger); background: var(--danger-bg); }
+.sample-files { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border); }
+.sample-files-heading p { margin: 7px 0 13px; color: var(--muted); font-size: 12px; }
+.sample-file-links { display: grid; gap: 8px; }
+.sample-file-link { display: grid; grid-template-columns: 42px 1fr 20px; align-items: center; gap: 10px; padding: 9px; color: var(--ink); background: #f8faf9; border: 1px solid transparent; border-radius: 11px; text-decoration: none; transition: .2s ease; }
+.sample-file-link:hover, .sample-file-link:focus-visible { border-color: var(--primary); background: var(--primary-soft); outline: 0; }
+.sample-file-type { display: grid; place-items: center; width: 42px; height: 34px; color: var(--primary); background: white; border: 1px solid var(--border); border-radius: 8px; font-size: 10px; font-weight: 800; }
+.sample-file-link strong, .sample-file-link small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sample-file-link strong { font-size: 12px; }
+.sample-file-link small { margin-top: 3px; color: var(--muted); font-size: 10px; }
+.download-icon { color: var(--primary); font-size: 20px; text-align: center; }
 
 .processing-view { min-height: calc(100vh - 76px); padding: 30px; display: grid; place-content: center; justify-items: center; text-align: center; }
 .processing-view h1 { margin: 26px 0 8px; font: 800 32px Manrope, sans-serif; }
