@@ -65,18 +65,13 @@ class AgenteRag:
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
-                    PERGUNTA:                    
-                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                        {question}
-                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-                    CONTEXTO:                    
-                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                        {context}
-                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-                    DIRETRIZES:
-                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    ## PERGUNTA:                    
+                    {question}
+                    
+                    ## CONTEXTO:                    
+                    {context}
+                    
+                    ## DIRETRIZES:
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para
                         responder a essa pergunta. 
 
@@ -86,6 +81,7 @@ class AgenteRag:
                         - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta."
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
                     
+                    ## SAÍDA:
                     **SEMPRE** utilizar o seguinte formato para a saída.
 
                     {formatador da saida}
