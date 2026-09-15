@@ -43,6 +43,7 @@ class AgenteRag:
                         #api_key=getenv("API_KEY"),
                         api_key=getenv("API_KEY_OPENROUTER"),                        
                         #reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
+                        cache=True,
                         temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
                     )    
 
