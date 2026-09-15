@@ -22,7 +22,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:8000",
-        "http://127.0.0.1:8000"
+        "http://127.0.0.1:8000",
+        "https://agente-nfs-574973424283.us-central1.run.app"
     ],
     allow_credentials=False,
     allow_methods=["GET", "POST"],
