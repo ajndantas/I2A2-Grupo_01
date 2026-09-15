@@ -5,6 +5,7 @@ from langchain_core.caches import InMemoryCache
 from time import time
 import re
 from pathlib import Path
+from functools import lru_cache
 
 
 set_debug(True)
@@ -138,6 +139,7 @@ class AgenteRag:
 
       return self.json
   
+
   def __set_memory(self):
       cache = InMemoryCache()
 

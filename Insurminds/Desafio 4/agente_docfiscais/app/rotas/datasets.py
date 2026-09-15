@@ -18,11 +18,12 @@ ENV_PATH = (
                 .parent # RETORNA O CAMINHO DA PASTA PAI DO ARQUIVO ATUAL
             )
 
+#print("ENV_PATH: ", ENV_PATH)
+
 @lru_cache
 def getAgenteRag():
     return AgenteRag()
 
-#print("ENV_PATH: ", ENV_PATH)
 
 router = APIRouter(
     prefix="/api/datasets"
@@ -72,7 +73,7 @@ async def upload(file: UploadFile = File(...), ocr = Depends(NotaFiscalOCR)):
                 "status": "ready",
                 "name": filename
             }        
-    
+
 @router.post("/{dataset_id}/query")
 async def query_dataset(dataset_id: str, payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
                                                                                           # deve ser de tipo primitivo, porque o 
