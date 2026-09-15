@@ -18,7 +18,7 @@ allow_origins=[
         "https://ENDERECO-PUBLICADO-DO-FRONTEND"
     ],"""
 
-app.add_middleware(
+""" app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:8000",
@@ -28,7 +28,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
+) """
 
 @app.get("/", response_class=HTMLResponse)
 async def frontpage():
