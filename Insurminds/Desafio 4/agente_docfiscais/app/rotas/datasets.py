@@ -39,7 +39,8 @@ async def upload(file: UploadFile = File(...), ocr = Depends(NotaFiscalOCR)):
     print("dataset_id: ", dataset_id)
     
     datasets[dataset_id] = await file.read()
-    uploaded_file = datasets.get(dataset_id)
+    uploaded_file = datasets.get(dataset_id) # EM MEMÓRIA
+
     filename = file.filename
    
     file_type = from_buffer(uploaded_file, mime=True)
@@ -53,17 +54,13 @@ async def upload(file: UploadFile = File(...), ocr = Depends(NotaFiscalOCR)):
     extracted_text = ""
 
     if file_type not in ["text/plain", "text/csv"]: # Se o arquivo for PDF ou imagem, o OCR irá extrair o texto
-        extracted_text = ocr.main(uploaded_file)
+        extracted_text = ocr.main(uploaded_file)        
 
-        with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "w", encoding="utf-8") as f: # Grava o texto extraído no arquivo
-            f.write(extracted_text)
+    else: # Se o arquivo for CSV ou TXT, o texto é lido diretamente da memória
+        extracted_text = uploaded_file.decode("utf-8")
 
-    else: # Se o arquivo for CSV ou TXT, o texto é lido diretamente do arquivo
-        with open(f"{ENV_PATH}/rag_docs/{filename}", "r") as f2:
-            extracted_text = f2.read()
-
-        with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "w", encoding="utf-8") as f: # Grava o texto extraído no arquivo chamado "extracted_text.txt"
-            f.write(extracted_text)
+    with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "w", encoding="utf-8") as f: # Grava o texto extraído no arquivo
+                f.write(extracted_text)
 
     # Fornece o dataset_id para o frontend e para preparar a proxima rota
     return {

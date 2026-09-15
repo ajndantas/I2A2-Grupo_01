@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from app.rotas import datasets
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
