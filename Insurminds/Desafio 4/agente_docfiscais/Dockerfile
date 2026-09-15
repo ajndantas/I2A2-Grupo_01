@@ -28,8 +28,8 @@ COPY requirements.txt .
 
 
 # Copie o restante do código da sua aplicação para o diretório de trabalho
-COPY app/ .
-COPY frontend/ .
+COPY app/ ./app/
+COPY frontend/ ./frontend/
 
 # Instale os pacotes Python
 RUN pip install --no-cache-dir -r requirements.txt
