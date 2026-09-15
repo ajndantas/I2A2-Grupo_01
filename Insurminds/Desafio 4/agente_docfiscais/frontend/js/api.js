@@ -35,7 +35,7 @@ export async function askQuestion(datasetId, question) {
 
 async function parseResponse(response) {
   const payload = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(payload.detail || payload.message || "Não foi possível concluir a solicitação.");
+  if (!response.ok) throw new Error(payload.detail || payload.message || "Não foi possível concluir a solicitação. Tente Novamente.");
   return payload;
 }
 
