@@ -72,8 +72,8 @@ class AgenteRag:
                     {context}
                     
                     ## DIRETRIZES:
-                        - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para
-                        responder a essa pergunta. 
+                        - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para 
+                        responder a essa pergunta."
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso nas suas respostas. Realize todas as 
                         correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
