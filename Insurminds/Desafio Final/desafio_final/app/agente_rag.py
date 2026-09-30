@@ -49,14 +49,17 @@ class AgenteRag:
                     )    
 
 
-    class OutputSchema(BaseModel):
+    class OutputSchema(BaseModel):        
+
+        from typing import Literal, Any
+
         pergunta: str = Field(description="A pergunta do usuário")
         resposta: str = Field(description="A resposta para a pergunta no formato texto")
-        tipo: Literal['text','table','chart','mixed'] = Field(description="O tipo da resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico de barras, responder como bar, se for texto com gráfico de , se for texto, tabela e grafico, responder como mixed.")
-        colunas: List[str] = Field(description="O tipo sendo table, listar o nome das colunas, do contrário, colocar null")
-        linhas: List[List[str]]  = Field(description="O tipo sendo table, informar uma lista de listas, aonde cada lista representa uma linha, cada item da lista está na ordem das colunas, representando cada valor")
+        tipo: Literal['text','table','chart','mixed'] = Field(description="O tipo da resposta. Se for somente texto, responder como 'text', se for texto e tabela, responder como 'table', se for texto com gráfico, responder como 'chart', e se for texto, tabela e grafico, responder como 'mixed'.")
+        tipografico: Literal['bar','doughnut','null'] = Field(description="O tipo da resposta sendo 'chart' ou 'mixed', informar o tipo de gráfico. Se o tipo da resposta não for 'chart' ou 'mixed', informar 'null'")
+        colunas: Any = Field(description="O tipo sendo 'table', listar o nome das colunas, do contrário, colocar 'null'")
+        linhas: Any = Field(description="O tipo sendo 'table', informar uma lista de listas, aonde cada lista representa uma linha, cada item da lista está na ordem das colunas, representando cada valor")
                 
-
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
 
     template = """
