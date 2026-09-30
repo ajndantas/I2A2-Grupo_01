@@ -53,6 +53,8 @@ class AgenteRag:
         pergunta: str = Field(description="A pergunta do usuário")
         resposta: str = Field(description="A resposta para a pergunta no formato texto")
         tipo: Literal['text','table','chart','mixed'] = Field(description="O tipo da resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.")
+        colunas: List[str] = Field(description="O tipo sendo table, listar o nome das colunas, do contrário, colocar null")
+        linhas: List[Dict[str,str]]  = Field(description="O tipo sendo table, informar uma lista de dicionários, aonde cada dicionário representa uma linha, cada chave o nome da coluna e cada valor, o valor nessa coluna")
                 
 
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
