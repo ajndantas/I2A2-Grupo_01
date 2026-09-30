@@ -51,7 +51,7 @@ class AgenteRag:
 
     class OutputSchema(BaseModel):        
 
-        from typing import Literal, Any, List
+        from typing import Literal, List
 
         pergunta: str = Field(description="A pergunta do usuário")
         resposta: str = Field(description="A resposta para a pergunta no formato texto")
