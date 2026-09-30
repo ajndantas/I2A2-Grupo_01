@@ -70,45 +70,7 @@ async def uploads(files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalO
                 "dataset_ids": datasets.keys(), 
                 "status": "ready",
                 "name": filename
-            }   
-
-
-@router.post("/upload")
-async def upload(file: UploadFile = File(...), ocr = Depends(NotaFiscalOCR)):
-
-    random_number = str(random.randint(1,9999)).zfill(3)    
-    dataset_id = f'ds_{random_number}'
-
-    print("dataset_id: ", dataset_id)
-    
-    datasets[dataset_id] = await file.read()
-    uploaded_file = datasets.get(dataset_id) # EM MEMÓRIA
-
-    filename = file.filename
-   
-    file_type = from_buffer(uploaded_file, mime=True)
-    print("Filetype: ",file_type)    
-
-    #if "rag_docs" in listdir(f"{ENV_PATH}"):
-    #    shutil.rmtree(f"{ENV_PATH}/rag_docs")
-
-    #makedirs(f"{ENV_PATH}/rag_docs", exist_ok=True)
-
-    if file_type not in ["text/plain", "text/csv"]: # Se o arquivo for PDF ou imagem, o OCR irá extrair o texto
-        extracted_text[dataset_id] = ocr.main(uploaded_file)        
-
-    else: # Se o arquivo for CSV ou TXT, o texto é lido diretamente da memória
-        extracted_text[dataset_id] = uploaded_file.decode("utf-8")
-
-    #with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "w", encoding="utf-8") as f: # Grava o texto extraído no arquivo
-    #            f.write(extracted_text)
-
-    # Fornece o dataset_id para o frontend e para preparar a proxima rota
-    return {
-                "dataset_id": dataset_id, 
-                "status": "ready",
-                "name": filename
-            }        
+            }
 
 
 @router.post(
