@@ -98,7 +98,7 @@ class AgenteRag:
 
     self.__qa_chain = prompt_template | llm | parseador
 
-  def query(self, question: str, context: dict) -> str  
+  def query(self, question: str, context: dict) -> str:
        
       import json
 
