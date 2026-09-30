@@ -65,7 +65,8 @@ class AgenteRag:
                     Seus conhecimentos estão baseados em um conjunto de documentos relacionados a documentos fiscais, CONTEXTO,
                     que podem conter informações relevantes para responder às perguntas dos usuários. 
 
-                    **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
+                    **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO, aonde no dicionário
+                    fornecido, as chaves representam os nomes dos arquivos das apólices, e seus respectivos valores, os textos das apólices
 
                     ## PERGUNTA:                    
                     {question}
@@ -99,12 +100,8 @@ class AgenteRag:
 
     self.__qa_chain = prompt_template | llm | parseador
 
-  @overload
-  def query(self, question: str, context: list) -> str:...
-  @overload
-  def query(self, question: str, context: str) -> str:...    
-  def query(self, question: str, context) -> str:      
-      
+  def query(self, question: str, context: dict) -> str  
+       
       import json
 
       #with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "r", encoding="utf-8") as f:
