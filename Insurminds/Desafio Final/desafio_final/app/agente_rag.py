@@ -51,8 +51,8 @@ class AgenteRag:
 
     class OutputSchema(BaseModel):
         pergunta: str = Field(description="A pergunta do usuário")
-        resposta: str = Field(description="A resposta para a pergunta.")
-        tipo: str = Field(description="O tipo da resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.")
+        resposta: str = Field(description="A resposta para a pergunta no formato texto")
+        tipo: Literal['text','table','chart','mixed'] = Field(description="O tipo da resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.")
                 
 
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
@@ -80,7 +80,7 @@ class AgenteRag:
                         correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
 
                         - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta."
-                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+                        - Escolha o melhor tipo de resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.
                     
                     ## SAÍDA:
                     **SEMPRE** utilizar o seguinte formato para a saída.

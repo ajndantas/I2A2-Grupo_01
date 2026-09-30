@@ -15,7 +15,6 @@ from typing import List
 
 """
 
-
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL
                 .resolve() # RESOLVE O CAMINHO ABSOLUTO
