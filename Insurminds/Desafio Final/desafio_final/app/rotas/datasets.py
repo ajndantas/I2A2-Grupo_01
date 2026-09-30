@@ -1,7 +1,6 @@
 from fastapi import APIRouter, File, UploadFile, Depends
 from pydantic import BaseModel
 from app.modelos.datasetquery import DatasetQuery
-from app.agente_rag import AgenteRag
 from app.motor_ocr_otimizado import NotaFiscalOCR
 from pathlib import Path
 from functools import lru_cache
@@ -28,6 +27,9 @@ ENV_PATH = (
 
 @lru_cache
 def getAgenteRag():
+
+    from app.agente_rag import AgenteRag
+    
     return AgenteRag()
 
 
