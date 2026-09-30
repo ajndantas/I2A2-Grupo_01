@@ -1,12 +1,9 @@
 from fastapi import APIRouter, File, UploadFile, Depends
 from pydantic import BaseModel
-import random
-from magic import from_buffer 
 from app.modelos.datasetquery import DatasetQuery
 from app.agente_rag import AgenteRag
 from app.motor_ocr_otimizado import NotaFiscalOCR
 from pathlib import Path
-import json
 from functools import lru_cache
 from typing import List
 
@@ -41,6 +38,9 @@ class DatasetQuery(BaseModel):
 
 @router.post("/uploads")
 async def uploads(files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalOCR)):
+
+    from magic import from_buffer 
+    import random
 
     for file in files:
 
@@ -85,7 +85,7 @@ async def query_dataset(dataset_ids: str, payload: DatasetQuery, ag = Depends(ge
                                                                                               # deve ser de tipo primitivo, porque o 
                                                                                               # frontend irá enviar no CORPO do JSON.
                                                                                               #
-                                                                                              # Também poderia ser question: str = Body[...]        
+    import json                                                                               # Também poderia ser question: str = Body[...]        
     
     ids = dataset_ids.split(",")
 
