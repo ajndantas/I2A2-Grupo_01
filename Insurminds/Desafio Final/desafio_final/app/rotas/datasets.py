@@ -10,6 +10,7 @@ import json
 from functools import lru_cache
 from typing import List
 
+
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL
                 .resolve() # RESOLVE O CAMINHO ABSOLUTO
@@ -31,14 +32,15 @@ router = APIRouter(
 
 datasets = {} # Dicionário para armazenar os datasets identificados pelos dataset_ids. Localizado aqui, para ser acessado em todas as rotas
 extracted_text = {}
-filename = []
+context = {}
+
 
 class DatasetQuery(BaseModel):
     question: str
 
 
 @router.post("/uploads")
-async def uploads(files: List[UploadFile] = List[File(...)], ocr = Depends(NotaFiscalOCR)):
+async def uploads(files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalOCR)):
 
     for file in files:
 
@@ -50,8 +52,8 @@ async def uploads(files: List[UploadFile] = List[File(...)], ocr = Depends(NotaF
         datasets[dataset_id] = await file.read()
         uploaded_file = datasets.get(dataset_id) # EM MEMÓRIA
 
-        filename.append(file.filename)
-   
+        filename = file.filename
+
         file_type = from_buffer(uploaded_file, mime=True)
         print("Filetype: ",file_type)
 
@@ -60,6 +62,8 @@ async def uploads(files: List[UploadFile] = List[File(...)], ocr = Depends(NotaF
 
         else: # Se o arquivo for CSV ou TXT, o texto é lido diretamente da memória
             extracted_text[dataset_id] = uploaded_file.decode("utf-8")
+
+        context[filename] = extracted_text[dataset_id]
 
 
     return {
@@ -107,22 +111,29 @@ async def upload(file: UploadFile = File(...), ocr = Depends(NotaFiscalOCR)):
             }        
 
 
-
-@router.post("/{dataset_id}/query")
-async def query_dataset(dataset_id: str, payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
-                                                                                          # deve ser de tipo primitivo, porque o 
-                                                                                          # frontend irá enviar no CORPO do JSON.
-                                                                                          #
-                                                                                          # Também poderia ser question: str = Body[...]        
+@router.post(
+            "/{dataset_ids}/query",
+            summary="Consultar datasets",
+            description=(
+                "Informe os IDs dos datasets separados por vírgula no caminho. "
+                "Exemplo: `/api/datasets/ds_123,ds_456/query`."
+            )
+        ) # Dataset_ids recebe uma string com os dataset_ids separados por vírgula
+async def query_dataset(dataset_ids: str, payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
+                                                                                              # deve ser de tipo primitivo, porque o 
+                                                                                              # frontend irá enviar no CORPO do JSON.
+                                                                                              #
+                                                                                              # Também poderia ser question: str = Body[...]        
     
+    ids = dataset_ids.split(",")
 
-    answer = json.loads(ag.query(question=payload.question, context=extracted_text[dataset_id]))    
+    answer = json.loads(ag.query(question=payload.question, context=context))    
     
     print("Pergunta: ", payload.question, "Resposta: ", answer['resposta'])
 
 
     return {
-        "dataset_id": dataset_id,
+        "dataset_ids": ids,
         "type": answer['tipo'],
         "request": payload.question,
         "status": "ready",

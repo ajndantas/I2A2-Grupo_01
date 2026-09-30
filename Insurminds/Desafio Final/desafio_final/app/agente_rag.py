@@ -1,3 +1,5 @@
+from typing import overload
+
 from dotenv import load_dotenv
 from os import getenv
 from langchain_core.globals import set_debug, set_llm_cache
@@ -97,8 +99,11 @@ class AgenteRag:
 
     self.__qa_chain = prompt_template | llm | parseador
 
-    
-  def query(self, question: str, context: str) -> str:      
+  @overload
+  def query(self, question: str, context: list) -> str:...
+  @overload
+  def query(self, question: str, context: str) -> str:...    
+  def query(self, question: str, context) -> str:      
       
       import json
 
