@@ -56,9 +56,9 @@ class AgenteRag:
         pergunta: str = Field(description="A pergunta do usuário")
         resposta: str = Field(description="A resposta para a pergunta no formato texto")
         tipo: Literal['text','table','chart','mixed'] = Field(description="Classifique o conteúdo da resposta: use 'text' quando houver apenas texto; 'table' quando houver texto e uma tabela; 'chart' quando houver texto e um gráfico; e 'mixed' quando houver texto, tabela e gráfico.")
-        tipografico: Literal['bar','doughnut', None] = Field(description="Quando 'tipo' for 'chart' ou 'mixed', informe o tipo de gráfico: 'bar' para gráfico de barras ou 'doughnut' para gráfico de rosca. Nos demais casos, use null.")
-        colunas: List[str]|Literal[None] = Field(description="Quando 'tipo' for 'table' ou 'mixed', informe os nomes das colunas na ordem em que aparecem na tabela. Nos demais casos, use null.")
-        linhas: List[List[str]]|Literal[None] = Field(description="Quando 'tipo' for 'table' ou 'mixed', informe os dados como uma lista de listas: cada lista interna representa uma linha, e seus valores devem seguir a mesma ordem de 'colunas'. Nos demais casos, use null.")
+        tipografico: Literal['bar','doughnut']| None = Field(description="Quando 'tipo' for 'chart' ou 'mixed', informe o tipo de gráfico: 'bar' para gráfico de barras ou 'doughnut' para gráfico de rosca. Nos demais casos, use null.")
+        colunas: List[str]| None = Field(description="Quando 'tipo' for 'table' ou 'mixed', informe os nomes das colunas na ordem em que aparecem na tabela. Nos demais casos, use null.")
+        linhas: List[List[str]]| None = Field(description="Quando 'tipo' for 'table' ou 'mixed', informe os dados como uma lista de listas: cada lista interna representa uma linha, e seus valores devem seguir a mesma ordem de 'colunas'. Nos demais casos, use null.")
                 
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
 
