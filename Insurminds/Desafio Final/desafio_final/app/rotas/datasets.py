@@ -8,6 +8,13 @@ from functools import lru_cache
 from typing import List
 from fastapi import Request
 
+""" 
+    Modifique os códigos de app.zip e frontend.zip, para que as seguintes ações possam ser realizadas:
+
+    1 - Possa ser feito o upload de mais de um arquivo 
+    2 - Ao se realizar o upload, possa ser associado um dataset para cada um deles, aonde esse dataset_id é gerado pelo código dataset.py, endpoint/api/datasets/uploads
+    3 - No momento em que a pergunta foi submetida, os dataset_ids que foram gerados, sejam enviados para o endpoint "/{dataset_ids}/query" 
+"""
 
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL
@@ -35,10 +42,8 @@ datasets = {} # Dicionário para armazenar os datasets identificados pelos datas
 extracted_text = {}
 context = {}
 
-
 class DatasetQuery(BaseModel):
     question: str
-
 
 @router.post("/uploads")
 async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalOCR)):
@@ -57,7 +62,7 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
         uploaded_file = datasets.get(dataset_id) # EM MEMÓRIA
 
         filename = file.filename
-
+        
         file_type = from_buffer(uploaded_file, mime=True)
         print("Filetype: ",file_type)
 
@@ -69,17 +74,14 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
 
         context[filename] = extracted_text[dataset_id]
 
-        request.session["dataset_ids"] = list(datasets.keys()) # Armazena os dataset_ids na sessão do request
-
-        datasets = {}
-        
+    request.session["dataset_ids"] = list(datasets.keys()) # Armazena os dataset_ids na sessão do request
+    request.session["filenames"] = list(context.keys()) # Armazena os filenames na sessão do request
 
     return {
                 "dataset_ids": request.session.get("dataset_ids"), 
                 "status": "ready",
-                "name": filename
+                "filenames": request.session.get("filenames")
             }
-
 
 
 @router.post(
@@ -91,15 +93,32 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
             ),
             response_model=OutputSchema
         ) # Dataset_ids recebe uma string com os dataset_ids separados por vírgula
-async def query_dataset(payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
+async def query_dataset(payload: DatasetQuery, ag = Depends(getAgenteRag)) -> OutputSchema: # O segundo parâmetro é o payload e não
                                                                                               # deve ser de tipo primitivo, porque o 
                                                                                               # frontend irá enviar no CORPO do JSON.
                                                                                               #
     import json                                                                               # Também poderia ser question: str = Body[...]        
 
         
-    answer = json.loads(ag.query(question=payload.question, context=context))    
+    answer = json.loads(ag.query(question=payload.question, context=context))
+
+    if answer.type == "table":
+        output = OutputSchema(answer=answer.answer, type=answer.type, columns=answer.table.columns, rows=answer.table.rows, chart=None)
+        
+    elif answer.type == "chart":
+        output = OutputSchema(answer=answer.answer, type=answer.type, columns=answer.chart.labels, datasets=answer.chart.datasets, table=None)
+        
+    elif answer.type == "mixed":
+        output = OutputSchema(answer=answer.answer, type=answer.type, columns=answer.table.columns, rows=answer.table.rows, chart=answer.chart)
+        
+    elif answer.type == "text":
+        output = OutputSchema(answer=answer.answer, type=answer.type, table=None, chart=None)
+
+    output.model_dump(exclude_none=True) # Remove os campos nulos da resposta
     
     #print("Pergunta: ", payload.question, "Resposta: ", answer['resposta'])
 
-    return answer
+    datasets.clear()
+    context.clear()
+
+    return output

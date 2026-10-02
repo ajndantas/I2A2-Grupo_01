@@ -17,8 +17,8 @@ class ChartSchema(BaseModel):
 class OutputSchema(BaseModel):
     answer: str = Field(description="A resposta para a pergunta no formato texto")
     type: Literal['text','table','chart','mixed'] = Field(description="Classifique o conteúdo da resposta: use 'text' quando houver apenas texto; 'table' quando houver texto e uma tabela; 'chart' quando houver texto e um gráfico; e 'mixed' quando houver texto, tabela e gráfico.")
-    table: TableSchema| None = Field(description="Quando 'type' for 'table' ou 'mixed', informe table. Nos demais casos, use null.")
-    chart: ChartSchema| None = Field(description="Quando 'type' for 'chart' ou 'mixed', informe chart. Nos demais casos, use null.")
+    table: TableSchema|None = Field(description="Quando 'type' for 'table' ou 'mixed', informe as linhas e nome das colunas, do contrário, não informar")
+    chart: ChartSchema|None = Field(description="Quando 'type' for 'chart' ou 'mixed', informe os labels e datasets, do contrário, não informar")
 
 
 

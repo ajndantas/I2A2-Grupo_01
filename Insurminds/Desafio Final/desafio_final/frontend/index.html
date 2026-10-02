@@ -26,7 +26,7 @@
       <div class="hero-copy">
         <span class="eyebrow">ANÁLISE FISCAL COM IA</span>
         <h1>Transforme arquivos fiscais em respostas claras.</h1>
-        <p>Envie o arquivo de um documento fiscal e converse com seus dados sem fórmulas, SQL ou planilhas complexas.</p>
+        <p>Envie um ou mais arquivos de documentos fiscais e converse com seus dados sem fórmulas, SQL ou planilhas complexas.</p>
         <ul class="benefits" aria-label="Benefícios">
           <li><span>✓</span> Respostas para perguntas em linguagem natural</li>
           <!--<li><span>✓</span> Respostas em texto, tabelas e gráficos</li>-->
@@ -37,17 +37,20 @@
       <div class="upload-card">
         <div class="step-label"><span>1</span> Carregue os dados</div>
         <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-describedby="uploadHint">
-          <input id="fileInput" type="file" accept=".csv, .pdf, image/*, text/csv, text/plain, application/pdf" hidden>
+          <input id="fileInput" type="file" multiple accept=".csv, .pdf, image/*, text/csv, text/plain, application/pdf" hidden>
           <div class="upload-icon" aria-hidden="true">⇧</div>
-          <h2>Arraste seu arquivo aqui</h2>
+          <h2>Arraste seus arquivos aqui</h2>
           <p>ou <button id="selectFileButton" class="link-button" type="button">selecione no computador</button></p>
           <small id="uploadHint">CSV, Texto, PDF ou imagem. Limite recomendado: 500 MB.</small>
         </div>
 
-        <div id="filePreview" class="file-preview hidden" aria-live="polite">
-          <div id="fileType" class="file-type">ARQUIVO</div>
-          <div><strong id="fileName"></strong><small id="fileSize"></small></div>
-          <button id="removeFileButton" class="icon-button" type="button" aria-label="Remover arquivo">×</button>
+        <div id="filePreview" class="file-preview file-list hidden" aria-live="polite">
+          <div class="file-list-heading">
+            <strong>Arquivos selecionados</strong>
+            <small id="fileCount"></small>
+          </div>
+          <div id="selectedFilesList" class="selected-files-list"></div>
+          <button id="removeFileButton" class="clear-files-button" type="button">Remover todos</button>
         </div>
 
         <div id="uploadError" class="alert error hidden" role="alert"></div>
@@ -95,6 +98,10 @@
         <div class="panel-heading">
           <div><span class="eyebrow">BASE ATIVA</span><h2 id="datasetName">Dados fiscais</h2></div>
           <button id="newAnalysisButton" class="secondary-button" type="button">Nova análise</button>
+        </div>
+        <div class="file-list-wrap active-datasets-wrap">
+          <h3>Datasets associados</h3>
+          <ul id="activeDatasets" class="detected-files"></ul>
         </div>
         <!-- <div class="summary-grid">
           <article><span>Notas fiscais</span><strong id="invoiceCount">—</strong></article>

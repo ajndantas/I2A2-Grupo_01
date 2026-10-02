@@ -1,23 +1,18 @@
 const suppliers = ["Carboxi Indústria e Comércio", "J. T. Indústria de Cafés", "Companhia Brasileira de Educação", "V Caldi Peças e Serviços", "Fornecedor Nacional Ltda."];
 const values = [1254300.42, 986740.3, 764210.15, 589630.0, 421580.78];
 
-export function createDemoDataset(file) {
-  const isLarge = file.name.includes("202505") || file.size > 50 * 1024 * 1024;
+export function createDemoDatasets(files) {
+  const datasetIds = files.map((file, index) => `demo_${Date.now()}_${index + 1}`);
+
   return {
-    dataset_id: `demo_${Date.now()}`,
+    dataset_ids: datasetIds,
+    filenames: files.map(file => file.name),
     status: "ready",
-    name: file.name,
-    summary: {
-      files: 2,
-      invoices: isLarge ? 150976 : 100,
-      items: isLarge ? 549431 : 565,
-      period: isLarge ? "05/2025" : "01/2024",
-      quality_score: isLarge ? 96 : 98,
-      quality_message: "Estrutura consistente e relacionamento por chave de acesso.",
-      detected_files: isLarge
-        ? ["202505_NFe_NotaFiscal.csv", "202505_NFe_NotaFiscalItem.csv"]
-        : ["202401_NFs_Cabecalho.csv", "202401_NFs_Itens.csv"]
-    }
+    files: files.map((file, index) => ({
+      name: file.name,
+      dataset_id: datasetIds[index],
+      size: file.size
+    }))
   };
 }
 
@@ -49,7 +44,7 @@ export function answerDemoQuestion(question) {
     };
   }
   return {
-    answer: "A base foi processada e está pronta para análise. Posso comparar fornecedores, calcular valores, classificar produtos, analisar CFOPs e identificar concentrações por estado. Esta resposta é demonstrativa e será substituída pela análise real quando a API estiver conectada.",
+    answer: "As bases foram processadas e estão prontas para análise. Posso comparar fornecedores, calcular valores, classificar produtos, analisar CFOPs e identificar concentrações por estado.",
     type: "text"
   };
 }

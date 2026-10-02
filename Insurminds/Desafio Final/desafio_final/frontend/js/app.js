@@ -1,32 +1,33 @@
 import { CONFIG } from "./config.js";
-import { uploadDataset, askQuestion } from "./api.js";
+import { uploadDatasets, askQuestion } from "./api.js";
 
 const $ = selector => document.querySelector(selector);
 const elements = {
   uploadView: $("#uploadView"), processingView: $("#processingView"), workspaceView: $("#workspaceView"),
   dropzone: $("#dropzone"), fileInput: $("#fileInput"), selectFileButton: $("#selectFileButton"),
-  filePreview: $("#filePreview"), fileType: $("#fileType"), fileName: $("#fileName"), fileSize: $("#fileSize"),
+  filePreview: $("#filePreview"), fileCount: $("#fileCount"), selectedFilesList: $("#selectedFilesList"),
   removeFileButton: $("#removeFileButton"), processButton: $("#processButton"), uploadError: $("#uploadError"),
   processingMessage: $("#processingMessage"), progressBar: $("#progressBar"), newAnalysisButton: $("#newAnalysisButton"),
-  datasetName: $("#datasetName"), invoiceCount: $("#invoiceCount"), itemCount: $("#itemCount"),
-  csvCount: $("#csvCount"), datasetPeriod: $("#datasetPeriod"), qualityScore: $("#qualityScore"),
-  qualityBar: $("#qualityBar"), qualityMessage: $("#qualityMessage"), detectedFiles: $("#detectedFiles"),
+  datasetName: $("#datasetName"), activeDatasets: $("#activeDatasets"),
   suggestions: $("#suggestions"), messages: $("#messages"), questionForm: $("#questionForm"),
   questionInput: $("#questionInput"), sendButton: $("#sendButton")
 };
 
-let selectedFile = null;
+let selectedFiles = [];
 let activeDataset = null;
 const chartInstances = [];
 const suggestionTexts = ["Quem é o tomador dos serviços ?", "Quem é o fornecedor dos serviços ?", "Qual é o serviço oferecido ?", "Qual é o endereço do tomador de serviços ?"];
 const acceptedExtensions = [".csv", ".txt", ".pdf", ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tif", ".tiff"];
 
 elements.selectFileButton.addEventListener("click", event => { event.stopPropagation(); elements.fileInput.click(); });
-elements.dropzone.addEventListener("click", () => elements.fileInput.click());
+elements.dropzone.addEventListener("click", event => {
+  if (event.target.closest("button")) return;
+  elements.fileInput.click();
+});
 elements.dropzone.addEventListener("keydown", event => { if (["Enter", " "].includes(event.key)) elements.fileInput.click(); });
-elements.fileInput.addEventListener("change", () => setFile(elements.fileInput.files[0]));
+elements.fileInput.addEventListener("change", () => addFiles([...elements.fileInput.files]));
 elements.removeFileButton.addEventListener("click", clearFile);
-elements.processButton.addEventListener("click", processFile);
+elements.processButton.addEventListener("click", processFiles);
 elements.newAnalysisButton.addEventListener("click", resetApp);
 elements.questionForm.addEventListener("submit", submitQuestion);
 elements.questionInput.addEventListener("keydown", event => {
@@ -34,41 +35,128 @@ elements.questionInput.addEventListener("keydown", event => {
 });
 elements.questionInput.addEventListener("input", autoResize);
 
-for (const eventName of ["dragenter", "dragover"]) elements.dropzone.addEventListener(eventName, event => { event.preventDefault(); elements.dropzone.classList.add("dragover"); });
-for (const eventName of ["dragleave", "drop"]) elements.dropzone.addEventListener(eventName, event => { event.preventDefault(); elements.dropzone.classList.remove("dragover"); });
-elements.dropzone.addEventListener("drop", event => setFile(event.dataTransfer.files[0]));
+for (const eventName of ["dragenter", "dragover"]) {
+  elements.dropzone.addEventListener(eventName, event => {
+    event.preventDefault();
+    elements.dropzone.classList.add("dragover");
+  });
+}
+for (const eventName of ["dragleave", "drop"]) {
+  elements.dropzone.addEventListener(eventName, event => {
+    event.preventDefault();
+    elements.dropzone.classList.remove("dragover");
+  });
+}
+elements.dropzone.addEventListener("drop", event => {
+  event.preventDefault();
+  addFiles([...event.dataTransfer.files]);
+});
 
-function setFile(file) {
+function addFiles(files) {
   hideError();
-  if (!file) return;
-  const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
-  if (!acceptedExtensions.includes(extension)) return showError("Selecione um arquivo CSV, PDF ou imagem.");
-  if (file.size > CONFIG.maxFileSize) return showError("O arquivo ultrapassa o limite recomendado de 500 MB.");
-  selectedFile = file;
-  elements.fileType.textContent = extension.slice(1).toUpperCase();
-  elements.fileName.textContent = file.name;
-  elements.fileSize.textContent = formatBytes(file.size);
+  if (!files.length) return;
+
+  const validFiles = [];
+  for (const file of files) {
+    const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+    if (!acceptedExtensions.includes(extension)) {
+      showError(`"${file.name}" não é um tipo de arquivo aceito.`);
+      continue;
+    }
+    if (file.size > CONFIG.maxFileSize) {
+      showError(`"${file.name}" ultrapassa o limite recomendado de 500 MB.`);
+      continue;
+    }
+    if (selectedFiles.some(existing => existing.name === file.name && existing.size === file.size && existing.lastModified === file.lastModified)) {
+      continue;
+    }
+    validFiles.push(file);
+  }
+
+  selectedFiles.push(...validFiles);
+  renderSelectedFiles();
+}
+
+function removeFile(index) {
+  selectedFiles.splice(index, 1);
+  renderSelectedFiles();
+}
+
+function renderSelectedFiles() {
+  elements.selectedFilesList.replaceChildren();
+
+  if (!selectedFiles.length) {
+    elements.filePreview.classList.add("hidden");
+    elements.processButton.disabled = true;
+    elements.fileInput.value = "";
+    return;
+  }
+
+  elements.fileCount.textContent = `${selectedFiles.length} arquivo${selectedFiles.length === 1 ? "" : "s"}`;
+  selectedFiles.forEach((file, index) => {
+    const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+    const item = document.createElement("div");
+    item.className = "selected-file";
+
+    const type = document.createElement("span");
+    type.className = "file-type";
+    type.textContent = extension.slice(1).toUpperCase();
+
+    const info = document.createElement("div");
+    const name = document.createElement("strong");
+    name.textContent = file.name;
+    const size = document.createElement("small");
+    size.textContent = formatBytes(file.size);
+    info.append(name, size);
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "icon-button";
+    remove.setAttribute("aria-label", `Remover ${file.name}`);
+    remove.textContent = "×";
+    remove.addEventListener("click", event => {
+      event.stopPropagation();
+      removeFile(index);
+    });
+
+    item.append(type, info, remove);
+    elements.selectedFilesList.append(item);
+  });
+
   elements.filePreview.classList.remove("hidden");
   elements.processButton.disabled = false;
 }
 
 function clearFile(event) {
   event?.stopPropagation();
-  selectedFile = null;
+  selectedFiles = [];
   elements.fileInput.value = "";
   elements.filePreview.classList.add("hidden");
+  elements.selectedFilesList.replaceChildren();
   elements.processButton.disabled = true;
   hideError();
 }
 
-async function processFile() {
-  if (!selectedFile) return;
+async function processFiles() {
+  if (!selectedFiles.length) return;
+
   showView("processing");
   try {
-    activeDataset = await uploadDataset(selectedFile, updateProgress);
+    activeDataset = await uploadDatasets(selectedFiles, updateProgress);
+
+    // Garante a associação arquivo -> dataset_id pela ordem retornada pelo backend.
+    activeDataset.files = selectedFiles.map((file, index) => ({
+      name: file.name,
+      size: file.size,
+      dataset_id: activeDataset.dataset_ids[index]
+    }));
+
     renderDataset(activeDataset);
     showView("workspace");
-    addAssistantMessage({ answer: "Sua base foi processada. Escolha uma sugestão ou faça sua própria pergunta para começar.", type: "text" });
+    addAssistantMessage({
+      answer: `${activeDataset.dataset_ids.length} dataset${activeDataset.dataset_ids.length === 1 ? "" : "s"} foi${activeDataset.dataset_ids.length === 1 ? "" : "ram"} associado${activeDataset.dataset_ids.length === 1 ? "" : "s"} aos arquivos enviados. Faça uma pergunta para começar.`,
+      type: "text"
+    });
   } catch (error) {
     showView("upload");
     showError(error.message);
@@ -82,16 +170,23 @@ function updateProgress(value) {
 }
 
 function renderDataset(dataset) {
-  const summary = dataset.summary;
-  elements.datasetName.textContent = dataset.name;
-  /*elements.invoiceCount.textContent = formatNumber(summary.invoices);
-  elements.itemCount.textContent = formatNumber(summary.items);
-  elements.csvCount.textContent = summary.files;
-  elements.datasetPeriod.textContent = summary.period;
-  elements.qualityScore.textContent = `${summary.quality_score}%`;
-  elements.qualityBar.style.width = `${summary.quality_score}%`;
-  elements.qualityMessage.textContent = summary.quality_message;
-  elements.detectedFiles.replaceChildren(...summary.detected_files.map(name => Object.assign(document.createElement("li"), { textContent: name })));*/
+  const files = dataset.files || [];
+  elements.datasetName.textContent = files.length === 1
+    ? files[0].name
+    : `${files.length} arquivos`;
+
+  elements.activeDatasets.replaceChildren(
+    ...files.map(file => {
+      const li = document.createElement("li");
+      const name = document.createElement("strong");
+      name.textContent = file.name;
+      const id = document.createElement("small");
+      id.textContent = file.dataset_id;
+      li.append(name, id);
+      return li;
+    })
+  );
+
   renderSuggestions();
 }
 
@@ -101,7 +196,10 @@ function renderSuggestions() {
     button.type = "button";
     button.className = "suggestion-chip";
     button.textContent = text;
-    button.addEventListener("click", () => { elements.questionInput.value = text; elements.questionForm.requestSubmit(); });
+    button.addEventListener("click", () => {
+      elements.questionInput.value = text;
+      elements.questionForm.requestSubmit();
+    });
     return button;
   }));
 }
@@ -109,19 +207,22 @@ function renderSuggestions() {
 async function submitQuestion(event) {
   event.preventDefault();
   const question = elements.questionInput.value.trim();
-  if (!question || !activeDataset) return;
+  if (!question || !activeDataset?.dataset_ids?.length) return;
+
   addUserMessage(question);
   elements.questionInput.value = "";
   autoResize();
   setComposerState(false);
   const typing = addTypingIndicator();
+
   try {
-    const response = await askQuestion(activeDataset.dataset_id, question);
+    // Todos os dataset_ids associados aos uploads são enviados na mesma consulta.
+    const response = await askQuestion(activeDataset.dataset_ids, question);
     typing.remove();
     addAssistantMessage(response);
   } catch (error) {
     typing.remove();
-    addAssistantMessage({ answer: `Não consegui concluir a análise: ${error.message} mais tarde.`, type: "text" });
+    addAssistantMessage({ answer: `Não consegui concluir a análise: ${error.message}`, type: "text" });
   } finally {
     setComposerState(true);
   }
@@ -195,6 +296,7 @@ function resetApp() {
   activeDataset = null;
   elements.messages.replaceChildren();
   elements.suggestions.replaceChildren();
+  elements.activeDatasets.replaceChildren();
   elements.progressBar.style.width = "8%";
   clearFile();
   showView("upload");
@@ -210,5 +312,4 @@ function hideError() { elements.uploadError.classList.add("hidden"); }
 function setComposerState(enabled) { elements.questionInput.disabled = !enabled; elements.sendButton.disabled = !enabled; if (enabled) elements.questionInput.focus(); }
 function autoResize() { elements.questionInput.style.height = "auto"; elements.questionInput.style.height = `${elements.questionInput.scrollHeight}px`; }
 function scrollMessages() { requestAnimationFrame(() => elements.messages.lastElementChild?.scrollIntoView({ behavior: "smooth", block: "nearest" })); }
-function formatNumber(value) { return Number(value).toLocaleString("pt-BR"); }
 function formatBytes(bytes) { if (!bytes) return "0 B"; const units = ["B", "KB", "MB", "GB"]; const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1); return `${(bytes / 1024 ** index).toFixed(index ? 1 : 0)} ${units[index]}`; }

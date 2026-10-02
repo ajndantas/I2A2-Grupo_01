@@ -73,7 +73,9 @@ class AgenteRag:
                         correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
 
                         - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta."
-                        - Escolha o melhor tipo de resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.
+                        - Escolha o melhor tipo de resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, 
+                        responder como chart, se for texto, tabela e grafico, responder como mixed.
+
                     
                     ## SAÍDA:
                     **SEMPRE** utilizar o seguinte formato para a saída.
