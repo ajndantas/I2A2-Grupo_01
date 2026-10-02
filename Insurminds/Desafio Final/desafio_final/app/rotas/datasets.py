@@ -6,6 +6,7 @@ from app.motor_ocr_otimizado import NotaFiscalOCR
 from pathlib import Path
 from functools import lru_cache
 from typing import List
+from fastapi import Request
 
 
 ENV_PATH = (
@@ -40,7 +41,7 @@ class DatasetQuery(BaseModel):
 
 
 @router.post("/uploads")
-async def uploads(files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalOCR)):
+async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalOCR)):
 
     from magic import from_buffer 
     import random
@@ -68,12 +69,17 @@ async def uploads(files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalO
 
         context[filename] = extracted_text[dataset_id]
 
+        request.session["dataset_ids"] = list(datasets.keys()) # Armazena os dataset_ids na sessão do request
+
+        datasets = {}
+        
 
     return {
-                "dataset_ids": datasets.keys(), 
+                "dataset_ids": request.session.get("dataset_ids"), 
                 "status": "ready",
                 "name": filename
             }
+
 
 
 @router.post(
@@ -85,14 +91,13 @@ async def uploads(files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalO
             ),
             response_model=OutputSchema
         ) # Dataset_ids recebe uma string com os dataset_ids separados por vírgula
-async def query_dataset(dataset_ids: str, payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
+async def query_dataset(payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
                                                                                               # deve ser de tipo primitivo, porque o 
                                                                                               # frontend irá enviar no CORPO do JSON.
                                                                                               #
     import json                                                                               # Também poderia ser question: str = Body[...]        
-    
-    ids = dataset_ids.split(",")
 
+        
     answer = json.loads(ag.query(question=payload.question, context=context))    
     
     #print("Pergunta: ", payload.question, "Resposta: ", answer['resposta'])

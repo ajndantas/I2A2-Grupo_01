@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from app.rotas import datasets
+from starlette.middleware.sessions import SessionMiddleware
 
 app = FastAPI(
     title="Desafio Final",
@@ -11,6 +12,8 @@ app = FastAPI(
 
 app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
 app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
+
+app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
 
 app.include_router(datasets.router)
 
@@ -37,5 +40,3 @@ allow_origins=[
 async def frontpage():
 
     return HTMLResponse(content=open("frontend/index.html", "r", encoding="utf-8").read(), status_code=200)
-
-
