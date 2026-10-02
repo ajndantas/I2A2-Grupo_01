@@ -3,7 +3,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from app.rotas import datasets
 
-app = FastAPI()
+app = FastAPI(
+    title="Desafio Final",
+    description="Desafio Final da I2A2",
+    version="1.0.0"
+)
 
 app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
 app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
