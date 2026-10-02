@@ -5,6 +5,7 @@ from langchain_core.caches import InMemoryCache
 from time import time
 import re
 from pathlib import Path
+from app.modelos.outputschema import OutputSchema
 
 
 set_debug(True)
@@ -35,8 +36,7 @@ class AgenteRag:
     from langchain_openai import ChatOpenAI 
     from langchain_core.prompts import PromptTemplate
     from langchain_core.output_parsers import JsonOutputParser
-    from pydantic import BaseModel, Field
-
+    
     llm = ChatOpenAI(
                         model_name="openrouter/free",
                         base_url="https://openrouter.ai/api/v1",
@@ -47,18 +47,6 @@ class AgenteRag:
                         cache=True,
                         temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
                     )    
-
-
-    class OutputSchema(BaseModel):        
-
-        from typing import Literal, List
-
-        pergunta: str = Field(description="A pergunta do usuário")
-        resposta: str = Field(description="A resposta para a pergunta no formato texto")
-        type: Literal['text','table','chart','mixed'] = Field(description="Classifique o conteúdo da resposta: use 'text' quando houver apenas texto; 'table' quando houver texto e uma tabela; 'chart' quando houver texto e um gráfico; e 'mixed' quando houver texto, tabela e gráfico.")
-        charttype: Literal['bar','doughnut']| None = Field(description="Quando 'type' for 'chart' ou 'mixed', informe chartype 'bar' para gráfico de barras ou 'doughnut' para gráfico de rosca. Nos demais casos, use null.")
-        columns: List[str]| None = Field(description="Quando 'type' for 'table' ou 'mixed', informe columns na ordem em que aparecem na tabela. Nos demais casos, use null.")
-        rows: List[List[str]]| None = Field(description="Quando 'type' for 'table' ou 'mixed', informe os dados como uma lista de listas: cada lista interna representa uma linha, e seus valores devem seguir a mesma ordem de 'columns'. Nos demais casos, use null.")
                 
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
 
@@ -69,7 +57,7 @@ class AgenteRag:
                     que podem conter informações relevantes para responder às perguntas dos usuários. 
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO, aonde no dicionário
-                    fornecido, as chaves representam os nomes dos arquivos das apólices, e seus respectivos valores, os textos das apólices
+                    fornecido, as chaves representam os nomes dos arquivos, e seus respectivos valores, os textos de cada um dos arquivos.
 
                     ## PERGUNTA:                    
                     {question}
@@ -97,7 +85,9 @@ class AgenteRag:
     prompt_template = PromptTemplate(
                                         template=template,
                                         input_variables=["context", "question"],
-                                        partial_variables={"formatador da saida":  parseador.get_format_instructions()} # O PARSEADOR VAI SER INJETADO NO PROMPT TEMPLATE PARA SER USADO DENTRO DO TEMPLATE DE PROMPT, O QUE PERMITE QUE O LLM FORMATE A RESPOSTA DE ACORDO COM O ESQUEMA DEFINIDO PELO PARSEADOR.                                                                          
+                                        partial_variables={"formatador da saida":  parseador.get_format_instructions()} # O PARSEADOR VAI SER INJETADO NO PROMPT TEMPLATE PARA SER USADO 
+                                                                                                                        # DENTRO DO TEMPLATE DE PROMPT, O QUE PERMITE QUE O LLM FORMATE A 
+                                                                                                                        # RESPOSTA DE ACORDO COM O ESQUEMA DEFINIDO PELO PARSEADOR.                                                                          
                                     )
     
 
@@ -130,9 +120,8 @@ class AgenteRag:
             else:
                   # SE NÃO ENCONTRAR JSON, CRIA UMA ESTRUTURA PADRÃO
                   result = {
-                        "pergunta": question,
-                        "resposta": str(output['resposta']),
-                        "tipo": "text"
+                        "answer": str(output['resposta']),
+                        "type": "text"
                   }      
 
       

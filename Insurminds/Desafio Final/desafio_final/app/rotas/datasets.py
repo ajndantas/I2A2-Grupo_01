@@ -106,8 +106,10 @@ async def query_dataset(dataset_ids: str, payload: DatasetQuery, ag = Depends(ge
 
     return {
         "dataset_ids": ids,
-        "type": answer['tipo'],
+        "type": answer['type'],
         "request": payload.question,
         "status": "ready",
-        "answer": answer['resposta']
+        "answer": answer['resposta'],
+        "columns": answer['columns'],
+        "rows": answer['rows']
     }  
