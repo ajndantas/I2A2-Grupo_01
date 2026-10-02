@@ -1,19 +1,12 @@
 from fastapi import APIRouter, File, UploadFile, Depends
 from pydantic import BaseModel
 from app.modelos.datasetquery import DatasetQuery
+from app.modelos.outputschema import OutputSchema
 from app.motor_ocr_otimizado import NotaFiscalOCR
 from pathlib import Path
 from functools import lru_cache
 from typing import List
 
-"""
-    Modifique os códigos de app.zip e frontend.zip, para que as seguintes ações possam ser realizadas:
-
-    1 - Possa ser feito o upload de mais de um arquivo 
-    2 - Ao se realizar o upload, possa ser associado um dataset para cada um deles, aonde esse dataset_id é gerado pelo código dataset.py, endpoint/api/datasets/uploads
-    3 - No momento em que a pergunta foi submetida, os dataset_ids que foram gerados, sejam enviados para o endpoint "/{dataset_ids}/query"
-
-"""
 
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL
@@ -89,7 +82,8 @@ async def uploads(files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalO
             description=(
                 "Informe os IDs dos datasets separados por vírgula no caminho. "
                 "Exemplo: `/api/datasets/ds_123,ds_456/query`."
-            )
+            ),
+            response_model=OutputSchema
         ) # Dataset_ids recebe uma string com os dataset_ids separados por vírgula
 async def query_dataset(dataset_ids: str, payload: DatasetQuery, ag = Depends(getAgenteRag)): # O segundo parâmetro é o payload e não
                                                                                               # deve ser de tipo primitivo, porque o 
@@ -101,15 +95,6 @@ async def query_dataset(dataset_ids: str, payload: DatasetQuery, ag = Depends(ge
 
     answer = json.loads(ag.query(question=payload.question, context=context))    
     
-    print("Pergunta: ", payload.question, "Resposta: ", answer['resposta'])
+    #print("Pergunta: ", payload.question, "Resposta: ", answer['resposta'])
 
-
-    return {
-        "dataset_ids": ids,
-        "type": answer['type'],
-        "request": payload.question,
-        "status": "ready",
-        "answer": answer['resposta'],
-        "columns": answer['columns'],
-        "rows": answer['rows']
-    }  
+    return answer
