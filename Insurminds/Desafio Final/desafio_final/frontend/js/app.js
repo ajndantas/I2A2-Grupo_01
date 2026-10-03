@@ -154,7 +154,7 @@ async function processFiles() {
     renderDataset(activeDataset);
     showView("workspace");
     addAssistantMessage({
-      answer: `${activeDataset.dataset_ids.length} dataset${activeDataset.dataset_ids.length === 1 ? "" : "s"} foi${activeDataset.dataset_ids.length === 1 ? "" : "ram"} associado${activeDataset.dataset_ids.length === 1 ? "" : "s"} aos arquivos enviados. Faça uma pergunta para começar.`,
+      answer: `${activeDataset.dataset_ids.length} dataset${activeDataset.dataset_ids.length === 1 ? "" : "s"} associado${activeDataset.dataset_ids.length === 1 ? "" : "s"} aos arquivos enviados. Faça uma pergunta para começar.`,
       type: "text"
     });
   } catch (error) {

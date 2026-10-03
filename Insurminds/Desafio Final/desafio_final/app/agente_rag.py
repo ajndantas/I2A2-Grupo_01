@@ -3,7 +3,6 @@ from os import getenv
 from langchain_core.globals import set_debug, set_llm_cache
 from langchain_core.caches import InMemoryCache
 from time import time
-import re
 from pathlib import Path
 from app.modelos.outputschema import OutputSchema
 
@@ -36,7 +35,7 @@ class AgenteRag:
     from langchain_openai import ChatOpenAI 
     from langchain_core.prompts import PromptTemplate
     from langchain_core.output_parsers import JsonOutputParser
-    
+
     llm = ChatOpenAI(
                         model_name="openrouter/free",
                         base_url="https://openrouter.ai/api/v1",
@@ -106,27 +105,9 @@ class AgenteRag:
       print("Saída: \n",output)
 
       result = ""
+               
+      result = json.dumps(output, indent=2, ensure_ascii=True)
 
-      try:          
-            result = json.dumps(output, indent=2, ensure_ascii=True)
-
-      except json.JSONDecodeError as e:
-            # TENTA EXTRAIR O JSON DE DENTRO DA RESPOSTA USANDO EXPRESSÃO REGULAR
-            match = re.search(r"\{.*?\}", str(output), re.DOTALL) # A FLAG re.DOTALL 
-                                                                  # PERMITE QUE O PONTO (.) NA EXPRESSÃO REGULAR 
-                                                                  # CORRESPONDA A QUALQUER CARACTERE, INCLUINDO 
-                                                                  # QUEBRAS DE LINHA, O QUE É ÚTIL PARA EXTRAIR JSONS 
-                                                                  # MULTILINHA.
-            if match:
-                  result = json.dumps(match.group().strip())
-            else:
-                  # SE NÃO ENCONTRAR JSON, CRIA UMA ESTRUTURA PADRÃO
-                  result = {
-                        "answer": str(output['resposta']),
-                        "type": "text"
-                  }      
-
-      
       # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
       self.json = result
       

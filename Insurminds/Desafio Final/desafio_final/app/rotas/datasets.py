@@ -38,12 +38,22 @@ router = APIRouter(
 )
 
 
-datasets = {} # Dicionário para armazenar os datasets identificados pelos dataset_ids. Localizado aqui, para ser acessado em todas as rotas
+#datasets = {} # Dicionário para armazenar os datasets identificados pelos dataset_ids. Localizado aqui, para ser acessado em todas as rotas
+
 extracted_text = {}
 context = {}
 
 class DatasetQuery(BaseModel):
     question: str
+
+@router.post("/sessions/new", summary="Iniciar uma nova sessão")
+async def new_session(request: Request):
+    """Chamado pelo botão 'Nova análise': descarta a sessão atual (e seus datasets) e cria uma nova."""
+
+    #extracted_text.clear()
+
+    request.session.clear()
+
 
 @router.post("/uploads")
 async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = Depends(NotaFiscalOCR)):
@@ -51,12 +61,15 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
     from magic import from_buffer 
     import random
 
+    datasets = {} # Dicionário para armazenar os datasets identificados pelos dataset_ids.
+
     for file in files:
 
         random_number = str(random.randint(1,9999)).zfill(3)    
         dataset_id = f'ds_{random_number}'
 
         print("dataset_id: ", dataset_id)
+        print("filename: ", file.filename)
     
         datasets[dataset_id] = await file.read()
         uploaded_file = datasets.get(dataset_id) # EM MEMÓRIA
@@ -101,24 +114,22 @@ async def query_dataset(payload: DatasetQuery, ag = Depends(getAgenteRag)) -> Ou
 
         
     answer = json.loads(ag.query(question=payload.question, context=context))
-
-    if answer.type == "table":
-        output = OutputSchema(answer=answer.answer, type=answer.type, columns=answer.table.columns, rows=answer.table.rows, chart=None)
+    
+    if answer["type"] == "table":
+        output = OutputSchema(answer=answer["answer"], type=answer["type"], table=answer["table"], chart=None)
         
-    elif answer.type == "chart":
-        output = OutputSchema(answer=answer.answer, type=answer.type, columns=answer.chart.labels, datasets=answer.chart.datasets, table=None)
+    elif answer["type"] == "chart":
+        output = OutputSchema(answer=answer["answer"], type=answer["type"], table=None, chart=answer["chart"])
         
-    elif answer.type == "mixed":
-        output = OutputSchema(answer=answer.answer, type=answer.type, columns=answer.table.columns, rows=answer.table.rows, chart=answer.chart)
+    elif answer["type"] == "mixed":
+        output = OutputSchema(answer=answer["answer"], type=answer["type"], table=answer["table"], chart=answer["chart"])
         
-    elif answer.type == "text":
-        output = OutputSchema(answer=answer.answer, type=answer.type, table=None, chart=None)
+    elif answer["type"] == "text":
+        output = OutputSchema(answer=answer["answer"], type=answer["type"], table=None, chart=None)
 
     output.model_dump(exclude_none=True) # Remove os campos nulos da resposta
     
     #print("Pergunta: ", payload.question, "Resposta: ", answer['resposta'])
 
-    datasets.clear()
-    context.clear()
 
     return output
