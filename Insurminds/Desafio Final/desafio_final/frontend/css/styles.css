@@ -77,6 +77,8 @@ button { cursor: pointer; }
 .selected-file strong, .selected-file small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .selected-file strong { font-size: 12px; }
 .selected-file small { margin-top: 3px; color: var(--muted); font-size: 10px; }
+.file-requirement { margin: 10px 0 0; padding: 8px 10px; color: #7a5a1f; background: var(--accent-soft); border-radius: 8px; font-size: 12px; font-weight: 600; }
+.file-requirement.is-valid { color: #1d6b3a; background: #e8f5ec; }
 .clear-files-button { margin-top: 10px; padding: 0; color: var(--primary); background: none; border: 0; font-size: 11px; font-weight: 700; }
 .file-type { display: grid; place-items: center; width: 46px; height: 46px; color: var(--primary); background: var(--primary-soft); border-radius: 11px; font-size: 11px; font-weight: 800; }
 .file-preview strong, .file-preview small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

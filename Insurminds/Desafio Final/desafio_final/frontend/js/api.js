@@ -1,8 +1,22 @@
 import { CONFIG } from "./config.js";
 import { createDemoDatasets, answerDemoQuestion } from "./mock.js";
 
+// Valida se foi disponibilizada a quantidade mínima de apólices exigida.
+// Retorna a mensagem de erro (string) ou null quando está tudo certo.
+export function validatePolicyFiles(files = []) {
+  const minimum = CONFIG.minFiles;
+  const count = files.length;
+  if (count >= minimum) return null;
+
+  const policies = quantity => `${quantity} apólice${quantity === 1 ? "" : "s"}`;
+  if (count === 0) return `Envie pelo menos ${policies(minimum)} para iniciar a análise.`;
+  const missing = minimum - count;
+  return `Envie pelo menos ${policies(minimum)} para a análise. Falta${missing === 1 ? "" : "m"} ${policies(missing)}.`;
+}
+
 export async function uploadDatasets(files, onProgress = () => {}) {
-  if (!files?.length) throw new Error("Selecione pelo menos um arquivo.");
+  const validationError = validatePolicyFiles(files);
+  if (validationError) throw new Error(validationError);
 
   if (CONFIG.demoMode) {
     for (const value of [12, 28, 49, 72, 91, 100]) {

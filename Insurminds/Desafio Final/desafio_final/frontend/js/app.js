@@ -1,11 +1,11 @@
 import { CONFIG } from "./config.js";
-import { uploadDatasets, askQuestion } from "./api.js";
+import { uploadDatasets, askQuestion, validatePolicyFiles } from "./api.js";
 
 const $ = selector => document.querySelector(selector);
 const elements = {
   uploadView: $("#uploadView"), processingView: $("#processingView"), workspaceView: $("#workspaceView"),
   dropzone: $("#dropzone"), fileInput: $("#fileInput"), selectFileButton: $("#selectFileButton"),
-  filePreview: $("#filePreview"), fileCount: $("#fileCount"), selectedFilesList: $("#selectedFilesList"),
+  filePreview: $("#filePreview"), fileCount: $("#fileCount"), selectedFilesList: $("#selectedFilesList"), fileRequirement: $("#fileRequirement"),
   removeFileButton: $("#removeFileButton"), processButton: $("#processButton"), uploadError: $("#uploadError"),
   processingMessage: $("#processingMessage"), progressBar: $("#progressBar"), newAnalysisButton: $("#newAnalysisButton"),
   datasetName: $("#datasetName"), activeDatasets: $("#activeDatasets"),
@@ -25,7 +25,10 @@ elements.dropzone.addEventListener("click", event => {
   elements.fileInput.click();
 });
 elements.dropzone.addEventListener("keydown", event => { if (["Enter", " "].includes(event.key)) elements.fileInput.click(); });
-elements.fileInput.addEventListener("change", () => addFiles([...elements.fileInput.files]));
+elements.fileInput.addEventListener("change", () => {
+  addFiles([...elements.fileInput.files]);
+  elements.fileInput.value = ""; // permite selecionar de novo o mesmo arquivo após removê-lo
+});
 elements.removeFileButton.addEventListener("click", clearFile);
 elements.processButton.addEventListener("click", processFiles);
 elements.newAnalysisButton.addEventListener("click", resetApp);
@@ -56,18 +59,20 @@ function addFiles(files) {
   hideError();
   if (!files.length) return;
 
+  const errors = [];
   const validFiles = [];
   for (const file of files) {
     const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
     if (!acceptedExtensions.includes(extension)) {
-      showError(`"${file.name}" não é um tipo de arquivo aceito.`);
+      errors.push(`"${file.name}" não é um tipo de arquivo aceito.`);
       continue;
     }
     if (file.size > CONFIG.maxFileSize) {
-      showError(`"${file.name}" ultrapassa o limite recomendado de 500 MB.`);
+      errors.push(`"${file.name}" ultrapassa o limite recomendado de 500 MB.`);
       continue;
     }
-    if (selectedFiles.some(existing => existing.name === file.name && existing.size === file.size && existing.lastModified === file.lastModified)) {
+    if (selectedFiles.some(existing => isSameFile(existing, file)) || validFiles.some(existing => isSameFile(existing, file))) {
+      errors.push(`"${file.name}" já foi selecionado. Envie apólices diferentes.`);
       continue;
     }
     validFiles.push(file);
@@ -75,10 +80,16 @@ function addFiles(files) {
 
   selectedFiles.push(...validFiles);
   renderSelectedFiles();
+  if (errors.length) showError(errors.join(" "));
+}
+
+function isSameFile(a, b) {
+  return a.name === b.name && a.size === b.size && a.lastModified === b.lastModified;
 }
 
 function removeFile(index) {
   selectedFiles.splice(index, 1);
+  hideError();
   renderSelectedFiles();
 }
 
@@ -92,7 +103,10 @@ function renderSelectedFiles() {
     return;
   }
 
-  elements.fileCount.textContent = `${selectedFiles.length} arquivo${selectedFiles.length === 1 ? "" : "s"}`;
+  elements.fileCount.textContent = `${selectedFiles.length} arquivo${selectedFiles.length === 1 ? "" : "s"} (mínimo ${CONFIG.minFiles})`;
+  const requirementMessage = validatePolicyFiles(selectedFiles);
+  elements.fileRequirement.textContent = requirementMessage || `✓ ${selectedFiles.length} apólices selecionadas. Tudo pronto para analisar.`;
+  elements.fileRequirement.classList.toggle("is-valid", !requirementMessage);
   selectedFiles.forEach((file, index) => {
     const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
     const item = document.createElement("div");
@@ -124,7 +138,7 @@ function renderSelectedFiles() {
   });
 
   elements.filePreview.classList.remove("hidden");
-  elements.processButton.disabled = false;
+  elements.processButton.disabled = Boolean(requirementMessage);
 }
 
 function clearFile(event) {
@@ -138,7 +152,11 @@ function clearFile(event) {
 }
 
 async function processFiles() {
-  if (!selectedFiles.length) return;
+  const validationError = validatePolicyFiles(selectedFiles);
+  if (validationError) {
+    showError(validationError);
+    return;
+  }
 
   showView("processing");
   try {

@@ -26,22 +26,22 @@
       <div class="hero-copy">
         <span class="eyebrow">ANÁLISE DE APÓLICES COM IA</span>
         <h1>Entenda suas apólices <em>lado a lado.</em></h1>
-        <p>Envie duas apólices e pergunte o que quiser sobre coberturas, franquias, vigência e exclusões, sem juridiquês e sem ler dezenas de páginas.</p>
+        <p>Envie pelo menos duas apólices e pergunte o que quiser sobre coberturas, franquias, vigência e exclusões, sem juridiquês e sem ler dezenas de páginas.</p>
         <ul class="benefits" aria-label="Benefícios">
           <li><span>✓</span> Respostas claras para perguntas em linguagem natural</li>
           <!--<li><span>✓</span> Respostas em texto, tabelas e gráficos</li>-->
-          <li><span>✓</span> Comparação de coberturas e condições entre as duas apólices</li>
+          <li><span>✓</span> Comparação de coberturas e condições entre as apólices enviadas</li>
         </ul>
       </div>
 
       <div class="upload-card">
-        <div class="step-label"><span>1</span> Carregue os dados</div>
+        <div class="step-label"><span>1</span> Carregue as apólices</div>
         <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-describedby="uploadHint">
           <input id="fileInput" type="file" multiple accept=".csv, .pdf, image/*, text/csv, text/plain, application/pdf" hidden>
           <div class="upload-icon" aria-hidden="true">⇧</div>
           <h2>Arraste suas apólices aqui</h2>
           <p>ou <button id="selectFileButton" class="link-button" type="button">selecione no computador</button></p>
-          <small id="uploadHint">CSV, Texto, PDF ou imagem. Limite recomendado: 500 MB.</small>
+          <small id="uploadHint">Envie pelo menos 2 apólices (um arquivo por apólice). CSV, Texto, PDF ou imagem. Limite recomendado: 500 MB.</small>
         </div>
 
         <div id="filePreview" class="file-preview file-list hidden" aria-live="polite">
@@ -50,6 +50,7 @@
             <small id="fileCount"></small>
           </div>
           <div id="selectedFilesList" class="selected-files-list"></div>
+          <p id="fileRequirement" class="file-requirement" role="status"></p>
           <button id="removeFileButton" class="clear-files-button" type="button">Remover todos</button>
         </div>
 
@@ -123,7 +124,7 @@
       <section class="chat-panel">
         <div class="chat-heading">
           <div><span class="agent-avatar">C</span></div>
-          <div><h1>Converse com suas apólices</h1><p>Pergunte sobre coberturas, prêmios, franquias, vigência ou diferenças entre as duas.</p></div>
+          <div><h1>Converse com suas apólices</h1><p>Pergunte sobre coberturas, prêmios, franquias, vigência ou diferenças entre elas.</p></div>
         </div>
         <div id="suggestions" class="suggestions" aria-label="Perguntas sugeridas"></div>
         <div id="messages" class="messages" aria-live="polite"></div>
