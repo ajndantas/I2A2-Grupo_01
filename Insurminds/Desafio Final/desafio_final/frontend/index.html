@@ -3,34 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Consulte dados de notas fiscais em linguagem natural.">
-  <title>Agente de Documentos Fiscais | Análise inteligente de notas fiscais</title>
+  <meta name="description" content="Cotejo: converse com suas apólices e compare coberturas, prêmios e condições em linguagem natural.">
+  <title>Cotejo | Duas apólices, uma conversa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   <script type="module" src="js/app.js" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/" aria-label="FiscalMind - início">
-      <span class="brand-mark" aria-hidden="true">F</span>
-      <span><strong>Agente de Documentos Fiscais</strong><small>Inteligência sobre seus dados</small></span>
+    <a class="brand" href="/" aria-label="Cotejo - início">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span><strong>Cotejo</strong><small>Duas apólices, uma conversa</small></span>
     </a>
-    <div class="system-status"><span class="status-dot"></span><span>Agente disponível</span></div>
+    <div class="system-status"><span class="status-dot"></span><span>Assistente disponível</span></div>
   </header>
 
   <main>
     <section id="uploadView" class="upload-view">
       <div class="hero-copy">
-        <span class="eyebrow">ANÁLISE FISCAL COM IA</span>
-        <h1>Transforme arquivos fiscais em respostas claras.</h1>
-        <p>Envie um ou mais arquivos de documentos fiscais e converse com seus dados sem fórmulas, SQL ou planilhas complexas.</p>
+        <span class="eyebrow">ANÁLISE DE APÓLICES COM IA</span>
+        <h1>Entenda suas apólices <em>lado a lado.</em></h1>
+        <p>Envie duas apólices e pergunte o que quiser sobre coberturas, franquias, vigência e exclusões, sem juridiquês e sem ler dezenas de páginas.</p>
         <ul class="benefits" aria-label="Benefícios">
-          <li><span>✓</span> Respostas para perguntas em linguagem natural</li>
+          <li><span>✓</span> Respostas claras para perguntas em linguagem natural</li>
           <!--<li><span>✓</span> Respostas em texto, tabelas e gráficos</li>-->
-          <li><span>✓</span> Análise automática de fornecedores e produtos</li>
+          <li><span>✓</span> Comparação de coberturas e condições entre as duas apólices</li>
         </ul>
       </div>
 
@@ -39,7 +39,7 @@
         <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-describedby="uploadHint">
           <input id="fileInput" type="file" multiple accept=".csv, .pdf, image/*, text/csv, text/plain, application/pdf" hidden>
           <div class="upload-icon" aria-hidden="true">⇧</div>
-          <h2>Arraste seus arquivos aqui</h2>
+          <h2>Arraste suas apólices aqui</h2>
           <p>ou <button id="selectFileButton" class="link-button" type="button">selecione no computador</button></p>
           <small id="uploadHint">CSV, Texto, PDF ou imagem. Limite recomendado: 500 MB.</small>
         </div>
@@ -55,7 +55,7 @@
 
         <div id="uploadError" class="alert error hidden" role="alert"></div>
         <button id="processButton" class="primary-button" type="button" disabled>
-          <span>Processar arquivo</span><span aria-hidden="true">→</span>
+          <span>Analisar apólices</span><span aria-hidden="true">→</span>
         </button>
         <p class="privacy-note">Seus dados são usados somente durante esta análise.</p>
 
@@ -96,7 +96,7 @@
     <section id="workspaceView" class="workspace hidden">
       <aside class="dataset-panel">
         <div class="panel-heading">
-          <div><span class="eyebrow">BASE ATIVA</span><h2 id="datasetName">Dados fiscais</h2></div>
+          <div><span class="eyebrow">BASE ATIVA</span><h2 id="datasetName">Suas apólices</h2></div>
           <button id="newAnalysisButton" class="secondary-button" type="button">Nova análise</button>
         </div>
         <div class="file-list-wrap active-datasets-wrap">
@@ -122,14 +122,14 @@
 
       <section class="chat-panel">
         <div class="chat-heading">
-          <div><span class="agent-avatar">F</span></div>
-          <div><h1>Converse com seus dados</h1><p>Faça perguntas sobre valores, fornecedores, produtos, CFOPs ou localidades.</p></div>
+          <div><span class="agent-avatar">C</span></div>
+          <div><h1>Converse com suas apólices</h1><p>Pergunte sobre coberturas, prêmios, franquias, vigência ou diferenças entre as duas.</p></div>
         </div>
         <div id="suggestions" class="suggestions" aria-label="Perguntas sugeridas"></div>
         <div id="messages" class="messages" aria-live="polite"></div>
         <form id="questionForm" class="composer">
-          <label class="sr-only" for="questionInput">Digite uma pergunta sobre os dados</label>
-          <textarea id="questionInput" rows="1" placeholder="Ex.: Quem é o fornecedor do serviço ?" required></textarea>
+          <label class="sr-only" for="questionInput">Digite uma pergunta sobre as apólices</label>
+          <textarea id="questionInput" rows="1" placeholder="Ex.: Qual apólice tem a menor franquia?" required></textarea>
           <button id="sendButton" type="submit" aria-label="Enviar pergunta">➜</button>
         </form>
         <small class="composer-hint">Enter para enviar · Shift + Enter para nova linha</small>
@@ -139,7 +139,7 @@
 
   <template id="assistantMessageTemplate">
     <article class="message assistant-message">
-      <span class="message-avatar">F</span>
+      <span class="message-avatar">C</span>
       <div class="message-content"><div class="answer-text"></div><div class="answer-visual"></div></div>
     </article>
   </template>

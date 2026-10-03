@@ -4,10 +4,10 @@ export const CONFIG = {
   demoMode: false,
   maxFileSize: 500 * 1024 * 1024,
   processingMessages: [
-    "Enviando os arquivos com segurança...",
-    "Identificando os arquivos CSV...",
-    "Interpretando colunas e formatos...",
-    "Relacionando notas fiscais e itens...",
-    "Preparando o agente para suas perguntas..."
+    "Enviando as apólices com segurança...",
+    "Identificando os documentos...",
+    "Lendo coberturas e condições...",
+    "Relacionando as duas apólices...",
+    "Preparando o assistente para suas perguntas..."
   ]
 };

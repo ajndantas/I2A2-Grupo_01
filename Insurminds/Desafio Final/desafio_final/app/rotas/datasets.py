@@ -8,13 +8,6 @@ from functools import lru_cache
 from typing import List
 from fastapi import Request
 
-""" 
-    Modifique os códigos de app.zip e frontend.zip, para que as seguintes ações possam ser realizadas:
-
-    1 - Possa ser feito o upload de mais de um arquivo 
-    2 - Ao se realizar o upload, possa ser associado um dataset para cada um deles, aonde esse dataset_id é gerado pelo código dataset.py, endpoint/api/datasets/uploads
-    3 - No momento em que a pergunta foi submetida, os dataset_ids que foram gerados, sejam enviados para o endpoint "/{dataset_ids}/query" 
-"""
 
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL

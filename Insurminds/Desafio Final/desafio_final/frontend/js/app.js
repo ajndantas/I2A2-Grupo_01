@@ -16,7 +16,7 @@ const elements = {
 let selectedFiles = [];
 let activeDataset = null;
 const chartInstances = [];
-const suggestionTexts = ["Quem é o tomador dos serviços ?", "Quem é o fornecedor dos serviços ?", "Qual é o serviço oferecido ?", "Qual é o endereço do tomador de serviços ?"];
+const suggestionTexts = ["Quais são as coberturas de cada apólice?", "Qual apólice tem a menor franquia?", "Qual é a vigência de cada apólice?", "Quais são as principais diferenças entre elas?"];
 const acceptedExtensions = [".csv", ".txt", ".pdf", ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tif", ".tiff"];
 
 elements.selectFileButton.addEventListener("click", event => { event.stopPropagation(); elements.fileInput.click(); });
@@ -272,10 +272,12 @@ function buildChart(data) {
   const canvas = document.createElement("canvas");
   wrap.append(canvas);
   requestAnimationFrame(() => {
+    Chart.defaults.font.family = "Figtree, system-ui, sans-serif";
+    Chart.defaults.color = "#5d6779";
     const chart = new Chart(canvas, {
       type: data.type,
-      data: { labels: data.labels, datasets: data.datasets.map(dataset => ({ ...dataset, backgroundColor: data.type === "bar" ? "#0b6b64" : ["#0b6b64", "#35a08f", "#db9b41", "#7e918e", "#c8d5d2"], borderWidth: 0, borderRadius: data.type === "bar" ? 7 : 0 })) },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: data.type !== "bar" } }, scales: data.type === "bar" ? { y: { beginAtZero: true, grid: { color: "#edf1ef" } }, x: { grid: { display: false } } } : {} }
+      data: { labels: data.labels, datasets: data.datasets.map(dataset => ({ ...dataset, backgroundColor: data.type === "bar" ? "#1a2e57" : ["#1a2e57", "#b88a3e", "#4f6aa3", "#d6b36a", "#a9b4cc"], borderWidth: 0, borderRadius: data.type === "bar" ? 7 : 0 })) },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: data.type !== "bar" } }, scales: data.type === "bar" ? { y: { beginAtZero: true, grid: { color: "#f0ebde" } }, x: { grid: { display: false } } } : {} }
     });
     chartInstances.push(chart);
   });
@@ -285,7 +287,7 @@ function buildChart(data) {
 function addTypingIndicator() {
   const article = document.createElement("article");
   article.className = "message assistant-message";
-  article.innerHTML = '<span class="message-avatar">F</span><span class="typing"><i></i><i></i><i></i></span>';
+  article.innerHTML = '<span class="message-avatar">C</span><span class="typing"><i></i><i></i><i></i></span>';
   elements.messages.append(article);
   scrollMessages();
   return article;
