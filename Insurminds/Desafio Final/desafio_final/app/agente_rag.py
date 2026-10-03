@@ -73,6 +73,8 @@ class AgenteRag:
 
                         - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta."
 
+                        - **SEMPRE** que for fazer referências as apólices, faça a referências aos seus nomes de arquivos.
+
                         - Escolha o melhor tipo de resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, 
                         responder como chart, se for texto, tabela e grafico, responder como mixed.
                         
