@@ -66,7 +66,7 @@ class AgenteRag:
                         - Se forem apólice de seguro de tipo de bens diferentes, **SEMPRE** responda "Desculpe, nao há como comparar apólices de seguros de tipos de bens diferentes."
 
                         - Se os documentos não contiverem informações relevantes para responder à pergunta, **SEMPRE** responda "Desculpe, não tenho informações suficientes para 
-                        responder a essa pergunta."
+                        responder a essa pergunta. Verifique os documentos e tente novamente."
 
                         - Se os documentos contiverem informações relevantes, responda com base nessas informações. Seja claro e conciso nas suas respostas. Realize todas as 
                         correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
