@@ -92,21 +92,23 @@ O projeto está implantado na infraestrutura da **Google Cloud Platform (GCP)**:
 #### 🪟 Windows
 
 1. **Tesseract OCR**
-   * Baixe o instalador em <https://github.com/UB-Mannheim/tesseract/wiki>.
+
+   * Baixe o instalador em [https://github.com/UB-Mannheim/tesseract/wiki](https://github.com/UB-Mannheim/tesseract/wiki).
    * Durante a instalação, em *Additional language data*, marque **Portuguese**.
    * Instale no caminho padrão `C:\Program Files\Tesseract-OCR\`, pois é o caminho esperado pelo código em `app/motor_ocr_otimizado.py`.
    * Confira em um terminal novo:
      ```powershell
      & "C:\Program Files\Tesseract-OCR\tesseract.exe" --list-langs
      ```
+
      A lista deve conter `por`.
-
 2. **Poppler**
-   * O `app.zip` já traz o Poppler 24.08.0 em `app\poppler\poppler\poppler-24.08.0\Library\bin`, que é o caminho que o código usa no Windows. Ao descompactar o zip (passo 1 abaixo), nada mais precisa ser feito.
-   * Se preferir instalar por conta própria, baixe o pacote em <https://github.com/oschwartz10612/poppler-windows/releases>, extraia-o e deixe a pasta `Library\bin` no mesmo caminho acima, ou ajuste a variável `poppler_path` em `app/motor_ocr_otimizado.py`.
-   * Para testar: `pdftoppm -h` deve funcionar a partir da pasta `Library\bin`.
 
+   * O `app.zip` já traz o Poppler 24.08.0 em `app\poppler\poppler\poppler-24.08.0\Library\bin`, que é o caminho que o código usa no Windows. Ao descompactar o zip (passo 1 abaixo), nada mais precisa ser feito.
+   * Se preferir instalar por conta própria, baixe o pacote em [https://github.com/oschwartz10612/poppler-windows/releases](https://github.com/oschwartz10612/poppler-windows/releases), extraia-o e deixe a pasta `Library\bin` no mesmo caminho acima, ou ajuste a variável `poppler_path` em `app/motor_ocr_otimizado.py`.
+   * Para testar: `pdftoppm -h` deve funcionar a partir da pasta `Library\bin`.
 3. **libmagic**
+
    * No Windows, o `python-magic` precisa da biblioteca nativa. Depois de instalar o `requirements.txt`, instale também:
      ```powershell
      pip install python-magic-bin
@@ -135,10 +137,11 @@ brew install tesseract tesseract-lang poppler libmagic
 
 Crie a pasta do projeto, o ambiente virtual e descompacte os arquivos `app.zip` e `frontend.zip` **cada um em sua própria subpasta**. Os zips não contêm uma pasta raiz, então o conteúdo precisa ser extraído dentro de `app/` e `frontend/`, o que resulta na estrutura mostrada em 🧩 **Arquitetura da Aplicação**.
 
-Baixe os dois arquivos e o `requirements.txt` e coloque-os na pasta do projeto:
+Baixe os três arquivos e coloque-os na pasta do projeto:
 
 * 📦 [app.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/app.zip>) (backend)
 * 📦 [frontend.zip](<https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/frontend.zip>) (interface web)
+* 📄 [requirements.txt](<https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%20Final/desafio_final/requirements.txt>) (dependências Python; na página do GitHub, use o botão de download ou *Raw* e salve o arquivo)
 
 **Linux / macOS**
 
@@ -148,7 +151,7 @@ mkdir cotejo && cd cotejo
 # Download dos arquivos (ou baixe pelos links acima e copie para esta pasta)
 curl -L -O "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/app.zip"
 curl -L -O "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/frontend.zip"
-# (copie também o requirements.txt para esta pasta)
+curl -L -O "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/requirements.txt"
 
 python3.13 -m venv .venv
 source .venv/bin/activate
@@ -165,7 +168,7 @@ mkdir cotejo; cd cotejo
 # Download dos arquivos (ou baixe pelos links acima e copie para esta pasta)
 Invoke-WebRequest -Uri "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/app.zip" -OutFile app.zip
 Invoke-WebRequest -Uri "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/frontend.zip" -OutFile frontend.zip
-# (copie também o requirements.txt para esta pasta)
+Invoke-WebRequest -Uri "https://github.com/ajndantas/I2A2-Grupo_01/raw/refs/heads/master/Insurminds/Desafio%20Final/desafio_final/requirements.txt" -OutFile requirements.txt
 
 py -3.13 -m venv .venv
 .venv\Scripts\Activate.ps1
@@ -221,12 +224,12 @@ export const CONFIG = {
 
 Como o FastAPI serve o próprio frontend, `apiBaseUrl: ""` (mesma origem) também funciona e evita problemas de CORS.
 
-| Parâmetro      | Descrição                                                                   |
-| -------------- | --------------------------------------------------------------------------- |
-| `apiBaseUrl`   | Endereço do backend, sem barra no final                                     |
-| `demoMode`     | `true` usa respostas simuladas; `false` usa a API real                      |
-| `maxFileSize`  | Tamanho máximo de arquivo aceito pelo frontend                              |
-| `minFiles`     | Quantidade mínima de apólices exigida para a análise                        |
+| Parâmetro      | Descrição                                                |
+| --------------- | ---------------------------------------------------------- |
+| `apiBaseUrl`  | Endereço do backend, sem barra no final                   |
+| `demoMode`    | `true` usa respostas simuladas; `false` usa a API real |
+| `maxFileSize` | Tamanho máximo de arquivo aceito pelo frontend            |
+| `minFiles`    | Quantidade mínima de apólices exigida para a análise    |
 
 ### ▶️ 5 - Execução local
 
@@ -288,23 +291,23 @@ O deploy é automatizado pelo workflow **`docker-image-cotejo.yml`** (GitHub Act
 
 ### Configuração do workflow
 
-| Variável (`env`) | Valor / Descrição                                                           |
-| ---------------- | --------------------------------------------------------------------------- |
-| `PROJECT_ID`     | ID do projeto no GCP                                                        |
-| `REGION`         | Região do Cloud Run (`us-central1`)                                         |
-| `SERVICE_NAME`   | Nome do serviço no Cloud Run (`cotejo`)                                     |
-| `REPO_NAME`      | Repositório no Artifact Registry (`cotejo`), que deve existir previamente   |
-| `PORT`           | Porta do container (`8004`), a mesma exposta no `Dockerfile`                |
-| `GHIMAGE_ID`     | Imagem na GHCR (`ghcr.io/<owner>/cotejo`)                                   |
-| `TAG`            | Tag da imagem (`latest`)                                                    |
+| Variável (`env`) | Valor / Descrição                                                          |
+| ------------------- | ---------------------------------------------------------------------------- |
+| `PROJECT_ID`      | ID do projeto no GCP                                                         |
+| `REGION`          | Região do Cloud Run (`us-central1`)                                       |
+| `SERVICE_NAME`    | Nome do serviço no Cloud Run (`cotejo`)                                   |
+| `REPO_NAME`       | Repositório no Artifact Registry (`cotejo`), que deve existir previamente |
+| `PORT`            | Porta do container (`8004`), a mesma exposta no `Dockerfile`             |
+| `GHIMAGE_ID`      | Imagem na GHCR (`ghcr.io/<owner>/cotejo`)                                  |
+| `TAG`             | Tag da imagem (`latest`)                                                   |
 
 ### GitHub Secrets necessários
 
-| Secret                | Descrição                                                   |
-| --------------------- | ----------------------------------------------------------- |
-| `API_KEY_OPENROUTER`  | Chave do OpenRouter usada pelo LLM                          |
-| `API_KEY`             | Chave de API adicional                                      |
-| `GCP_SA_KEY`          | JSON da *Service Account* do GCP com permissão no Cloud Run |
+| Secret                 | Descrição                                                   |
+| ---------------------- | ------------------------------------------------------------- |
+| `API_KEY_OPENROUTER` | Chave do OpenRouter usada pelo LLM                            |
+| `API_KEY`            | Chave de API adicional                                        |
+| `GCP_SA_KEY`         | JSON da*Service Account* do GCP com permissão no Cloud Run |
 
 > O `GITHUB_TOKEN` é fornecido automaticamente pelo GitHub Actions e usado no login da GHCR.
 
@@ -312,12 +315,12 @@ O deploy é automatizado pelo workflow **`docker-image-cotejo.yml`** (GitHub Act
 
 ## 📡 Endpoints da API
 
-| Método | Rota                                 | Descrição                                                       |
-| ------ | ------------------------------------ | --------------------------------------------------------------- |
-| GET    | `/`                                  | Retorna a página HTML do frontend                               |
-| POST   | `/api/datasets/uploads`              | Recebe as apólices, executa o OCR e registra os datasets        |
-| POST   | `/api/datasets/{dataset_ids}/query`  | Faz uma pergunta sobre as apólices enviadas                     |
-| POST   | `/api/datasets/sessions/new`         | Descarta a sessão atual ("Nova análise")                        |
+| Método | Rota                                  | Descrição                                               |
+| ------- | ------------------------------------- | --------------------------------------------------------- |
+| GET     | `/`                                 | Retorna a página HTML do frontend                        |
+| POST    | `/api/datasets/uploads`             | Recebe as apólices, executa o OCR e registra os datasets |
+| POST    | `/api/datasets/{dataset_ids}/query` | Faz uma pergunta sobre as apólices enviadas              |
+| POST    | `/api/datasets/sessions/new`        | Descarta a sessão atual ("Nova análise")                |
 
 ### 🔎 Detalhamento dos endpoints
 
@@ -367,13 +370,13 @@ Limpa a sessão do usuário. Chamado pelo botão **Nova análise**.
 
 ### 🧬 Schemas principais
 
-| Schema          | Campos                                                                                                           |
-| --------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `DatasetQuery`  | `question`                                                                                                       |
-| `OutputSchema`  | `answer`, `type` (`text`, `table`, `chart` ou `mixed`), `table` (opcional), `chart` (opcional)                   |
-| `TableSchema`   | `columns` (lista de strings), `rows` (lista de listas de strings)                                                |
-| `ChartSchema`   | `type` (`bar` ou `doughnut`), `labels`, `datasets`                                                               |
-| `DatasetSchema` | `label`, `data` (lista de números)                                                                               |
+| Schema            | Campos                                                                                                         |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| `DatasetQuery`  | `question`                                                                                                   |
+| `OutputSchema`  | `answer`, `type` (`text`, `table`, `chart` ou `mixed`), `table` (opcional), `chart` (opcional) |
+| `TableSchema`   | `columns` (lista de strings), `rows` (lista de listas de strings)                                          |
+| `ChartSchema`   | `type` (`bar` ou `doughnut`), `labels`, `datasets`                                                   |
+| `DatasetSchema` | `label`, `data` (lista de números)                                                                        |
 
 O schema completo em OpenAPI pode ser consultado em `/openapi.json` (ou `/docs`) com a aplicação em execução.
 
@@ -381,10 +384,10 @@ O schema completo em OpenAPI pode ser consultado em `/openapi.json` (ou `/docs`)
 
 ## 🔐 Variáveis de Ambiente
 
-| Variável              | Descrição                                                                           |
-| --------------------- | ----------------------------------------------------------------------------------- |
-| `API_KEY_OPENROUTER`  | Chave do OpenRouter, usada pelo LLM configurado em `app/agente_rag.py`              |
-| `API_KEY`             | Chave de API alternativa (para uso direto de outro provedor, configurável no código) |
+| Variável              | Descrição                                                                            |
+| ---------------------- | -------------------------------------------------------------------------------------- |
+| `API_KEY_OPENROUTER` | Chave do OpenRouter, usada pelo LLM configurado em`app/agente_rag.py`                |
+| `API_KEY`            | Chave de API alternativa (para uso direto de outro provedor, configurável no código) |
 
 Em produção, as chaves ficam armazenadas como **GitHub Secrets**, são injetadas no build da imagem por `--build-arg` e repassadas ao Cloud Run como variáveis de ambiente.
 
