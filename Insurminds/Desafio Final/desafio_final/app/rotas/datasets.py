@@ -6,7 +6,7 @@ from app.motor_ocr_otimizado import NotaFiscalOCR
 from pathlib import Path
 from functools import lru_cache
 from typing import List
-from fastapi import Request
+from fastapi import Request, HTTPException
 
 
 ENV_PATH = (
@@ -73,7 +73,13 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
         print("Filetype: ",file_type)
 
         if file_type not in ["text/plain", "text/csv"]: # Se o arquivo for PDF ou imagem, o OCR irá extrair o texto
-            extracted_text[dataset_id] = ocr.main(uploaded_file)        
+
+            try:
+                extracted_text[dataset_id] = ocr.main(uploaded_file)
+
+            except HTTPException as e:
+                raise HTTPException(status_code=e.status_code, detail=str(e))
+
 
         else: # Se o arquivo for CSV ou TXT, o texto é lido diretamente da memória
             extracted_text[dataset_id] = uploaded_file.decode("utf-8")

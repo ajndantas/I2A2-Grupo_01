@@ -1,4 +1,6 @@
 #Importações necessárias
+from email.policy import HTTP
+
 import cv2 # OPEN-CV para manipulação de imagens
 from pytesseract import image_to_string, pytesseract # TESSERACT para OCR
 import pdf2image
@@ -6,6 +8,7 @@ import numpy as np
 from os import name
 from magic import from_buffer
 from pathlib import Path
+from fastapi import HTTPException
 
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL
@@ -66,7 +69,7 @@ class NotaFiscalOCR:
         
         else:
             print('\nExtraindo o texto da imagem...')
-                        
+
             file_bytes = np.asarray(bytearray(conteudo), dtype=np.uint8) # UTLIZANDO O ARQUIVO EM MEMÓRIA
             imagem = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
                         
@@ -74,6 +77,7 @@ class NotaFiscalOCR:
                 raise FileNotFoundError(f"Imagem não encontrada ou vazia")
 
             return imagem
+        
     
     def carregar_pdf(self, conteudo: bytes):
         """
@@ -181,9 +185,13 @@ class NotaFiscalOCR:
             imagem = self.carregar_arquivo(conteudo)
             imagem_proc = self.preprocessar_imagem(imagem)
 
-            textos = self.extrair_texto(imagem_proc)
+            try:
+                textos = self.extrair_texto(imagem_proc)
 
+            except pytesseract.TesseractError as e: # Erro image too large
+                raise HTTPException(status_code=500, detail=f"Erro ao extrair texto: {e}. Converta a imagem para PDF e tente novamente.")
 
+            
         print("Texto extraído:\n")
         print(textos)
 

@@ -50,7 +50,8 @@ class AgenteRag:
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
 
     template = """
-                    Você é um especialista em apólices de seguros e terá como principal fonte de consulta documentos e artigos divulgados pela SUSEP, e depois, a internet
+                    Você é um especialista em apólices de seguros do tipo D&O (Directors and Officers), também conhecidas como apólices de seguro de responsabilidade civil
+                    para conselheiros, diretores e administradores e terá como principal fonte de consulta documentos e artigos divulgados pela SUSEP, e depois, a internet.
                     
                     O conteúdo das apólices que terá que analisar está em CONTEXTO.
 
