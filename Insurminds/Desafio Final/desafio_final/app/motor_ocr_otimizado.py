@@ -137,10 +137,20 @@ class NotaFiscalOCR:
         config = r'--oem 3 --psm 11 -l {}'.format(self.lang)
         
         #config += ' -c tessedit_char_whitelist=0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-/()$%:' #INSERIDO
-    
-        texto = image_to_string(imagem_processada, config=config)
+
+        altura = imagem_processada.shape[0]
+        altura_maxima = 20000
+        sobreposicao = 200
+        passo = altura_maxima - sobreposicao
+        textos = [
+            image_to_string(
+                imagem_processada[inicio:inicio + altura_maxima, :],
+                config=config,
+            )
+            for inicio in range(0, altura, passo)
+        ]
         
-        return texto    
+        return '\n'.join(textos)
 
     def main(self, conteudo: bytes) -> str:
         """
@@ -181,10 +191,10 @@ class NotaFiscalOCR:
 
 
 # TESTE
-#if __name__ == "__main__":
-#
-#    ocr = NotaFiscalOCR()
-#
+if __name__ == "__main__":
+
+    ocr = NotaFiscalOCR()
+
 #    with open("Apólice 1 - automóvel.pdf", "rb") as apolice: 
-#    #with open("apolice_1_automovel.png", "rb") as apolice:
-#        ocr.main(apolice.read())
+    with open("SOMPO_D&O_condicoes_gerais.png", "rb") as apolice:
+        ocr.main(apolice.read())
