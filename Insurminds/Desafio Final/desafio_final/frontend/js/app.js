@@ -16,7 +16,7 @@ const elements = {
 let selectedFiles = [];
 let activeDataset = null;
 const chartInstances = [];
-const suggestionTexts = ["Quais são as coberturas de cada apólice?", "Qual apólice tem a menor franquia?", "Qual é a vigência de cada apólice?", "Quais são as principais diferenças entre elas?"];
+const suggestionTexts = ["Quais são as coberturas de cada apólice?", "Qual é a vigência de cada apólice?", "Quantas exclusões cada uma lista, por categoria (ambiental, tributária, multas, geográfica)? Monte um gráfico", "Quais são as principais diferenças entre elas?"];
 const acceptedExtensions = [".csv", ".txt", ".pdf", ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tif", ".tiff"];
 
 elements.selectFileButton.addEventListener("click", event => { event.stopPropagation(); elements.fileInput.click(); });
