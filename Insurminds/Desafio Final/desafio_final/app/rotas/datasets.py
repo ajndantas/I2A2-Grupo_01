@@ -106,7 +106,7 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
             response_model=OutputSchema,
             response_description="""
                                     type: ['text','table','chart','mixed']\n
-                                    table: "Quando 'type' for 'table' ou 'mixed', informe as linhas e nome das colunas, do contrário, não informar\n
+                                    table: "Quando 'type' for 'table' ou 'mixed', informe as linhas e nome das colunas, do contrário, não informar"\n
                                     chart: "Quando 'type' for 'chart' ou 'mixed', informe os labels e datasets, do contrário, não informar
                                  """
         )
