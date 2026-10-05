@@ -1,13 +1,6 @@
 import { CONFIG } from "./config.js";
 // O modo demonstração (CONFIG.demoMode) usa ./mock.js, carregado sob demanda.
 // Importar o arquivo de forma estática quebrava todo o front-end quando ele não existia.
-async function loadMock() {
-  try {
-    return await import("./mock.js");
-  } catch {
-    throw new Error("O modo de demonstração está ativo, mas o arquivo js/mock.js não foi encontrado. Defina demoMode: false em js/config.js.");
-  }
-}
 
 // Valida se foi disponibilizada a quantidade mínima de apólices exigida.
 // Retorna a mensagem de erro (string) ou null quando está tudo certo.
@@ -26,15 +19,6 @@ export async function uploadDatasets(files, onProgress = () => {}) {
   const validationError = validatePolicyFiles(files);
   if (validationError) throw new Error(validationError);
 
-  if (CONFIG.demoMode) {
-    for (const value of [12, 28, 49, 72, 91, 100]) {
-      await delay(300);
-      onProgress(value);
-    }
-    const { createDemoDatasets } = await loadMock();
-    return createDemoDatasets(files);
-  }
-
   const formData = new FormData();
   for (const file of files) {
     // O backend espera o campo "files" e aceita múltiplos UploadFile.
@@ -52,12 +36,6 @@ export async function uploadDatasets(files, onProgress = () => {}) {
 export async function askQuestion(datasetIds, question) {
   if (!Array.isArray(datasetIds) || !datasetIds.length) {
     throw new Error("Nenhum dataset foi associado aos arquivos.");
-  }
-
-  if (CONFIG.demoMode) {
-    await delay(900);
-    const { answerDemoQuestion } = await loadMock();
-    return answerDemoQuestion(question);
   }
 
   // O backend recebe os IDs no path separados por vírgula.
