@@ -34,7 +34,7 @@ elements.fileInput.addEventListener("change", () => {
 });
 elements.removeFileButton.addEventListener("click", clearFile);
 elements.processButton.addEventListener("click", processFiles);
-// "Nova análise" redireciona para o endpoint /sessions/new (não limpa mais a tela localmente).
+// "Nova análise" limpa a sessão no backend antes de voltar à tela inicial.
 elements.newAnalysisButton.addEventListener("click", startNewAnalysis);
 elements.questionForm.addEventListener("submit", submitQuestion);
 elements.questionInput.addEventListener("keydown", event => {
@@ -335,8 +335,14 @@ function addTypingIndicator() {
   return article;
 }
 
-function startNewAnalysis() {
-  window.location.assign(`${CONFIG.apiBaseUrl}/sessions/new`);
+async function startNewAnalysis() {
+  try {
+    const response = await fetch(`${CONFIG.apiBaseUrl}/api/datasets/sessions/new`, { method: "POST" });
+    if (!response.ok) throw new Error("Não foi possível limpar a sessão atual.");
+    window.location.assign(`${CONFIG.apiBaseUrl}/`);
+  } catch (error) {
+    addAssistantMessage({ answer: `Não foi possível iniciar uma nova análise: ${error.message}`, type: "text" });
+  }
 }
 
 function showView(view) {

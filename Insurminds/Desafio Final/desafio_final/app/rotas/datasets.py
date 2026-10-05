@@ -47,8 +47,10 @@ async def new_session(request: Request):
     contexts_by_session.pop(request.session.get("session_id"), None)
 
     request.session.clear()
-
-    return RedirectResponse(url="/", status_code=303)
+    request = RedirectResponse(url="/", status_code=303)
+    
+    
+    return request
 
 
 @router.post("/uploads")
@@ -127,7 +129,7 @@ async def query_dataset(request: Request, payload: DatasetQuery, ag = Depends(ge
     session_id = request.session.get("session_id")
     context = contexts_by_session.get(session_id)
     if context is None:
-        raise HTTPException(status_code=400, detail="Envie os documentos novamente para iniciar a análise.")
+        raise HTTPException(status_code=500, detail="Envie os documentos novamente para iniciar a análise.")
 
     answer = json.loads(ag.query(question=payload.question, context=context))
     
