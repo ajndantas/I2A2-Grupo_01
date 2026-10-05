@@ -40,14 +40,16 @@ contexts_by_session = {}
 class DatasetQuery(BaseModel):
     question: str
 
-@router.post("/sessions/new", summary="Iniciar uma nova sessão", response_class=HTMLResponse)
+@router.get("/sessions/new", summary="Iniciar uma nova sessão")
 async def new_session(request: Request):
     """Chamado pelo botão 'Nova análise': descarta a sessão atual (e seus datasets) e cria uma nova."""
 
     contexts_by_session.pop(request.session.get("session_id"), None)
 
     request.session.clear()
-        
+
+    request = RedirectResponse(url="/", status_code=300)
+    
     return request
 
 

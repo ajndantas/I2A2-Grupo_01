@@ -335,7 +335,12 @@ function addTypingIndicator() {
   return article;
 }
 
-async function startNewAnalysis() {
+function startNewAnalysis() {
+  // O backend limpa a sessão em /sessions/new e redireciona (303) para a tela inicial.
+  window.location.assign(`${CONFIG.apiBaseUrl}/sessions/new`);
+}
+
+/*async function startNewAnalysis() {
   try {
     const response = await fetch(`${CONFIG.apiBaseUrl}/api/datasets/sessions/new`, { method: "POST" });
     if (!response.ok) throw new Error("Não foi possível limpar a sessão atual.");
@@ -343,7 +348,7 @@ async function startNewAnalysis() {
   } catch (error) {
     addAssistantMessage({ answer: `Não foi possível iniciar uma nova análise: ${error.message}`, type: "text" });
   }
-}
+}*/
 
 function showView(view) {
   elements.uploadView.classList.toggle("hidden", view !== "upload");
