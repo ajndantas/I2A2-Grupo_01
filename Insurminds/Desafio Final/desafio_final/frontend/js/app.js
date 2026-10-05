@@ -337,7 +337,7 @@ function addTypingIndicator() {
 
 function startNewAnalysis() {
   // O backend limpa a sessão em /sessions/new e redireciona (303) para a tela inicial.
-  window.location.assign(`${CONFIG.apiBaseUrl}/sessions/new`);
+  window.location.assign(`${CONFIG.apiBaseUrl}/api/datasets/sessions/new`);
 }
 
 /*async function startNewAnalysis() {
