@@ -37,11 +37,11 @@ class AgenteRag:
     from langchain_core.output_parsers import JsonOutputParser
 
     llm = ChatOpenAI(
-                        #model_name="openrouter/free",
-                        #base_url="https://openrouter.ai/api/v1",
-                        model="gpt-5.6-luna",                   
-                        api_key=getenv("API_KEY"),
-                        #api_key=getenv("API_KEY_OPENROUTER"),                        
+                        model_name="openrouter/free",
+                        base_url="https://openrouter.ai/api/v1",
+                        #model="gpt-5.6-luna",                   
+                        #api_key=getenv("API_KEY"),
+                        api_key=getenv("API_KEY_OPENROUTER"),                        
                         #reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
                         cache=True,
                         temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
