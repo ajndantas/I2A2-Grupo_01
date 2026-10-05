@@ -62,4 +62,5 @@ jobs:
             --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
             --memory=4Gi \
             --cpu=4 \
+            --cpu-boost \
             --timeout=10m
