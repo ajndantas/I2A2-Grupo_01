@@ -281,7 +281,7 @@ docker run -d --env-file app/.env -p 8004:8004 --name cotejo cotejo
 
 ## ☁️ Infraestrutura e Deploy (GCP)
 
-O deploy é automatizado pelo workflow **`docker-image-cotejo.yml`** (GitHub Actions). Ele é disparado a cada **push na branch `master`** que altere `app/`, `frontend/`, `requirements.txt`, `Dockerfile` ou a pasta `Exemplos de documentos` do projeto.
+O deploy é automatizado pelo workflow [**`docker-image-cotejo.yml`**](https://github.com/ajndantas/I2A2-Grupo_01/blob/master/.github/workflows/docker-image-cotejo.yml) (GitHub Actions). Ele é disparado a cada **push na branch `master`** que altere `app/`, `frontend/`, `requirements.txt`, `Dockerfile` ou a pasta `Exemplos de documentos` do projeto.
 
 1. Build da imagem **Docker**, com as chaves recebidas por `--build-arg`, e push para o **GitHub Container Registry (GHCR)**.
 2. Autenticação no GCP com a *Service Account* e disponibilização da imagem no **Artifact Registry**, via proxy da GHCR.
