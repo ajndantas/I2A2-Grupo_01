@@ -60,8 +60,8 @@ jobs:
             --platform=managed \
             --allow-unauthenticated \
             --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
-            --memory=4Gi \
+            --memory=3Gi \
             --cpu=4 \
             --cpu-boost \
-            --concurrency=80 \
+            --concurrency=120 \
             --timeout=10m
