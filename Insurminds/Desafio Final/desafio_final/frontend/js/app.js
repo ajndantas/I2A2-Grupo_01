@@ -34,7 +34,8 @@ elements.fileInput.addEventListener("change", () => {
 });
 elements.removeFileButton.addEventListener("click", clearFile);
 elements.processButton.addEventListener("click", processFiles);
-elements.newAnalysisButton.addEventListener("click", resetApp);
+// "Nova análise" redireciona para o endpoint /sessions/new (não limpa mais a tela localmente).
+elements.newAnalysisButton.addEventListener("click", startNewAnalysis);
 elements.questionForm.addEventListener("submit", submitQuestion);
 elements.questionInput.addEventListener("keydown", event => {
   if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); elements.questionForm.requestSubmit(); }
@@ -334,15 +335,8 @@ function addTypingIndicator() {
   return article;
 }
 
-function resetApp() {
-  chartInstances.splice(0).forEach(chart => chart.destroy());
-  activeDataset = null;
-  elements.messages.replaceChildren();
-  elements.suggestions.replaceChildren();
-  elements.activeDatasets.replaceChildren();
-  elements.progressBar.style.width = "8%";
-  clearFile();
-  showView("upload");
+function startNewAnalysis() {
+  window.location.assign(`${CONFIG.apiBaseUrl}/sessions/new`);
 }
 
 function showView(view) {

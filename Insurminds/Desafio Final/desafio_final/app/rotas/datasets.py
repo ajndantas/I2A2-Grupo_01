@@ -1,4 +1,5 @@
 from fastapi import APIRouter, File, UploadFile, Depends
+from fastapi.responses import HTMLResponse, RedirectResponse
 from pydantic import BaseModel
 from app.modelos.datasetquery import DatasetQuery
 from app.modelos.outputschema import OutputSchema
@@ -7,6 +8,7 @@ from pathlib import Path
 from functools import lru_cache
 from typing import List
 from fastapi import Request, HTTPException
+from uuid import uuid4
 
 
 ENV_PATH = (
@@ -33,19 +35,20 @@ router = APIRouter(
 
 #datasets = {} # Dicionário para armazenar os datasets identificados pelos dataset_ids. Localizado aqui, para ser acessado em todas as rotas
 
-extracted_text = {}
-context = {}
+contexts_by_session = {}
 
 class DatasetQuery(BaseModel):
     question: str
 
-@router.post("/sessions/new", summary="Iniciar uma nova sessão")
+@router.post("/sessions/new", summary="Iniciar uma nova sessão", response_class=HTMLResponse)
 async def new_session(request: Request):
     """Chamado pelo botão 'Nova análise': descarta a sessão atual (e seus datasets) e cria uma nova."""
 
-    #extracted_text.clear()
+    contexts_by_session.pop(request.session.get("session_id"), None)
 
     request.session.clear()
+
+    return RedirectResponse(url="/", status_code=303)
 
 
 @router.post("/uploads")
@@ -54,7 +57,8 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
     from magic import from_buffer 
     import random
 
-    datasets = {} # Dicionário para armazenar os datasets identificados pelos dataset_ids.
+    dataset_ids = []
+    context = {}
 
     for file in files:
 
@@ -64,8 +68,8 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
         print("dataset_id: ", dataset_id)
         print("filename: ", file.filename)
     
-        datasets[dataset_id] = await file.read()
-        uploaded_file = datasets.get(dataset_id) # EM MEMÓRIA
+        dataset_ids.append(dataset_id)
+        uploaded_file = await file.read()
 
         filename = file.filename
         
@@ -75,18 +79,21 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
         if file_type not in ["text/plain", "text/csv"]: # Se o arquivo for PDF ou imagem, o OCR irá extrair o texto
 
             try:
-                extracted_text[dataset_id] = ocr.main(uploaded_file)
+                document_text = ocr.main(uploaded_file)
 
             except HTTPException as e:
                 raise HTTPException(status_code=e.status_code, detail=str(e))
 
 
         else: # Se o arquivo for CSV ou TXT, o texto é lido diretamente da memória
-            extracted_text[dataset_id] = uploaded_file.decode("utf-8")
+            document_text = uploaded_file.decode("utf-8")
 
-        context[filename] = extracted_text[dataset_id]
+        context[filename] = document_text
 
-    request.session["dataset_ids"] = list(datasets.keys()) # Armazena os dataset_ids na sessão do request
+    session_id = request.session.get("session_id") or uuid4().hex
+    request.session["session_id"] = session_id
+    contexts_by_session[session_id] = context
+    request.session["dataset_ids"] = dataset_ids # Armazena os dataset_ids na sessão do request
     request.session["filenames"] = list(context.keys()) # Armazena os filenames na sessão do request
 
     return {
@@ -110,13 +117,18 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
                                     chart: "Quando 'type' for 'chart' ou 'mixed', informe os labels e datasets, do contrário, não informar
                                  """
         )
-async def query_dataset(payload: DatasetQuery, ag = Depends(getAgenteRag)) -> OutputSchema: # O segundo parâmetro é o payload e não
+async def query_dataset(request: Request, payload: DatasetQuery, ag = Depends(getAgenteRag)) -> OutputSchema: # O segundo parâmetro é o payload e não
                                                                                               # deve ser de tipo primitivo, porque o 
                                                                                               # frontend irá enviar no CORPO do JSON.
                                                                                               #
     import json                                                                               # Também poderia ser question: str = Body[...]        
 
-        
+
+    session_id = request.session.get("session_id")
+    context = contexts_by_session.get(session_id)
+    if context is None:
+        raise HTTPException(status_code=400, detail="Envie os documentos novamente para iniciar a análise.")
+
     answer = json.loads(ag.query(question=payload.question, context=context))
     
     if answer["type"] == "table":

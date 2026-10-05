@@ -10,7 +10,7 @@ Principais funcionalidades:
 
 * 📤 **Upload de múltiplos documentos:** o frontend exige no mínimo 2 apólices (sem limite máximo) e aceita PDF, imagens, TXT e CSV.
 * 🔍 **OCR automático:** PDFs e imagens são convertidos em texto com **Tesseract + OpenCV** (idioma português). Arquivos TXT/CSV são lidos diretamente.
-* 🤖 **Agente de comparação com IA:** um LLM (via LangChain + OpenRouter) recebe o texto de todas as apólices como contexto e responde à pergunta do usuário, sempre citando os nomes dos arquivos.
+* 🤖 **Agente de comparação com IA:** um LLM (via LangChain + ChatGPT) recebe o texto de todas as apólices como contexto e responde à pergunta do usuário, sempre citando os nomes dos arquivos.
 * 📊 **Respostas estruturadas:** a saída segue um schema (`text`, `table`, `chart` ou `mixed`), renderizado pelo frontend como texto, tabela ou gráfico (barras ou rosca).
 * 🛡️ **Proteções de domínio:** o agente recusa comparar apólices de tipos de bens diferentes e avisa quando os documentos não trazem informação suficiente.
 * 🔄 **Nova análise:** botão que descarta a sessão atual e inicia uma nova.
@@ -197,7 +197,7 @@ pip install python-magic-bin
 
 ### 🔐 3 - Configuração das variáveis de ambiente
 
-O backend carrega as chaves do arquivo **`app/.env`** (dentro da pasta `app`, e não na raiz do projeto). O `app.zip` já traz esse arquivo, então basta abri-lo e conferir os valores. Se ele não existir, crie-o:
+Crie um arquivo  **.env** dentro da pasta `app :`
 
 ```env
 API_KEY=SUA_CHAVE_API
@@ -205,7 +205,7 @@ API_KEY=SUA_CHAVE_API
 
 * `API_KEY` é a chave usada hoje pelo LLM em `app/agente_rag.py`.
 
-> ⚠️ **Nunca versione o `.env`.** Inclua `.env` no `.gitignore` e, se o arquivo do zip tiver chaves reais, troque-as pelas suas próprias.
+> ⚠️ **Nunca versione o `.env`.** Inclua `.env` no `.gitignore`.
 
 ### 🌐 4 - Configuração do frontend
 
@@ -301,10 +301,10 @@ O deploy é automatizado pelo workflow [**`docker-image-cotejo.yml`**](https://g
 
 ### GitHub Secrets necessários
 
-| Secret         | Descrição                                                   |
+| Secret         | Descrição                                                     |
 | -------------- | ------------------------------------------------------------- |
-| `API_KEY`    | Chave de API usada pelo LLM                                     |
-| `GCP_SA_KEY` | JSON da*Service Account* do GCP com permissão no Cloud Run      |
+| `API_KEY`      | Chave de API usada pelo LLM                                   |
+| `GCP_SA_KEY`   | JSON da*Service Account* do GCP com permissão no Cloud Run    |
 
 > O `GITHUB_TOKEN` é fornecido automaticamente pelo GitHub Actions e usado no login da GHCR.
 
@@ -381,10 +381,9 @@ O schema completo em OpenAPI pode ser consultado em `/openapi.json` (ou `/docs`)
 
 ## 🔐 Variáveis de Ambiente
 
-| Variável              | Descrição                                                                            |
-| ---------------------- | -------------------------------------------------------------------------------------- |
-| `API_KEY_OPENROUTER` | Chave do OpenRouter, usada pelo LLM configurado em`app/agente_rag.py`                |
-| `API_KEY`            | Chave de API alternativa (para uso direto de outro provedor, configurável no código) |
+| Variável   | Descrição                                                                               |
+| ----------- | -------------------------------------------------------------------------------------- |
+| `API_KEY` | Chave de API alternativa (para uso direto de outro provedor, configurável no código)     |
 
 Em produção, as chaves ficam armazenadas como **GitHub Secrets**, são injetadas no build da imagem por `--build-arg` e repassadas ao Cloud Run como variáveis de ambiente.
 
@@ -395,10 +394,9 @@ Em produção, as chaves ficam armazenadas como **GitHub Secrets**, são injetad
 * **OCR e idioma:** o Tesseract precisa do pacote de idioma `por` instalado. Sem ele, a extração de texto falha.
 * **Imagens muito grandes:** se o Tesseract devolver o erro *image too large*, converta a imagem para PDF e envie novamente.
 * **Estado em memória:** os textos extraídos ficam em memória no processo do servidor e se perdem ao reiniciá-lo. O sistema também não foi pensado para múltiplos usuários simultâneos, pois o contexto das apólices é compartilhado pelo processo.
-* **Sessão:** o `SessionMiddleware` mantém os IDs dos documentos em cookie. Para produção, troque o `secret_key` fixo em `app/main.py` por um valor secreto vindo de variável de ambiente.
-* **Qualidade das respostas:** o modelo configurado é o `openrouter/free`, sujeito à disponibilidade e à precisão do roteamento gratuito do OpenRouter.
+* **Qualidade das respostas:** o modelo configurado é o `gpt-5.6-luna`, sujeito à disponibilidade e à precisão da OpenAI.
 * **Apólices de tipos diferentes:** o agente responde que não é possível comparar apólices de tipos de bens diferentes.
-* **Documentos de exemplo:** a pasta `Exemplos de documentos` do repositório traz apólices D&O para teste. O frontend oferece esses arquivos na tela de upload.
+* **Documentos de exemplo:** . O frontend oferece exemplos de apólices na tela de upload.
 
 ## 📃 Licença
 

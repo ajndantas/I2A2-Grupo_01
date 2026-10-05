@@ -41,7 +41,7 @@ ENV API_KEY=${API_KEY}
 
 EXPOSE 8004
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8004"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8004", "workers", "2"]
 
 # EXECUTAR O DOCKER COM: 
 # Para baixar do GITHUB -> docker pull ghcr.io/ajndantas/agente_nfs:latest
