@@ -103,8 +103,13 @@ async def uploads(request: Request, files: List[UploadFile] = File(...), ocr = D
                 "Informe os IDs dos datasets separados por vírgula no caminho. "
                 "Exemplo: `/api/datasets/ds_123,ds_456/query`."
             ),
-            response_model=OutputSchema
-        ) # Dataset_ids recebe uma string com os dataset_ids separados por vírgula
+            response_model=OutputSchema,
+            response_description="""
+                                    type: ['text','table','chart','mixed']\n
+                                    table: "Quando 'type' for 'table' ou 'mixed', informe as linhas e nome das colunas, do contrário, não informar\n
+                                    chart: "Quando 'type' for 'chart' ou 'mixed', informe os labels e datasets, do contrário, não informar
+                                 """
+        )
 async def query_dataset(payload: DatasetQuery, ag = Depends(getAgenteRag)) -> OutputSchema: # O segundo parâmetro é o payload e não
                                                                                               # deve ser de tipo primitivo, porque o 
                                                                                               # frontend irá enviar no CORPO do JSON.
