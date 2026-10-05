@@ -58,7 +58,7 @@ async function parseResponse(response) {
     throw new Error(
       payload.detail ||
       payload.message ||
-      "Não foi possível concluir a solicitação. Tente novamente."
+      "Não foi possível concluir a solicitação. Atualize a pagina e Tente novamente."
     );
   }
   return payload;

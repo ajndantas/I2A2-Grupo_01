@@ -264,7 +264,7 @@ async function submitQuestion(event) {
     addAssistantMessage(response);
   } catch (error) {
     typing.remove();
-    addAssistantMessage({ answer: `Não consegui concluir a análise: ${error.message}`, type: "text" });
+    addAssistantMessage({ answer: `Não consegui concluir a análise: ${error.message}. Atualize a pagina e tente novamente.`, type: "text" });
   } finally {
     setComposerState(true);
   }
