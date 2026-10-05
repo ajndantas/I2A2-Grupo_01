@@ -61,7 +61,7 @@ jobs:
             --allow-unauthenticated \
             --set-env-vars=API_KEY_OPENROUTER=${{ env.API_KEY_OPENROUTER }},API_KEY=${{ env.API_KEY }} \
             --memory=2Gi \
-            --cpu=4 \
+            --cpu=2 \
             --concurrency=5 \
             --cpu-boost \
             --timeout=10m
