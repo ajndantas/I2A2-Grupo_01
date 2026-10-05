@@ -47,9 +47,7 @@ async def new_session(request: Request):
     contexts_by_session.pop(request.session.get("session_id"), None)
 
     request.session.clear()
-    request = RedirectResponse(url="/", status_code=303)
-    
-    
+        
     return request
 
 
