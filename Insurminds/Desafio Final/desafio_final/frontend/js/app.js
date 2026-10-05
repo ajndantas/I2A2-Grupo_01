@@ -24,7 +24,10 @@ elements.dropzone.addEventListener("click", event => {
   if (event.target.closest("button")) return;
   elements.fileInput.click();
 });
-elements.dropzone.addEventListener("keydown", event => { if (["Enter", " "].includes(event.key)) elements.fileInput.click(); });
+elements.dropzone.addEventListener("keydown", event => {
+  if (event.target !== elements.dropzone) return; // evita abrir o seletor duas vezes quando o foco está no botão
+  if (["Enter", " "].includes(event.key)) { event.preventDefault(); elements.fileInput.click(); }
+});
 elements.fileInput.addEventListener("change", () => {
   addFiles([...elements.fileInput.files]);
   elements.fileInput.value = ""; // permite selecionar de novo o mesmo arquivo após removê-lo
@@ -38,21 +41,36 @@ elements.questionInput.addEventListener("keydown", event => {
 });
 elements.questionInput.addEventListener("input", autoResize);
 
-for (const eventName of ["dragenter", "dragover"]) {
-  elements.dropzone.addEventListener(eventName, event => {
+// Evita que o navegador abra/baixe o arquivo quando ele é solto fora da área de upload.
+for (const eventName of ["dragover", "drop"]) {
+  window.addEventListener(eventName, event => {
+    if (!event.dataTransfer || ![...event.dataTransfer.types].includes("Files")) return;
     event.preventDefault();
-    elements.dropzone.classList.add("dragover");
+    if (!elements.dropzone.contains(event.target)) event.dataTransfer.dropEffect = "none";
   });
 }
-for (const eventName of ["dragleave", "drop"]) {
-  elements.dropzone.addEventListener(eventName, event => {
-    event.preventDefault();
-    elements.dropzone.classList.remove("dragover");
-  });
-}
+
+let dragDepth = 0; // contador para o dragenter/dragleave não "piscar" ao passar por elementos filhos
+elements.dropzone.addEventListener("dragenter", event => {
+  event.preventDefault();
+  dragDepth++;
+  elements.dropzone.classList.add("dragover");
+});
+elements.dropzone.addEventListener("dragover", event => {
+  event.preventDefault();
+  if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
+  elements.dropzone.classList.add("dragover");
+});
+elements.dropzone.addEventListener("dragleave", event => {
+  event.preventDefault();
+  dragDepth = Math.max(0, dragDepth - 1);
+  if (!dragDepth) elements.dropzone.classList.remove("dragover");
+});
 elements.dropzone.addEventListener("drop", event => {
   event.preventDefault();
-  addFiles([...event.dataTransfer.files]);
+  dragDepth = 0;
+  elements.dropzone.classList.remove("dragover");
+  addFiles([...(event.dataTransfer?.files || [])]);
 });
 
 function addFiles(files) {
@@ -62,7 +80,7 @@ function addFiles(files) {
   const errors = [];
   const validFiles = [];
   for (const file of files) {
-    const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+    const extension = getExtension(file.name);
     if (!acceptedExtensions.includes(extension)) {
       errors.push(`"${file.name}" não é um tipo de arquivo aceito.`);
       continue;
@@ -81,6 +99,11 @@ function addFiles(files) {
   selectedFiles.push(...validFiles);
   renderSelectedFiles();
   if (errors.length) showError(errors.join(" "));
+}
+
+function getExtension(fileName) {
+  const dot = fileName.lastIndexOf(".");
+  return dot < 0 ? "" : fileName.slice(dot).toLowerCase();
 }
 
 function isSameFile(a, b) {
@@ -108,7 +131,7 @@ function renderSelectedFiles() {
   elements.fileRequirement.textContent = requirementMessage || `✓ ${selectedFiles.length} apólices selecionadas. Tudo pronto para analisar.`;
   elements.fileRequirement.classList.toggle("is-valid", !requirementMessage);
   selectedFiles.forEach((file, index) => {
-    const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+    const extension = getExtension(file.name) || ".?";
     const item = document.createElement("div");
     item.className = "selected-file";
 
