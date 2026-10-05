@@ -87,7 +87,7 @@ O projeto está implantado na infraestrutura da **Google Cloud Platform (GCP)**:
 * **Tesseract OCR** com o pacote de idioma português (`por`)
 * **Poppler** (utilitários de PDF)
 * **libmagic** (detecção do tipo de arquivo)
-* Uma chave de API do **[OpenRouter](https://openrouter.ai/)**
+* Uma chave de API do ChatGPT
 
 #### 🪟 Windows
 
@@ -97,6 +97,7 @@ O projeto está implantado na infraestrutura da **Google Cloud Platform (GCP)**:
    * Durante a instalação, em *Additional language data*, marque **Portuguese**.
    * Instale no caminho padrão `C:\Program Files\Tesseract-OCR\`, pois é o caminho esperado pelo código em `app/motor_ocr_otimizado.py`.
    * Confira em um terminal novo:
+
      ```powershell
      & "C:\Program Files\Tesseract-OCR\tesseract.exe" --list-langs
      ```
@@ -199,12 +200,10 @@ pip install python-magic-bin
 O backend carrega as chaves do arquivo **`app/.env`** (dentro da pasta `app`, e não na raiz do projeto). O `app.zip` já traz esse arquivo, então basta abri-lo e conferir os valores. Se ele não existir, crie-o:
 
 ```env
-API_KEY_OPENROUTER=SUA_CHAVE_DO_OPENROUTER
 API_KEY=SUA_CHAVE_API
 ```
 
-* `API_KEY_OPENROUTER` é a chave usada hoje pelo LLM em `app/agente_rag.py`.
-* `API_KEY` é lida e repassada no deploy, mas está comentada no código (alternativa para uso direto da OpenAI).
+* `API_KEY` é a chave usada hoje pelo LLM em `app/agente_rag.py`.
 
 > ⚠️ **Nunca versione o `.env`.** Inclua `.env` no `.gitignore` e, se o arquivo do zip tiver chaves reais, troque-as pelas suas próprias.
 
@@ -261,7 +260,6 @@ A pasta de contexto do build deve conter `app/`, `frontend/`, `requirements.txt`
 
 ```bash
 docker build \
-  --build-arg API_KEY_OPENROUTER=sua_chave_openrouter \
   --build-arg API_KEY=sua_chave_api \
   -t cotejo .
 ```
@@ -287,7 +285,7 @@ O deploy é automatizado pelo workflow **`docker-image-cotejo.yml`** (GitHub Act
 
 1. Build da imagem **Docker**, com as chaves recebidas por `--build-arg`, e push para o **GitHub Container Registry (GHCR)**.
 2. Autenticação no GCP com a *Service Account* e disponibilização da imagem no **Artifact Registry**, via proxy da GHCR.
-3. Deploy no **Cloud Run**, com `--memory=1Gi`, `--timeout=10m`, `--allow-unauthenticated` e as chaves repassadas como variáveis de ambiente.
+3. Deploy no **Cloud Run**, com `--memory=2Gi`, `--cpu=4, --timeout=10m`, `--allow-unauthenticated` e as chaves repassadas como variáveis de ambiente.
 
 ### Configuração do workflow
 
@@ -303,11 +301,10 @@ O deploy é automatizado pelo workflow **`docker-image-cotejo.yml`** (GitHub Act
 
 ### GitHub Secrets necessários
 
-| Secret                 | Descrição                                                   |
-| ---------------------- | ------------------------------------------------------------- |
-| `API_KEY_OPENROUTER` | Chave do OpenRouter usada pelo LLM                            |
-| `API_KEY`            | Chave de API adicional                                        |
-| `GCP_SA_KEY`         | JSON da*Service Account* do GCP com permissão no Cloud Run |
+| Secret         | Descrição                                                   |
+| -------------- | ------------------------------------------------------------- |
+| `API_KEY`    | Chave de API usada pelo LLM                                     |
+| `GCP_SA_KEY` | JSON da*Service Account* do GCP com permissão no Cloud Run      |
 
 > O `GITHUB_TOKEN` é fornecido automaticamente pelo GitHub Actions e usado no login da GHCR.
 
