@@ -48,7 +48,7 @@ async def new_session(request: Request):
 
     request.session.clear()
 
-    request = RedirectResponse(url="/", status_code=300)
+    request = RedirectResponse(url="/", status_code=303)
     
     return request
 
