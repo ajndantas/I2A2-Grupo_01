@@ -301,10 +301,10 @@ O deploy é automatizado pelo workflow [**`docker-image-cotejo.yml`**](https://g
 
 ### GitHub Secrets necessários
 
-| Secret         | Descrição                                                     |
+| Secret         | Descrição                                                   |
 | -------------- | ------------------------------------------------------------- |
-| `API_KEY`      | Chave de API usada pelo LLM                                   |
-| `GCP_SA_KEY`   | JSON da*Service Account* do GCP com permissão no Cloud Run    |
+| `API_KEY`    | Chave de API usada pelo LLM                                   |
+| `GCP_SA_KEY` | JSON da*Service Account* do GCP com permissão no Cloud Run |
 
 > O `GITHUB_TOKEN` é fornecido automaticamente pelo GitHub Actions e usado no login da GHCR.
 
@@ -381,9 +381,9 @@ O schema completo em OpenAPI pode ser consultado em `/openapi.json` (ou `/docs`)
 
 ## 🔐 Variáveis de Ambiente
 
-| Variável   | Descrição                                                                               |
+| Variável   | Descrição                                                                            |
 | ----------- | -------------------------------------------------------------------------------------- |
-| `API_KEY` | Chave de API alternativa (para uso direto de outro provedor, configurável no código)     |
+| `API_KEY` | Chave de API alternativa (para uso direto de outro provedor, configurável no código) |
 
 Em produção, as chaves ficam armazenadas como **GitHub Secrets**, são injetadas no build da imagem por `--build-arg` e repassadas ao Cloud Run como variáveis de ambiente.
 
@@ -393,7 +393,6 @@ Em produção, as chaves ficam armazenadas como **GitHub Secrets**, são injetad
 
 * **OCR e idioma:** o Tesseract precisa do pacote de idioma `por` instalado. Sem ele, a extração de texto falha.
 * **Imagens muito grandes:** se o Tesseract devolver o erro *image too large*, converta a imagem para PDF e envie novamente.
-* **Estado em memória:** os textos extraídos ficam em memória no processo do servidor e se perdem ao reiniciá-lo. O sistema também não foi pensado para múltiplos usuários simultâneos, pois o contexto das apólices é compartilhado pelo processo.
 * **Qualidade das respostas:** o modelo configurado é o `gpt-5.6-luna`, sujeito à disponibilidade e à precisão da OpenAI.
 * **Apólices de tipos diferentes:** o agente responde que não é possível comparar apólices de tipos de bens diferentes.
 * **Documentos de exemplo:** . O frontend oferece exemplos de apólices na tela de upload.
