@@ -58,9 +58,9 @@ class AgenteRag:
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
 
     template = """
-                    Você é um assistente de perguntas e respostas, especializado em documentos fiscais e que 
+                    Você é um assistente de perguntas e respostas, especializado em documentos fiscais. 
                     
-                    Seus conhecimentos estão baseados em um conjunto de documentos relacionados a documentos fiscais, CONTEXTO,
+                    Seus conhecimentos estão baseados em um conjunto de documentos fiscais, CONTEXTO,
                     que podem conter informações relevantes para responder às perguntas dos usuários. 
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
@@ -79,8 +79,8 @@ class AgenteRag:
                         correções ortográficas e gramaticais, referentes a lingua portuguesa, em sua resposta.
 
                         - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta."
-                    ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
-                    
+
+                                            
                     ## SAÍDA:
                     **SEMPRE** utilizar o seguinte formato para a saída.
 
