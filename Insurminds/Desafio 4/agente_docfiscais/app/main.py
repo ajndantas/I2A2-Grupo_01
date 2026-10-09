@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from app.rotas import datasets
+from starlette.middleware.sessions import SessionMiddleware
 
 app = FastAPI()
 
@@ -9,6 +10,8 @@ app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
 app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
 
 app.include_router(datasets.router)
+
+app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
 
 """
 allow_origins=[

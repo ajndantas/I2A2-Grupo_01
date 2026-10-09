@@ -1,6 +1,3 @@
-# Instalação no Colab (ignore se já tiver instalado no local)
-# %pip install -qqq pytesseract opencv-python matplotlib
-
 #Importações necessárias
 import cv2 # OPEN-CV para manipulação de imagens
 from pytesseract import image_to_string, pytesseract # TESSERACT para OCR
@@ -9,6 +6,7 @@ import numpy as np
 from os import name
 from magic import from_buffer
 from pathlib import Path
+from fastapi import HTTPException
 
 ENV_PATH = (
                  Path(__file__) # O CAMINHO DO ARQUIVO ATUAL
@@ -48,12 +46,12 @@ class NotaFiscalOCR:
         pytesseract.tesseract_cmd = self.tesseract_cmd
         
 
-    def carregar_arquivo(self, caminho_imagem):
+    def carregar_arquivo(self, conteudo: bytes):
         """
         Carrega a imagem da nota fiscal a partir do caminho informado.
 
         Args:
-            caminho_imagem (str): Caminho do arquivo de imagem.
+            conteudo (Bytes): bytes do arquivo de imagem.
 
         Returns:
             numpy.ndarray: Imagem carregada.
@@ -62,28 +60,29 @@ class NotaFiscalOCR:
             FileNotFoundError: Se o arquivo não for encontrado.
         """
         
-        tipo = from_buffer(caminho_imagem, mime=True)
+        tipo = from_buffer(conteudo, mime=True)
                         
-        if tipo == 'application/pdf' or (tipo == 'application/octet-stream' and caminho_imagem.name.endswith('.pdf')):
-            return self.carregar_pdf(caminho_imagem)
+        if tipo == 'application/pdf' or (tipo == 'application/octet-stream' and conteudo.name.endswith('.pdf')):
+            return self.carregar_pdf(conteudo)
         
         else:
             print('\nExtraindo o texto da imagem...')
-                        
-            file_bytes = np.asarray(bytearray(caminho_imagem), dtype=np.uint8) # UTLIZANDO O ARQUIVO EM MEMÓRIA
+
+            file_bytes = np.asarray(bytearray(conteudo), dtype=np.uint8) # UTLIZANDO O ARQUIVO EM MEMÓRIA
             imagem = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
                         
             if imagem is None or imagem.size == 0:
                 raise FileNotFoundError(f"Imagem não encontrada ou vazia")
 
             return imagem
+        
     
-    def carregar_pdf(self, caminho_pdf):
+    def carregar_pdf(self, conteudo: bytes):
         """
-        Carrega um PDF e converte a primeira página em imagem.
+        Carrega um PDF e converte cada página do PDF em uma imagen, gerando uma lista de imagens. 
 
         Args:
-            caminho_pdf (str): Caminho do arquivo PDF.
+            conteudo (bytes): Bytes do arquivo PDF.
 
         Returns:
             numpy.ndarray: Imagem da primeira página do PDF.
@@ -95,16 +94,17 @@ class NotaFiscalOCR:
         print('\nExtraindo o texto do PDF...')
         
         if name == 'nt':
-            imagens = pdf2image.convert_from_bytes(caminho_pdf, poppler_path=self.poppler_path)
+            imagens = pdf2image.convert_from_bytes(conteudo, poppler_path=self.poppler_path) # Devolve uma imagem por página de PDF. Todas empilhadas
             
         elif name == 'posix':
-            imagens = pdf2image.convert_from_bytes(caminho_pdf)
+            imagens = pdf2image.convert_from_bytes(conteudo) # Devolve uma imagem por página de PDF. Todas empilhadas
             
         if not imagens:
             raise FileNotFoundError(f"PDF não encontrado ou vazio")
             
         
-        return cv2.cvtColor(np.array(imagens[0]), cv2.COLOR_RGB2BGR) # IMAGENS[0] É A PRIMEIRA PÁGINA DO PDF, CONVERTIDA PARA FORMATO COMPATÍVEL COM OPENCV
+        #return cv2.cvtColor(np.array(imagens[0]), cv2.COLOR_RGB2BGR) # IMAGENS[0] É A PRIMEIRA PÁGINA DO PDF, CONVERTIDA PARA FORMATO COMPATÍVEL COM OPENCV
+        return [cv2.cvtColor(np.array(imagem), cv2.COLOR_RGB2BGR) for imagem in imagens]
     
 
     def preprocessar_imagem(self, imagem):
@@ -139,12 +139,22 @@ class NotaFiscalOCR:
         config = r'--oem 3 --psm 11 -l {}'.format(self.lang)
         
         #config += ' -c tessedit_char_whitelist=0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-/()$%:' #INSERIDO
-    
-        texto = image_to_string(imagem_processada, config=config)
-        
-        return texto    
 
-    def main(self, caminho_arquivo) -> str:
+        altura = imagem_processada.shape[0]
+        altura_maxima = 20000
+        sobreposicao = 200
+        passo = altura_maxima - sobreposicao
+        textos = [
+            image_to_string(
+                imagem_processada[inicio:inicio + altura_maxima, :],
+                config=config,
+            )
+            for inicio in range(0, altura, passo)
+        ]
+        
+        return '\n'.join(textos)
+
+    def main(self, conteudo: bytes) -> str:
         """
         Executa o pipeline completo:
         - Carrega e exibe a imagem original.
@@ -158,11 +168,39 @@ class NotaFiscalOCR:
         Returns:
             tuple: Texto extraído (str), campos extraídos (dict)
         """
-        imagem = self.carregar_arquivo(caminho_arquivo)
-        imagem_proc = self.preprocessar_imagem(imagem)
-        
-        texto = self.extrair_texto(imagem_proc)
-        print("Texto extraído:\n")
-        print(texto)
 
-        return texto
+        tipo = from_buffer(conteudo, mime=True)
+
+        if tipo == 'application/pdf' or (tipo == 'application/octet-stream' and conteudo.name.endswith('.pdf')):
+
+            imagens = self.carregar_arquivo(conteudo) # RETORNA UMA IMAGEM OU UMA LISTA DE IMAGENS, NO CASO DE PDF
+            imagens_proc = [self.preprocessar_imagem(imagem) for imagem in imagens]
+
+            textos = [self.extrair_texto(imagem_proc) for imagem_proc in imagens_proc]
+
+        else:
+            
+            imagem = self.carregar_arquivo(conteudo)
+            imagem_proc = self.preprocessar_imagem(imagem)
+
+            try:
+                textos = self.extrair_texto(imagem_proc)
+
+            except pytesseract.TesseractError as e: # Erro image too large
+                raise HTTPException(status_code=500, detail=f"Erro ao extrair texto: {e}. Converta a imagem para PDF e tente novamente.")
+
+            
+        print("Texto extraído:\n")
+        print(textos)
+
+        return textos
+
+
+# TESTE
+if __name__ == "__main__":
+
+    ocr = NotaFiscalOCR()
+
+#    with open("Apólice 1 - automóvel.pdf", "rb") as apolice: 
+    with open("SOMPO_D&O_condicoes_gerais.png", "rb") as apolice:
+        ocr.main(apolice.read())

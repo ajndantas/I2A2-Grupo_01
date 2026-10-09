@@ -26,7 +26,7 @@
       <div class="hero-copy">
         <span class="eyebrow">ANÁLISE FISCAL COM IA</span>
         <h1>Transforme arquivos fiscais em respostas claras.</h1>
-        <p>Envie o arquivo de um documento fiscal e converse com seus dados sem fórmulas, SQL ou planilhas complexas.</p>
+        <p>Envie um ou mais arquivos de documentos fiscais e converse com seus dados sem fórmulas, SQL ou planilhas complexas.</p>
         <ul class="benefits" aria-label="Benefícios">
           <li><span>✓</span> Respostas para perguntas em linguagem natural</li>
           <!--<li><span>✓</span> Respostas em texto, tabelas e gráficos</li>-->
@@ -37,22 +37,24 @@
       <div class="upload-card">
         <div class="step-label"><span>1</span> Carregue os dados</div>
         <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-describedby="uploadHint">
-          <input id="fileInput" type="file" accept=".csv, .pdf, image/*, text/csv, text/plain, application/pdf" hidden>
+          <input id="fileInput" type="file" accept=".csv, .txt, .pdf, image/*, text/csv, text/plain, application/pdf" multiple hidden>
           <div class="upload-icon" aria-hidden="true">⇧</div>
-          <h2>Arraste seu arquivo aqui</h2>
+          <h2>Arraste seus arquivos aqui</h2>
           <p>ou <button id="selectFileButton" class="link-button" type="button">selecione no computador</button></p>
-          <small id="uploadHint">CSV, Texto, PDF ou imagem. Limite recomendado: 500 MB.</small>
+          <small id="uploadHint">CSV, Texto, PDF ou imagem. Você pode enviar vários arquivos. Limite recomendado: 500 MB por arquivo.</small>
         </div>
 
-        <div id="filePreview" class="file-preview hidden" aria-live="polite">
-          <div id="fileType" class="file-type">ARQUIVO</div>
-          <div><strong id="fileName"></strong><small id="fileSize"></small></div>
-          <button id="removeFileButton" class="icon-button" type="button" aria-label="Remover arquivo">×</button>
+        <div id="fileListWrap" class="file-list-section hidden">
+          <div class="file-list-header">
+            <span id="fileCount" aria-live="polite"></span>
+            <button id="clearAllButton" class="link-button" type="button">Remover todos</button>
+          </div>
+          <ul id="fileList" class="file-list" aria-label="Arquivos selecionados"></ul>
         </div>
 
         <div id="uploadError" class="alert error hidden" role="alert"></div>
         <button id="processButton" class="primary-button" type="button" disabled>
-          <span>Processar arquivo</span><span aria-hidden="true">→</span>
+          <span id="processLabel">Processar arquivos</span><span aria-hidden="true">→</span>
         </button>
         <p class="privacy-note">Seus dados são usados somente durante esta análise.</p>
 
@@ -62,19 +64,19 @@
             <p>Baixe um arquivo para testar a análise.</p>
           </div>
           <div class="sample-file-links">
-            <a class="sample-file-link" href="https://drive.google.com/file/d/1tAzgU8ec5P37GtL-l8hbi5S_qTOf_mKZ/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              <span class="sample-file-type">CSV</span>
-              <span><strong>Notas fiscais</strong><small>Dados tabulares</small></span>
+            <a class="sample-file-link" href="https://drive.google.com/file/d/1R6Sa-om8PpEgOTBFfPdIP4nJInmPaaLj/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <span class="sample-file-type">PDF</span>
+              <span><strong>Documento fiscal</strong><small>Documento em PDF</small></span>
               <span class="download-icon" aria-hidden="true">↓</span>
-            </a>
+            </a>            
             <a class="sample-file-link" href="https://drive.google.com/file/d/1xwAo0KGzZQfF9rGSfsQHDZsBaIeexjtX/view?usp=sharing" target="_blank" rel="noopener noreferrer">
               <span class="sample-file-type">Image</span>
               <span><strong>Imagem fiscal</strong><small>Imagem do documento</small></span>
               <span class="download-icon" aria-hidden="true">↓</span>
             </a>
-            <a class="sample-file-link" href="https://drive.google.com/file/d/1R6Sa-om8PpEgOTBFfPdIP4nJInmPaaLj/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              <span class="sample-file-type">PDF</span>
-              <span><strong>Documento fiscal</strong><small>Documento em PDF</small></span>
+            <a class="sample-file-link" href="https://drive.google.com/file/d/1tAzgU8ec5P37GtL-l8hbi5S_qTOf_mKZ/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <span class="sample-file-type">CSV</span>
+              <span><strong>Notas fiscais</strong><small>Dados tabulares</small></span>
               <span class="download-icon" aria-hidden="true">↓</span>
             </a>
           </div>
@@ -85,9 +87,9 @@
     <section id="processingView" class="processing-view hidden" aria-live="polite">
       <div class="loader"></div>
       <h1>Preparando sua análise</h1>
-      <p id="processingMessage">Enviando o arquivo com segurança...</p>
+      <p id="processingMessage">Enviando os arquivos com segurança...</p>
       <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
-      <small>Arquivos maiores podem levar alguns minutos.</small>
+      <small>Vários arquivos, PDFs e imagens (OCR) podem levar alguns minutos.</small>
     </section>
 
     <section id="workspaceView" class="workspace hidden">
@@ -95,6 +97,10 @@
         <div class="panel-heading">
           <div><span class="eyebrow">BASE ATIVA</span><h2 id="datasetName">Dados fiscais</h2></div>
           <button id="newAnalysisButton" class="secondary-button" type="button">Nova análise</button>
+        </div>
+        <div class="dataset-files-wrap">
+          <h3>Arquivos da análise</h3>
+          <ul id="datasetFiles" class="dataset-files"></ul>
         </div>
         <!-- <div class="summary-grid">
           <article><span>Notas fiscais</span><strong id="invoiceCount">—</strong></article>

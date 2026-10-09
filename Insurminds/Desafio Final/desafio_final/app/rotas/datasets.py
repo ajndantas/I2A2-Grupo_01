@@ -1,5 +1,5 @@
 from fastapi import APIRouter, File, UploadFile, Depends
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from app.modelos.datasetquery import DatasetQuery
 from app.modelos.outputschema import OutputSchema

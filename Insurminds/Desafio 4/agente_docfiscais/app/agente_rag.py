@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from os import getenv
 from langchain_core.globals import set_debug, set_llm_cache
 from langchain_core.caches import InMemoryCache
+from app.modelos.outputschema import OutputSchema
 from time import time
 import re
 from pathlib import Path
@@ -35,7 +36,6 @@ class AgenteRag:
     from langchain_openai import ChatOpenAI 
     from langchain_core.prompts import PromptTemplate
     from langchain_core.output_parsers import JsonOutputParser
-    from pydantic import BaseModel, Field
 
     llm = ChatOpenAI(
                         model_name="openrouter/free",
@@ -48,12 +48,6 @@ class AgenteRag:
                         temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
                     )    
 
-
-    class OutputSchema(BaseModel):
-        pergunta: str = Field(description="A pergunta do usuário")
-        resposta: str = Field(description="A resposta para a pergunta.")
-        tipo: str = Field(description="O tipo da resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, responder como chart, se for texto, tabela e grafico, responder como mixed.")
-                
 
     parseador = JsonOutputParser(pydantic_object=OutputSchema)
 
@@ -80,6 +74,11 @@ class AgenteRag:
 
                         - **NUNCA** responda em branco, em vez disso responda: "Desculpe, não tenho informações suficientes para responder a essa pergunta."
 
+                        - Sempre que for fazer a referência aos documentos fiscais, utilize seus nomes de arquivo.
+
+                        - Escolha o melhor tipo de resposta. Se for somente texto, responder como text, se for texto e tabela, responder como table, se for texto com gráfico, 
+                          responder como chart, se for texto, tabela e grafico, responder como mixed.
+
                                             
                     ## SAÍDA:
                     **SEMPRE** utilizar o seguinte formato para a saída.
@@ -98,22 +97,26 @@ class AgenteRag:
     self.__qa_chain = prompt_template | llm | parseador
 
     
-  def query(self, question: str, context: str) -> str:      
+  def query(self, question: str, context: dict) -> str:      
       
       import json
+      from langchain_core.exceptions import OutputParserException
 
       #with open(f"{ENV_PATH}/rag_docs/extracted_text.txt", "r", encoding="utf-8") as f:
       #    context = f.read()
       
-      output = self.__qa_chain.invoke({"question": question, "context": context}) 
-      print("Saída: \n",output)
+      try: 
+            output = self.__qa_chain.invoke({"question": question, "context": context}) 
+            print("Saída: \n",output)
 
-      result = ""
+            result = ""
 
-      try:          
+              
             result = json.dumps(output, indent=2, ensure_ascii=True)
 
-      except json.JSONDecodeError as e:
+            return result
+
+      except (json.JSONDecodeError, OutputParserException) as e:
             # TENTA EXTRAIR O JSON DE DENTRO DA RESPOSTA USANDO EXPRESSÃO REGULAR
             match = re.search(r"\{.*?\}", str(output), re.DOTALL) # A FLAG re.DOTALL 
                                                                   # PERMITE QUE O PONTO (.) NA EXPRESSÃO REGULAR 
@@ -128,15 +131,9 @@ class AgenteRag:
                         "pergunta": question,
                         "resposta": str(output['resposta']),
                         "tipo": "text"
-                  }      
+                  }
 
-      
-      # Limpa tags HTML residuais que o LLM às vezes injeta na resposta
-      self.json = result
-      
-      print("JSON\n",self.json)    
-
-      return self.json
+            return result
   
 
   def __set_memory(self):
