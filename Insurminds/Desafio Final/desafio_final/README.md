@@ -223,12 +223,11 @@ export const CONFIG = {
 
 Como o FastAPI serve o próprio frontend, `apiBaseUrl: ""` (mesma origem) também funciona e evita problemas de CORS.
 
-| Parâmetro      | Descrição                                                |
+| Parâmetro      | Descrição                                                   |
 | --------------- | ---------------------------------------------------------- |
-| `apiBaseUrl`  | Endereço do backend, sem barra no final                   |
-| `demoMode`    | `true` usa respostas simuladas; `false` usa a API real |
-| `maxFileSize` | Tamanho máximo de arquivo aceito pelo frontend            |
-| `minFiles`    | Quantidade mínima de apólices exigida para a análise    |
+| `apiBaseUrl`  | Endereço do backend, sem barra no final                      |
+| `maxFileSize` | Tamanho máximo de arquivo aceito pelo frontend               |
+| `minFiles`    | Quantidade mínima de apólices exigida para a análise         |
 
 ### ▶️ 5 - Execução local
 
