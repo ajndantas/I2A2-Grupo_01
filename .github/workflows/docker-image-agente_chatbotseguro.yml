@@ -4,8 +4,9 @@ on:
   push:
     branches: [ "master" ]
     paths: 
-      - 'Insurminds/Desafio 2/agente_chatbotseguro/**'        
-
+      - 'Insurminds/Desafio 2/agente_chatbotseguro/Scripts/**'
+      
+      
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
   PORT: 8002                          # Porta onde a aplicação vai rodar dentro do container. 
