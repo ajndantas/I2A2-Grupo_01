@@ -197,7 +197,7 @@ class AgenteChatbotSeguro:
 
     llm = ChatOpenAI(
                         #model="openrouter/free",
-                        model="gpt-5.6-luna",                   
+                        model="gpt-5.4-mini",                   
                         #api_key=getenv("API_KEY_OPENROUTER"),
                         api_key=getenv("API_KEY"),                        
                         #base_url="https://openrouter.ai/api/v1",
