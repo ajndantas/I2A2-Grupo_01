@@ -85,7 +85,10 @@
       <div class="loader"></div>
       <h1>Preparando sua análise</h1>
       <p id="processingMessage">Enviando o arquivo com segurança...</p>
-      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      <div class="progress-wrap">
+        <div class="progress-track" role="progressbar" aria-label="Progresso do envio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progressBar" class="progress-bar"></div></div>
+        <span id="progressPercent" class="progress-percent" aria-hidden="true">0%</span>
+      </div>
       <small>Arquivos maiores podem levar alguns minutos.</small>
     </section>
 

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cotejo: converse com suas apólices e compare coberturas, prêmios e condições em linguagem natural.">
+  <title>Cotejo | Duas apólices, uma conversa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script type="module" src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Cotejo - início">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span><strong>Cotejo</strong><small>Duas apólices, uma conversa</small></span>
+    </a>
+    <div class="system-status"><span class="status-dot"></span><span>Assistente disponível</span></div>
+  </header>
+
+  <main>
+    <section id="uploadView" class="upload-view">
+      <div class="hero-copy">
+        <span class="eyebrow">ANÁLISE DE APÓLICES COM IA</span>
+        <h1>Entenda suas apólices <em>lado a lado.</em></h1>
+        <p>Envie pelo menos duas apólices e pergunte o que quiser sobre coberturas, franquias, vigência e exclusões, sem juridiquês e sem ler dezenas de páginas.</p>
+        <ul class="benefits" aria-label="Benefícios">
+          <li><span>✓</span> Respostas claras para perguntas em linguagem natural</li>
+          <!--<li><span>✓</span> Respostas em texto, tabelas e gráficos</li>-->
+          <li><span>✓</span> Comparação de coberturas e condições entre as apólices enviadas</li>
+        </ul>
+      </div>
+
+      <div class="upload-card">
+        <div class="step-label"><span>1</span> Carregue as apólices</div>
+        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-describedby="uploadHint">
+          <input id="fileInput" type="file" multiple accept=".csv, .pdf, image/*, text/csv, text/plain, application/pdf" hidden>
+          <div class="upload-icon" aria-hidden="true">⇧</div>
+          <h2>Arraste suas apólices aqui</h2>
+          <p>ou <button id="selectFileButton" class="link-button" type="button">selecione no computador</button></p>
+          <small id="uploadHint">Envie pelo menos 2 apólices (um arquivo por apólice). CSV, Texto, PDF ou imagem. Limite recomendado: 500 MB.</small>
+        </div>
+
+        <div id="filePreview" class="file-preview file-list hidden" aria-live="polite">
+          <div class="file-list-heading">
+            <strong>Arquivos selecionados</strong>
+            <small id="fileCount"></small>
+          </div>
+          <div id="selectedFilesList" class="selected-files-list"></div>
+          <p id="fileRequirement" class="file-requirement" role="status"></p>
+          <button id="removeFileButton" class="clear-files-button" type="button">Remover todos</button>
+        </div>
+
+        <div id="uploadError" class="alert error hidden" role="alert"></div>
+        <button id="processButton" class="primary-button" type="button" disabled>
+          <span>Analisar apólices</span><span aria-hidden="true">→</span>
+        </button>
+        <p class="privacy-note">Seus dados são usados somente durante esta análise.</p>
+
+        <div class="sample-files">
+          <div class="sample-files-heading">
+            <span class="eyebrow">ARQUIVOS DE EXEMPLO</span>
+            <p>Baixe as duas apólices abaixo e envie-as para testar a análise.</p>
+          </div>
+          <div class="sample-file-links">
+            <a class="sample-file-link" href="https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%20Final/desafio_final/Exemplos%20de%20documentos/essor_responsa_civil_diretores_administradores_conselheiros.pdf?raw=true" target="_blank" rel="noopener noreferrer">
+              <span class="sample-file-type">PDF</span>
+              <span><strong>Apólice D&amp;O 1</strong><small>Responsabilidade civil de diretores e administradores (PDF)</small></span>
+              <span class="download-icon" aria-hidden="true">↓</span>
+            </a>
+            <a class="sample-file-link" href="https://github.com/ajndantas/I2A2-Grupo_01/blob/master/Insurminds/Desafio%20Final/desafio_final/Exemplos%20de%20documentos/SOMPO_D%26O_condicoes_gerais.png?raw=true" target="_blank" rel="noopener noreferrer">
+              <span class="sample-file-type">Imagem</span>
+              <span><strong>Apólice D&amp;O 2</strong><small>SOMPO D&amp;O · condições gerais (PNG)</small></span>
+              <span class="download-icon" aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="processingView" class="processing-view hidden" aria-live="polite">
+      <div class="loader"></div>
+      <h1>Preparando sua análise</h1>
+      <p id="processingMessage">Enviando o arquivo com segurança...</p>
+      <div class="progress-track" role="progressbar" aria-label="Progresso do envio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progressBar" class="progress-bar"></div></div>
+      <small>Arquivos maiores podem levar alguns minutos.</small>
+    </section>
+
+    <section id="workspaceView" class="workspace hidden">
+      <aside class="dataset-panel">
+        <div class="panel-heading">
+          <div><span class="eyebrow">BASE ATIVA</span><h2 id="datasetName">Suas apólices</h2></div>
+          <button id="newAnalysisButton" class="secondary-button" type="button">Nova análise</button>
+        </div>
+        <div class="file-list-wrap active-datasets-wrap">
+          <h3>Datasets associados</h3>
+          <ul id="activeDatasets" class="detected-files"></ul>
+        </div>
+        <!-- <div class="summary-grid">
+          <article><span>Notas fiscais</span><strong id="invoiceCount">—</strong></article>
+          <article><span>Itens</span><strong id="itemCount">—</strong></article>
+          <article><span>Arquivo</span><strong id="csvCount">—</strong></article>
+          <article><span>Período</span><strong id="datasetPeriod">—</strong></article>
+        </div>
+        <div class="data-health">
+          <div><span>Qualidade da base</span><strong id="qualityScore">—</strong></div>
+          <div class="quality-track"><span id="qualityBar"></span></div>
+          <p id="qualityMessage">Análise concluída.</p>
+        </div>
+        <div class="file-list-wrap">
+          <h3>Arquivos identificados</h3>
+          <ul id="detectedFiles" class="detected-files"></ul>
+        </div>-->
+      </aside>
+
+      <section class="chat-panel">
+        <div class="chat-heading">
+          <div><span class="agent-avatar">C</span></div>
+          <div><h1>Converse com suas apólices</h1><p>Pergunte sobre coberturas, prêmios, franquias, vigência ou diferenças entre elas.</p></div>
+        </div>
+        <div id="suggestions" class="suggestions" aria-label="Perguntas sugeridas"></div>
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <form id="questionForm" class="composer">
+          <label class="sr-only" for="questionInput">Digite uma pergunta sobre as apólices</label>
+          <textarea id="questionInput" rows="1" placeholder="Ex.: Qual apólice tem a menor franquia?" required></textarea>
+          <button id="sendButton" type="submit" aria-label="Enviar pergunta">➜</button>
+        </form>
+        <small class="composer-hint">Enter para enviar · Shift + Enter para nova linha</small>
+      </section>
+    </section>
+  </main>
+
+  <template id="assistantMessageTemplate">
+    <article class="message assistant-message">
+      <span class="message-avatar">C</span>
+      <div class="message-content"><div class="answer-text"></div><div class="answer-visual"></div></div>
+    </article>
+  </template>
+</body>
+</html>

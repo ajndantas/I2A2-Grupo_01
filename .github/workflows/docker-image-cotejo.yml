@@ -8,7 +8,8 @@ on:
       - 'Insurminds/Desafio Final/desafio_final/frontend/**'
       - 'Insurminds/Desafio Final/desafio_final/requirements.txt'
       - 'Insurminds/Desafio Final/desafio_final/Dockerfile'
-      - 'Insurminds/Desafio Final/desafio_final/Exemplos de documentos/**'     
+      - 'Insurminds/Desafio Final/desafio_final/Exemplos de documentos/**'
+      - '.github/workflows/docker-image-cotejo.yml'     
 
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP

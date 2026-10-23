@@ -7,7 +7,7 @@ const elements = {
   dropzone: $("#dropzone"), fileInput: $("#fileInput"), selectFileButton: $("#selectFileButton"),
   filePreview: $("#filePreview"), fileCount: $("#fileCount"), selectedFilesList: $("#selectedFilesList"), fileRequirement: $("#fileRequirement"),
   removeFileButton: $("#removeFileButton"), processButton: $("#processButton"), uploadError: $("#uploadError"),
-  processingMessage: $("#processingMessage"), progressBar: $("#progressBar"), newAnalysisButton: $("#newAnalysisButton"),
+  processingMessage: $("#processingMessage"), progressTrack: $(".progress-track"), progressBar: $("#progressBar"), progressPercent: $("#progressPercent"), newAnalysisButton: $("#newAnalysisButton"),
   datasetName: $("#datasetName"), activeDatasets: $("#activeDatasets"),
   suggestions: $("#suggestions"), messages: $("#messages"), questionForm: $("#questionForm"),
   questionInput: $("#questionInput"), sendButton: $("#sendButton")
@@ -183,8 +183,10 @@ async function processFiles() {
   }
 
   showView("processing");
+  resetProgress();
   try {
     activeDataset = await uploadDatasets(selectedFiles, updateProgress);
+    await progressCompleted(); // deixa a barra animar até 100% antes de trocar de tela
 
     // Garante a associação arquivo -> dataset_id pela ordem retornada pelo backend.
     activeDataset.files = selectedFiles.map((file, index) => ({
@@ -200,15 +202,81 @@ async function processFiles() {
       type: "text"
     });
   } catch (error) {
+    resetProgress();
     showView("upload");
     showError(error.message);
   }
 }
 
+// ---------- Barra de progresso animada ----------
+// O valor exibido (progressShown) persegue o valor real (progressTarget) a cada frame,
+// o que suaviza os saltos do evento de upload. Quando o envio termina (>= 95%) e o
+// servidor ainda está processando, a barra continua avançando devagar até 99%,
+// para nunca parecer travada.
+const PROGRESS_WAIT_CEILING = 99;
+let progressShown = 0;
+let progressTarget = 0;
+let progressFrame = null;
+let progressResolvers = [];
+
 function updateProgress(value) {
-  elements.progressBar.style.width = `${value}%`;
-  const index = Math.min(Math.floor(value / 22), CONFIG.processingMessages.length - 1);
+  progressTarget = Math.max(progressTarget, Math.min(100, value));
+  if (value <= 0) { // reinício da barra
+    progressShown = 0;
+    progressTarget = 0;
+    renderProgress();
+  }
+  if (progressFrame === null) progressFrame = requestAnimationFrame(progressTick);
+}
+
+function progressTick() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Envio concluído, aguardando o servidor: avanço lento e assintótico.
+  if (progressTarget >= 95 && progressTarget < 100) {
+    progressTarget += (PROGRESS_WAIT_CEILING - progressTarget) * 0.004;
+  }
+
+  const distance = progressTarget - progressShown;
+  progressShown = reduceMotion || Math.abs(distance) < 0.05
+    ? progressTarget
+    : progressShown + Math.max(distance * 0.1, 0.12 * Math.sign(distance));
+  renderProgress();
+
+  if (progressShown >= 99.95) {
+    progressShown = 100;
+    renderProgress();
+    progressFrame = null;
+    progressResolvers.splice(0).forEach(resolve => resolve());
+    return;
+  }
+  progressFrame = requestAnimationFrame(progressTick);
+}
+
+function renderProgress() {
+  const rounded = Math.round(progressShown);
+  elements.progressBar.style.width = `${progressShown}%`;
+  elements.progressTrack.setAttribute("aria-valuenow", String(rounded));
+  elements.progressPercent.textContent = `${rounded}%`;
+  const index = Math.min(Math.floor(progressShown / 22), CONFIG.processingMessages.length - 1);
   elements.processingMessage.textContent = CONFIG.processingMessages[index];
+}
+
+// Resolve quando a barra animada chega a 100% (com limite de segurança de 2 s).
+function progressCompleted() {
+  return new Promise(resolve => {
+    const timer = setTimeout(resolve, 2000);
+    progressResolvers.push(() => { clearTimeout(timer); resolve(); });
+  });
+}
+
+function resetProgress() {
+  if (progressFrame !== null) cancelAnimationFrame(progressFrame);
+  progressFrame = null;
+  progressResolvers.splice(0).forEach(resolve => resolve());
+  progressShown = 0;
+  progressTarget = 0;
+  renderProgress();
 }
 
 function renderDataset(dataset) {

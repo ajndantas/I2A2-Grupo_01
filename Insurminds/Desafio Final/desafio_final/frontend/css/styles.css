@@ -107,9 +107,18 @@ button { cursor: pointer; }
 .processing-view h1 { margin: 26px 0 8px; font: 500 34px var(--font-display); color: var(--primary-dark); }
 .processing-view p, .processing-view small { color: var(--muted); }
 .loader { width: 62px; height: 62px; border: 4px solid var(--accent-soft); border-top-color: var(--accent); border-radius: 50%; animation: spin .9s linear infinite; }
-.progress-track { width: min(440px, 78vw); height: 6px; margin: 24px 0 12px; overflow: hidden; background: #e7e0d0; border-radius: 20px; }
-.progress-bar { width: 8%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: inherit; transition: width .45s ease; }
+.progress-wrap { display: flex; align-items: center; gap: 14px; margin: 24px 0 12px; }
+.progress-track { position: relative; width: min(440px, 78vw); height: 10px; overflow: hidden; background: #e7e0d0; border-radius: 20px; box-shadow: inset 0 1px 2px rgba(16,31,64,.12); }
+.progress-bar { position: relative; width: 0; height: 100%; overflow: hidden; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: inherit; }
+/* Listras diagonais em movimento contínuo */
+.progress-bar::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(135deg, rgba(255,255,255,.28) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.28) 50%, rgba(255,255,255,.28) 75%, transparent 75%); background-size: 20px 20px; animation: progress-stripes .8s linear infinite; }
+/* Brilho que varre a barra */
+.progress-bar::after { content: ""; position: absolute; top: 0; bottom: 0; width: 45%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); animation: progress-sweep 1.6s ease-in-out infinite; }
+.progress-percent { min-width: 42px; color: var(--primary); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: left; }
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes progress-stripes { to { background-position: 20px 0; } }
+@keyframes progress-sweep { from { transform: translateX(-120%); } to { transform: translateX(320%); } }
+@media (prefers-reduced-motion: reduce) { .progress-bar::before, .progress-bar::after { animation: none; } }
 
 /* ---------- Workspace ---------- */
 .workspace { min-height: calc(100vh - 76px); display: grid; grid-template-columns: 340px 1fr; }

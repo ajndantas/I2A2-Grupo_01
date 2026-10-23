@@ -25,12 +25,35 @@ export async function uploadDatasets(files, onProgress = () => {}) {
     formData.append("files", file);
   }
 
-  const response = await fetch(`${CONFIG.apiBaseUrl}/api/datasets/uploads`, {
-    method: "POST",
-    body: formData
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+    request.open("POST", `${CONFIG.apiBaseUrl}/api/datasets/uploads`);
+    request.upload.addEventListener("progress", event => {
+      if (event.lengthComputable) {
+        onProgress(Math.min(95, (event.loaded / event.total) * 95));
+      }
+    });
+    request.addEventListener("load", () => {
+      try {
+        const response = new Response(request.responseText, { status: request.status });
+        parseResponse(response)
+          .then(result => {
+            onProgress(100);
+            resolve(result);
+          })
+          .catch(reject);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    request.addEventListener("error", () => {
+      reject(new Error("Não foi possível enviar os arquivos. Verifique sua conexão e tente novamente."));
+    });
+    request.addEventListener("abort", () => {
+      reject(new Error("O envio dos arquivos foi cancelado."));
+    });
+    request.send(formData);
   });
-
-  return parseResponse(response);
 }
 
 export async function askQuestion(datasetIds, question) {
