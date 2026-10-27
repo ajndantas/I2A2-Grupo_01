@@ -134,17 +134,28 @@ class NotaFiscalOCR:
 
             textos = [pagina.get_text('text', sort=True) for pagina in documento]
 
-        # Páginas sem texto selecionável: OCR apenas nelas
-        sem_texto = [i for i, texto in enumerate(textos) if len(texto.strip()) < self.min_chars_pagina]
-        if sem_texto:
-            imagens = self.carregar_pdf(conteudo)
-            with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-                ocr = executor.map(
-                    lambda i: self.extrair_texto(self.preprocessar_imagem(imagens[i])),
-                    sem_texto,
-                )
-                for i, texto in zip(sem_texto, ocr):
-                    textos[i] = texto
+            # Páginas sem texto selecionável: OCR apenas nelas
+            sem_texto = [i for i, texto in enumerate(textos) if len(texto.strip()) < self.min_chars_pagina]
+            if sem_texto:
+                imagens = {}
+                for i in sem_texto:
+                    pixmap = documento[i].get_pixmap(
+                        dpi=self.dpi,
+                        colorspace=pymupdf.csGRAY,
+                        alpha=False,
+                    )
+                    imagens[i] = np.frombuffer(
+                        pixmap.samples,
+                        dtype=np.uint8,
+                    ).reshape(pixmap.height, pixmap.width)
+
+                with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                    ocr = executor.map(
+                        lambda i: self.extrair_texto(self.preprocessar_imagem(imagens[i])),
+                        sem_texto,
+                    )
+                    for i, texto in zip(sem_texto, ocr):
+                        textos[i] = texto
 
 
         return '\n'.join(textos)
