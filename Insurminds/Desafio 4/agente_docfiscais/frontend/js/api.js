@@ -28,7 +28,7 @@ export function uploadDatasets(files, onProgress = () => {}) {
       onProgress(100);
       try { resolve(normalizeUpload(payload, files)); } catch (error) { reject(error); }
     };
-    xhr.onerror = () => reject(new Error("Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente."));
+    xhr.onerror = () => reject(new Error("Não foi possível conectar ao servidor. Verifique sua conexão e recarregue a página."));
     xhr.onabort = () => reject(new Error("O envio foi cancelado."));
     xhr.send(formData);
   });
@@ -104,7 +104,7 @@ function errorMessage(payload) {
   const detail = payload?.detail;
   if (typeof detail === "string" && detail) return detail;
   if (Array.isArray(detail) && detail.length) return detail.map(item => item.msg || String(item)).join("; ");
-  return payload?.message || "Não foi possível concluir a solicitação. Tente novamente.";
+  return payload?.message || "Não foi possível concluir a solicitação. Recarregue a página e tente novamente.";
 }
 
 const safeJson = text => { try { return JSON.parse(text); } catch { return {}; } };
