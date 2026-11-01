@@ -40,12 +40,13 @@ class AgenteRag:
     llm = ChatOpenAI(
                         #model_name="openrouter/free",
                         #base_url="https://openrouter.ai/api/v1",
-                        model="gpt-5.4-mini",                   
+                        model="gpt-6-luna",                   
                         api_key=getenv("API_KEY"),
                         #api_key=getenv("API_KEY_OPENROUTER"),                        
-                        #reasoning_effort="high", #, # PARA EVITAR ERROS NAS RESPOSTAS QUE NÃO CONTENHAM DOCUMENTOS
-                        cache=True,
-                        temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS.                  
+                        #reasoning_effort="none", # PARA O VALOR DE TEMPERATURA 0 NO GPT-6-LUNA
+                        cache=True#,
+                        #temperature=0 # PARA TORNAR AS RESPOSTAS MAIS PRECISAS E MENOS CRIATIVAS, O QUE É IMPORTANTE QUANDO SE TRATA DE RESPONDER PERGUNTAS COM BASE EM DOCUMENTOS. 
+                        # GPT-6 Não aceita temperatura=0.                 
                     )    
 
 
