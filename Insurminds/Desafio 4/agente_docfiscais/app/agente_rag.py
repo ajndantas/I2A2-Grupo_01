@@ -60,7 +60,7 @@ class AgenteRag:
 
                     **NUNCA** utilizar outra fonte de informação para responder as perguntas dos usuários que não seja CONTEXTO.
 
-                    **SEMPRE** responda as perguntas dos usuários em relação a todos os arquivos fornecidos no CONTEXTO, mesmo que a pergunta do usuário não mencione todos os arquivos.
+                    **SEMPRE** responda as perguntas dos usuários em relação a todos os arquivos fornecidos no CONTEXTO.
 
                     ## PERGUNTA:                    
                     {question}
