@@ -22,6 +22,7 @@ env:
   GHIMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente-nfs
   TAG: latest #TAG=$(date +%Y%m%d%H%M%S)
 
+workflow_dispatch: # Permite que o workflow seja disparado manualmente na aba Actions do GitHub
 
 jobs:
 
