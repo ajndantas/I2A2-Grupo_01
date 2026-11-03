@@ -9,6 +9,8 @@ on:
       - 'Insurminds/Desafio 4/agente_docfiscais/requirements.txt'
       - 'Insurminds/Desafio 4/agente_docfiscais/Dockerfile'
       - 'Insurminds/Desafio 4/agente_docfiscais/Exemplos de documentos/**'     
+  
+  workflow_dispatch: # Permite que o workflow seja disparado manualmente na aba Actions do GitHub
 
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
@@ -22,8 +24,7 @@ env:
   GHIMAGE_ID: ghcr.io/${{ github.repository_owner }}/agente-nfs
   TAG: latest #TAG=$(date +%Y%m%d%H%M%S)
 
-workflow_dispatch: # Permite que o workflow seja disparado manualmente na aba Actions do GitHub
-
+  
 jobs:
 
   deploy:
