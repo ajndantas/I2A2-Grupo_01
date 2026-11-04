@@ -6,8 +6,8 @@ on:
     paths: 
       - 'Insurminds/Desafio 2/agente_chatbotseguro/Scripts/**'
   
-  workflow-dispatch:
-        
+  workflow-dispatch: # Permite que o workflow seja disparado manualmente na aba Actions do GitHub
+
       
 env:
   PROJECT_ID: n8n-meus-ensinamentos   # Substitua pelo ID do seu projeto no GCP
